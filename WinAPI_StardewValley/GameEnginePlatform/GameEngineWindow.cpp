@@ -85,7 +85,7 @@ void GameEngineWindow::MyRegisterClass()
     wcex.hInstance = Instance;
     wcex.hIcon = nullptr; // LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINDOWTESTPROJECT));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 2);
     wcex.lpszMenuName = nullptr;
     wcex.lpszClassName = "DefaultWindow";
     wcex.hIconSm = nullptr; // LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
@@ -94,6 +94,7 @@ void GameEngineWindow::MyRegisterClass()
     if (false == RegisterClassExA(&wcex))
     {
         MsgBoxAssert("윈도우 클래스 등록에 실패하였습니다.");
+        return;
     }
 
     Check = true;
