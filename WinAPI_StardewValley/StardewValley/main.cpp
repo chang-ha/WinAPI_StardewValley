@@ -14,22 +14,9 @@
 // 왜 터지는지 모르면 해당 단계를 따라가야함(빌드는 되었을 때, 문법적 오류 x)
 // 그럴땐 Bin 한번 지우고 다시 빌드해보기 << 100의 99는 내 잘못임 (아주 가끔 vs버그로 인해 그럴 수 있으니 시도는 해보자)
 
-#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineCore.h>
 
-void TestStart(HINSTANCE _Inst)
-{
-    GameEngineWindow::MainWindow.Open("MainWindow", _Inst);
-}
 
-void TestUpdate()
-{
-
-}
-
-void TestEnd()
-{
-
-}
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR    lpCmdLine,
@@ -38,7 +25,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 엔진쪽에선 컨텐츠에 대해서 무엇이든 알면 안됨 (언리얼엔진에서 플레이어를 알아야 한다는 소리임)
     // 그래서 우리가 할 일(함수)를 윈도우에 넘겨주면 윈도우가 그 일을 대신 처리해줌
     // 이러한 방식을 "Call Back" 방식이라고 한다.
-    GameEngineWindow::MessageLoop(hInstance, TestStart, TestUpdate, TestEnd);
-
+    // GameEngineWindow::MessageLoop(hInstance, TestStart, TestUpdate, TestEnd);
+    // GameEngineWindow::MessageLoop(hInstance, nullptr, nullptr, nullptr);
+    GameEngineCore::EngineStart("StardewValley", hInstance);
     return 0;
 }

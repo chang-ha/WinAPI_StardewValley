@@ -41,11 +41,6 @@ void GameEngineWindow::InitInstance()
     UpdateWindow(hWnd);
 }
 
-
-// lpfnWndProc = GameEngineWindow::WndProc을 받는데
-// lpfnWndProc를 타고 가보면 함수포인터를 받을 때 앞에 CALLBACK이라고 붙어있음
-// CALLBACK = __stdcall (함수호출규약)으로 되어있는데
-// 해당 함수를 받는 쪽이 __stdcall을 원하니 함수 선언 및 구현시 맞춰줘야함
 LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -74,9 +69,9 @@ void GameEngineWindow::MyRegisterClass()
     {
         return;
     }
-    WNDCLASSEXA wcex;
     // WNDCLASSEXW wcex; << 문자열을 wide byte로 처리 (맨 뒤의 W)
     // WNDCLASSEXA wcex; << 문자열을 multi byte로 처리 (맨 뒤의 A)
+    WNDCLASSEXA wcex;
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc = GameEngineWindow::WndProc;

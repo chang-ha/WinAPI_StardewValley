@@ -1,9 +1,93 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="TitleScreen.h">
+      <Filter>Level\01. TitleScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScreen.h">
+      <Filter>Level\03. IntroScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Customize.h">
+      <Filter>Level\02. Customize</Filter>
+    </ClInclude>
+    <ClInclude Include="FarmHouse.h">
+      <Filter>Level\04. FarmHouse</Filter>
+    </ClInclude>
+    <ClInclude Include="FarmMap.h">
+      <Filter>Level\05. FarmMap</Filter>
+    </ClInclude>
+    <ClInclude Include="CindersapForest.h">
+      <Filter>Level\06. CindersapForest</Filter>
+    </ClInclude>
+    <ClInclude Include="BackWoods.h">
+      <Filter>Level\07. BackWoods</Filter>
+    </ClInclude>
+    <ClInclude Include="PelicanTown.h">
+      <Filter>Level\08. PelicanTown</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Level\00. Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="TitleScreen.cpp">
+      <Filter>Level\01. TitleScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScreen.cpp">
+      <Filter>Level\03. IntroScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Customize.cpp">
+      <Filter>Level\02. Customize</Filter>
+    </ClCompile>
+    <ClCompile Include="FarmHouse.cpp">
+      <Filter>Level\04. FarmHouse</Filter>
+    </ClCompile>
+    <ClCompile Include="FarmMap.cpp">
+      <Filter>Level\05. FarmMap</Filter>
+    </ClCompile>
+    <ClCompile Include="CindersapForest.cpp">
+      <Filter>Level\06. CindersapForest</Filter>
+    </ClCompile>
+    <ClCompile Include="BackWoods.cpp">
+      <Filter>Level\07. BackWoods</Filter>
+    </ClCompile>
+    <ClCompile Include="PelicanTown.cpp">
+      <Filter>Level\08. PelicanTown</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Level\00. Player</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Level">
+      <UniqueIdentifier>{7fff1d70-300a-41e7-94fc-45f720fab4cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. IntroScreen">
+      <UniqueIdentifier>{986e60a6-0e97-47d8-b92b-b75e8e0a15f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\01. TitleScreen">
+      <UniqueIdentifier>{def3136a-ad1f-449f-91fe-32fcb8bcfcff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\02. Customize">
+      <UniqueIdentifier>{bfe3b54f-a4ee-4d81-9855-360d2cf142c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\04. FarmHouse">
+      <UniqueIdentifier>{fc7c13eb-f2e1-4a4a-80c4-289cc2b9062b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\05. FarmMap">
+      <UniqueIdentifier>{38e9433d-89ca-43e3-8dac-731fcf5a7e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\06. CindersapForest">
+      <UniqueIdentifier>{a25e9a46-886e-4921-a896-d4e633f2f356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\07. BackWoods">
+      <UniqueIdentifier>{05e95ecb-62ac-4e9e-9f7b-1207b70e2885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\08. PelicanTown">
+      <UniqueIdentifier>{6cf1cf5a-d524-4cf6-9604-ff46f2feb823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\00. Player">
+      <UniqueIdentifier>{5d33f43b-3be5-40c6-bbbf-a60d517ebd9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -151,13 +151,77 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackWoods.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="CindersapForest.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Customize.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FarmHouse.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="FarmMap.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="IntroScreen.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PelicanTown.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Player.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TitleScreen.h">
       <SubType>
       </SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackWoods.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="CindersapForest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Customize.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FarmHouse.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FarmMap.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="IntroScreen.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PelicanTown.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Player.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TitleScreen.cpp">
       <SubType>
       </SubType>
     </ClCompile>
