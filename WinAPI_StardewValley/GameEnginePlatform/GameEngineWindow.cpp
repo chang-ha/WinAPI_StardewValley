@@ -37,6 +37,8 @@ void GameEngineWindow::InitInstance()
         MsgBoxAssert("윈도우 생성에 실패했습니다.");
         return;
     }
+
+    Hdc = GetDC(hWnd);
     ShowWindow(hWnd, SW_SHOW);
     UpdateWindow(hWnd);
 }
