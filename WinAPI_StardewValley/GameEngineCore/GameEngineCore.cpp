@@ -49,7 +49,7 @@ void GameEngineCore::CoreEnd()
 		Process = nullptr;
 	}
 
-	for (std::pair<std::string, GameEngineLevel*> _Pair :AllLevel)
+	for (std::pair</*const*/ std::string, GameEngineLevel*>/*&*/ _Pair :AllLevel)
 	{
 		if (nullptr != _Pair.second)
 		{

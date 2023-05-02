@@ -1,6 +1,7 @@
 #pragma once
+#include <GameEngineCore/GameEngineLevel.h>
 
-class PelicanTown
+class PelicanTown : public GameEngineLevel
 {
 public:
 	// constructer destructer
@@ -13,6 +14,10 @@ public:
 	PelicanTown& operator=(const PelicanTown& _Other) = delete;
 	PelicanTown& operator=(PelicanTown&& _Other) noexcept = delete;
 
+	void Start() override;
+	void Update() override;
+	void Render() override;
+	void Release() override;
 protected:
 
 private:

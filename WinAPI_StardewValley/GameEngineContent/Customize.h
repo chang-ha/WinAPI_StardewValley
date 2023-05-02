@@ -1,6 +1,7 @@
 #pragma once
+#include <GameEngineCore/GameEngineLevel.h>
 
-class Customize
+class Customize : public GameEngineLevel
 {
 public:
 	// constructer destructer
@@ -16,6 +17,9 @@ public:
 protected:
 
 private:
-
+	void Start() override;
+	void Update() override;
+	void Render() override;
+	void Release() override;
 };
 

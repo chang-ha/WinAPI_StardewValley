@@ -1,6 +1,7 @@
 #pragma once
+#include <GameEngineCore/GameEngineLevel.h>
 
-class FarmMap
+class FarmMap : public GameEngineLevel
 {
 public:
 	// constructer destructer
@@ -13,6 +14,10 @@ public:
 	FarmMap& operator=(const FarmMap& _Other) = delete;
 	FarmMap& operator=(FarmMap&& _Other) noexcept = delete;
 
+	void Start() override;
+	void Update() override;
+	void Render() override;
+	void Release() override;
 protected:
 
 private:

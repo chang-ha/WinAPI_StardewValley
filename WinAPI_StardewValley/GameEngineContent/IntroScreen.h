@@ -1,6 +1,6 @@
 #pragma once
-
-class IntroScreen
+#include <GameEngineCore/GameEngineLevel.h>
+class IntroScreen : public GameEngineLevel
 {
 public:
 	// constructer destructer
@@ -16,6 +16,9 @@ public:
 protected:
 
 private:
-
+	void Start() override;
+	void Update() override;
+	void Render() override;
+	void Release() override;
 };
 

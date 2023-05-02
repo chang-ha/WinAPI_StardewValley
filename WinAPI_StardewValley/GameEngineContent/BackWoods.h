@@ -1,6 +1,6 @@
 #pragma once
-
-class BackWoods
+#include <GameEngineCore/GameEngineLevel.h>
+class BackWoods : public GameEngineLevel
 {
 public:
 	// constructer destructer
@@ -13,6 +13,10 @@ public:
 	BackWoods& operator=(const BackWoods& _Other) = delete;
 	BackWoods& operator=(BackWoods&& _Other) noexcept = delete;
 
+	void Start() override;
+	void Update() override;
+	void Render() override;
+	void Release() override;
 protected:
 
 private:

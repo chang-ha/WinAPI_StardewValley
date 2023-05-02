@@ -1,6 +1,6 @@
 #pragma once
-
-class FarmHouse
+#include <GameEngineCore/GameEngineLevel.h>
+class FarmHouse : public GameEngineLevel
 {
 public:
 	// constructer destructer
@@ -16,6 +16,9 @@ public:
 protected:
 
 private:
-
+	void Start() override;
+	void Update() override;
+	void Render() override;
+	void Release() override;
 };
 
