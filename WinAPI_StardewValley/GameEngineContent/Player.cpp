@@ -17,18 +17,18 @@ Player::~Player()
 
 void Player::Start()
 {
-	if (false == ResourcesManager::GetInst().IsLoadTexture("Title_background.bmp"))
+	// C:\Project\WinAPI_StardewValley\WinAPI_StardewValley\Resources\Player\Player_body\Player_body_109.bmp
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Player_body_109.bmp"))
 	{
-		//C:\Project\WinAPI_StardewValley\WinAPI_StardewValley\Resources\Title\\Title_background.bmp
 		GameEnginePath FilePath;
 		FilePath.GetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Title\\Title_background.bmp");
+		FilePath.MoveChild("Resources\\Player\\Player_body\\Player_body_109.bmp");
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
 	}
-	SetPos({ 200, 200 });
-	SetScale({ 100, 100 });
+	SetPos({ 100, 100 });
+	SetScale({ 16, 32 });
 
 }
 void Player::Update(float _Delta)
@@ -38,10 +38,10 @@ void Player::Update(float _Delta)
 void Player::Render()
 {
 	HDC WindowDC = GameEngineWindow::MainWindow.GetHDC();
-	GameEngineTexture* FindTexture = ResourcesManager::GetInst().FindTexture("Title_background.bmp");
+	GameEngineTexture* FindTexture = ResourcesManager::GetInst().FindTexture("Player_body_109.bmp");
 	HDC ImageDC = FindTexture->GetImageDC();
 
-	BitBlt(WindowDC, 0, 0, 1920, 1200, ImageDC, 0, 0, SRCCOPY);
+	BitBlt(WindowDC, GetPos().iX(), GetPos().iY(), 16, 32, ImageDC, 0, 0, SRCCOPY);
 }
 void Player::Release()
 {

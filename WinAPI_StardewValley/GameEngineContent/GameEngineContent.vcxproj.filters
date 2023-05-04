@@ -29,6 +29,9 @@
       <Filter>Level\00. Player</Filter>
     </ClInclude>
     <ClInclude Include="StardewValleyCore.h" />
+    <ClInclude Include="Title.h">
+      <Filter>Level\01. TitleScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -59,6 +62,9 @@
       <Filter>Level\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="StardewValleyCore.cpp" />
+    <ClCompile Include="Title.cpp">
+      <Filter>Level\01. TitleScreen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

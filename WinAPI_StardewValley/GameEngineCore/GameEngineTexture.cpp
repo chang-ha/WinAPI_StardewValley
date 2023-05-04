@@ -9,7 +9,6 @@ GameEngineTexture::GameEngineTexture()
 
 GameEngineTexture::~GameEngineTexture()
 {
-
 }
 
 void GameEngineTexture::ResLoad(const std::string& _Path)

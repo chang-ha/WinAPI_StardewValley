@@ -11,7 +11,15 @@ ResourcesManager::ResourcesManager()
 
 ResourcesManager::~ResourcesManager()
 {
-
+	for (const std::pair<std::string, GameEngineTexture*>& _Pair:AllTexture)
+	{
+		GameEngineTexture* _Texture = _Pair.second;
+		if (nullptr != _Texture)
+		{
+			delete _Texture;
+			_Texture = nullptr;
+		}
+	}
 }
 
 bool ResourcesManager::IsLoadTexture(const std::string& _Name)
