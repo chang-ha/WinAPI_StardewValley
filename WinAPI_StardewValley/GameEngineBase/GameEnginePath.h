@@ -7,6 +7,7 @@ class GameEnginePath
 public:
 	// constructer destructer
 	GameEnginePath();
+	GameEnginePath(const std::string& _Path);
 	~GameEnginePath();
 
 	// delete function
@@ -16,6 +17,16 @@ public:
 	GameEnginePath& operator=(GameEnginePath&& _Other) noexcept = delete;
 
 	void GetCurrentPath();
+	void MoveParent();
+	void MoveParentToExistsChild(const std::string& _ChildPath);
+	void MoveChild(const std::string& _ChildPath);
+
+	std::string GetStringPath()
+	{
+		return Path.string();
+	}
+
+	std::string GetFileName();
 protected:
 
 private:
