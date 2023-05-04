@@ -16,7 +16,7 @@ void IntroScreen::Start()
 {
 
 }
-void IntroScreen::Update()
+void IntroScreen::Update(float _Delta)
 {
 
 }

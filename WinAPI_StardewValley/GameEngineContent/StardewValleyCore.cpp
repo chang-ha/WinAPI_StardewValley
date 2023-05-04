@@ -16,7 +16,7 @@ void StardewValleyCore::Start()
 	GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
 	GameEngineCore::ChangeLevel("TitleScreen");
 }
-void StardewValleyCore::Update()
+void StardewValleyCore::Update(float _Delta)
 {
 
 }

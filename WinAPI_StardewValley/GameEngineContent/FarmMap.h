@@ -15,7 +15,7 @@ public:
 	FarmMap& operator=(FarmMap&& _Other) noexcept = delete;
 
 	void Start() override;
-	void Update() override;
+	void Update(float _Delta) override;
 	void Render() override;
 	void Release() override;
 protected:

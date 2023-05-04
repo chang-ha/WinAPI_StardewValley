@@ -14,7 +14,7 @@ public:
 	GameEngineObject& operator=(GameEngineObject&& _Other) noexcept = delete;
 
 	virtual void Start() {}
-	virtual void Update() {}
+	virtual void Update(float _Delta) {}
 	virtual void Render() {}
 	virtual void Release() {}
 

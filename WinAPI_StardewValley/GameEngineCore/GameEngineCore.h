@@ -13,10 +13,6 @@ class GameEngineLevel;
 class GameEngineCore
 {
 public:
-	// constructer destructer
-	GameEngineCore();
-	~GameEngineCore();
-
 	// delete function
 	GameEngineCore(const GameEngineCore& _Ohter) = delete;
 	GameEngineCore(GameEngineCore&& _Ohter) noexcept = delete;
@@ -72,5 +68,9 @@ private:
 	static void CoreUpdate();
 	static void CoreEnd();
 	static void LevelInit(GameEngineLevel* _Level);
+
+	// constructer destructer
+	GameEngineCore();
+	~GameEngineCore();
 };
 

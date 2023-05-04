@@ -15,7 +15,7 @@ void FarmHouse::Start()
 {
 
 }
-void FarmHouse::Update()
+void FarmHouse::Update(float _Delta)
 {
 
 }

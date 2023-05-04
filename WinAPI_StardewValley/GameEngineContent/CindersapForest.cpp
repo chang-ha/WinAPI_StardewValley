@@ -15,7 +15,7 @@ void CindersapForest::Start()
 {
 
 }
-void CindersapForest::Update()
+void CindersapForest::Update(float _Delta)
 {
 
 }

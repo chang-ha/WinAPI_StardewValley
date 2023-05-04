@@ -16,7 +16,7 @@ void PelicanTown::Start()
 {
 
 }
-void PelicanTown::Update()
+void PelicanTown::Update(float _Delta)
 {
 
 }

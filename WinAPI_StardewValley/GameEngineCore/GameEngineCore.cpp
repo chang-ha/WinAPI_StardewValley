@@ -1,4 +1,5 @@
 ﻿#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineBase/GameEngineTime.h>
 #include "GameEngineCore.h"
 #include "GameEngineLevel.h"
 
@@ -31,10 +32,14 @@ void GameEngineCore::CoreUpdate()
 	{
 		CurLevel = NextLevel;
 		NextLevel = nullptr;
+		GameEngineTime::MainTimer.Reset();
 	}
 
-	CurLevel->Update();
-	CurLevel->ActorUpdate();
+	GameEngineTime::MainTimer.Update();
+	float Delta = GameEngineTime::MainTimer.GetDeltaTime();
+
+	CurLevel->Update(Delta);
+	CurLevel->ActorUpdate(Delta);
 	CurLevel->Render();
 	CurLevel->ActorRender();
 }
@@ -49,7 +54,7 @@ void GameEngineCore::CoreEnd()
 		Process = nullptr;
 	}
 
-	for (std::pair</*const*/ std::string, GameEngineLevel*>/*&*/ _Pair :AllLevel)
+	for (std::pair<const std::string, GameEngineLevel*>& _Pair :AllLevel)
 	{
 		if (nullptr != _Pair.second)
 		{
@@ -58,6 +63,7 @@ void GameEngineCore::CoreEnd()
 		}
 	}
 }
+
 void GameEngineCore::EngineStart(const std::string& _Title, HINSTANCE _Inst, CoreProcess* _Ptr)
 {
 	GameEngineDebug::LeckCheck();

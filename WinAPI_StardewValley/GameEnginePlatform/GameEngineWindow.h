@@ -5,7 +5,9 @@
 class GameEngineWindow
 {
 public:
+	// MainWindow (Singleton Pattern)
 	static GameEngineWindow MainWindow;
+
 	// constructer destructer
 	GameEngineWindow();
 	~GameEngineWindow();
@@ -25,10 +27,15 @@ public:
 		return Hdc;
 	}
 
+	static void WindowUpdateOff()
+	{
+		IsWindowUpdate = false;
+	}
 protected:
 
 private:
 	static HINSTANCE Instance;
+	static bool IsWindowUpdate;
 	std::string Title = "";
 	HWND hWnd = nullptr;
 	HDC Hdc = nullptr;

@@ -3,6 +3,8 @@
 
 HINSTANCE GameEngineWindow::Instance = nullptr;
 GameEngineWindow GameEngineWindow::MainWindow;
+bool GameEngineWindow::IsWindowUpdate = true;
+
 
 GameEngineWindow::GameEngineWindow()
 {
@@ -55,7 +57,8 @@ LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wPara
     }
     break;
     case WM_DESTROY:
-        PostQuitMessage(0);
+        IsWindowUpdate = false;
+        // WindowUpdateOff();
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
@@ -71,8 +74,7 @@ void GameEngineWindow::MyRegisterClass()
     {
         return;
     }
-    // WNDCLASSEXW wcex; << 문자열을 wide byte로 처리 (맨 뒤의 W)
-    // WNDCLASSEXA wcex; << 문자열을 multi byte로 처리 (맨 뒤의 A)
+
     WNDCLASSEXA wcex;
     wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW;
@@ -80,14 +82,13 @@ void GameEngineWindow::MyRegisterClass()
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = Instance;
-    wcex.hIcon = nullptr; // LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINDOWTESTPROJECT));
+    wcex.hIcon = nullptr; 
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 2);
     wcex.lpszMenuName = nullptr;
     wcex.lpszClassName = "DefaultWindow";
-    wcex.hIconSm = nullptr; // LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.hIconSm = nullptr;
     
-    // RegisterClassExA의 return은 ATOM == unsigned short & 함수가 실패하면 return값은 0
     if (false == RegisterClassExA(&wcex))
     {
         MsgBoxAssert("윈도우 클래스 등록에 실패하였습니다.");
@@ -99,20 +100,30 @@ void GameEngineWindow::MyRegisterClass()
 
 void GameEngineWindow::MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), void(*_Update)(), void(*_End)())
 {
-    // 윈도우가 뜨기 전에 로딩해야할 이미지, 사운드등을 처리하는 단계
     if (nullptr != _Start)
     {
         _Start(_Inst);
     }
+
     MSG msg;
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (IsWindowUpdate)
     {
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+        {
+            if (nullptr != _Update)
+            {
+                _Update();
+            }
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+            continue;
+        }
+
+        // Dead Time
         if (nullptr != _Update)
         {
             _Update();
         }
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
     }
 
     if (nullptr != _End)
@@ -120,6 +131,5 @@ void GameEngineWindow::MessageLoop(HINSTANCE _Inst, void(*_Start)(HINSTANCE), vo
         _End();
     }
 
-    //(int)msg.wParam;
     return;
 }

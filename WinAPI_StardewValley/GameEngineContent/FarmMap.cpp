@@ -15,7 +15,7 @@ void FarmMap::Start()
 {
 
 }
-void FarmMap::Update()
+void FarmMap::Update(float _Delta)
 {
 
 }

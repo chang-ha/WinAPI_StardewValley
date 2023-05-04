@@ -15,7 +15,7 @@ void Customize::Start()
 {
 
 }
-void Customize::Update()
+void Customize::Update(float _Delta)
 {
 
 }

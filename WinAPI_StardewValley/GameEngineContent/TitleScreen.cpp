@@ -16,7 +16,7 @@ void TitleScreen::Start()
 {
 	CreateActor<Player>();
 }
-void TitleScreen::Update()
+void TitleScreen::Update(float _Delta)
 {
 
 }
