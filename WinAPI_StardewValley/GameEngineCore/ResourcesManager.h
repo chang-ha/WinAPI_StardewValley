@@ -22,7 +22,7 @@ public:
 	{
 		GameEnginePath LoadPath = _Path;
 		TextureLoad(LoadPath.GetFileName(), _Path);
-	}
+	}	
 
 	void TextureLoad(const std::string& _Name, const std::string& _Path);
 

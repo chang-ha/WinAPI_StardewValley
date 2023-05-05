@@ -17,31 +17,34 @@ Player::~Player()
 
 void Player::Start()
 {
-	// C:\Project\WinAPI_StardewValley\WinAPI_StardewValley\Resources\Player\Player_body\Player_body_109.bmp
-	if (false == ResourcesManager::GetInst().IsLoadTexture("Player_body_109.bmp"))
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Player_body_115.bmp"))
 	{
 		GameEnginePath FilePath;
 		FilePath.GetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Player\\Player_body\\Player_body_109.bmp");
+		FilePath.MoveChild("Resources\\Player\\Player_body\\Player_body_115.bmp");
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
 	}
-	SetPos({ 100, 100 });
+	SetPos({ 300, 500 });
 	SetScale({ 16, 32 });
-
 }
 void Player::Update(float _Delta)
 {
-	AddPos({ 100.0f * _Delta, 0.0f });
+	AddPos({ 10.0f * _Delta, 0.0f });
 }
 void Player::Render()
 {
 	HDC WindowDC = GameEngineWindow::MainWindow.GetHDC();
-	GameEngineTexture* FindTexture = ResourcesManager::GetInst().FindTexture("Player_body_109.bmp");
+	GameEngineTexture* FindTexture = ResourcesManager::GetInst().FindTexture("Player_body_115.bmp");
 	HDC ImageDC = FindTexture->GetImageDC();
 
-	BitBlt(WindowDC, GetPos().iX(), GetPos().iY(), 16, 32, ImageDC, 0, 0, SRCCOPY);
+	BitBlt(WindowDC, 
+		GetPos().iX() - GetScale().ihX(),
+		GetPos().iY() - GetScale().ihY(),
+		GetPos().iX() + GetScale().ihX(),
+		GetPos().iY() + GetScale().ihY(),
+		ImageDC, 0, 0, SRCCOPY);
 }
 void Player::Release()
 {

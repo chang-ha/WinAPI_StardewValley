@@ -32,6 +32,9 @@
     <ClInclude Include="Title.h">
       <Filter>Level\01. TitleScreen</Filter>
     </ClInclude>
+    <ClInclude Include="TitleBird.h">
+      <Filter>Level\01. TitleScreen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -63,6 +66,9 @@
     </ClCompile>
     <ClCompile Include="StardewValleyCore.cpp" />
     <ClCompile Include="Title.cpp">
+      <Filter>Level\01. TitleScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBird.cpp">
       <Filter>Level\01. TitleScreen</Filter>
     </ClCompile>
   </ItemGroup>
