@@ -155,6 +155,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackGround.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BackWoods.h">
       <SubType>
       </SubType>
@@ -191,10 +195,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Title.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="TitleBird.h">
       <SubType>
       </SubType>
@@ -205,6 +205,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackGround.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BackWoods.cpp">
       <SubType>
       </SubType>
@@ -238,10 +242,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="StardewValleyCore.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Title.cpp">
       <SubType>
       </SubType>
     </ClCompile>

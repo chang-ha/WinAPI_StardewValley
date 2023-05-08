@@ -25,15 +25,15 @@
     <ClInclude Include="PelicanTown.h">
       <Filter>Level\08. PelicanTown</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Level\00. Player</Filter>
-    </ClInclude>
     <ClInclude Include="StardewValleyCore.h" />
-    <ClInclude Include="Title.h">
-      <Filter>Level\01. TitleScreen</Filter>
-    </ClInclude>
     <ClInclude Include="TitleBird.h">
       <Filter>Level\01. TitleScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Global</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,15 +61,15 @@
     <ClCompile Include="PelicanTown.cpp">
       <Filter>Level\08. PelicanTown</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Level\00. Player</Filter>
-    </ClCompile>
     <ClCompile Include="StardewValleyCore.cpp" />
-    <ClCompile Include="Title.cpp">
-      <Filter>Level\01. TitleScreen</Filter>
-    </ClCompile>
     <ClCompile Include="TitleBird.cpp">
       <Filter>Level\01. TitleScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,8 +100,8 @@
     <Filter Include="Level\08. PelicanTown">
       <UniqueIdentifier>{6cf1cf5a-d524-4cf6-9604-ff46f2feb823}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\00. Player">
-      <UniqueIdentifier>{5d33f43b-3be5-40c6-bbbf-a60d517ebd9e}</UniqueIdentifier>
+    <Filter Include="Global">
+      <UniqueIdentifier>{2a0a5ad8-9118-48fd-8937-346a2fca2176}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

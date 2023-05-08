@@ -1,6 +1,7 @@
-﻿#include "StardewValleyCore.h"
-#include "TitleScreen.h"
+﻿#include <GameEnginePlatform/GameEngineWindow.h>
 
+#include "StardewValleyCore.h"
+#include "TitleScreen.h"
 StardewValleyCore::StardewValleyCore()
 {
 
@@ -13,6 +14,8 @@ StardewValleyCore::~StardewValleyCore()
 
 void StardewValleyCore::Start()
 {
+	GameEngineWindow::MainWindow.SetPosAndScale({ 0, 0 }, { 1280, 720 });
+
 	GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
 	GameEngineCore::ChangeLevel("TitleScreen");
 }

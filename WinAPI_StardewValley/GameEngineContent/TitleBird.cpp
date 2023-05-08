@@ -1,7 +1,7 @@
 ﻿#include "TitleBird.h"
 #include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/ResourcesManager.h>
-#include <GameEngineCore/GameEngineTexture.h>
+#include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 TitleBird::TitleBird()
@@ -21,7 +21,7 @@ void TitleBird::Start()
 		GameEnginePath FilePath;
 		FilePath.GetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Title\\Title_bird01.bmp");
+		FilePath.MoveChild("Resources\\Textures\\Title\\Title_bird01.bmp");
 		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
 	}
 	SetPos({ 1000, 400 });
@@ -34,7 +34,7 @@ void TitleBird::Update(float _Delta)
 void TitleBird::Render()
 {
 	HDC WindowDC = GameEngineWindow::MainWindow.GetHDC();
-	GameEngineTexture* FindTexture = ResourcesManager::GetInst().FindTexture("Title_bird01.bmp");
+	GameEngineWindowTexture* FindTexture = ResourcesManager::GetInst().FindTexture("Title_bird01.bmp");
 	HDC ImageDC = FindTexture->GetImageDC();
 
 	BitBlt(WindowDC,

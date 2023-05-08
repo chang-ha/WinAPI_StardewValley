@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineObject.h"
+#include <string>
 
 class GameEngineActor : public GameEngineObject
 {
@@ -42,7 +43,7 @@ public:
 protected:
 
 private:
-	float4 Pos;
-	float4 Scale;
+	float4 Pos = float4::ZERO;
+	float4 Scale = float4::ZERO;
 };
 

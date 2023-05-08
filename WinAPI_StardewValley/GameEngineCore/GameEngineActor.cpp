@@ -8,5 +8,4 @@ GameEngineActor::GameEngineActor()
 
 GameEngineActor::~GameEngineActor()
 {
-
 }

@@ -1,5 +1,5 @@
 ﻿#include "TitleScreen.h"
-#include "Title.h"
+#include "BackGround.h"
 #include "Player.h"
 #include "TitleBird.h"
 
@@ -15,7 +15,8 @@ TitleScreen::~TitleScreen()
 
 void TitleScreen::Start()
 {
-	CreateActor<Title>();
+	BackGround* Back = CreateActor<BackGround>();
+	Back->Init("Title_background.bmp");
 	CreateActor<TitleBird>();
 	CreateActor<Player>();
 }
