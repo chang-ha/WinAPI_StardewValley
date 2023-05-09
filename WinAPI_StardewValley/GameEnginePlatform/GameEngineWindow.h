@@ -38,12 +38,18 @@ public:
 		IsWindowUpdate = false;
 	}
 
+	GameEngineWindowTexture* GetWindowBuffer()
+	{
+		return WindowBuffer;
+	}
+
 	GameEngineWindowTexture* GetBackBuffer()
 	{
 		return BackBuffer;
 	}
 
 	void SetPosAndScale(const float4& _Pos, const float4& _Scale);
+	void DoubleBuffering();
 protected:
 
 private:
@@ -53,6 +59,7 @@ private:
 	HWND hWnd = nullptr;
 	HDC Hdc = nullptr;
 	
+	GameEngineWindowTexture* WindowBuffer = nullptr;
 	GameEngineWindowTexture* BackBuffer = nullptr;
 	float4 Scale;
 

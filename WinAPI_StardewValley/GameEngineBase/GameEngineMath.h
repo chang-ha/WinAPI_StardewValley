@@ -23,14 +23,56 @@ public:
 		return static_cast<int>(Y);
 	}
 	
+	inline float hX() const
+	{
+		return X * 0.5f;
+	}
+
+	inline float hY() const
+	{
+		return Y * 0.5f;
+	}
+
 	inline int ihX() const
 	{
-		return static_cast<int>(0.5f * X);
+		return static_cast<int>(hX());
 	}
 
 	inline int ihY() const
 	{
-		return static_cast<int>(0.5f * Y);
+		return static_cast<int>(hY());
+	}
+
+	inline float4 Half() const
+	{
+		return { hX(), hY(), Z, W };
+
+	}
+	float4 operator+(const float4& _Other)
+	{
+		float4 ReturnValue;
+		ReturnValue.X = X + _Other.X;
+		ReturnValue.X = Y + _Other.Y;
+		ReturnValue.X = Z + _Other.Z;
+		return ReturnValue;
+	}
+
+	float4 operator*(const float4& _Other)
+	{
+		float4 ReturnValue;
+		ReturnValue.X = X * _Other.X;
+		ReturnValue.X = Y * _Other.Y;
+		ReturnValue.X = Z * _Other.Z;
+		return ReturnValue;
+	}
+
+	float4 operator*(const float _Value)
+	{
+		float4 ReturnValue;
+		ReturnValue.X = X * _Value;
+		ReturnValue.X = Y * _Value;
+		ReturnValue.X = Z * _Value;
+		return ReturnValue;
 	}
 
 	float4& operator+=(const float4& _Other)
@@ -38,6 +80,22 @@ public:
 		X += _Other.X;
 		Y += _Other.Y;
 		Z += _Other.Z;
+		return *this;
+	}
+
+	float4& operator*=(const float4& _Other)
+	{
+		X *= _Other.X;
+		Y *= _Other.Y;
+		Z *= _Other.Z;
+		return *this;
+	}
+
+	float4& operator*=(const float _Value)
+	{
+		X *= _Value;
+		Y *= _Value;
+		Z *= _Value;
 		return *this;
 	}
 

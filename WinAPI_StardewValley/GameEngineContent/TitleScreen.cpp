@@ -17,7 +17,10 @@ void TitleScreen::Start()
 {
 	BackGround* Back = CreateActor<BackGround>();
 	Back->Init("Title_background.bmp");
-	//CreateActor<TitleBird>();
+	TitleBird* Bird1 = CreateActor<TitleBird>();
+	TitleBird* Bird2 = CreateActor<TitleBird>();
+	Bird1->SetPos({ 1100, 600 });
+	Bird2->SetPos({1150,650});
 	//CreateActor<Player>();
 }
 void TitleScreen::Update(float _Delta)

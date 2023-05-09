@@ -4,10 +4,11 @@
 #include "GameEngineObject.h"
 #include "GameEngineActor.h"
 
-
+class GameEngineCamera;
 class GameEngineLevel : public GameEngineObject
 {
 	friend class GameEngineCore;
+	friend GameEngineActor;
 public:
 	// constructer destructer
 	GameEngineLevel();

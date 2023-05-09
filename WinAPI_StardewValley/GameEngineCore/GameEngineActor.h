@@ -2,13 +2,17 @@
 #include <GameEngineBase/GameEngineMath.h>
 #include "GameEngineObject.h"
 #include <string>
+#include <list>
 
+class GameEngineLevel;
+class GameEngineRenderer;
 class GameEngineActor : public GameEngineObject
 {
+	friend GameEngineLevel;
 public:
 	// constructer destructer
 	GameEngineActor();
-	~GameEngineActor();
+	virtual ~GameEngineActor();
 
 	// delete function
 	GameEngineActor(const GameEngineActor& _Ohter) = delete;
@@ -40,11 +44,19 @@ public:
 	{
 		return Scale;
 	}
-	std::string FileName = "";
+
+	GameEngineRenderer* CreateRenderer(const std::string& _ImageName);
+
+	GameEngineLevel* GetLevel()
+	{
+		return Level;
+	}
 protected:
 
 private:
+	GameEngineLevel* Level;
 	float4 Pos = float4::ZERO;
 	float4 Scale = float4::ZERO;
+	std::list<GameEngineRenderer*> AllRenderer;
 };
 

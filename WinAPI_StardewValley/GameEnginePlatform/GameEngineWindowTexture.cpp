@@ -1,7 +1,8 @@
 ﻿#include "GameEngineWindowTexture.h"
-#include <Windows.h>
 #include <GameEngineBase/GameEngineDebug.h>
 #include "GameEngineWindow.h"
+
+#pragma comment(lib, "msimg32.lib")
 
 GameEngineWindowTexture::GameEngineWindowTexture()
 {
@@ -32,7 +33,20 @@ void GameEngineWindowTexture::ResLoad(const std::string& _Path)
 		MsgBoxAssert(_Path + " 이미지 로드에 실패하였습니다.");
 		return;
 	}
+	BitMap = static_cast<HBITMAP>(ImageHandle);
+	ImageDC = CreateCompatibleDC(nullptr);
+	OldBitMap = static_cast<HBITMAP>(SelectObject(ImageDC, BitMap));
+	ScaleCheck();
+}
 
+void GameEngineWindowTexture::ResCreate(const float4& _Scale)
+{
+	HANDLE ImageHandle = CreateCompatibleBitmap(GameEngineWindow::MainWindow.GetHDC(), _Scale.iX(), _Scale.iY());
+	if (nullptr == ImageHandle)
+	{
+		MsgBoxAssert("BackBuffer 생성에 실패하였습니다.");
+		return;
+	}
 	BitMap = static_cast<HBITMAP>(ImageHandle);
 	ImageDC = CreateCompatibleDC(nullptr);
 	OldBitMap = static_cast<HBITMAP>(SelectObject(ImageDC, BitMap));
@@ -55,3 +69,18 @@ void GameEngineWindowTexture::BitCopy(GameEngineWindowTexture* _CopyTexture, con
 		CopyImageDC, 0, 0, SRCCOPY);
 }
 
+void GameEngineWindowTexture::TransCopy(GameEngineWindowTexture* _CopyTexture, const float4& _Pos, const float4& _Scale, const float4& _OtherPos, const float4& _OtherScale, int _TransColor)
+{
+	HDC CopyImageDC = _CopyTexture->GetImageDC();
+	TransparentBlt(ImageDC,
+		_Pos.iX() - _Scale.ihX(),
+		_Pos.iY() - _Scale.ihY(),
+		_Scale.iX(),
+		_Scale.iY(),
+		CopyImageDC, 
+		_OtherPos.iX(), 
+		_OtherPos.iY(), 
+		_OtherScale.iX(), 
+		_OtherScale.iY(),
+		_TransColor);
+}
