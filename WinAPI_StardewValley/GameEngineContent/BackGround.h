@@ -1,5 +1,5 @@
 #pragma once
-#include <string>
+// #include <string>
 #include <GameEngineCore/GameEngineActor.h>
 
 class BackGround : public GameEngineActor
@@ -19,7 +19,7 @@ public:
 protected:
 
 private:
-	std::string FileName = "";
+	// std::string FileName = "";
 
 	void Start() override;
 	void Update(float _Delta) override;

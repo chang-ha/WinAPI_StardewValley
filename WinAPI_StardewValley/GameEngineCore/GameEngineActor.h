@@ -40,6 +40,7 @@ public:
 	{
 		return Scale;
 	}
+	std::string FileName = "";
 protected:
 
 private:
