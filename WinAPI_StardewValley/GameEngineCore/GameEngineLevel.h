@@ -25,17 +25,31 @@ public:
 	{
 		std::list<GameEngineActor*>& GroupList = AllActors[_Order];
 		GameEngineActor* NewActor = new ActorType();
-		ActorInit(NewActor);
+		ActorInit(NewActor, _Order);
 		GroupList.push_back(NewActor);
 		return dynamic_cast<ActorType*>(NewActor);
+	}
+
+	template<typename ActorType, typename EnumType>
+	ActorType* CreateActor(EnumType _Order)
+	{
+		return CreateActor<ActorType>(static_cast<int>(_Order));
+	}
+
+	GameEngineCamera* GetMainCamera()
+	{
+		return MainCamera;
 	}
 protected:
 
 private:
+	GameEngineCamera* MainCamera;
+	GameEngineCamera* UICamera;
+
 	std::map<int, std::list<GameEngineActor*>> AllActors;
 
 	void ActorUpdate(float _Delta);
 	void ActorRender();
-	void ActorInit(GameEngineActor* _Actor);
+	void ActorInit(GameEngineActor* _Actor, int _Order);
 };
 

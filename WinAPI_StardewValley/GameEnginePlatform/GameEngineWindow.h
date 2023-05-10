@@ -49,6 +49,8 @@ public:
 	}
 
 	void SetPosAndScale(const float4& _Pos, const float4& _Scale);
+
+	void ClearBackBuffer();
 	void DoubleBuffering();
 protected:
 

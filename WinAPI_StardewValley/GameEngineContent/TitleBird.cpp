@@ -3,7 +3,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
-
+#include "ContentsEnum.h"
 TitleBird::TitleBird()
 {
 
@@ -21,11 +21,10 @@ void TitleBird::Start()
 		GameEnginePath FilePath;
 		FilePath.GetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\Title\\Title_bird01.bmp");
-		ResourcesManager::GetInst().TextureLoad(FilePath.GetStringPath());
+		FilePath.MoveChild("Resources\\Textures\\Title\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_bird01.bmp"));
 	}
-
-	SetScale({ 26, 18 });
+	GameEngineRenderer* Ptr = CreateRenderer("Title_bird01.bmp", RenderOrder::Play);
 }
 void TitleBird::Update(float _Delta) 
 {
@@ -33,13 +32,6 @@ void TitleBird::Update(float _Delta)
 }
 void TitleBird::Render()
 {
-	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
-	GameEngineWindowTexture* FindTexture = ResourcesManager::GetInst().FindTexture("Title_bird01.bmp");
-	if (nullptr == FindTexture)
-	{
-		return;
-	}
-	BackBuffer->TransCopy(FindTexture, GetPos(), GetScale(), { 0, 0}, FindTexture->GetScale());
 }
 void TitleBird::Release()
 {

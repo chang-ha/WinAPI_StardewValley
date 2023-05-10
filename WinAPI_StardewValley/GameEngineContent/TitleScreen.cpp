@@ -21,7 +21,7 @@ void TitleScreen::Start()
 	TitleBird* Bird2 = CreateActor<TitleBird>();
 	Bird1->SetPos({ 1100, 600 });
 	Bird2->SetPos({1150,650});
-	//CreateActor<Player>();
+	Player* Farmer = CreateActor<Player>();
 }
 void TitleScreen::Update(float _Delta)
 {
