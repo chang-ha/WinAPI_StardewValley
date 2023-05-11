@@ -45,6 +45,8 @@ void GameEngineCore::CoreUpdate()
 	CurLevel->Render();
 	CurLevel->ActorRender();
 	GameEngineWindow::MainWindow.DoubleBuffering();
+
+	CurLevel->ActorRelease();
 }
 
 void GameEngineCore::CoreEnd()
@@ -65,6 +67,7 @@ void GameEngineCore::CoreEnd()
 			_Pair.second = nullptr;
 		}
 	}
+
 }
 
 void GameEngineCore::EngineStart(const std::string& _Title, HINSTANCE _Inst, CoreProcess* _Ptr)

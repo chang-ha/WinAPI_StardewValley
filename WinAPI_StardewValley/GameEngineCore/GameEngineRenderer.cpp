@@ -46,5 +46,14 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera)
 		MsgBoxAssert("Texture를 세팅하지 않은 Renderer입니다.");
 	}
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
+	//if (RenderScale.iX() <= (Master->GetPos() + RenderPos - _Camera->GetPos()).iX())
+	//{
+	//	_Camera->SetPos({});
+	//}
 	BackBuffer->TransCopy(Texture, Master->GetPos() + RenderPos - _Camera->GetPos(), RenderScale, CopyPos, CopyScale);
+}
+
+bool GameEngineRenderer::IsDeath()
+{
+	return true == GameEngineObject::IsDeath() || Master->IsDeath();
 }

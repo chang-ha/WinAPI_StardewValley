@@ -51,5 +51,6 @@ private:
 	void ActorUpdate(float _Delta);
 	void ActorRender();
 	void ActorInit(GameEngineActor* _Actor, int _Order);
+	void ActorRelease();
 };
 

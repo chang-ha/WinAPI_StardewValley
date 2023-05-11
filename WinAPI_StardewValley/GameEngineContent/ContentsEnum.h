@@ -10,5 +10,6 @@ enum class RenderOrder
 {
 	BackGround,
 	Play,
+	PlayOver,
 	PlayUI,
 };

@@ -40,3 +40,33 @@ void GameEngineCamera::Render()
 		}
 	}
 }
+
+void GameEngineCamera::Release()
+{
+	std::map <int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
+	std::map <int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
+	std::list<GameEngineRenderer*>::iterator ObjectStartIter;
+	std::list<GameEngineRenderer*>::iterator ObjectEndIter;
+	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
+	{
+		std::list<GameEngineRenderer*>& Group = GroupStartIter->second;
+		ObjectStartIter = Group.begin();
+		ObjectEndIter = Group.end();
+		for (; ObjectStartIter != ObjectEndIter; )
+		{
+			GameEngineRenderer* Object = *ObjectStartIter;
+			if (false == Object->IsDeath())
+			{
+				++ObjectStartIter;
+				continue;
+			}
+
+			if (nullptr == Object)
+			{
+				MsgBoxAssert("null인 Object는 Release할 수 없습니다.");
+				continue;
+			}
+			ObjectStartIter = Group.erase(ObjectStartIter);
+		}
+	}
+}

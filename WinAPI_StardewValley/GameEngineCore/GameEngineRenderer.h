@@ -45,6 +45,8 @@ public:
 	}
 
 	void SetRenderScaleToTexture();
+
+	bool IsDeath() override;
 protected:
 
 private:

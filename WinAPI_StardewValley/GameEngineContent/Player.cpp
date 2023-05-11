@@ -21,7 +21,7 @@ Player::~Player()
 
 void Player::Start()
 {
-	if (false == ResourcesManager::GetInst().IsLoadTexture("Player_body_115.bmp"))
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Player_body_01.bmp"))
 	{
 		GameEnginePath FilePath;
 		FilePath.GetCurrentPath();
@@ -35,12 +35,14 @@ void Player::Start()
 		GameEngineRenderer* Ptr = CreateRenderer("Player_body_01.bmp", RenderOrder::Play);
 		//Ptr->SetRenderScale();
 		Ptr->SetTexture("Player_body_01.bmp");
+		Ptr->SetRenderScale({48,96});
 	}
 
 	{
 		GameEngineRenderer* Ptr = CreateRenderer("Player_arm_01.bmp", RenderOrder::Play);
 		//Ptr->SetRenderScale();
 		Ptr->SetTexture("Player_arm_01.bmp");
+		Ptr->SetRenderScale({ 48,96 });
 	}
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	SetPos(WinScale.Half());

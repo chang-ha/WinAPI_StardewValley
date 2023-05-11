@@ -1,9 +1,11 @@
-﻿#include "TitleBird.h"
-#include <GameEngineBase/GameEnginePath.h>
+﻿#include <GameEngineBase/GameEnginePath.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEngineCore/GameEngineRenderer.h>
+#include "TitleBird.h"
 #include "ContentsEnum.h"
+
 TitleBird::TitleBird()
 {
 
@@ -25,6 +27,7 @@ void TitleBird::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_bird01.bmp"));
 	}
 	GameEngineRenderer* Ptr = CreateRenderer("Title_bird01.bmp", RenderOrder::Play);
+	Ptr->SetRenderScale({52,36});
 }
 void TitleBird::Update(float _Delta) 
 {
