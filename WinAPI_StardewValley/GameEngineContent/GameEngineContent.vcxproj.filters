@@ -38,6 +38,9 @@
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
     </ClInclude>
+    <ClInclude Include="PlayOver.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -72,6 +75,9 @@
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayOver.cpp">
       <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
