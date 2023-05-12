@@ -4,6 +4,8 @@
 HINSTANCE GameEngineWindow::Instance = nullptr;
 GameEngineWindow GameEngineWindow::MainWindow;
 bool GameEngineWindow::IsWindowUpdate = true;
+bool GameEngineWindow::IsFocusValue = false;
+
 
 
 GameEngineWindow::GameEngineWindow()
@@ -66,6 +68,16 @@ LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wPara
 {
     switch (message)
     {
+    case WM_SETFOCUS:
+    {
+        IsFocusValue = true;
+        return DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    case WM_KILLFOCUS:
+    {
+        IsFocusValue = false;
+        return DefWindowProc(hWnd, message, wParam, lParam);
+    }
     case WM_PAINT:
     {
         PAINTSTRUCT ps;
@@ -162,7 +174,7 @@ void GameEngineWindow::SetPosAndScale(const float4& _Pos, const float4& _Scale)
     }
     RECT Rc = { 0, 0, _Scale.iX(), _Scale.iY() };
     AdjustWindowRect(&Rc, WS_OVERLAPPEDWINDOW, FALSE);
-    SetWindowPos(hWnd, nullptr, 100 + Rc.left, 100 , Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
+    SetWindowPos(hWnd, nullptr, _Pos.iX() + Rc.left, _Pos.iY(), Rc.right - Rc.left, Rc.bottom - Rc.top, SWP_NOZORDER);
 }
 
 void GameEngineWindow::DoubleBuffering()
@@ -173,4 +185,13 @@ void GameEngineWindow::DoubleBuffering()
 void GameEngineWindow::ClearBackBuffer()
 {
     Rectangle(BackBuffer->GetImageDC(), 0, 0, BackBuffer->GetScale().iX(), BackBuffer->GetScale().iY());
+}
+
+float4 GameEngineWindow::GetMousePos()
+{
+    POINT MoniterPoint;
+    GetCursorPos(&MoniterPoint);
+    ScreenToClient(hWnd, &MoniterPoint);
+
+    return float4{ static_cast<float>(MoniterPoint.x), static_cast<float>(MoniterPoint.y) };
 }

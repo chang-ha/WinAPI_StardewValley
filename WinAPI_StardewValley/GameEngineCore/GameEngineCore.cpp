@@ -1,5 +1,8 @@
-﻿#include <GameEnginePlatform/GameEngineWindow.h>
-#include <GameEngineBase/GameEngineTime.h>
+﻿#include <GameEngineBase/GameEngineTime.h>
+
+#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEnginePlatform/GameEngineInput.h>
+
 #include "GameEngineCore.h"
 #include "GameEngineLevel.h"
 
@@ -22,7 +25,7 @@ GameEngineCore::~GameEngineCore()
 void GameEngineCore::CoreStart(HINSTANCE _Inst)
 {
 	GameEngineWindow::MainWindow.Open(WindowTitle, _Inst);
-
+	GameEngineInput::InputInit();
 	Process->Start();
 }
 
@@ -30,6 +33,12 @@ void GameEngineCore::CoreUpdate()
 {
 	if (nullptr != NextLevel)
 	{
+		if (nullptr != CurLevel)
+		{
+			CurLevel->LevelEnd(NextLevel);
+		}
+		NextLevel->LevelStart(CurLevel);
+
 		CurLevel = NextLevel;
 		NextLevel = nullptr;
 		GameEngineTime::MainTimer.Reset();
@@ -37,6 +46,15 @@ void GameEngineCore::CoreUpdate()
 
 	GameEngineTime::MainTimer.Update();
 	float Delta = GameEngineTime::MainTimer.GetDeltaTime();
+
+	if (true == GameEngineWindow::IsFocus())
+	{
+		GameEngineInput::Update(Delta);
+	}
+	else
+	{
+		GameEngineInput::Reset();
+	}
 
 	CurLevel->Update(Delta);
 	CurLevel->ActorUpdate(Delta);

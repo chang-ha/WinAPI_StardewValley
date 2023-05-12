@@ -14,12 +14,11 @@ StardewValleyCore::~StardewValleyCore()
 
 void StardewValleyCore::Start()
 {
-	GameEngineWindow::MainWindow.SetPosAndScale({ 0, 0 }, { 1280, 720 });
+	GameEngineWindow::MainWindow.SetPosAndScale({ 0, 0 }, { 1600, 900 });
 
-	// GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
-	// GameEngineCore::ChangeLevel("TitleScreen");
+	GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
 	GameEngineCore::CreateLevel<FarmHouse>("FarmHouse");
-	GameEngineCore::ChangeLevel("FarmHouse");
+	GameEngineCore::ChangeLevel("TitleScreen");
 }
 void StardewValleyCore::Update(float _Delta)
 {

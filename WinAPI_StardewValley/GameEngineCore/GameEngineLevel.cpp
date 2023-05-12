@@ -94,7 +94,7 @@ void GameEngineLevel::ActorRelease()
 			GameEngineActor* Object = *ObjectStartIter;
 			if (false == Object->IsDeath())
 			{
-				// Actor->ActorRelease();
+				Object->ActorRelease();
 				++ObjectStartIter;
 				continue;
 			}

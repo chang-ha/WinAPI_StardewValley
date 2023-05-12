@@ -41,6 +41,8 @@ public:
 		return MainCamera;
 	}
 protected:
+	virtual void LevelStart(GameEngineLevel* _PrevLevel) {}
+	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
 
 private:
 	GameEngineCamera* MainCamera;

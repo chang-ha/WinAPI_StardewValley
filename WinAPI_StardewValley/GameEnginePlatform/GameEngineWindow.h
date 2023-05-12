@@ -48,15 +48,22 @@ public:
 		return BackBuffer;
 	}
 
+	static bool IsFocus()
+	{
+		return IsFocusValue;
+	}
+
 	void SetPosAndScale(const float4& _Pos, const float4& _Scale);
 
 	void ClearBackBuffer();
 	void DoubleBuffering();
+	float4 GetMousePos();
 protected:
 
 private:
 	static HINSTANCE Instance;
 	static bool IsWindowUpdate;
+	static bool IsFocusValue;
 	std::string Title = "";
 	HWND hWnd = nullptr;
 	HDC Hdc = nullptr;

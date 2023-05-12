@@ -77,10 +77,11 @@ void GameEngineWindowTexture::TransCopy(GameEngineWindowTexture* _CopyTexture, c
 		_Pos.iY() - _Scale.ihY(),
 		_Scale.iX(),
 		_Scale.iY(),
-		CopyImageDC, 
+		CopyImageDC,
 		_OtherPos.iX(), 
 		_OtherPos.iY(), 
-		_OtherScale.iX(), 
+		_OtherScale.iX(),
 		_OtherScale.iY(),
-		_TransColor);
+		_TransColor
+	);
 }

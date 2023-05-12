@@ -1,6 +1,12 @@
-﻿#include <GameEnginePlatform/GameEngineWindow.h>
+﻿#include <GameEngineBase/GameEngineDebug.h>
+
+#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEnginePlatform/GameEngineInput.h>
+
+#include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineCore/GameEngineCore.h>
 
 #include "FarmHouse.h"
 #include "BackGround.h"
@@ -17,22 +23,46 @@ FarmHouse::~FarmHouse()
 
 }
 
+void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
+{
+	if (nullptr == Farmer)
+	{
+		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
+	}
+
+	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
+	//LevelPlayer->SetPos(WinScale.Half());
+	// 0 0
+	// x y
+	// GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
+	GetMainCamera()->SetPos({});
+
+}
+
+void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
+{
+
+}
+
 void FarmHouse::Start()
 {
 	BackGround* Back = CreateActor<BackGround>();
 	Back->Init("farmhouse1.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Player* Farmer = CreateActor<Player>();
-	Farmer->SetPos({875,530});
+	Farmer = CreateActor<Player>();
+	Farmer->SetPos({1040,650});
+
 	PlayOver* Over = CreateActor<PlayOver>();
-	// C:\Project\WinAPI_StardewValley\WinAPI_StardewValley\Resources\Textures\Title
 	Over->Init("farmhouse_bed.bmp");
 	Over->Renderer->SetTexture("farmhouse_bed.bmp");
 	Over->SetPos({896,589});
 }
 void FarmHouse::Update(float _Delta)
 {
-
+	if (true == GameEngineInput::IsDown('1'))
+	{
+		GameEngineCore::ChangeLevel("TitleScreen");
+	}
 }
 void FarmHouse::Render()
 {
