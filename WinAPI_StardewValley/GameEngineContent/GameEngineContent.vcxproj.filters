@@ -16,8 +16,8 @@
     <ClInclude Include="CindersapForest.h">
       <Filter>Level\06. CindersapForest</Filter>
     </ClInclude>
-    <ClInclude Include="BackWoods.h">
-      <Filter>Level\07. BackWoods</Filter>
+    <ClInclude Include="BusStation.h">
+      <Filter>Level\07.BusStation</Filter>
     </ClInclude>
     <ClInclude Include="PelicanTown.h">
       <Filter>Level\08. PelicanTown</Filter>
@@ -55,8 +55,8 @@
     <ClCompile Include="CindersapForest.cpp">
       <Filter>Level\06. CindersapForest</Filter>
     </ClCompile>
-    <ClCompile Include="BackWoods.cpp">
-      <Filter>Level\07. BackWoods</Filter>
+    <ClCompile Include="BusStation.cpp">
+      <Filter>Level\07.BusStation</Filter>
     </ClCompile>
     <ClCompile Include="PelicanTown.cpp">
       <Filter>Level\08. PelicanTown</Filter>
@@ -94,14 +94,14 @@
     <Filter Include="Level\06. CindersapForest">
       <UniqueIdentifier>{a25e9a46-886e-4921-a896-d4e633f2f356}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\07. BackWoods">
-      <UniqueIdentifier>{05e95ecb-62ac-4e9e-9f7b-1207b70e2885}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\08. PelicanTown">
       <UniqueIdentifier>{6cf1cf5a-d524-4cf6-9604-ff46f2feb823}</UniqueIdentifier>
     </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{2a0a5ad8-9118-48fd-8937-346a2fca2176}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\07.BusStation">
+      <UniqueIdentifier>{05e95ecb-62ac-4e9e-9f7b-1207b70e2885}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

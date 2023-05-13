@@ -159,7 +159,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="BackWoods.h">
+    <ClInclude Include="BusStation.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -210,7 +210,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="BackWoods.cpp">
+    <ClCompile Include="BusStation.cpp">
       <SubType>
       </SubType>
     </ClCompile>
