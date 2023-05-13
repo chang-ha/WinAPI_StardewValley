@@ -1,6 +1,8 @@
-﻿#include "ResourcesManager.h"
+﻿#include <GameEngineBase/GameEngineString.h>
+
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
-#include <GameEngineBase/GameEngineString.h>
+
+#include "ResourcesManager.h"
 
 ResourcesManager ResourcesManager::Inst;
 

@@ -2,9 +2,12 @@
 #include <string>
 #include <map>
 #include <Windows.h>
+
 #include <GameEngineBase/GameEngineString.h>
 #include <GameEngineBase/GameEngineDebug.h>
+
 #include "GameEngineObject.h"
+
 class CoreProcess : public GameEngineObject
 {
 };

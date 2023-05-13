@@ -1,4 +1,5 @@
 ﻿#include <GameEngineCore/ResourcesManager.h>
+
 #include "ContentsEnum.h"
 #include "PlayOver.h"
 
@@ -15,7 +16,7 @@ PlayOver::~PlayOver()
 
 void PlayOver::Start()
 {
-	Renderer = CreateRenderer();
+	Renderer = CreateRenderer(RenderOrder::PlayOver);
 }
 
 void PlayOver::Update(float _Delta)

@@ -1,5 +1,6 @@
-﻿#include "GameEngineWindowTexture.h"
-#include <GameEngineBase/GameEngineDebug.h>
+﻿#include <GameEngineBase/GameEngineDebug.h>
+
+#include "GameEngineWindowTexture.h"
 #include "GameEngineWindow.h"
 
 #pragma comment(lib, "msimg32.lib")

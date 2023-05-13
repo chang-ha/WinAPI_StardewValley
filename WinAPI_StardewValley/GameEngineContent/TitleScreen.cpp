@@ -31,7 +31,7 @@ void TitleScreen::Start()
 		FilePath.GetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Title\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_background.bmp"));
+		// ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_background.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_Logo.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_new01.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_load01.bmp"));
@@ -40,6 +40,7 @@ void TitleScreen::Start()
 	}
 
 	Back = CreateActor<BackGround>();
+	Back->Init("Title_background.bmp");
 	Back->Renderer->SetTexture("Title_background.bmp");
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	Back->SetPos({740,300});

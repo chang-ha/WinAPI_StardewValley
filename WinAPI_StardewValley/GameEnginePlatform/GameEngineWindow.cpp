@@ -1,12 +1,11 @@
-﻿#include "GameEngineWindow.h"
-#include <GameEngineBase/GameEngineDebug.h>
+﻿#include <GameEngineBase/GameEngineDebug.h>
+
+#include "GameEngineWindow.h"
 
 HINSTANCE GameEngineWindow::Instance = nullptr;
 GameEngineWindow GameEngineWindow::MainWindow;
 bool GameEngineWindow::IsWindowUpdate = true;
 bool GameEngineWindow::IsFocusValue = false;
-
-
 
 GameEngineWindow::GameEngineWindow()
 {

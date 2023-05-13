@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <map>
+
 #include <GameEngineBase/GameEnginePath.h>
 
 class GameEngineWindowTexture;

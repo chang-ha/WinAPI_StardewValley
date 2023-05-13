@@ -1,5 +1,5 @@
-#include "GameEngineDebug.h"
 #include <crtdbg.h>
+#include "GameEngineDebug.h"
 
 GameEngineDebug::GameEngineDebug() 
 {

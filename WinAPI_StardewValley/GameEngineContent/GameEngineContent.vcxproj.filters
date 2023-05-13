@@ -7,13 +7,10 @@
     <ClInclude Include="IntroScreen.h">
       <Filter>Level\03. IntroScreen</Filter>
     </ClInclude>
-    <ClInclude Include="Customize.h">
-      <Filter>Level\02. Customize</Filter>
-    </ClInclude>
     <ClInclude Include="FarmHouse.h">
       <Filter>Level\04. FarmHouse</Filter>
     </ClInclude>
-    <ClInclude Include="FarmMap.h">
+    <ClInclude Include="Farm.h">
       <Filter>Level\05. FarmMap</Filter>
     </ClInclude>
     <ClInclude Include="CindersapForest.h">
@@ -49,13 +46,10 @@
     <ClCompile Include="IntroScreen.cpp">
       <Filter>Level\03. IntroScreen</Filter>
     </ClCompile>
-    <ClCompile Include="Customize.cpp">
-      <Filter>Level\02. Customize</Filter>
-    </ClCompile>
     <ClCompile Include="FarmHouse.cpp">
       <Filter>Level\04. FarmHouse</Filter>
     </ClCompile>
-    <ClCompile Include="FarmMap.cpp">
+    <ClCompile Include="Farm.cpp">
       <Filter>Level\05. FarmMap</Filter>
     </ClCompile>
     <ClCompile Include="CindersapForest.cpp">
@@ -90,9 +84,6 @@
     </Filter>
     <Filter Include="Level\01. TitleScreen">
       <UniqueIdentifier>{def3136a-ad1f-449f-91fe-32fcb8bcfcff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\02. Customize">
-      <UniqueIdentifier>{bfe3b54f-a4ee-4d81-9855-360d2cf142c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Level\04. FarmHouse">
       <UniqueIdentifier>{fc7c13eb-f2e1-4a4a-80c4-289cc2b9062b}</UniqueIdentifier>

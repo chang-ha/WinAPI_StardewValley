@@ -47,21 +47,26 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 void FarmHouse::Start()
 {
 	BackGround* Back = CreateActor<BackGround>();
-	Back->Init("farmhouse1.bmp");
+	Back->Init("farmhouse.bmp");
+	Back->Renderer->SetTexture("farmhouse.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 	Farmer = CreateActor<Player>();
-	Farmer->SetPos({1040,650});
+	Farmer->SetPos({1040,630});
 
 	PlayOver* Over = CreateActor<PlayOver>();
 	Over->Init("farmhouse_bed.bmp");
 	Over->Renderer->SetTexture("farmhouse_bed.bmp");
-	Over->SetPos({896,589});
+	Over->SetPos({1056.5,678});
 }
 void FarmHouse::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		GameEngineCore::ChangeLevel("TitleScreen");
+	}
+	if (true == GameEngineInput::IsDown('3'))
+	{
+		GameEngineCore::ChangeLevel("Farm");
 	}
 }
 void FarmHouse::Render()

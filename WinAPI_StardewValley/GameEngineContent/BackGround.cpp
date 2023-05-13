@@ -1,5 +1,6 @@
 ﻿#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -41,7 +42,7 @@ void BackGround::Init(const std::string& _FileName)
 		GameEnginePath FilePath;
 		FilePath.GetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\Title\\");
+		FilePath.MoveChild("Resources\\Textures\\BackGround\\");
 		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
 		Scale = Text->GetScale();
 	}

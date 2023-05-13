@@ -3,6 +3,7 @@
 #include "StardewValleyCore.h"
 #include "TitleScreen.h"
 #include "FarmHouse.h"
+#include "Farm.h"
 StardewValleyCore::StardewValleyCore()
 {
 
@@ -18,7 +19,8 @@ void StardewValleyCore::Start()
 
 	GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
 	GameEngineCore::CreateLevel<FarmHouse>("FarmHouse");
-	GameEngineCore::ChangeLevel("TitleScreen");
+	GameEngineCore::CreateLevel<Farm>("Farm");
+	GameEngineCore::ChangeLevel("Farm");
 }
 void StardewValleyCore::Update(float _Delta)
 {

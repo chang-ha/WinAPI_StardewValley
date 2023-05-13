@@ -3,6 +3,7 @@
 
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEngineCore/GameEngineObject.h>
+
 class GameEngineCamera;
 class GameEngineActor;
 class GameEngineWindowTexture;

@@ -1,8 +1,10 @@
 #pragma once
-#include <GameEngineBase/GameEngineMath.h>
-#include "GameEngineObject.h"
 #include <string>
 #include <list>
+
+#include <GameEngineBase/GameEngineMath.h>
+
+#include "GameEngineObject.h"
 
 class GameEngineLevel;
 class GameEngineRenderer;

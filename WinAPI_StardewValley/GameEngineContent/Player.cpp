@@ -54,7 +54,7 @@ void Player::Start()
 }
 void Player::Update(float _Delta)
 {
-	float Speed = 200.0f;
+	float Speed = 1000.0f;
 
 	float4 MovePos = float4::ZERO;
 
