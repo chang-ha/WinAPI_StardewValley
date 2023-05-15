@@ -64,7 +64,7 @@ void FarmHouse::Update(float _Delta)
 	{
 		GameEngineCore::ChangeLevel("TitleScreen");
 	}
-	if (true == GameEngineInput::IsDown('3'))
+	if (true == GameEngineInput::IsDown('2'))
 	{
 		GameEngineCore::ChangeLevel("Farm");
 	}

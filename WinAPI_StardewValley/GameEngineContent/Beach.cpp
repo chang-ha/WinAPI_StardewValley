@@ -7,20 +7,22 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 
-#include "Farm.h"
-#include "BackGround.h"
 #include "Player.h"
-Farm::Farm()
+#include "Beach.h"
+#include "BackGround.h"
+
+Beach::Beach()
 {
 
 }
 
-Farm::~Farm()
+Beach::~Beach()
 {
 
 }
 
-void Farm::LevelStart(GameEngineLevel* _PrevLevel)
+
+void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	if (nullptr == Farmer)
 	{
@@ -36,38 +38,34 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 
 }
 
-void Farm::LevelEnd(GameEngineLevel* _NextLevel)
+void Beach::LevelEnd(GameEngineLevel* _NextLevel)
 {
 
 }
 
 
-void Farm::Start()
+void Beach::Start()
 {
 	BackGround* Back = CreateActor<BackGround>();
-	Back->Init("Farm.bmp");
-	Back->Renderer->SetTexture("Farm.bmp");
+	Back->Init("Beach.bmp");
+	Back->Renderer->SetTexture("Beach.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale({5032, 4144});
+	Back->Renderer->SetRenderScale({ 4500, 2841.5 }); // *3.7
 	Farmer = CreateActor<Player>();
-	Farmer->SetPos({2350, -550});
+	Farmer->SetPos({ 900, -850 });
 }
-void Farm::Update(float _Delta)
+void Beach::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown('1'))
-	{
-		GameEngineCore::ChangeLevel("FarmHouse");
-	}
-	if (true == GameEngineInput::IsDown('2'))
 	{
 		GameEngineCore::ChangeLevel("BusStation");
 	}
 }
-void Farm::Render()
+void Beach::Render()
 {
 
 }
-void Farm::Release()
+void Beach::Release()
 {
 
 }

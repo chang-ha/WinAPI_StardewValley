@@ -56,9 +56,13 @@ void BusStation::Start()
 }
 void BusStation::Update(float _Delta)
 {
-	if (true == GameEngineInput::IsDown('3'))
+	if (true == GameEngineInput::IsDown('1'))
 	{
 		GameEngineCore::ChangeLevel("Farm");
+	}
+	if (true == GameEngineInput::IsDown('2'))
+	{
+		GameEngineCore::ChangeLevel("Beach");
 	}
 }
 void BusStation::Render()
