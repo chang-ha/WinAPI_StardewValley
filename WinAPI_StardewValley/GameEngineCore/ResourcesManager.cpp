@@ -1,6 +1,10 @@
-﻿#include <GameEngineBase/GameEngineString.h>
+﻿#include <GameEngineBase/GameEngineDebug.h>
+#include <GameEngineBase/GameEngineString.h>
+#include <GameEngineBase/GameEngineDirectory.h>
 
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+
+#include <GameEngineCore/GameEngineSprite.h>
 
 #include "ResourcesManager.h"
 
@@ -20,6 +24,17 @@ ResourcesManager::~ResourcesManager()
 		{
 			delete _Texture;
 			_Texture = nullptr;
+		}
+	}
+
+	for (const std::pair<std::string, GameEngineSprite*>& Pair : AllSprite)
+	{
+		GameEngineSprite* Sprite = Pair.second;
+
+		if (nullptr != Sprite)
+		{
+			delete Sprite;
+			Sprite = nullptr;
 		}
 	}
 }
@@ -47,4 +62,54 @@ GameEngineWindowTexture* ResourcesManager::TextureLoad(const std::string& _Name,
 	LoadTexture->ResLoad(_Path);
 	AllTexture.insert(std::make_pair(UpperName, LoadTexture));
 	return LoadTexture;
+}
+
+
+
+GameEngineSprite* ResourcesManager::FindSprite(const std::string& _SpriteName)
+{
+	std::string UpperName = GameEngineString::ToUpperReturn(_SpriteName);
+
+	std::map<std::string, GameEngineSprite*>::iterator FindIter = AllSprite.begin();
+
+	if (AllSprite.end() == FindIter)
+	{
+		return nullptr;
+	}
+	return FindIter->second;
+}
+
+GameEngineSprite* ResourcesManager::CreateSpriteSheet(const std::string& _SpriteName, const std::string& _Path, int _XCount, int _YCount)
+{
+	std::string UpperName = GameEngineString::ToUpperReturn(_SpriteName);
+
+	if (nullptr != FindSprite(UpperName))
+	{
+		MsgBoxAssert(UpperName + "이미 생성된 스프라이트시트를 다시 만들려고 했습니다.");
+	}
+
+	GameEnginePath Path = _Path;
+	GameEngineWindowTexture* Texture = ResourcesManager::FindTexture(Path.GetFileName());
+	if (nullptr == Texture)
+	{
+		Texture = ResourcesManager::TextureLoad(_Path);
+	}
+
+	float4 Scale = Texture->GetScale();
+	GameEngineSprite* NewSprite = new GameEngineSprite();
+	NewSprite->CreateSpriteSheet(Texture, _XCount, _YCount);
+	AllSprite.insert(std::make_pair(UpperName, NewSprite));
+	return NewSprite;
+}
+
+GameEngineSprite* ResourcesManager::CreateSpriteFolder(const std::string& _SpriteName, const std::string& _Path)
+{
+	GameEngineDirectory Directory = _Path;
+
+	//for (size_t i = 0; i < length; i++)
+	//{
+		// LoadTexture();
+	//}
+
+	return nullptr;
 }

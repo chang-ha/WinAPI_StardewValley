@@ -1,12 +1,15 @@
 #pragma once
 #include <string>
+#include <map>
 
 #include <GameEngineBase/GameEngineMath.h>
+
 #include <GameEngineCore/GameEngineObject.h>
 
-class GameEngineCamera;
-class GameEngineActor;
 class GameEngineWindowTexture;
+class GameEngineActor;
+class GameEngineCamera;
+class GameEngineSprite;
 class GameEngineRenderer : public GameEngineObject
 {
 	friend GameEngineCamera;
@@ -23,6 +26,8 @@ public:
 	GameEngineRenderer& operator=(GameEngineRenderer&& _Other) noexcept = delete;
 
 	void SetTexture(const std::string& _Name);
+
+	void SetSprite(const std::string& _Name, size_t _Index = 0);
 
 	void SetRenderPos(const float4& _Pos)
 	{
@@ -48,11 +53,15 @@ public:
 	void SetRenderScaleToTexture();
 
 	bool IsDeath() override;
+
+	// 내가 추가한 것
+	float4 GetTextureScale();
 protected:
 
 private:
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineActor* Master = nullptr;
+	GameEngineSprite* Sprite = nullptr;
 	bool ScaleCheck = false;
 
 	float4 RenderPos = {};
@@ -60,6 +69,34 @@ private:
 
 	float4 CopyPos = {};
 	float4 CopyScale = {};
-	void Render(GameEngineCamera* _Camera);
+	void Render(GameEngineCamera* _Camera, float _DeltaTime);
+
+private:
+	class Animation
+	{
+	public:
+		GameEngineSprite* Sprite = nullptr;
+		size_t CurFrame = 0;
+		size_t StartFrame = -1;
+		size_t EndFrame = -1;
+		float CurInter = 0.0f;
+		float Inter = 0.1f;
+		bool Loop = true;
+	};
+
+public:
+	Animation* FindAnimation(const std::string& _AnimationName);
+
+	void CreateAnimation(
+		const std::string& _AnimationName,
+		const std::string& _SpriteName,
+		size_t _Start = -1, size_t _End = -1,
+		float _Inter = 0.1f,
+		bool _Loop = true);
+
+	void ChangeAnimation(const std::string& _AnimationName, bool _ForceChange = false);
+	
+	std::map<std::string, Animation> AllAnimation;
+	Animation* CurAnimation = nullptr;
 };
 

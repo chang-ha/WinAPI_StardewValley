@@ -14,6 +14,14 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
+	GameEngineRenderer* BodyRenderer = nullptr;
+	GameEngineRenderer* ArmRenderer = nullptr;
+	GameEngineRenderer* HairRenderer = nullptr;
+
+	GameEngineRenderer* ShirtRenderer = nullptr;
+	GameEngineRenderer* PantsRenderer = nullptr;
+	GameEngineRenderer* HatRenderer = nullptr;
+
 protected:
 
 private:

@@ -10,11 +10,11 @@ public:
 	GameEnginePath(const std::string& _Path);
 	~GameEnginePath();
 
-	// delete function
-	GameEnginePath(const GameEnginePath& _Ohter) = delete;
-	GameEnginePath(GameEnginePath&& _Ohter) noexcept = delete;
-	GameEnginePath& operator=(const GameEnginePath& _Other) = delete;
-	GameEnginePath& operator=(GameEnginePath&& _Other) noexcept = delete;
+	// // delete function
+	// GameEnginePath(const GameEnginePath& _Ohter) = delete;
+	// GameEnginePath(GameEnginePath&& _Ohter) noexcept = delete;
+	// GameEnginePath& operator=(const GameEnginePath& _Other) = delete;
+	// GameEnginePath& operator=(GameEnginePath&& _Other) noexcept = delete;
 
 	void GetCurrentPath();
 	void MoveParent();
@@ -28,6 +28,8 @@ public:
 	}
 
 	std::string GetFileName();
+
+	bool IsDirectory();
 protected:
 
 private:

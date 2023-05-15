@@ -44,7 +44,7 @@ private:
 	float4 Pos = float4::ZERO;
 	std::map<int, std::list<GameEngineRenderer*>> Renderers;
 	void PushRenderer(GameEngineRenderer* _Renderer, int _Order);
-	void Render();
+	void Render(float _DeltaTime);
 	void Release();
 };
 

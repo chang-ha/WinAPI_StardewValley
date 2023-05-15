@@ -20,7 +20,7 @@ void GameEngineCamera::PushRenderer(GameEngineRenderer* _Renderer, int _Order)
 	Renderers[_Order].push_back(_Renderer);
 }
 
-void GameEngineCamera::Render()
+void GameEngineCamera::Render(float _DeltaTime)
 {
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
@@ -36,7 +36,7 @@ void GameEngineCamera::Render()
 			{
 				continue;
 			}
-			Renderer->Render(this);
+			Renderer->Render(this, _DeltaTime);
 		}
 	}
 }

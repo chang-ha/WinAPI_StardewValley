@@ -52,31 +52,32 @@ void TitleScreen::Start()
 
 	Logo = CreateActor<PlayOver>();
 	Logo->Renderer->SetTexture("Title_Logo.bmp");
-	Logo->Renderer->SetRenderScale({800, 374}); // X 2
+
+	Logo->Renderer->SetRenderScale(Logo->Renderer->GetTextureScale() * 2); // X 2
 	Logo->SetPos({800, -70});
 	Logo->Renderer->Off();
 
 	New_Button = CreateActor<PlayOver>();
 	New_Button->Renderer->SetTexture("Title_new01.bmp");
-	New_Button->Renderer->SetRenderScale({185, 145}); // X 2.5
+	New_Button->Renderer->SetRenderScale(New_Button->Renderer->GetTextureScale() * 2.5); // X 2.5
 	New_Button->SetPos({375, 330});
 	New_Button->Renderer->Off();
 
 	Load_Button = CreateActor<PlayOver>();
 	Load_Button->Renderer->SetTexture("Title_load01.bmp");
-	Load_Button->Renderer->SetRenderScale({ 185, 145 }); // X 2.5
+	Load_Button->Renderer->SetRenderScale(Load_Button->Renderer->GetTextureScale() * 2.5); // X 2.5
 	Load_Button->SetPos({ 658, 330 }); // 185 + 98
 	Load_Button->Renderer->Off();
 
 	Coop_Button = CreateActor<PlayOver>();
 	Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
-	Coop_Button->Renderer->SetRenderScale({ 185, 145 }); // X 2.5
+	Coop_Button->Renderer->SetRenderScale(Coop_Button->Renderer->GetTextureScale() * 2.5); // X 2.5
 	Coop_Button->SetPos({ 941, 330 });
 	Coop_Button->Renderer->Off();
 
 	Exit_Button = CreateActor<PlayOver>();
 	Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
-	Exit_Button->Renderer->SetRenderScale({ 185, 145 }); // X 2.5
+	Exit_Button->Renderer->SetRenderScale(Exit_Button->Renderer->GetTextureScale()*2.5); // X 2.5
 	Exit_Button->SetPos({1225, 330 });
 	Exit_Button->Renderer->Off();
 }

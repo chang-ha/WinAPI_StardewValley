@@ -1,4 +1,6 @@
 ﻿#include <GameEngineBase/GameEngineDebug.h>
+#include <GameEngineBase/GameEngineString.h>
+
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
@@ -6,6 +8,7 @@
 #include "GameEngineActor.h"
 #include "GameEngineCamera.h"
 #include "ResourcesManager.h"
+#include "GameEngineSprite.h"
 
 GameEngineRenderer::GameEngineRenderer()
 {
@@ -32,6 +35,19 @@ void GameEngineRenderer::SetTexture(const std::string& _Name)
 	}
 }
 
+void GameEngineRenderer::SetSprite(const std::string& _Name, size_t _Index /*= 0*/)
+{
+	Sprite = ResourcesManager::GetInst().FindSprite(_Name);
+	if (nullptr == Sprite)
+	{
+		MsgBoxAssert(_Name + "존재하지 않은 Sprite를 세팅하려고 했습니다.");
+	}
+	const GameEngineSprite::Sprite& SpriteInfo = Sprite->GetSprite(_Index);
+	Texture = SpriteInfo.BaseTexture;
+	SetCopyPos(SpriteInfo.RenderPos);
+	SetCopyScale(SpriteInfo.RenderScale);
+}
+
 void GameEngineRenderer::SetRenderScaleToTexture()
 {
 	RenderScale = Texture->GetScale();
@@ -39,21 +55,116 @@ void GameEngineRenderer::SetRenderScaleToTexture()
 }
 
 
-void GameEngineRenderer::Render(GameEngineCamera* _Camera)
+void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 {
+	if (nullptr != CurAnimation)
+	{
+		CurAnimation->CurInter -= _DeltaTime;
+		if (0.0f >= CurAnimation->CurInter)
+		{
+			++CurAnimation->CurFrame;
+			CurAnimation->CurInter = CurAnimation->Inter;
+			if (CurAnimation->CurFrame > CurAnimation->EndFrame)
+			{
+				if (true == CurAnimation->Loop)
+				{
+					CurAnimation->CurFrame = CurAnimation->StartFrame;
+				}
+				else
+				{
+					--CurAnimation->CurFrame;
+				}
+			}
+		}
+	}
+
 	if (nullptr == Texture)
 	{
 		MsgBoxAssert("Texture를 세팅하지 않은 Renderer입니다.");
 	}
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
-	//if (RenderScale.iX() <= (Master->GetPos() + RenderPos - _Camera->GetPos()).iX())
-	//{
-	//	_Camera->SetPos({});
-	//}
 	BackBuffer->TransCopy(Texture, Master->GetPos() + RenderPos - _Camera->GetPos(), RenderScale, CopyPos, CopyScale);
 }
 
 bool GameEngineRenderer::IsDeath()
 {
 	return true == GameEngineObject::IsDeath() || Master->IsDeath();
+}
+
+
+GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::string& _AnimationName)
+{
+	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+	std::map<std::string, Animation>::iterator FindIter = AllAnimation.find(UpperName);
+	if (AllAnimation.end() == FindIter)
+	{
+		return nullptr;
+	}
+	return &FindIter->second;
+}
+
+
+void GameEngineRenderer::CreateAnimation(const std::string& _AnimationName, const std::string& _SpriteName
+	, size_t _Start /*= -1*/, size_t _End /*= -1*/, float _Inter /*= 0.1f*/, bool _Loop /*= true*/)
+{
+	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+	if (nullptr != FindAnimation(UpperName))
+	{
+		MsgBoxAssert(_AnimationName + "이미 존재하는 애니메이션입니다.");
+		return;
+	}
+
+	GameEngineSprite* Sprite = ResourcesManager::GetInst().FindSprite(_SpriteName);
+	if (nullptr == Sprite)
+	{
+		MsgBoxAssert(_SpriteName + "은 존재하지 않는 스프라이트입니다.");
+		return;
+	}
+
+	GameEngineRenderer::Animation& Animation = AllAnimation[UpperName];
+	Animation.Sprite = Sprite;
+	Animation.Inter = _Inter;
+	if (-1 != _Start)
+	{
+		Animation.StartFrame = _Start;
+	}
+	else
+	{
+		Animation.StartFrame = 0;
+	}
+
+	if (_End != -1)
+	{
+		Animation.EndFrame = _End;
+	}
+	else
+	{
+		Animation.EndFrame = Animation.Sprite->GetSpriteCount() - 1;
+	}
+	Animation.Loop = _Loop;
+}
+
+void GameEngineRenderer::ChangeAnimation(const std::string& _AnimationName, bool _ForceChange /*= false*/)
+{
+	Animation* ChangeAnimation = FindAnimation(_AnimationName);
+	if (nullptr == ChangeAnimation)
+	{
+		MsgBoxAssert(_AnimationName + "존재하지 않는 애니메이션으로 교환하려고 했습니다.");
+		return;
+	}
+
+	if (ChangeAnimation == CurAnimation && false == _ForceChange)
+	{
+		return;
+	}
+	CurAnimation = ChangeAnimation;
+	CurAnimation->CurInter = CurAnimation->Inter;
+	CurAnimation->CurFrame = CurAnimation->StartFrame;
+}
+
+
+// 내가 추가한 것
+float4 GameEngineRenderer::GetTextureScale()
+{
+	return Texture->GetScale();
 }
