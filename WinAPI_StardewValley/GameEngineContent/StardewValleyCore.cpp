@@ -24,7 +24,7 @@ void StardewValleyCore::Start()
 	GameEngineCore::CreateLevel<Farm>("Farm");
 	GameEngineCore::CreateLevel<BusStation>("BusStation");
 	GameEngineCore::CreateLevel<Beach>("Beach");
-	GameEngineCore::ChangeLevel("Beach");
+	GameEngineCore::ChangeLevel("FarmHouse");
 }
 void StardewValleyCore::Update(float _Delta)
 {

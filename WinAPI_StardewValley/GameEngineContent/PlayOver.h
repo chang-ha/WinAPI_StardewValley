@@ -17,6 +17,7 @@ public:
 
 	GameEngineRenderer* Renderer;
 	void Init(const std::string& _FileName);
+
 protected:
 
 private:

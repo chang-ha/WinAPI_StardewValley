@@ -27,7 +27,7 @@ void Player::Start()
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Player_body_01.bmp"))
 	{
 		GameEnginePath FilePath;
-		FilePath.GetCurrentPath();
+		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Player\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_body\\Player_body_01.bmp"));
@@ -42,13 +42,14 @@ void Player::Start()
 	{
 		BodyRenderer = CreateRenderer("Player_body_01.bmp", RenderOrder::Play);
 		BodyRenderer->SetTexture("Player_body_01.bmp");
-		BodyRenderer->SetRenderScale(BodyRenderer->GetTextureScale()*3.7f);
+		BodyRenderer->SetScaleRatio(3.7f);
+		// BodyRenderer->SetRenderScale(BodyRenderer->GetTextureScale()*3.7f);
 	}
 
 	{
 		HairRenderer = CreateRenderer("Player_hair_75.bmp", RenderOrder::Play);
 		HairRenderer->SetTexture("Player_hair_75.bmp");
-		HairRenderer->SetRenderScale(HairRenderer->GetTextureScale() * 3.7f);
+		HairRenderer->SetScaleRatio(3.7f);
 	}
 
 	{

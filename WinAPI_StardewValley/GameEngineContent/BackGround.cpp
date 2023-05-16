@@ -40,7 +40,7 @@ void BackGround::Init(const std::string& _FileName)
 	if (false == ResourcesManager::GetInst().IsLoadTexture(FileName))
 	{
 		GameEnginePath FilePath;
-		FilePath.GetCurrentPath();
+		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\BackGround\\");
 		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));

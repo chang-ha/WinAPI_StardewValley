@@ -50,12 +50,17 @@ public:
 		CopyScale = _Scale;
 	}
 
+	void SetScaleRatio(const float _Ratio)
+	{
+		ScaleRatio = _Ratio;
+	}
+
 	void SetRenderScaleToTexture();
 
 	bool IsDeath() override;
 
-	// 내가 추가한 것
 	float4 GetTextureScale();
+
 protected:
 
 private:
@@ -63,6 +68,7 @@ private:
 	GameEngineActor* Master = nullptr;
 	GameEngineSprite* Sprite = nullptr;
 	bool ScaleCheck = false;
+	float ScaleRatio = 1.0f;
 
 	float4 RenderPos = {};
 	float4 RenderScale = {};

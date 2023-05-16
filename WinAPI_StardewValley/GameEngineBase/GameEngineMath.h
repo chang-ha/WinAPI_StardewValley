@@ -53,7 +53,7 @@ public:
 
 	}
 
-	float4 operator+(const float4& _Other)
+	float4 operator+(const float4& _Other) const
 	{
 		float4 ReturnValue;
 		ReturnValue.X = X + _Other.X;
@@ -62,7 +62,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator-()
+	float4 operator-() const
 	{
 		float4 ReturnValue = *this;
 
@@ -72,7 +72,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator-(const float4& _Other)
+	float4 operator-(const float4& _Other) const
 	{
 		float4 ReturnValue;
 		ReturnValue.X = X - _Other.X;
@@ -81,7 +81,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator*(const float4& _Other)
+	float4 operator*(const float4& _Other) const
 	{
 		float4 ReturnValue;
 		ReturnValue.X = X * _Other.X;
@@ -90,7 +90,7 @@ public:
 		return ReturnValue;
 	}
 
-	float4 operator*(const float _Value)
+	float4 operator*(const float _Value) const
 	{
 		float4 ReturnValue;
 		ReturnValue.X = X * _Value;

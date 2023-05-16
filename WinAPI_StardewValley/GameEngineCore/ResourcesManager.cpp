@@ -70,7 +70,7 @@ GameEngineSprite* ResourcesManager::FindSprite(const std::string& _SpriteName)
 {
 	std::string UpperName = GameEngineString::ToUpperReturn(_SpriteName);
 
-	std::map<std::string, GameEngineSprite*>::iterator FindIter = AllSprite.begin();
+	std::map<std::string, GameEngineSprite*>::iterator FindIter = AllSprite.find(UpperName);
 
 	if (AllSprite.end() == FindIter)
 	{
@@ -104,12 +104,18 @@ GameEngineSprite* ResourcesManager::CreateSpriteSheet(const std::string& _Sprite
 
 GameEngineSprite* ResourcesManager::CreateSpriteFolder(const std::string& _SpriteName, const std::string& _Path)
 {
-	GameEngineDirectory Directory = _Path;
+	std::string UpperName = GameEngineString::ToUpperReturn(_SpriteName);
 
-	//for (size_t i = 0; i < length; i++)
-	//{
-		// LoadTexture();
-	//}
+	if (nullptr != FindSprite(UpperName))
+	{
+		MsgBoxAssert(UpperName + "이미 로드한 스프라이트 입니다.");
+	}
 
-	return nullptr;
+	GameEngineSprite* NewSprite = new GameEngineSprite();
+
+	NewSprite->CreateSpriteFolder(_Path);
+
+	AllSprite.insert(std::make_pair(UpperName, NewSprite));
+
+	return NewSprite;
 }

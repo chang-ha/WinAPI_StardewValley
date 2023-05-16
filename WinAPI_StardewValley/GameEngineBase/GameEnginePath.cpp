@@ -17,7 +17,7 @@ GameEnginePath::~GameEnginePath()
 
 }
 
-void GameEnginePath::GetCurrentPath()
+void GameEnginePath::SetCurrentPath()
 {
 	Path = std::filesystem::current_path();
 }

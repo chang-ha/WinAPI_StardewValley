@@ -50,7 +50,10 @@ void GameEngineRenderer::SetSprite(const std::string& _Name, size_t _Index /*= 0
 
 void GameEngineRenderer::SetRenderScaleToTexture()
 {
-	RenderScale = Texture->GetScale();
+	if (nullptr != Texture)
+	{
+		RenderScale = Texture->GetScale();
+	}
 	ScaleCheck = false;
 }
 
@@ -59,11 +62,13 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 {
 	if (nullptr != CurAnimation)
 	{
+
 		CurAnimation->CurInter -= _DeltaTime;
 		if (0.0f >= CurAnimation->CurInter)
 		{
 			++CurAnimation->CurFrame;
 			CurAnimation->CurInter = CurAnimation->Inter;
+
 			if (CurAnimation->CurFrame > CurAnimation->EndFrame)
 			{
 				if (true == CurAnimation->Loop)
@@ -75,15 +80,29 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 					--CurAnimation->CurFrame;
 				}
 			}
+
+		}
+
+		Sprite = CurAnimation->Sprite;
+		const GameEngineSprite::Sprite& SpriteInfo = Sprite->GetSprite(CurAnimation->CurFrame);
+		Texture = SpriteInfo.BaseTexture;
+		SetCopyPos(SpriteInfo.RenderPos);
+		SetCopyScale(SpriteInfo.RenderScale);
+
+		if (false == ScaleCheck)
+		{
+			SetRenderScale(SpriteInfo.RenderScale * ScaleRatio);
 		}
 	}
 
 	if (nullptr == Texture)
 	{
-		MsgBoxAssert("Texture를 세팅하지 않은 Renderer입니다.");
+		MsgBoxAssert("이미지를 세팅하지 않은 랜더러 입니다.");
 	}
+
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
-	BackBuffer->TransCopy(Texture, Master->GetPos() + RenderPos - _Camera->GetPos(), RenderScale, CopyPos, CopyScale);
+
+	BackBuffer->TransCopy(Texture, Master->GetPos() + RenderPos - _Camera->GetPos(), RenderScale * ScaleRatio, CopyPos, CopyScale);
 }
 
 bool GameEngineRenderer::IsDeath()
@@ -162,8 +181,6 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _AnimationName, bool
 	CurAnimation->CurFrame = CurAnimation->StartFrame;
 }
 
-
-// 내가 추가한 것
 float4 GameEngineRenderer::GetTextureScale()
 {
 	return Texture->GetScale();

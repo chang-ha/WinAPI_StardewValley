@@ -27,6 +27,8 @@ public:
 
 	void CreateSpriteSheet(GameEngineWindowTexture* _Texture, int _XCount, int _YCount);
 
+	void CreateSpriteFolder(const std::string& _Path);
+
 	const Sprite& GetSprite(size_t _Index);
 
 	size_t GetSpriteCount()
@@ -34,7 +36,7 @@ public:
 		return AllSprite.size();
 	}
 protected:
-
+	
 private:
 	std::vector<Sprite> AllSprite;
 };

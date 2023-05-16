@@ -28,7 +28,7 @@ void TitleScreen::Start()
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Title_background.bmp"))
 	{
 		GameEnginePath FilePath;
-		FilePath.GetCurrentPath();
+		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Title\\");
 		// ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_background.bmp"));
