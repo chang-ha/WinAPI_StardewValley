@@ -45,8 +45,8 @@ void FarmHouse::Start()
 	Back->Init("farmhouse.bmp");
 	Back->Renderer->SetTexture("farmhouse.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Farmer = CreateActor<Player>();
-	Farmer->SetPos({1040,630});
+	// Farmer = CreateActor<Player>();
+	// Farmer->SetPos({1040,630});
 
 	PlayOver* Over = CreateActor<PlayOver>();
 	Over->Init("farmhouse_bed.bmp");

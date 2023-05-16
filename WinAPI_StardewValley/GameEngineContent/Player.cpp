@@ -30,53 +30,58 @@ void Player::Start()
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Player\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_body\\Player_body_01.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_hair\\Player_hair_75.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_arm\\Player_arm_01.bmp"));
+		ResourcesManager::GetInst().CreateSpriteFolder("Player_body", FilePath.PlusFilePath("Player_body"));
+		ResourcesManager::GetInst().CreateSpriteFolder("Player_hair", FilePath.PlusFilePath("Player_hair"));
+		ResourcesManager::GetInst().CreateSpriteFolder("Player_arm", FilePath.PlusFilePath("Player_arm"));
+		ResourcesManager::GetInst().CreateSpriteFolder("Player_shirt", FilePath.PlusFilePath("Player_shirt"));
+		ResourcesManager::GetInst().CreateSpriteFolder("Player_pants", FilePath.PlusFilePath("Player_pants"));
+		ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
 
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_shirt\\shirts.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_pants\\pants.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_hat\\Player_hat_05.bmp"));
+		BodyRenderer = CreateRenderer(RenderOrder::Play);
+		// HairRenderer = CreateRenderer(RenderOrder::Play);
+		ArmRenderer = CreateRenderer(RenderOrder::Play);
+		// ShirtRenderer = CreateRenderer(RenderOrder::Equip);
+		// PantsRenderer = CreateRenderer(RenderOrder::Equip);
+		// HatRenderer = CreateRenderer(RenderOrder::Equip);
 	}
 
 	{
-		BodyRenderer = CreateRenderer("Player_body_01.bmp", RenderOrder::Play);
-		BodyRenderer->SetTexture("Player_body_01.bmp");
+		BodyRenderer->CreateAnimation("Idle", "Player_body", 0, 2);
 		BodyRenderer->SetScaleRatio(3.7f);
-		// BodyRenderer->SetRenderScale(BodyRenderer->GetTextureScale()*3.7f);
+		BodyRenderer->ChangeAnimation("Idle");
 	}
 
-	{
-		HairRenderer = CreateRenderer("Player_hair_75.bmp", RenderOrder::Play);
-		HairRenderer->SetTexture("Player_hair_75.bmp");
-		HairRenderer->SetScaleRatio(3.7f);
-	}
+	//{
+	//	HairRenderer = CreateRenderer("Player_hair_75.bmp", RenderOrder::Play);
+	//	HairRenderer->SetTexture("Player_hair_75.bmp");
+	//	HairRenderer->SetScaleRatio(3.7f);
+	//}
 
 	{
-		ArmRenderer = CreateRenderer("Player_arm_01.bmp", RenderOrder::Play);
-		ArmRenderer->SetTexture("Player_arm_01.bmp");
-		ArmRenderer->SetRenderScale(ArmRenderer->GetTextureScale() * 3.7f);
+		ArmRenderer->CreateAnimation("Idle", "Player_arm", 0, 2);
+		ArmRenderer->SetScaleRatio(3.7f);
+		ArmRenderer->ChangeAnimation("Idle");
 	}
 
-	{
-		ShirtRenderer = CreateRenderer("shirts.bmp", RenderOrder::Equip);
-		ShirtRenderer->SetTexture("shirts.bmp");
-		ShirtRenderer->SetRenderPos({ 0,8 });
-		ShirtRenderer->SetRenderScale(ShirtRenderer->GetTextureScale() * 3.7f);
-	}
+	//{
+	//	ShirtRenderer = CreateRenderer("shirts.bmp", RenderOrder::Equip);
+	//	ShirtRenderer->SetTexture("shirts.bmp");
+	//	ShirtRenderer->SetRenderPos({ 0,8 });
+	//	ShirtRenderer->SetRenderScale(ShirtRenderer->GetTextureScale() * 3.7f);
+	//}
 
-	{
-		PantsRenderer = CreateRenderer("pants.bmp", RenderOrder::Equip);
-		PantsRenderer->SetTexture("pants.bmp");
-		PantsRenderer->SetRenderScale(PantsRenderer->GetTextureScale() * 3.7f);
-	}
+	//{
+	//	PantsRenderer = CreateRenderer("pants.bmp", RenderOrder::Equip);
+	//	PantsRenderer->SetTexture("pants.bmp");
+	//	PantsRenderer->SetRenderScale(PantsRenderer->GetTextureScale() * 3.7f);
+	//}
 
-	{
-		HatRenderer = CreateRenderer("Player_hat_05.bmp", RenderOrder::Equip);
-		HatRenderer->SetTexture("Player_hat_05.bmp");
-		HatRenderer->SetRenderPos({0,-32});
-		HatRenderer->SetRenderScale(HatRenderer->GetTextureScale() * 3.7f);
-	}
+	//{
+	//	HatRenderer = CreateRenderer("Player_hat_05.bmp", RenderOrder::Equip);
+	//	HatRenderer->SetTexture("Player_hat_05.bmp");
+	//	HatRenderer->SetRenderPos({0,-32});
+	//	HatRenderer->SetRenderScale(HatRenderer->GetTextureScale() * 3.7f);
+	//}
 
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	SetPos(WinScale.Half());
