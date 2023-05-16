@@ -49,8 +49,8 @@ void Farm::Start()
 	Back->Renderer->SetTexture("Farm.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 	Back->Renderer->SetRenderScale({5032, 4144});
-	// Farmer = CreateActor<Player>();
-	// Farmer->SetPos({2350, -550});
+	Farmer = CreateActor<Player>();
+	Farmer->SetPos({2350, -550});
 }
 void Farm::Update(float _Delta)
 {

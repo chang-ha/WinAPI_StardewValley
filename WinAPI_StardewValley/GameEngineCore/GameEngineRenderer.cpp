@@ -62,7 +62,6 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 {
 	if (nullptr != CurAnimation)
 	{
-
 		CurAnimation->CurInter -= _DeltaTime;
 		if (0.0f >= CurAnimation->CurInter)
 		{
