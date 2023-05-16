@@ -6,7 +6,6 @@
 class BackGround : public GameEngineActor
 {
 public:
-	static BackGround MainBackGround;
 
 	// constructer destructer
 	BackGround();

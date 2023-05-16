@@ -114,6 +114,11 @@ void Player::Update(float _Delta)
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
 	float4 BackScale;
+
+	if (true)
+	{
+		GetLevel()->GetMainCamera()->AddPos(MovePos);
+	}
 	
 }
 void Player::Render()
