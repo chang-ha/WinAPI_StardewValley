@@ -106,10 +106,15 @@ void Player::Update(float _Delta)
 	{
 		MovePos = { 0.0f, Speed * _Delta };
 	}
+
 	// MousePos
 	// float4 Pos = GameEngineWindow::MainWindow.GetMousePos();
 	AddPos(MovePos);
-	GetLevel()->GetMainCamera()->AddPos(MovePos);
+
+	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
+	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
+	float4 BackScale;
+	
 }
 void Player::Render()
 {

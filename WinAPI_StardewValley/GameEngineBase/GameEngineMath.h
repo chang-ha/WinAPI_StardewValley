@@ -131,6 +131,13 @@ public:
 		return *this;
 	}
 
+	bool operator==(const float4 _Value) const
+	{
+		return X == _Value.X &&
+			Y == _Value.Y &&
+			Z == _Value.Z;
+	}
+
 protected:
 
 private:

@@ -26,6 +26,7 @@ private:
 	void Render() override;
 	void Release() override;
 	BackGround* Back = nullptr;
+
 	PlayOver* Logo = nullptr;
 	PlayOver* New_Button = nullptr;
 	PlayOver* Load_Button = nullptr;

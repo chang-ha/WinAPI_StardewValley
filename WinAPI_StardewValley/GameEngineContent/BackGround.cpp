@@ -8,6 +8,7 @@
 
 #include "BackGround.h"
 #include "ContentsEnum.h"
+
 BackGround::BackGround()
 {
 }

@@ -1,8 +1,10 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+class GameEngineLevel;
 class Player : public GameEngineActor
 {
+	friend GameEngineLevel;
 public:
 	// constructer destructer
 	Player();

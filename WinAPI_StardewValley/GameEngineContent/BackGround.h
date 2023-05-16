@@ -6,6 +6,8 @@
 class BackGround : public GameEngineActor
 {
 public:
+	static BackGround MainBackGround;
+
 	// constructer destructer
 	BackGround();
 	~BackGround();
@@ -18,6 +20,11 @@ public:
 
 	void Init(const std::string& _FileName);
 	GameEngineRenderer* Renderer;
+
+	float4 GetScale()
+	{
+		return Scale;
+	}
 protected:
 
 private:
