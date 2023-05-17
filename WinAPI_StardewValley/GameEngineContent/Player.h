@@ -12,10 +12,10 @@ enum class PlayerState
 
 enum class PlayerDir
 {
-	Left,
-	Right,
 	Up,
 	Down,
+	Right,
+	Left,
 	Null, // StartValue
 };
 
@@ -43,29 +43,29 @@ public:
 	GameEngineRenderer* HatRenderer = nullptr;
 
 protected:
+	PlayerState State = PlayerState::Null;
+	PlayerDir Dir = PlayerDir::Null;
+	std::string CurState = "";
+
 	void StateUpdate(float _DeltaTime);
 
 	void IdleStart();
 	void RunStart();
 	void UseToolStart();
 
-	// 클래스로 만들어도 되고.
 	void IdleUpdate(float _DeltaTime);
 	void RunUpdate(float _DeltaTime);
 	void UseToolUpdate(float _DeltaTime);
 
 	void ChangeState(PlayerState State);
 
-	PlayerState State = PlayerState::Null;
-	PlayerDir Dir = PlayerDir::Right;
+	void DirCheck();
+	void ChangeAnimationState(const std::string& _AnimationName);
 
 private:
 	float Speed = 400.0f;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
-
-	void DirCheck();
-	void ChangeAnimationState(const std::string& _AnimationName);
 };
 
