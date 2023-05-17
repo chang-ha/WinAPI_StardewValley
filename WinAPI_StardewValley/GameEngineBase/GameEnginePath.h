@@ -30,9 +30,14 @@ public:
 	std::string GetFileName();
 
 	bool IsDirectory();
+
 protected:
 	std::filesystem::path Path;
 
 private:
+
+public:
+	// 학생 추가 코드
+	static std::string GetParentString(const std::string& _ChildPath);
 };
 

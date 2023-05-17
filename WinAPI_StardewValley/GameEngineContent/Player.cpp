@@ -36,15 +36,13 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Player_shirt", FilePath.PlusFilePath("Player_shirt\\Player_shirts.bmp"),4,1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Player_pants", FilePath.PlusFilePath("Player_pants\\Player_pants.bmp"), 4, 1);
 		ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_hair\\Player_hair_75.bmp"));
-
 	}
 		BodyRenderer = CreateRenderer(RenderOrder::Play);
 		HairRenderer = CreateRenderer(RenderOrder::Play);
 		ArmRenderer = CreateRenderer(RenderOrder::Play);
 		ShirtRenderer = CreateRenderer(RenderOrder::Equip);
 		PantsRenderer = CreateRenderer(RenderOrder::Equip);
-		// HatRenderer = CreateRenderer(RenderOrder::Equip);s
+		// HatRenderer = CreateRenderer(RenderOrder::Equip);
 
 	{
 		BodyRenderer->CreateAnimation("Idle", "Player_body", 0, 0);
@@ -137,4 +135,59 @@ void Player::ChangeState(PlayerState _State)
 	}
 
 	State = _State;
+}
+
+void Player::ChangeAnimationState(const std::string& _AnimationName)
+{
+	switch (Dir)
+	{
+	case PlayerDir::Left:
+		break;
+	case PlayerDir::Right:
+		break;
+	case PlayerDir::Up:
+		break;
+	case PlayerDir::Down:
+		break;
+	case PlayerDir::Null:
+		break;
+	default:
+		break;
+	}
+}
+
+
+void Player::DirCheck()
+{
+	PlayerDir CheckDir = PlayerDir::Null;
+
+	if (true == GameEngineInput::IsPress('A'))
+	{
+		CheckDir = PlayerDir::Left;
+	}
+
+	if (true == GameEngineInput::IsPress('D'))
+	{
+		CheckDir = PlayerDir::Right;
+	}
+
+	if (true == GameEngineInput::IsPress('W'))
+	{
+		CheckDir = PlayerDir::Up;
+	}
+
+	if (true == GameEngineInput::IsPress('S'))
+	{
+		CheckDir = PlayerDir::Down;
+	}
+
+	if (PlayerDir::Null != CheckDir && CheckDir != Dir)
+	{
+		//ChangeAnimationState(CurState);
+	}
+
+	if (PlayerDir::Null != CheckDir)
+	{
+		Dir = CheckDir;
+	}
 }

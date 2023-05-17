@@ -34,9 +34,13 @@ void TitleScreen::Start()
 		// ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_background.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_Logo.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_new01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_new02.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_load01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_load02.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_coop01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_coop02.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_exit01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_exit02.bmp"));
 	}
 
 	Back = CreateActor<BackGround>();
@@ -117,7 +121,8 @@ void TitleScreen::Release()
 
 void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	}
+
+}
 void TitleScreen::LevelEnd(GameEngineLevel* _NextLevel)
 {
 }

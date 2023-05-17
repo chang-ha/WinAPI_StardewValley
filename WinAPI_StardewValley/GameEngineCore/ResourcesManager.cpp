@@ -1,6 +1,7 @@
 ﻿#include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineString.h>
 #include <GameEngineBase/GameEngineDirectory.h>
+// #include <GameEngineBase/GameEnginePath.h>
 
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 
@@ -118,4 +119,36 @@ GameEngineSprite* ResourcesManager::CreateSpriteFolder(const std::string& _Sprit
 	AllSprite.insert(std::make_pair(UpperName, NewSprite));
 
 	return NewSprite;
+}
+
+// 학생 추가 코드 
+void ResourcesManager::TextureFileLoad(const std::string& _FileName, const std::string& _Path)
+{
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+
+		std::string ParentPath = GameEnginePath::GetParentString(_Path);
+		FilePath.MoveParentToExistsChild(ParentPath);
+		FilePath.MoveChild(_Path + _FileName);
+		TextureLoad(FilePath.GetStringPath());
+	}
+}
+
+void ResourcesManager::SpriteFileLoad(const std::string& _FileName, const std::string& _Path, int _XCount, int _YCount)
+{
+	if (true == ResourcesManager::GetInst().IsLoadTexture(_FileName))
+	{
+		return;
+	}
+
+	GameEnginePath FilePath;
+	FilePath.SetCurrentPath();
+
+	std::string ParentPath = GameEnginePath::GetParentString(_Path);
+	FilePath.MoveParentToExistsChild(ParentPath);
+	FilePath.MoveChild(_Path);
+
+	ResourcesManager::GetInst().CreateSpriteSheet(FilePath.PlusFilePath(_FileName), _XCount, _YCount);
 }

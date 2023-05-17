@@ -50,9 +50,9 @@ void Beach::Start()
 	Back->Init("Beach.bmp");
 	Back->Renderer->SetTexture("Beach.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale({ 4500, 2841.5 }); // *3.7
+	Back->Renderer->SetRenderScale(Back->Renderer->GetTextureScale() * 3.7f); // *3.7
 	Farmer = CreateActor<Player>();
-	Farmer->SetPos({ 900, -850 });
+	Farmer->SetPos({ 85, -775 });
 }
 void Beach::Update(float _Delta)
 {

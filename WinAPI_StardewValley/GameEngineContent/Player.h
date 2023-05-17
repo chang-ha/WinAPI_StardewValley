@@ -7,7 +7,16 @@ enum class PlayerState
 	Idle,
 	Run,
 	UseTool,
-	Max, // StartValue
+	Null, // StartValue
+};
+
+enum class PlayerDir
+{
+	Left,
+	Right,
+	Up,
+	Down,
+	Null, // StartValue
 };
 
 class GameEngineLevel;
@@ -47,12 +56,16 @@ protected:
 
 	void ChangeState(PlayerState State);
 
-	PlayerState State = PlayerState::Max;
+	PlayerState State = PlayerState::Null;
+	PlayerDir Dir = PlayerDir::Right;
 
 private:
 	float Speed = 400.0f;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;
+
+	void DirCheck();
+	void ChangeAnimationState(const std::string& _AnimationName);
 };
 
