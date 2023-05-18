@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
 
+class BackGround;
 class Player;
 class FarmHouse : public GameEngineLevel
 {
@@ -20,11 +21,12 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	BackGround* Back = nullptr;
+	Player* Farmer = nullptr;
+
 	void Start() override;
 	void Update(float _Delta) override;
 	void Render() override;
 	void Release() override;
-
-	Player* Farmer = nullptr;
 };
 

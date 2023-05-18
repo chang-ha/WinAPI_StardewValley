@@ -12,15 +12,22 @@
 #include "Player.h"
 #include "ContentsEnum.h"
 
+Player* Player::MainPlayer = nullptr;
+
 Player::Player()
 {
-
+	MainPlayer = this;
 }
 
 Player::~Player()
 {
 
 }
+
+void Player::LevelStart()
+{
+}
+
 
 void Player::Start()
 {

@@ -23,7 +23,10 @@ class GameEngineLevel;
 class Player : public GameEngineActor
 {
 	friend GameEngineLevel;
+
 public:
+	static Player* MainPlayer;
+
 	// constructer destructer
 	Player();
 	~Player();
@@ -64,6 +67,7 @@ protected:
 
 private:
 	float Speed = 400.0f;
+	void LevelStart() override;
 
 	void Start() override;
 	void Update(float _DeltaTime) override;

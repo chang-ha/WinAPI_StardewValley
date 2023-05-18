@@ -30,28 +30,32 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 
+	Farmer->SetPos({ 1040,630 });
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	GetMainCamera()->SetPos({});
 }
 
 void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 {
-
 }
 
 void FarmHouse::Start()
 {
-	BackGround* Back = CreateActor<BackGround>();
-	Back->Init("farmhouse.bmp");
-	Back->Renderer->SetTexture("farmhouse.bmp");
-	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Farmer = CreateActor<Player>();
-	Farmer->SetPos({1040,630});
+	if (nullptr == Back)
+	{
+		Back = CreateActor<BackGround>();
+		Back->Init("farmhouse.bmp");
+		Back->Renderer->SetTexture("farmhouse.bmp");
+		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
+		
+		CreateActor<Player>();
+		Farmer = Player::MainPlayer;
 
-	PlayOver* Over = CreateActor<PlayOver>();
-	Over->Init("farmhouse_bed.bmp");
-	Over->Renderer->SetTexture("farmhouse_bed.bmp");
-	Over->SetPos({1056.5,678});
+		PlayOver* Over = CreateActor<PlayOver>();
+		Over->Init("farmhouse_bed.bmp");
+		Over->Renderer->SetTexture("farmhouse_bed.bmp");
+		Over->SetPos({ 1056.5,678 });
+	}
 }
 void FarmHouse::Update(float _Delta)
 {

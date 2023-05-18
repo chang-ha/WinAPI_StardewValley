@@ -1,9 +1,11 @@
 #pragma once
 
 class GameEngineLevel;
+class GameEngineCore;
 class GameEngineObject
 {
 	friend GameEngineLevel;
+	friend GameEngineCore;
 public:
 	// constructer destructer
 	GameEngineObject();

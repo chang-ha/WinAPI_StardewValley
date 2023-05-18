@@ -41,6 +41,7 @@ public:
 	{
 		return MainCamera;
 	}
+
 protected:
 	virtual void LevelStart(GameEngineLevel* _PrevLevel) {}
 	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
@@ -55,5 +56,7 @@ private:
 	void ActorRender(float _DeltaTime);
 	void ActorInit(GameEngineActor* _Actor, int _Order);
 	void ActorRelease();
+	void ActorLevelEnd();
+	void ActorLevelStart();
 };
 
