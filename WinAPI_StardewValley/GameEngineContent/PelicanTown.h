@@ -1,10 +1,10 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
 
+class BackGround;
 class Player;
 class PelicanTown : public GameEngineLevel
 {
-	friend Player;
 public:
 	// constructer destructer
 	PelicanTown();
