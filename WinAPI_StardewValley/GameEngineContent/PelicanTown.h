@@ -4,6 +4,7 @@
 class Player;
 class PelicanTown : public GameEngineLevel
 {
+	friend Player;
 public:
 	// constructer destructer
 	PelicanTown();
@@ -20,8 +21,8 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
-
 	void Start() override;
 	void Update(float _Delta) override;
 	void Render() override;
