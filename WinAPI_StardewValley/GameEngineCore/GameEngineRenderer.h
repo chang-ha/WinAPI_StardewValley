@@ -60,8 +60,6 @@ public:
 
 	bool IsDeath() override;
 
-	float4 GetTextureScale();
-
 protected:
 
 private:

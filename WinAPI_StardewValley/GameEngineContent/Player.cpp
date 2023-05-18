@@ -37,61 +37,148 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Body", FilePath.PlusFilePath("Player_body\\Right_Player_Body.bmp"), 7, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Body", FilePath.PlusFilePath("Player_body\\Left_Player_Body.bmp"), 7, 1);
 
-		// Arm Animation
-		ResourcesManager::GetInst().CreateSpriteSheet("Player_arm", FilePath.PlusFilePath("Player_arm\\Player_arm.bmp"), 9, 1);
+		// Pants Animation
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants", FilePath.PlusFilePath("Player_pants\\Up_Player_pants.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Pants", FilePath.PlusFilePath("Player_pants\\Down_Player_pants.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Pants", FilePath.PlusFilePath("Player_pants\\Right_Player_pants.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Pants", FilePath.PlusFilePath("Player_pants\\Left_Player_pants.bmp"), 7, 1);
 
-		ResourcesManager::GetInst().CreateSpriteSheet("Player_hair", FilePath.PlusFilePath("Player_hair\\Player_hair.bmp"), 9, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet("Player_shirt", FilePath.PlusFilePath("Player_shirt\\Player_shirts.bmp"),9,1);
-		ResourcesManager::GetInst().CreateSpriteSheet("Player_pants", FilePath.PlusFilePath("Player_pants\\Player_pants.bmp"), 9, 1);
+		// Shirt Animation
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Down_Player_shirt.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Right_Player_shirt.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Left_Player_shirt.bmp"), 7, 1);
+
+		// Arm Animation
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm", FilePath.PlusFilePath("Player_arm\\Up_Player_arm.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm", FilePath.PlusFilePath("Player_arm\\Down_Player_arm.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_arm", FilePath.PlusFilePath("Player_arm\\Right_Player_arm.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm", FilePath.PlusFilePath("Player_arm\\Left_Player_arm.bmp"), 7, 1);
+
+		// ResourcesManager::GetInst().CreateSpriteSheet("Player_hair", FilePath.PlusFilePath("Player_hair\\Player_hair.bmp"), 9, 1);
 		// ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
 	}
 
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
+	BodyRenderer->SetScaleRatio(3.7f);
+
+	PantsRenderer = CreateRenderer(RenderOrder::pants);
+	PantsRenderer->SetScaleRatio(3.7f);
+
+	ShirtRenderer = CreateRenderer(RenderOrder::shirt);
+	ShirtRenderer->SetScaleRatio(3.7f);
+	
+	ArmRenderer = CreateRenderer(RenderOrder::arm);
+	ArmRenderer->SetScaleRatio(3.7f);
+
 	// HairRenderer = CreateRenderer(RenderOrder::hair);
-	// ArmRenderer = CreateRenderer(RenderOrder::arm);
-	// ShirtRenderer = CreateRenderer(RenderOrder::shirt);
-	// PantsRenderer = CreateRenderer(RenderOrder::pants);
 	// HatRenderer = CreateRenderer(RenderOrder::Equip);
 
-	//Body
+	// Body
 	{
 		// Up
 		{
 			BodyRenderer->CreateAnimation("Up_Idle", "Up_Player_Body", 0, 0);
-			BodyRenderer->CreateAnimation("Up_Run", "Up_Player_Body", 1, 8, 0.1f);
-			BodyRenderer->SetScaleRatio(3.7f);
+			BodyRenderer->CreateAnimation("Up_Run", "Up_Player_Body", 1, 8, 0.08f);
 		}
 		// Down
 		{
 			BodyRenderer->CreateAnimation("Down_Idle", "Down_Player_Body", 0, 0);
-			BodyRenderer->CreateAnimation("Down_Run", "Down_Player_Body", 1, 8, 0.1f);
-			BodyRenderer->SetScaleRatio(3.7f);
+			BodyRenderer->CreateAnimation("Down_Run", "Down_Player_Body", 1, 8, 0.08f);
 		}
 		// Right
 		{
 			BodyRenderer->CreateAnimation("Right_Idle", "Right_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Right_Run", "Right_Player_Body", 1, 6, 0.1f);
-			BodyRenderer->SetScaleRatio(3.7f);
-			BodyRenderer->ChangeAnimation("Right_Idle");
 		}
 		// Left
 		{
 			BodyRenderer->CreateAnimation("Left_Idle", "Left_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Left_Run", "Left_Player_Body", 1, 6, 0.1f);
-			BodyRenderer->SetScaleRatio(3.7f);
 		}
 	}
 
-	//Arm
+	// Pants
 	{
 		//Up
-		//{
-		//	ArmRenderer->CreateAnimation("Idle", "Player_arm", 0, 0);
-		//	ArmRenderer->CreateAnimation("Run", "Player_arm", 1, 8, 0.1f);
-		//	ArmRenderer->CreateAnimation("UseTool", "Player_arm", 4, 8, 0.08f);
-		//	ArmRenderer->SetScaleRatio(3.7f);
-		//	ArmRenderer->ChangeAnimation("Idle");
-		//}
+		{
+			PantsRenderer->CreateAnimation("Up_Idle", "Up_Player_Pants", 0, 0);
+			PantsRenderer->CreateAnimation("Up_Run", "Up_Player_Pants", 1, 8, 0.08f);
+		}
+
+		//Down
+		{
+			PantsRenderer->CreateAnimation("Down_Idle", "Down_Player_Pants", 0, 0);
+			PantsRenderer->CreateAnimation("Down_Run", "Down_Player_Pants", 1, 8, 0.08f);
+		}
+
+		//Right
+		{
+			PantsRenderer->CreateAnimation("Right_Idle", "Right_Player_Pants", 0, 0);
+			PantsRenderer->CreateAnimation("Right_Run", "Right_Player_Pants", 1, 6, 0.1f);
+		}
+
+		//Left
+		{
+			PantsRenderer->CreateAnimation("Left_Idle", "Left_Player_Pants", 0, 0);
+			PantsRenderer->CreateAnimation("Left_Run", "Left_Player_Pants", 1, 6, 0.1f);
+		}
+	}
+
+	// Shirt
+	{
+		// ShirtRenderer->SetRenderPos({0, 6});
+		//Up
+		{
+			ShirtRenderer->CreateAnimation("Up_Idle", "Up_Player_Shirt", 0, 0);
+			ShirtRenderer->CreateAnimation("Up_Run", "Up_Player_Shirt", 1, 8, 0.08f);
+		}
+
+		//Down
+		{
+			ShirtRenderer->CreateAnimation("Down_Idle", "Down_Player_Shirt", 0, 0);
+			ShirtRenderer->CreateAnimation("Down_Run", "Down_Player_Shirt", 1, 8, 0.08f);
+		}
+
+		//Right
+		{
+			ShirtRenderer->CreateAnimation("Right_Idle", "Right_Player_Shirt", 0, 0);
+			ShirtRenderer->CreateAnimation("Right_Run", "Right_Player_Shirt", 1, 6, 0.1f);
+		}
+
+		//Left
+		{
+			ShirtRenderer->CreateAnimation("Left_Idle", "Left_Player_Shirt", 0, 0);
+			ShirtRenderer->CreateAnimation("Left_Run", "Left_Player_Shirt", 1, 6, 0.1f);
+		}
+	}
+	
+	// Arm
+	{
+		// Up
+		{
+			ArmRenderer->CreateAnimation("Up_Idle", "Up_Player_arm", 0, 0);
+			ArmRenderer->CreateAnimation("Up_Run", "Up_Player_arm", 1, 8, 0.08f);
+		}
+
+		// Down
+		{
+			ArmRenderer->CreateAnimation("Down_Idle", "Down_Player_arm", 0, 0);
+			ArmRenderer->CreateAnimation("Down_Run", "Down_Player_arm", 1, 8, 0.08f);
+		}
+
+		// Right
+		{
+			ArmRenderer->CreateAnimation("Right_Idle", "Right_Player_arm", 0, 0);
+			ArmRenderer->CreateAnimation("Right_Run", "Right_Player_arm", 1, 6, 0.1f);
+		}
+
+		// Left
+		{
+			ArmRenderer->CreateAnimation("Left_Idle", "Left_Player_arm", 0, 0);
+			ArmRenderer->CreateAnimation("Left_Run", "Left_Player_arm", 1, 6, 0.1f);
+		}
+		//ArmRenderer->CreateAnimation("UseTool", "Player_arm", 4, 8, 0.08f);
 	}
 
 	//{
@@ -102,22 +189,6 @@ void Player::Start()
 	//	HairRenderer->ChangeAnimation("Idle");
 	//}
 
-
-	//{
-	//	ShirtRenderer->CreateAnimation("Idle", "Player_shirt", 0, 0);
-	//	ShirtRenderer->CreateAnimation("Run", "Player_shirt", 1, 8, 0.1f);
-	//	ShirtRenderer->SetRenderPos({ 0,7 });
-	//	ShirtRenderer->SetScaleRatio(3.7f);
-	//	ShirtRenderer->ChangeAnimation("Idle");
-	//}
-
-	//{
-	//	PantsRenderer->CreateAnimation("Idle", "Player_pants", 0, 0);
-	//	PantsRenderer->CreateAnimation("Run", "Player_pants", 1, 8, 0.1f);
-	//	PantsRenderer->SetScaleRatio(3.7f);
-	//	PantsRenderer->ChangeAnimation("Idle");
-	//}
-
 	//{
 	//	HatRenderer = CreateRenderer("Player_hat_05.bmp", RenderOrder::Equip);
 	//	HatRenderer->SetTexture("Player_hat_05.bmp");
@@ -125,9 +196,8 @@ void Player::Start()
 	//	HatRenderer->SetRenderScale(HatRenderer->GetTextureScale() * 3.7f);
 	//}
 
-	Dir = PlayerDir::Down;
+	Dir = PlayerDir::Right;
 	ChangeState(PlayerState::Idle);
-	// ChangeAnimationState("Idle");
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	SetPos(WinScale.Half());
 }
@@ -180,22 +250,22 @@ void Player::DirCheck()
 	PlayerDir CheckDir = PlayerDir::Null;
 	bool ChangeDir = false;
 
-	if (true == GameEngineInput::IsDown('A'))
+	if (true == GameEngineInput::IsPress('A'))
 	{
 		CheckDir = PlayerDir::Left;
 	}
 
-	if (true == GameEngineInput::IsDown('D'))
+	if (true == GameEngineInput::IsPress('D'))
 	{
 		CheckDir = PlayerDir::Right;
 	}
-
-	if (true == GameEngineInput::IsDown('W'))
+	
+	if (true == GameEngineInput::IsPress('W'))
 	{
 		CheckDir = PlayerDir::Up;
 	}
-
-	if (true == GameEngineInput::IsDown('S'))
+	
+	if (true == GameEngineInput::IsPress('S'))
 	{
 		CheckDir = PlayerDir::Down;
 	}
@@ -214,14 +284,12 @@ void Player::DirCheck()
 
 void Player::ChangeAnimationState(const std::string& _StateName)
 {
-	// "Idle"
-	// _StateName
-
 	std::string AnimationName;
-
+	float4 ShirtPos = { 0, 2 };
 	switch (Dir)
 	{
 	case PlayerDir::Up:
+		ShirtPos = { 0 ,1 };
 		AnimationName = "Up_";
 		break;
 	case PlayerDir::Down:
@@ -237,10 +305,14 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 		break;
 	}
 
+	ShirtPos *= 3;
+	ShirtRenderer->SetRenderPos(ShirtPos);
 	AnimationName += _StateName;
 
 	CurState = _StateName;
 
 	BodyRenderer->ChangeAnimation(AnimationName);
-	// ArmRenderer->ChangeAnimation(AnimationName);
+	PantsRenderer->ChangeAnimation(AnimationName);
+	ShirtRenderer->ChangeAnimation(AnimationName);
+	ArmRenderer->ChangeAnimation(AnimationName);
 }

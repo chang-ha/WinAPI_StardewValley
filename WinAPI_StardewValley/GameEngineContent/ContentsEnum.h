@@ -13,6 +13,7 @@ enum class RenderOrder
 	pants,
 	shirt,
 	hair,
+	hat,
 	arm,
 	PlayOver,
 	PlayUI,

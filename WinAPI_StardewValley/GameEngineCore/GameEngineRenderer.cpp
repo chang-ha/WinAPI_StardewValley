@@ -186,8 +186,3 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _AnimationName, bool
 	CurAnimation->CurInter = CurAnimation->Inters[0];
 	CurAnimation->CurFrame = CurAnimation->StartFrame;
 }
-
-float4 GameEngineRenderer::GetTextureScale()
-{
-	return Texture->GetScale();
-}

@@ -40,7 +40,7 @@ void PelicanTown::Start()
 	Back->Init("Town.bmp");
 	Back->Renderer->SetTexture("Town.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale(Back->Renderer->GetTextureScale() * 3.7f); // *3.7
+	Back->Renderer->SetRenderScale(Back->GetScale() * 3.7f); // *3.7
 	Farmer = CreateActor<Player>();
 	Farmer->SetPos({ -2500, 650 });
 }

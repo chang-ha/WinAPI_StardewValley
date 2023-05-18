@@ -20,6 +20,10 @@ public:
 	void Init(const std::string& _FileName);
 	GameEngineRenderer* Renderer;
 
+	const float4 GetScale()
+	{
+		return Scale;
+	}
 protected:
 
 private:

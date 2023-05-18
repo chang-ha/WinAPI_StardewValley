@@ -1,4 +1,5 @@
 ﻿#include <GameEngineCore/ResourcesManager.h>
+#include <GameEnginePlatform/GameEngineWindowTexture.h>
 
 #include "ContentsEnum.h"
 #include "PlayOver.h"
@@ -38,5 +39,6 @@ void PlayOver::Init(const std::string& _FileName)
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Title\\");
 		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
+		Scale = Text->GetScale();
 	}
 }

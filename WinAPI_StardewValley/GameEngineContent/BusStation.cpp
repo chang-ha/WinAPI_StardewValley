@@ -45,7 +45,7 @@ void BusStation::Start()
 	Back->Init("BusStation.bmp");
 	Back->Renderer->SetTexture("BusStation.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale(Back->Renderer->GetTextureScale() * 3.7f); // *3.7
+	Back->Renderer->SetRenderScale(Back->GetScale() * 3.7f); // *3.7
 	Farmer = CreateActor<Player>();
 	Farmer->SetPos({ -200, 1030 });
 }
