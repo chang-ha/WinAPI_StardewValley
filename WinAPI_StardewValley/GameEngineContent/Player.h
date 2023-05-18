@@ -19,11 +19,11 @@ enum class PlayerDir
 	Null, // StartValue
 };
 
+class ContentLevel;
 class GameEngineLevel;
 class Player : public GameEngineActor
 {
 	friend GameEngineLevel;
-
 public:
 	static Player* MainPlayer;
 
@@ -45,6 +45,10 @@ public:
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* HatRenderer = nullptr;
 
+	void SetContentLevel(ContentLevel* _ContentLevel)
+	{
+		PlayLevel = _ContentLevel;
+	}
 protected:
 	PlayerState State = PlayerState::Null;
 	PlayerDir Dir = PlayerDir::Null;
@@ -66,10 +70,13 @@ protected:
 	void ChangeAnimationState(const std::string& _AnimationName);
 
 private:
-	float Speed = 400.0f;
-	void LevelStart() override;
+	float Speed = 1000.0f;
+	ContentLevel* PlayLevel = nullptr;
 
+
+	void LevelStart() override;
 	void Start() override;
 	void Update(float _DeltaTime) override;
+	void CameraSetting(float4 MovePos);
 };
 

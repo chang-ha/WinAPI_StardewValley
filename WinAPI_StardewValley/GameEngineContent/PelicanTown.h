@@ -1,9 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "ContentLevel.h"
 
-class BackGround;
 class Player;
-class PelicanTown : public GameEngineLevel
+class PelicanTown : public ContentLevel
 {
 public:
 	// constructer destructer
@@ -21,7 +20,6 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
-	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
 	void Start() override;
 	void Update(float _Delta) override;

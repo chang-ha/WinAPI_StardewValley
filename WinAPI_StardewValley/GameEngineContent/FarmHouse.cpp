@@ -25,14 +25,17 @@ FarmHouse::~FarmHouse()
 
 void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	Farmer = Player::MainPlayer;
+	Farmer->SetContentLevel(this);
 	if (nullptr == Farmer)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 
-	Farmer->SetPos({ 1040,630 });
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	GetMainCamera()->SetPos({});
+	Farmer->SetPos({ 0,0});
+	// Farmer->SetPos({ 1040,630 });
+	// float4 WinScale = GameEngineWindow::MainWindow.GetScale();
+	// GetMainCamera()->SetPos({});
 }
 
 void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
@@ -49,7 +52,6 @@ void FarmHouse::Start()
 		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 		
 		CreateActor<Player>();
-		Farmer = Player::MainPlayer;
 
 		PlayOver* Over = CreateActor<PlayOver>();
 		Over->Init("farmhouse_bed.bmp");

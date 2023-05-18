@@ -1,9 +1,9 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "ContentLevel.h"
 
 class BackGround;
 class Player;
-class FarmHouse : public GameEngineLevel
+class FarmHouse : public ContentLevel
 {
 public:
 	// constructer destructer

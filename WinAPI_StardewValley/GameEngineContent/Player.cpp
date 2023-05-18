@@ -205,8 +205,8 @@ void Player::Start()
 
 	Dir = PlayerDir::Right;
 	ChangeState(PlayerState::Idle);
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	SetPos(WinScale.Half());
+	// float4 WinScale = GameEngineWindow::MainWindow.GetScale();
+	// SetPos(WinScale.Half());
 }
 
 void Player::Update(float _DeltaTime)

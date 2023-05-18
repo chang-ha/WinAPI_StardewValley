@@ -41,6 +41,9 @@
     <ClInclude Include="Beach.h">
       <Filter>Level\09. Beach</Filter>
     </ClInclude>
+    <ClInclude Include="ContentLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -82,6 +85,9 @@
     </ClCompile>
     <ClCompile Include="Player_State.cpp">
       <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentLevel.cpp">
+      <Filter>Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
