@@ -70,7 +70,7 @@ protected:
 	void ChangeAnimationState(const std::string& _AnimationName);
 
 private:
-	float Speed = 1000.0f;
+	float Speed = 2000.0f;
 	ContentLevel* PlayLevel = nullptr;
 
 

@@ -19,16 +19,27 @@ public:
 
 	void Init(const std::string& _FileName);
 	GameEngineRenderer* Renderer;
-
+	
 	const float4 GetScale()
 	{
 		return Scale;
+	}
+	
+	void SetRenderScale(float4 _RenderScale)
+	{
+		RenderScale = _RenderScale;
+	}
+
+	float4 GetRenderScale()
+	{
+		return RenderScale;
 	}
 protected:
 
 private:
 	std::string FileName = "";
 	float4 Scale;
+	float4 RenderScale;
 
 	void Start() override;
 	void Update(float _Delta) override;

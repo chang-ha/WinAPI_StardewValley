@@ -1,3 +1,5 @@
+#define RENDERRATIO 4
+
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
 
@@ -16,7 +18,7 @@ public:
 	ContentLevel& operator=(ContentLevel&& _Other) noexcept = delete;
 
 	float4 GetBackScale();
-
+	float4 GetRenderScale();
 protected:
 	BackGround* Back = nullptr;
 

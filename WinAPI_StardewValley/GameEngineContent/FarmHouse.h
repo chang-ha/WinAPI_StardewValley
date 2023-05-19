@@ -21,7 +21,6 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
-	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
 
 	void Start() override;

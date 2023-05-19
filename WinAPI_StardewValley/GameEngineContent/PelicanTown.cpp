@@ -26,12 +26,9 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
-
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	Farmer->SetPos(WinScale.Half());
-	// Farmer->SetPos({ -2600, 450 });
-
-	// GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
+	Farmer->SetPos({ GameEngineWindow::MainWindow.GetScale().Half().X - Back->GetScale().Half().X * 4 + 50, 400 });
+	GetMainCamera()->SetPos({GameEngineWindow::MainWindow.GetScale().Half().X - Back->GetScale().Half().X * 4, 0});
 }
 
 void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)
@@ -45,7 +42,8 @@ void PelicanTown::Start()
 	Back->Init("Town.bmp");
 	Back->Renderer->SetTexture("Town.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale(Back->GetScale() * 4);
+	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	CreateActor<Player>();
 }
 void PelicanTown::Update(float _Delta)
