@@ -16,6 +16,7 @@ enum class RenderOrder
 	hat,
 	arm,
 	PlayOver,
+	Creature,
 	PlayUI,
 };
 

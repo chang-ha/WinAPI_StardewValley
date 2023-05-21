@@ -13,6 +13,7 @@
 #include "TitleBird.h"
 #include "PlayOver.h"
 #include "ContentLevel.h"
+#include "Creature.h"
 
 TitleScreen::TitleScreen()
 {
@@ -31,29 +32,27 @@ void TitleScreen::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\Title\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_Logo.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_new01.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_new02.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_load01.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_load02.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_coop01.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_coop02.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_exit01.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title_exit02.bmp"));
+		FilePath.MoveChild("Resources\\Textures\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_Logo.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_new01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_new02.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_load01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_load02.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_coop01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_coop02.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_exit01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_exit02.bmp"));
+
+		ResourcesManager::GetInst().CreateSpriteSheet("Title_Bird", FilePath.PlusFilePath("Creature\\Title_Bird.bmp"), 6, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Title_Bird1", FilePath.PlusFilePath("Creature\\Title_Bird1.bmp"),6,1);
 	}
 
 	Back = CreateActor<BackGround>();
 	Back->Init("Title_background.bmp");
 	Back->Renderer->SetTexture("Title_background.bmp");
-	Back->Renderer->SetRenderScale(Back->GetScale());
-	Back->SetRenderScale(Back->GetScale());
+	Back->Renderer->SetRenderScale(Back->GetScale()*1.2);
+	Back->SetRenderScale(Back->GetScale()*1.2);
 	Back->SetPos({740,300});
-
-	TitleBird* Bird1 = CreateActor<TitleBird>();
-	TitleBird* Bird2 = CreateActor<TitleBird>();
-	Bird1->SetPos({ 1200, 700 });
-	Bird2->SetPos({1300,775});
 
 	Logo = CreateActor<PlayOver>();
 	Logo->Init("Title_Logo.bmp");
@@ -89,6 +88,20 @@ void TitleScreen::Start()
 	Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() *2.5); // X 2.5
 	Exit_Button->SetPos({1225, 330 });
 	Exit_Button->Renderer->Off();
+
+	{
+		Bird1 = CreateActor<Creature>();
+		Bird2 = CreateActor<Creature>();
+		
+		Bird1->Renderer->SetScaleRatio(3);
+		Bird1->Renderer->CreateAnimation("Bird_Idle","Title_Bird");
+		Bird1->Renderer->ChangeAnimation("Bird_Idle");
+		Bird2->Renderer->SetScaleRatio(3);
+		Bird2->Renderer->CreateAnimation("Bird_Idle1", "Title_Bird1");
+		Bird2->Renderer->ChangeAnimation("Bird_Idle1");
+		Bird1->SetPos({ 1200, 700 });
+		Bird2->SetPos({ 1300,775 });
+	}
 }
 void TitleScreen::Update(float _DeltaTime)
 {
@@ -96,12 +109,13 @@ void TitleScreen::Update(float _DeltaTime)
 	{
 		GameEngineCore::ChangeLevel("FarmHouse");
 	}
+
 	if (3.0f < Back->GetLiveTime())
 	{
 		if (-300 <= GetMainCamera()->GetPos().iY())
 		{
 			float4 MovePos = float4::UP;
-			MovePos *= 50.0f;
+			MovePos *= 80.0f;
 			GetMainCamera()->AddPos(MovePos * _DeltaTime);
 		}
 		else if (true)
@@ -113,31 +127,11 @@ void TitleScreen::Update(float _DeltaTime)
 			Exit_Button->Renderer->On();
 		}
 	}
-
-	float4 MovePos = float4::ZERO;
-	float Speed = 1000000.0f;
-
-	if (true == GameEngineInput::IsPress('A') /*&& Dir == PlayerDir::Left*/)
+	
 	{
-		MovePos = { -Speed * _DeltaTime, 0.0f };
+		Bird1->AddPos({ -50.0f * _DeltaTime, 0.0f });
+		Bird2->AddPos({ -50.0f * _DeltaTime, 0.0f });
 	}
-
-	if (true == GameEngineInput::IsPress('D') /*&& Dir == PlayerDir::Right*/)
-	{
-		MovePos = { Speed * _DeltaTime, 0.0f };
-	}
-
-	if (true == GameEngineInput::IsPress('W') /*&& Dir == PlayerDir::Up*/)
-	{
-		MovePos = { 0.0f, -Speed * _DeltaTime };
-	}
-
-	if (true == GameEngineInput::IsPress('S') /*&& Dir == PlayerDir::Down*/)
-	{
-		MovePos = { 0.0f, Speed * _DeltaTime };
-	}
-
-	GetMainCamera()->AddPos(MovePos * _DeltaTime);
 }
 void TitleScreen::Render()
 {

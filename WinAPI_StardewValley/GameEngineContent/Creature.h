@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+class GameEngineWindowTexture;
 class Creature : public GameEngineActor
 {
 public:
@@ -14,9 +15,17 @@ public:
 	Creature& operator=(const Creature& _Other) = delete;
 	Creature& operator=(Creature&& _Other) noexcept = delete;
 
+	void Init(const std::string& _FileName);
+
+	GameEngineRenderer* Renderer = nullptr;
 protected:
 
 private:
+	GameEngineWindowTexture* Texture = nullptr;
+
+	std::string FileName = "";
+	float4 Scale = float4::ZERO;
+
 	void Start() override;
 	void Update(float _Delta) override;
 	void Render() override;

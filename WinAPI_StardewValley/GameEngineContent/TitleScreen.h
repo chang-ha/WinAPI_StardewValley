@@ -1,6 +1,7 @@
 #pragma once
 #include "ContentLevel.h"
 
+class Creature;
 class PlayOver;
 class TitleScreen : public ContentLevel
 {
@@ -25,6 +26,8 @@ private:
 	void Render() override;
 	void Release() override;
 
+	Creature* Bird1 = nullptr;
+	Creature* Bird2 = nullptr;
 	PlayOver* Logo = nullptr;
 	PlayOver* New_Button = nullptr;
 	PlayOver* Load_Button = nullptr;

@@ -44,6 +44,9 @@
     <ClInclude Include="ContentLevel.h">
       <Filter>Level</Filter>
     </ClInclude>
+    <ClInclude Include="Creature.h">
+      <Filter>Global</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="ContentLevel.cpp">
       <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Creature.cpp">
+      <Filter>Global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
