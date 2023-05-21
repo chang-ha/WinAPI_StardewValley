@@ -56,6 +56,8 @@ public:
 		return CreateRenderer("", _Order);
 	}
 
+	GameEngineRenderer* CreateCollision(int _Order = 0);
+
 	GameEngineLevel* GetLevel()
 	{
 		return Level;

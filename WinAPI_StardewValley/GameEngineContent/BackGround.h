@@ -3,6 +3,7 @@
 
 #include <GameEngineCore/GameEngineActor.h>
 
+class GameEngineWindowTexture;
 class BackGround : public GameEngineActor
 {
 public:
@@ -18,7 +19,6 @@ public:
 	BackGround& operator=(BackGround&& _Other) noexcept = delete;
 
 	void Init(const std::string& _FileName);
-	GameEngineRenderer* Renderer;
 	
 	const float4 GetScale()
 	{
@@ -34,12 +34,21 @@ public:
 	{
 		return RenderScale;
 	}
+
+	void SwitchRender();
+	GameEngineRenderer* Renderer = nullptr;
+	GameEngineRenderer* CollisionRenderer = nullptr;
 protected:
 
 private:
+	GameEngineWindowTexture* Texture = nullptr;
+	GameEngineWindowTexture* CollisionTexture = nullptr;
+
+	bool BackGroundTexture = true;
+
 	std::string FileName = "";
-	float4 Scale;
-	float4 RenderScale;
+	float4 Scale = float4::ZERO;
+	float4 RenderScale = float4::ZERO;
 
 	void Start() override;
 	void Update(float _Delta) override;

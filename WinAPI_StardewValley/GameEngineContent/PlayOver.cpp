@@ -38,7 +38,8 @@ void PlayOver::Init(const std::string& _FileName)
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Title\\");
-		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
-		Scale = Text->GetScale();
+		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
 	}
+	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
+	Scale = Texture->GetScale();
 }

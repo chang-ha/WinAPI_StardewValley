@@ -21,13 +21,13 @@ void StardewValleyCore::Start()
 {
 	GameEngineWindow::MainWindow.SetPosAndScale({ 0, 0 }, { 1600, 900 });
 
-	// GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
+	GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
 	GameEngineCore::CreateLevel<FarmHouse>("FarmHouse");
 	GameEngineCore::CreateLevel<Farm>("Farm");
 	GameEngineCore::CreateLevel<BusStation>("BusStation");
 	GameEngineCore::CreateLevel<PelicanTown>("PelicanTown");
 	GameEngineCore::CreateLevel<Beach>("Beach");
-	GameEngineCore::ChangeLevel("FarmHouse");
+	GameEngineCore::ChangeLevel("TitleScreen");
 }
 void StardewValleyCore::Update(float _Delta)
 {

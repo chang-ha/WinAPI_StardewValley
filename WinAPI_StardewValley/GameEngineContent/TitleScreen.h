@@ -1,9 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "ContentLevel.h"
 
-class BackGround;
 class PlayOver;
-class TitleScreen : public GameEngineLevel
+class TitleScreen : public ContentLevel
 {
 public:
 	// constructer destructer
@@ -22,11 +21,10 @@ protected:
 
 private:
 	void Start() override;
-	void Update(float _Delta) override;
+	void Update(float _DeltaTime) override;
 	void Render() override;
 	void Release() override;
 
-	BackGround* Back = nullptr;
 	PlayOver* Logo = nullptr;
 	PlayOver* New_Button = nullptr;
 	PlayOver* Load_Button = nullptr;

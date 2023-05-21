@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+class GameEngineWindowTexture;
 class GameEngineRenderer;
 class PlayOver : public GameEngineActor
 {
@@ -17,15 +18,18 @@ public:
 
 	GameEngineRenderer* Renderer;
 	void Init(const std::string& _FileName);
+
 	float4 GetScale()
 	{
 		return Scale;
 	}
+
 protected:
 
 private:
-	std::string FileName;
-	float4 Scale;
+	GameEngineWindowTexture* Texture = nullptr;
+	std::string FileName = "";
+	float4 Scale = float4::ZERO;
 
 	void Start() override;
 	void Update(float _Delta) override;

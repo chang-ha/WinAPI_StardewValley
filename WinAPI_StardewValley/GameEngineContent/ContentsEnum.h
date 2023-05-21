@@ -18,3 +18,8 @@ enum class RenderOrder
 	PlayOver,
 	PlayUI,
 };
+
+enum class CollisionOrder
+{
+	Map,
+};

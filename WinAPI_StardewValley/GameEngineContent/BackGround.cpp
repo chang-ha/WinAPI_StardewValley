@@ -19,7 +19,10 @@ BackGround::~BackGround()
 
 void BackGround::Start()
 {
-	Renderer = CreateRenderer();
+	Renderer = CreateRenderer(RenderOrder::BackGround);
+	CollisionRenderer = CreateRenderer(RenderOrder::BackGround);
+	Renderer->On();
+	CollisionRenderer->Off();
 }
 
 void BackGround::Update(float _Delta)
@@ -44,7 +47,26 @@ void BackGround::Init(const std::string& _FileName)
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\BackGround\\");
-		GameEngineWindowTexture* Text = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
-		Scale = Text->GetScale();
+		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
+		// CollisionTexture = ResourcesManager::GetInst().TextureLoad("Collision_" + FileName);
+	}
+	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
+	// CollisionTexture = ResourcesManager::GetInst().FindTexture("Collision_" + FileName);
+	Scale = Texture->GetScale();
+}
+
+void BackGround::SwitchRender()
+{
+	BackGroundTexture = !BackGroundTexture;
+
+	if (BackGroundTexture)
+	{
+		Renderer->On();
+		CollisionRenderer->Off();
+	}
+	else 
+	{
+		Renderer->Off();
+		CollisionRenderer->On();
 	}
 }
