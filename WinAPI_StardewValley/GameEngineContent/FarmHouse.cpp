@@ -25,7 +25,7 @@ FarmHouse::~FarmHouse()
 
 void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	Farmer = Player::MainPlayer;
+	// Farmer = Player::MainPlayer;
 	Farmer->SetContentLevel(this);
 	if (nullptr == Farmer)
 	{
@@ -48,10 +48,10 @@ void FarmHouse::Start()
 		Back = CreateActor<BackGround>();
 		Back->Init("farmhouse.bmp");
 		Back->Renderer->SetTexture("farmhouse.bmp");
-		Back->SetRenderScale(Back->GetScale());
 		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
+		Back->SetRenderScale(Back->GetScale());
 		
-		CreateActor<Player>();
+		Farmer = CreateActor<Player>();
 
 		PlayOver* Over = CreateActor<PlayOver>();
 		Over->Init("farmhouse_bed.bmp");

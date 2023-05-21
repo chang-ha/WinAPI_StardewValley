@@ -1,7 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
-
 enum class PlayerState
 {
 	Idle,
@@ -20,10 +19,8 @@ enum class PlayerDir
 };
 
 class ContentLevel;
-class GameEngineLevel;
 class Player : public GameEngineActor
 {
-	friend GameEngineLevel;
 public:
 	static Player* MainPlayer;
 
@@ -40,7 +37,6 @@ public:
 	GameEngineRenderer* BodyRenderer = nullptr;
 	GameEngineRenderer* ArmRenderer = nullptr;
 	GameEngineRenderer* HairRenderer = nullptr;
-
 	GameEngineRenderer* ShirtRenderer = nullptr;
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* HatRenderer = nullptr;
@@ -49,6 +45,13 @@ public:
 	{
 		PlayLevel = _ContentLevel;
 	}
+
+	void SetDir(PlayerDir _Dir)
+	{
+		Dir = _Dir;
+		ChangeAnimationState(CurState);
+	}
+
 protected:
 	PlayerState State = PlayerState::Null;
 	PlayerDir Dir = PlayerDir::Null;
@@ -73,10 +76,8 @@ private:
 	float Speed = 2000.0f;
 	ContentLevel* PlayLevel = nullptr;
 
-
 	void LevelStart() override;
 	void Start() override;
 	void Update(float _DeltaTime) override;
-	void CameraSetting(float4 MovePos);
 };
 

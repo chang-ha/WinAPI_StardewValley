@@ -1,7 +1,6 @@
 #pragma once
 #include "ContentLevel.h"
 
-class BackGround;
 class Player;
 class FarmHouse : public ContentLevel
 {

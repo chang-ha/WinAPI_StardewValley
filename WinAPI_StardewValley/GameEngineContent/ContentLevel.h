@@ -17,8 +17,8 @@ public:
 	ContentLevel& operator=(const ContentLevel& _Other) = delete;
 	ContentLevel& operator=(ContentLevel&& _Other) noexcept = delete;
 
-	float4 GetBackScale();
 	float4 GetRenderScale();
+
 protected:
 	BackGround* Back = nullptr;
 

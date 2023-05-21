@@ -24,13 +24,14 @@ BusStation::~BusStation()
 
 void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	// Farmer = Player::MainPlayer;
+	Farmer->SetContentLevel(this);
 	if (nullptr == Farmer)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
-
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
+	Farmer->SetPos({ -200, 1030 });
+	GetMainCamera()->SetPos({ GameEngineWindow::MainWindow.GetScale().Half().X - Back->GetRenderScale().Half().X, 500 });
 }
 
 void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
@@ -41,13 +42,13 @@ void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
 
 void BusStation::Start()
 {
-	BackGround* Back = CreateActor<BackGround>();
+	Back = CreateActor<BackGround>();
 	Back->Init("BusStation.bmp");
 	Back->Renderer->SetTexture("BusStation.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale(Back->GetScale() * 3.7f); // *3.7
+	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	Farmer = CreateActor<Player>();
-	Farmer->SetPos({ -200, 1030 });
 }
 void BusStation::Update(float _Delta)
 {
@@ -57,7 +58,7 @@ void BusStation::Update(float _Delta)
 	}
 	if (true == GameEngineInput::IsDown('2'))
 	{
-		GameEngineCore::ChangeLevel("Beach");
+		GameEngineCore::ChangeLevel("PelicanTown");
 	}
 }
 void BusStation::Render()

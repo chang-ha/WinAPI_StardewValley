@@ -1,8 +1,9 @@
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include "ContentLevel.h"
 
 class Player;
-class Beach : public GameEngineLevel
+class Beach : public ContentLevel
 {
 public:
 	// constructer destructer

@@ -22,15 +22,14 @@ Farm::~Farm()
 
 void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	Farmer = Player::MainPlayer;
+	// Farmer = Player::MainPlayer;
 	Farmer->SetContentLevel(this);
 	if (nullptr == Farmer)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
-	Farmer->SetPos({ 3520,0 });
-	// Farmer->SetPos({ 2350, -550 });
-
+	Farmer->SetPos({ 2465, -700 });
+	Farmer->SetDir(PlayerDir::Down);
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
 }
@@ -47,8 +46,9 @@ void Farm::Start()
 	Back->Init("Farm.bmp");
 	Back->Renderer->SetTexture("Farm.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale(Back->GetScale() * 4);
-	CreateActor<Player>();
+	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	Farmer = CreateActor<Player>();
 }
 void Farm::Update(float _Delta)
 {

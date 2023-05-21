@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Beach.h"
 #include "BackGround.h"
+#include "ContentLevel.h"
 
 Beach::Beach()
 {
@@ -24,18 +25,16 @@ Beach::~Beach()
 
 void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	Farmer = Player::MainPlayer;
+	Farmer->SetContentLevel(this);
 	if (nullptr == Farmer)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
-
+	Farmer->SetPos({ 0, -900 });
+	Farmer->SetDir(PlayerDir::Down);
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	//LevelPlayer->SetPos(WinScale.Half());
-	// 0 0
-	// x y
-	// GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
-	GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
-
+	GetMainCamera()->SetPos({-WinScale.Half().X, WinScale.Half().Y - Back->GetRenderScale().Half().Y});
 }
 
 void Beach::LevelEnd(GameEngineLevel* _NextLevel)
@@ -46,19 +45,20 @@ void Beach::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Beach::Start()
 {
-	BackGround* Back = CreateActor<BackGround>();
+	Back = CreateActor<BackGround>();
 	Back->Init("Beach.bmp");
 	Back->Renderer->SetTexture("Beach.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale(Back->GetScale() * 3.7f); // *3.7
+	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+
 	Farmer = CreateActor<Player>();
-	Farmer->SetPos({ 85, -775 });
 }
 void Beach::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown('1'))
 	{
-		GameEngineCore::ChangeLevel("BusStation");
+		GameEngineCore::ChangeLevel("PelicanTown");
 	}
 }
 void Beach::Render()

@@ -6,10 +6,10 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 
 #include <GameEngineCore/ResourcesManager.h>
-#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 
 #include "Player.h"
+#include "ContentLevel.h"
 #include "ContentsEnum.h"
 
 Player* Player::MainPlayer = nullptr;
@@ -67,16 +67,16 @@ void Player::Start()
 	}
 
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
-	BodyRenderer->SetScaleRatio(3.7f);
+	BodyRenderer->SetScaleRatio(RENDERRATIO);
 
 	PantsRenderer = CreateRenderer(RenderOrder::pants);
-	PantsRenderer->SetScaleRatio(3.7f);
+	PantsRenderer->SetScaleRatio(RENDERRATIO);
 
 	ShirtRenderer = CreateRenderer(RenderOrder::shirt);
-	ShirtRenderer->SetScaleRatio(3.7f);
+	ShirtRenderer->SetScaleRatio(RENDERRATIO);
 	
 	ArmRenderer = CreateRenderer(RenderOrder::arm);
-	ArmRenderer->SetScaleRatio(3.7f);
+	ArmRenderer->SetScaleRatio(RENDERRATIO);
 
 	// HairRenderer = CreateRenderer(RenderOrder::hair);
 	// HatRenderer = CreateRenderer(RenderOrder::Equip);
@@ -88,16 +88,19 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Up_Idle", "Up_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Up_Run", "Up_Player_Body", 1, 8, 0.08f);
 		}
+
 		// Down
 		{
 			BodyRenderer->CreateAnimation("Down_Idle", "Down_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Down_Run", "Down_Player_Body", 1, 8, 0.08f);
 		}
+		
 		// Right
 		{
 			BodyRenderer->CreateAnimation("Right_Idle", "Right_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Right_Run", "Right_Player_Body", 1, 6, 0.1f);
 		}
+		
 		// Left
 		{
 			BodyRenderer->CreateAnimation("Left_Idle", "Left_Player_Body", 0, 0);
@@ -134,7 +137,6 @@ void Player::Start()
 
 	// Shirt
 	{
-		// ShirtRenderer->SetRenderPos({0, 6});
 		//Up
 		{
 			ShirtRenderer->CreateAnimation("Up_Idle", "Up_Player_Shirt", 0, 0);
@@ -185,6 +187,8 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Left_Idle", "Left_Player_arm", 0, 0);
 			ArmRenderer->CreateAnimation("Left_Run", "Left_Player_arm", 1, 6, 0.1f);
 		}
+
+
 		//ArmRenderer->CreateAnimation("UseTool", "Player_arm", 4, 8, 0.08f);
 	}
 
@@ -205,8 +209,6 @@ void Player::Start()
 
 	Dir = PlayerDir::Right;
 	ChangeState(PlayerState::Idle);
-	// float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	// SetPos(WinScale.Half());
 }
 
 void Player::Update(float _DeltaTime)
@@ -312,12 +314,13 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 		break;
 	}
 
-	ShirtPos *= 3;
+	// ShirtPos Setting
+	ShirtPos *= RENDERRATIO;
 	ShirtRenderer->SetRenderPos(ShirtPos);
+
+	// Animation Change
 	AnimationName += _StateName;
-
 	CurState = _StateName;
-
 	BodyRenderer->ChangeAnimation(AnimationName);
 	PantsRenderer->ChangeAnimation(AnimationName);
 	ShirtRenderer->ChangeAnimation(AnimationName);

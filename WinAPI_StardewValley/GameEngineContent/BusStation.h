@@ -1,8 +1,8 @@
 #pragma once
-#include <GameEngineCore/GameEngineLevel.h>
+#include "ContentLevel.h"
 
 class Player;
-class BusStation : public GameEngineLevel
+class BusStation : public ContentLevel
 {
 public:
 	// constructer destructer
