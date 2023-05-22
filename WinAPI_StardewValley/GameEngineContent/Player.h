@@ -41,7 +41,7 @@ public:
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* HatRenderer = nullptr;
 
-	void SetContentLevel(ContentLevel* _ContentLevel)
+	void SetPlayLevel(ContentLevel* _ContentLevel)
 	{
 		PlayLevel = _ContentLevel;
 	}
@@ -73,7 +73,7 @@ protected:
 	void ChangeAnimationState(const std::string& _AnimationName);
 
 private:
-	float Speed = 2000.0f;
+	float Speed = 400.0f;
 	ContentLevel* PlayLevel = nullptr;
 
 	void LevelStart() override;

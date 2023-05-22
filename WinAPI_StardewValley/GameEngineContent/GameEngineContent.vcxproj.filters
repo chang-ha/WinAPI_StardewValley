@@ -23,9 +23,6 @@
       <Filter>Level\08. PelicanTown</Filter>
     </ClInclude>
     <ClInclude Include="StardewValleyCore.h" />
-    <ClInclude Include="TitleBird.h">
-      <Filter>Level\01. TitleScreen</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Global</Filter>
     </ClInclude>
@@ -71,9 +68,6 @@
       <Filter>Level\08. PelicanTown</Filter>
     </ClCompile>
     <ClCompile Include="StardewValleyCore.cpp" />
-    <ClCompile Include="TitleBird.cpp">
-      <Filter>Level\01. TitleScreen</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Global</Filter>
     </ClCompile>

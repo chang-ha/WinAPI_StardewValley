@@ -23,7 +23,7 @@ Farm::~Farm()
 void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	// Farmer = Player::MainPlayer;
-	Farmer->SetContentLevel(this);
+	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
