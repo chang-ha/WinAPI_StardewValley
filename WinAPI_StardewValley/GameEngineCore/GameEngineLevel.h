@@ -12,6 +12,7 @@ class GameEngineLevel : public GameEngineObject
 {
 	friend GameEngineCore;
 	friend GameEngineActor;
+	friend GameEngineCollision;
 public:
 	// constructer destructer
 	GameEngineLevel();
@@ -54,8 +55,6 @@ private:
 
 	std::map<int, std::list<GameEngineActor*>> AllActors;
 	std::map<int, std::list<GameEngineCollision*>> AllCollision;
-
-	void PushCollision(GameEngineCollision* _Collision) {};
 
 	void ActorUpdate(float _DeltaTime);
 	void ActorRender(float _DeltaTime);
