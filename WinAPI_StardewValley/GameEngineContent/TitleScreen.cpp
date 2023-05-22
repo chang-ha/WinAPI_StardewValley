@@ -56,7 +56,7 @@ void TitleScreen::Start()
 	Logo = CreateActor<PlayOver>();
 	Logo->Init("Title_Logo.bmp");
 	Logo->Renderer->SetTexture("Title_Logo.bmp");
-	Logo->Renderer->SetRenderScale(Logo->GetScale() * 2);
+	Logo->Renderer->SetRenderScale(Logo->GetScale() * 2.0f);
 	Logo->SetPos({800, -70});
 	Logo->Renderer->Off();
 

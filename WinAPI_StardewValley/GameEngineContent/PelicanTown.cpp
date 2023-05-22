@@ -3,7 +3,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
-#include <GameEngineCore/GameEngineCore.h>s
+#include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineCamera.h>
 
 #include "Player.h"

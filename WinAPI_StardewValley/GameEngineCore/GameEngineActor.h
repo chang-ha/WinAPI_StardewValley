@@ -67,7 +67,7 @@ protected:
 	virtual void LevelEnd() {}
 
 private:
-	GameEngineLevel* Level;
+	GameEngineLevel* Level = nullptr;
 	float4 Pos = float4::ZERO;
 	std::list<GameEngineRenderer*> AllRenderer;
 	void ActorRelease();
