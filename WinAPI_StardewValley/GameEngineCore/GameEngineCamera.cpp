@@ -17,6 +17,7 @@ void GameEngineCamera::PushRenderer(GameEngineRenderer* _Renderer, int _Order)
 	{
 		MsgBoxAssert("nullptr인 Renderer를 그룹에 넣을순 없습니다.");
 	}
+	_Renderer->Camera = this;
 	Renderers[_Order].push_back(_Renderer);
 }
 

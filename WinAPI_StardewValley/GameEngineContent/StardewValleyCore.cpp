@@ -19,7 +19,7 @@ StardewValleyCore::~StardewValleyCore()
 
 void StardewValleyCore::Start()
 {
-	GameEngineWindow::MainWindow.SetPosAndScale({ 0, 0 }, { 1600, 900 });
+	GameEngineWindow::MainWindow.SetPosAndScale({ 100, 100 }, { 1600, 900 });
 
 	GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
 	GameEngineCore::CreateLevel<FarmHouse>("FarmHouse");

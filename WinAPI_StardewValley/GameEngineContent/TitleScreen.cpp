@@ -41,10 +41,13 @@ void TitleScreen::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_coop02.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_exit01.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_exit02.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_LeftTree.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Title\\Title_RightTree.bmp"));
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Title_Bird", FilePath.PlusFilePath("Creature\\Title_Bird.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Title_Bird1", FilePath.PlusFilePath("Creature\\Title_Bird1.bmp"), 6, 1);
 	}
+
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	Back = CreateActor<BackGround>();
 	Back->Init("Title_background.bmp");
@@ -56,37 +59,52 @@ void TitleScreen::Start()
 	Logo = CreateActor<PlayOver>();
 	Logo->Init("Title_Logo.bmp");
 	Logo->Renderer->SetTexture("Title_Logo.bmp");
-	Logo->Renderer->SetRenderScale(Logo->GetScale() * 2.0f);
-	Logo->SetPos({800, -70});
-	Logo->Renderer->Off();
+	Logo->Renderer->SetRenderScale(Logo->GetScale() * 2.5f);
+	Logo->SetPos({800, -250});
 
 	New_Button = CreateActor<PlayOver>();
 	New_Button->Init("Title_new01.bmp");
 	New_Button->Renderer->SetTexture("Title_new01.bmp");
 	New_Button->Renderer->SetRenderScale(New_Button->GetScale() * 2.5f); 
-	New_Button->SetPos({375, 330});
+	New_Button->SetPos({375, 230});
 	New_Button->Renderer->Off();
 
 	Load_Button = CreateActor<PlayOver>();
 	Load_Button->Init("Title_load01.bmp");
 	Load_Button->Renderer->SetTexture("Title_load01.bmp");
 	Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * 2.5f); 
-	Load_Button->SetPos({ 658, 330 }); // 185 + 98
+	Load_Button->SetPos({ 658, 230 }); // 185 + 98
 	Load_Button->Renderer->Off();
 
 	Coop_Button = CreateActor<PlayOver>();
 	Coop_Button->Init("Title_coop01.bmp");
 	Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
 	Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() *2.5f); 
-	Coop_Button->SetPos({ 941, 330 });
+	Coop_Button->SetPos({ 941, 230 });
 	Coop_Button->Renderer->Off();
 
 	Exit_Button = CreateActor<PlayOver>();
 	Exit_Button->Init("Title_exit01.bmp");
 	Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
 	Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() *2.5f);
-	Exit_Button->SetPos({1225, 330 });
+	Exit_Button->SetPos({1225, 230 });
 	Exit_Button->Renderer->Off();
+
+	{
+		LeftTree = CreateActor<PlayOver>();
+		LeftTree->Init("Title_LeftTree.bmp");
+		LeftTree->Renderer->SetTexture("Title_LeftTree.bmp");
+		LeftTree->Renderer->SetRenderScale(LeftTree->GetScale() * 2.5f);
+		LeftTree->SetRenderScale(LeftTree->GetScale() * 2.5f);
+		LeftTree->SetPos({ LeftTree->GetRenderScale().Half().X, WinScale.Y - LeftTree->GetRenderScale().Half().Y + 10});
+
+		RightTree = CreateActor<PlayOver>();
+		RightTree->Init("Title_LeftTree.bmp");
+		RightTree->Renderer->SetTexture("Title_RightTree.bmp");
+		RightTree->Renderer->SetRenderScale(RightTree->GetScale() * 2.5f);
+		RightTree->SetRenderScale(RightTree->GetScale() * 2.5f);
+		RightTree->SetPos({ WinScale.X - RightTree->GetRenderScale().Half().X, WinScale.Y - RightTree->GetRenderScale().Half().Y + 10 });
+	}
 
 	{
 		Bird1 = CreateActor<Creature>();
@@ -98,8 +116,8 @@ void TitleScreen::Start()
 		Bird2->Renderer->SetScaleRatio(2.5f);
 		Bird2->Renderer->CreateAnimation("Bird_Idle1", "Title_Bird1");
 		Bird2->Renderer->ChangeAnimation("Bird_Idle1");
-		Bird1->SetPos({ 1200, 650 });
-		Bird2->SetPos({ 1300, 725 });
+		Bird1->SetPos({ 1325, 700 });
+		Bird2->SetPos({ 1400, 750 });
 	}
 }
 
@@ -110,17 +128,16 @@ void TitleScreen::Update(float _DeltaTime)
 		GameEngineCore::ChangeLevel("FarmHouse");
 	}
 
-	float4 MovePos = float4::UP;
-	if (5.0f < Back->GetLiveTime())
+	float4 Speed = float4::UP;
+	if (4.0f < Back->GetLiveTime())
 	{
-		if (-Back->GetPos().Y <= GetMainCamera()->GetPos().iY())
+		if (GameEngineWindow::MainWindow.GetScale().Y - Back->GetRenderScale().Y <= GetMainCamera()->GetPos().iY())
 		{
-			MovePos *= 80.0f;
-			GetMainCamera()->AddPos(MovePos * _DeltaTime);
+			Speed *= 80.0f;
+			GetMainCamera()->AddPos(Speed * _DeltaTime);
 		}
 		else if (true)
 		{
-			Logo->Renderer->On();
 			New_Button->Renderer->On();
 			Load_Button->Renderer->On();
 			Coop_Button->Renderer->On();

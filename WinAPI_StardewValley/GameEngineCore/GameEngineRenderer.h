@@ -59,10 +59,13 @@ public:
 	void SetRenderScaleToTexture();
 
 	bool IsDeath() override;
+	void SetOrder(int _Order) override;
 
 protected:
+	void Start() override;
 
 private:
+	GameEngineCamera* Camera = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineActor* Master = nullptr;
 	GameEngineSprite* Sprite = nullptr;

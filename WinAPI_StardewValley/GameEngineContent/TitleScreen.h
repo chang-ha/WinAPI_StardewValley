@@ -28,6 +28,10 @@ private:
 
 	Creature* Bird1 = nullptr;
 	Creature* Bird2 = nullptr;
+
+	PlayOver* LeftTree = nullptr;
+	PlayOver* RightTree = nullptr;
+
 	PlayOver* Logo = nullptr;
 	PlayOver* New_Button = nullptr;
 	PlayOver* Load_Button = nullptr;

@@ -25,8 +25,9 @@ GameEngineActor::~GameEngineActor()
 GameEngineRenderer* GameEngineActor::CreateRenderer(const std::string& _ImageName, int _Order)
 {
 	GameEngineRenderer* NewRenderer = new GameEngineRenderer();
-	GetLevel()->MainCamera->PushRenderer(NewRenderer, _Order);
 	NewRenderer->Master = this;
+	NewRenderer->Start();
+	NewRenderer->SetOrder(_Order);
 	if ("" != _ImageName)
 	{
 		NewRenderer->SetTexture(_ImageName);

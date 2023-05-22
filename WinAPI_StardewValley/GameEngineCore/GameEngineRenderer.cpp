@@ -4,6 +4,7 @@
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
+#include "GameEngineLevel.h"
 #include "GameEngineRenderer.h"
 #include "GameEngineActor.h"
 #include "GameEngineCamera.h"
@@ -198,4 +199,23 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _AnimationName, bool
 	CurAnimation = ChangeAnimation;
 	CurAnimation->CurInter = CurAnimation->Inters[0];
 	CurAnimation->CurFrame = 0;
+}
+
+void GameEngineRenderer::Start()
+{
+	Camera = Master->GetLevel()->GetMainCamera();
+}
+
+void GameEngineRenderer::SetOrder(int _Order)
+{
+	if (nullptr == Camera)
+	{
+		MsgBoxAssert("카메라가 세팅되어있지 않습니다.");
+	}
+	std::list<GameEngineRenderer*>& PrevRenders = Camera->Renderers[GetOrder()];
+	PrevRenders.remove(this);
+
+	GameEngineObject::SetOrder(_Order);
+	std::list<GameEngineRenderer*>& NextRenders = Camera->Renderers[GetOrder()];
+	NextRenders.push_back(this);
 }
