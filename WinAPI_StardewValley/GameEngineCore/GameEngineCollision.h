@@ -3,19 +3,67 @@
 
 #include <GameEngineBase/GameEngineMath.h>
 
-#include "GameEngineObject.h"
+#include "GameEngineActorSubObject.h"
+
 enum class CollisionType
 {
 	Point,
 	Rect,
-	Circle,
+	CirCle,
 	Null
 };
 
-class GameEngineActor;
-class GameEngineCollision : public GameEngineObject
+class CollisionData
 {
+public:
+	float4 Pos;
+	float4 Scale;
+
+	float Left()
+	{
+		return Pos.X - Scale.hX();
+	}
+	float Right()
+	{
+		return Pos.X + Scale.hX();
+	}
+	float Top()
+	{
+		return Pos.Y - Scale.hY();
+	}
+	float Bot()
+	{
+		return Pos.Y + Scale.hY();
+	}
+
+	int iLeft()
+	{
+		return static_cast<int>(Left());
+	}
+	int iRight()
+	{
+		return static_cast<int>(Right());
+	}
+	int iTop()
+	{
+		return static_cast<int>(Top());
+	}
+	int iBot()
+	{
+		return static_cast<int>(Bot());
+	}
+};
+
+class GameEngineActor;
+class CollisionInitClass;
+class GameEngineCollision : public GameEngineActorSubObject
+{
+	friend CollisionInitClass;
 	friend GameEngineActor;
+	friend GameEngineLevel;
+
+	static bool (*CollisionFunction[static_cast<int>(CollisionType::Null)][static_cast<int>(CollisionType::Null)])(GameEngineCollision* _Left, GameEngineCollision* _Right);
+
 public:
 	static bool PointToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right);
 	static bool PointToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
@@ -28,8 +76,6 @@ public:
 	static bool CirCleToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right);
 	static bool CirCleToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
 	static bool CirCleToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right);
-
-	static bool (*CollisionFunction[static_cast<int>(CollisionType::Null)][static_cast<int>(CollisionType::Null)])(GameEngineCollision* _Left, GameEngineCollision* _Right);
 
 public:
 	// constructer destructer
@@ -54,9 +100,9 @@ public:
 
 	void SetOrder(int _Order) override;
 
-	GameEngineActor* GetActor()
+	void SetCollisionType(CollisionType _ColType)
 	{
-		return Master;
+		ColType = _ColType;
 	}
 
 	template <typename EnumType>
@@ -65,14 +111,32 @@ public:
 		return Collision(static_cast<int>(_Order), _Result, _ThisType, _OtherType);
 	}
 	
-	bool Collision(int _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::Circle, CollisionType _OtherType = CollisionType::Circle);
+	bool Collision(int _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::CirCle, CollisionType _OtherType = CollisionType::CirCle);
 	
 	bool CollisionCheck(GameEngineCollision* _Other, CollisionType _ThisType, CollisionType _OtherType);
+
+	float4 GetActorPivotPos();
+
+	float4 GetActorScale()
+	{
+		return CollisionScale;
+	}
+
+	CollisionData GetCollisionData()
+	{
+		CollisionData Data;
+		Data.Pos = GetActorPivotPos();
+		Data.Scale = GetActorScale();
+		return Data;
+	}
+
 protected:
 
 private:
-	GameEngineActor* Master = nullptr;
+	CollisionType ColType = CollisionType::Rect;
 	float4 CollisionPos;
 	float4 CollisionScale;
+
+	void DebugRender();
 };
 

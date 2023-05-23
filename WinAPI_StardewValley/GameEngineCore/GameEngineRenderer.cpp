@@ -104,12 +104,7 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
 
-	BackBuffer->TransCopy(Texture, Master->GetPos() + RenderPos - _Camera->GetPos(), RenderScale, CopyPos, CopyScale);
-}
-
-bool GameEngineRenderer::IsDeath()
-{
-	return true == GameEngineObject::IsDeath() || Master->IsDeath();
+	BackBuffer->TransCopy(Texture, GetActor()->GetPos() + RenderPos - _Camera->GetPos(), RenderScale, CopyPos, CopyScale);
 }
 
 GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::string& _AnimationName)
@@ -202,7 +197,7 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _AnimationName, bool
 
 void GameEngineRenderer::Start()
 {
-	Camera = Master->GetLevel()->GetMainCamera();
+	Camera = GetActor()->GetLevel()->GetMainCamera();
 }
 
 void GameEngineRenderer::SetOrder(int _Order)

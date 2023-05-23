@@ -69,13 +69,13 @@ void Player::RunUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress('A') /*&& Dir == PlayerDir::Left*/)
 	{
-		CheckPos = { -32, 0 };
+		CheckPos = { -32, 32 };
 		MovePos = { -Speed * _DeltaTime, 0.0f };
 	}
 
 	if (true == GameEngineInput::IsPress('D') /*&& Dir == PlayerDir::Right*/)
 	{
-		CheckPos = { 32, 0 };
+		CheckPos = { 32, 32 };
 		MovePos = { Speed * _DeltaTime, 0.0f };
 	}
 
@@ -86,7 +86,7 @@ void Player::RunUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress('S') /*&& Dir == PlayerDir::Down*/)
 	{
-		CheckPos = { 0, 32 };
+		CheckPos = { 0, 48 };
 		MovePos = { 0.0f, Speed * _DeltaTime };
 	}
 
@@ -131,7 +131,6 @@ void Player::RunUpdate(float _DeltaTime)
 				GetLevel()->GetMainCamera()->SetPos(CameraPos);
 			}
 		}
-
 
 		if (PlayerDir::Up == Dir && CameraPos.Y > WinScale_Half.Y - BackScale_Half.Y && GetPos().Y <= CameraPos.Y + WinScale_Half.Y)
 		{

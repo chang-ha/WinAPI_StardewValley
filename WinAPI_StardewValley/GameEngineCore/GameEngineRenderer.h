@@ -5,13 +5,13 @@
 
 #include <GameEngineBase/GameEngineMath.h>
 
-#include <GameEngineCore/GameEngineObject.h>
+#include "GameEngineActorSubObject.h"
 
 class GameEngineWindowTexture;
 class GameEngineActor;
 class GameEngineCamera;
 class GameEngineSprite;
-class GameEngineRenderer : public GameEngineObject
+class GameEngineRenderer : public GameEngineActorSubObject
 {
 	friend GameEngineCamera;
 	friend GameEngineActor;
@@ -58,7 +58,6 @@ public:
 
 	void SetRenderScaleToTexture();
 
-	bool IsDeath() override;
 	void SetOrder(int _Order) override;
 
 protected:
@@ -67,7 +66,6 @@ protected:
 private:
 	GameEngineCamera* Camera = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
-	GameEngineActor* Master = nullptr;
 	GameEngineSprite* Sprite = nullptr;
 	bool ScaleCheck = false;
 	float ScaleRatio = 1.0f;

@@ -24,7 +24,10 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineCollision.h">
-      <Filter>Collision</Filter>
+      <Filter>Object\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineActorSubObject.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,7 +54,10 @@
       <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineCollision.cpp">
-      <Filter>Collision</Filter>
+      <Filter>Object\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineActorSubObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +70,7 @@
     <Filter Include="Object\Rendering">
       <UniqueIdentifier>{487283b4-bf35-4aad-8fae-35b64dae7274}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Collision">
+    <Filter Include="Object\Collision">
       <UniqueIdentifier>{d5abce12-0698-4766-9cce-1350fa01975b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
