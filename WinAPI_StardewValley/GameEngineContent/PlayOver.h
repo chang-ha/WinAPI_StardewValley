@@ -16,7 +16,7 @@ public:
 	PlayOver& operator=(const PlayOver& _Other) = delete;
 	PlayOver& operator=(PlayOver&& _Other) noexcept = delete;
 
-	GameEngineRenderer* Renderer;
+	GameEngineRenderer* Renderer = nullptr;
 	void Init(const std::string& _FileName);
 
 	float4 GetScale()

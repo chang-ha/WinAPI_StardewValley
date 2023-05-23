@@ -2,11 +2,11 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 
 #include <GameEngineCore/GameEngineRenderer.h>
-#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCamera.h>
 
 #include "Player.h"
 #include "ContentLevel.h"
+#include "ContentActor.h"
 
 void Player::IdleStart()
 {
@@ -20,11 +20,12 @@ void Player::RunStart()
 
 void Player::UseToolStart()
 {
-    // BodyRenderer->ChangeAnimation("Idle");
-	// ArmRenderer->ChangeAnimation("UseTool");
-	// HairRenderer->ChangeAnimation("Idle");
-	// ShirtRenderer->ChangeAnimation("Idle");
-	// PantsRenderer->ChangeAnimation("Idle");
+	ChangeAnimationState("Tool");
+	// BodyRenderer->ChangeAnimation("Tool");
+	// ArmRenderer->ChangeAnimation("Tool");
+	// HairRenderer->ChangeAnimation("Tool");
+	// ShirtRenderer->ChangeAnimation("Tool");
+	// PantsRenderer->ChangeAnimation("Tool");
 }
 
 void Player::IdleUpdate(float _DeltaTime)
@@ -42,9 +43,10 @@ void Player::IdleUpdate(float _DeltaTime)
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		DirCheck();
-		// ChangeState(PlayerState::UseTool);
+		ChangeState(PlayerState::UseTool);
 		return;
 	}
+
 }
 
 
@@ -52,6 +54,7 @@ void Player::RunUpdate(float _DeltaTime)
 {
 	DirCheck();
 	float4 MovePos = float4::ZERO;
+	float4 CheckPos = float4::ZERO;
 
 	if (true == GameEngineInput::IsPress('A') /*&& Dir == PlayerDir::Left*/)
 	{
@@ -78,6 +81,14 @@ void Player::RunUpdate(float _DeltaTime)
 		DirCheck();
 		ChangeState(PlayerState::Idle);
 	}
+	
+	// Map Collision
+	unsigned int Color = GetFrontColor(RGB(0, 0, 0), MovePos);
+	if (RGB(0, 0, 0) == Color)
+	{
+		return;
+	}
+
 	AddPos(MovePos);
 
 	// CameraSetting
@@ -134,11 +145,11 @@ void Player::RunUpdate(float _DeltaTime)
 
 void Player::UseToolUpdate(float _DeltaTime)
 {
-	static float Check = 0.48f;
+	static float Check = 0.5f;
 	if (0 >= Check)
 	{
 		ChangeState(PlayerState::Idle);
-		Check = 0.48f;
+		Check = 0.5f;
 	}
 	Check -= _DeltaTime;
 }

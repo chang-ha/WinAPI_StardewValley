@@ -65,44 +65,44 @@ void TitleScreen::Start()
 	New_Button = CreateActor<PlayOver>();
 	New_Button->Init("Title_new01.bmp");
 	New_Button->Renderer->SetTexture("Title_new01.bmp");
-	New_Button->Renderer->SetRenderScale(New_Button->GetScale() * 2.5f); 
-	New_Button->SetPos({375, 230});
+	New_Button->Renderer->SetRenderScale(New_Button->GetScale() * 3.0f);
+	New_Button->SetPos({375, 200});
 	New_Button->Renderer->Off();
 
 	Load_Button = CreateActor<PlayOver>();
 	Load_Button->Init("Title_load01.bmp");
 	Load_Button->Renderer->SetTexture("Title_load01.bmp");
-	Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * 2.5f); 
-	Load_Button->SetPos({ 658, 230 }); // 185 + 98
+	Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * 3.0f);
+	Load_Button->SetPos({ 658, 200 }); // 185 + 98
 	Load_Button->Renderer->Off();
 
 	Coop_Button = CreateActor<PlayOver>();
 	Coop_Button->Init("Title_coop01.bmp");
 	Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
-	Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() *2.5f); 
-	Coop_Button->SetPos({ 941, 230 });
+	Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() * 3.0f);
+	Coop_Button->SetPos({ 941, 200 });
 	Coop_Button->Renderer->Off();
 
 	Exit_Button = CreateActor<PlayOver>();
 	Exit_Button->Init("Title_exit01.bmp");
 	Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
-	Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() *2.5f);
-	Exit_Button->SetPos({1225, 230 });
+	Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() * 3.0f);
+	Exit_Button->SetPos({1225, 200 });
 	Exit_Button->Renderer->Off();
 
 	{
 		LeftTree = CreateActor<PlayOver>();
 		LeftTree->Init("Title_LeftTree.bmp");
 		LeftTree->Renderer->SetTexture("Title_LeftTree.bmp");
-		LeftTree->Renderer->SetRenderScale(LeftTree->GetScale() * 2.5f);
-		LeftTree->SetRenderScale(LeftTree->GetScale() * 2.5f);
+		LeftTree->Renderer->SetRenderScale(LeftTree->GetScale() * 3.0f);
+		LeftTree->SetRenderScale(LeftTree->GetScale() * 3.0f);
 		LeftTree->SetPos({ LeftTree->GetRenderScale().Half().X, WinScale.Y - LeftTree->GetRenderScale().Half().Y + 10});
 
 		RightTree = CreateActor<PlayOver>();
 		RightTree->Init("Title_LeftTree.bmp");
 		RightTree->Renderer->SetTexture("Title_RightTree.bmp");
-		RightTree->Renderer->SetRenderScale(RightTree->GetScale() * 2.5f);
-		RightTree->SetRenderScale(RightTree->GetScale() * 2.5f);
+		RightTree->Renderer->SetRenderScale(RightTree->GetScale() * 3.0f);
+		RightTree->SetRenderScale(RightTree->GetScale() * 3.0f);
 		RightTree->SetPos({ WinScale.X - RightTree->GetRenderScale().Half().X, WinScale.Y - RightTree->GetRenderScale().Half().Y + 10 });
 	}
 
@@ -110,10 +110,10 @@ void TitleScreen::Start()
 		Bird1 = CreateActor<Creature>();
 		Bird2 = CreateActor<Creature>();
 		
-		Bird1->Renderer->SetScaleRatio(2.5f);
+		Bird1->Renderer->SetScaleRatio(3.0f);
 		Bird1->Renderer->CreateAnimation("Bird_Idle","Title_Bird");
 		Bird1->Renderer->ChangeAnimation("Bird_Idle");
-		Bird2->Renderer->SetScaleRatio(2.5f);
+		Bird2->Renderer->SetScaleRatio(3.0f);
 		Bird2->Renderer->CreateAnimation("Bird_Idle1", "Title_Bird1");
 		Bird2->Renderer->ChangeAnimation("Bird_Idle1");
 		Bird1->SetPos({ 1325, 700 });

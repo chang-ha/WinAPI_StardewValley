@@ -43,24 +43,28 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Body", FilePath.PlusFilePath("Player_body\\Down_Player_Body.bmp"), 9, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Body", FilePath.PlusFilePath("Player_body\\Right_Player_Body.bmp"), 7, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Body", FilePath.PlusFilePath("Player_body\\Left_Player_Body.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_body_Tool", FilePath.PlusFilePath("Player_body\\Down_Player_body_Tool.bmp"), 5, 1);
 
 		// Pants Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants", FilePath.PlusFilePath("Player_pants\\Up_Player_pants.bmp"), 9, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Pants", FilePath.PlusFilePath("Player_pants\\Down_Player_pants.bmp"), 9, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Pants", FilePath.PlusFilePath("Player_pants\\Right_Player_pants.bmp"), 7, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Pants", FilePath.PlusFilePath("Player_pants\\Left_Player_pants.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_pants_Tool", FilePath.PlusFilePath("Player_pants\\Down_Player_pants_Tool.bmp"), 5, 1);
 
 		// Shirt Animation
-		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt.bmp"), 9, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Down_Player_shirt.bmp"), 9, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Right_Player_shirt.bmp"), 7, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Left_Player_shirt.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt1.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Down_Player_shirt1.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Right_Player_shirt1.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Left_Player_shirt1.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Shirt_Tool", FilePath.PlusFilePath("Player_shirt\\Down_Player_shirt1_Tool.bmp"), 5, 1);
 
 		// Arm Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm", FilePath.PlusFilePath("Player_arm\\Up_Player_arm.bmp"), 9, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm", FilePath.PlusFilePath("Player_arm\\Down_Player_arm.bmp"), 9, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_arm", FilePath.PlusFilePath("Player_arm\\Right_Player_arm.bmp"), 7, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm", FilePath.PlusFilePath("Player_arm\\Left_Player_arm.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm_Tool", FilePath.PlusFilePath("Player_arm\\Down_Player_arm_Tool.bmp"), 5, 1);
 
 		// ResourcesManager::GetInst().CreateSpriteSheet("Player_hair", FilePath.PlusFilePath("Player_hair\\Player_hair.bmp"), 9, 1);
 		// ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
@@ -93,6 +97,7 @@ void Player::Start()
 		{
 			BodyRenderer->CreateAnimation("Down_Idle", "Down_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Down_Run", "Down_Player_Body", 1, 8, 0.08f);
+			BodyRenderer->CreateAnimation("Down_Tool", "Down_Player_body_Tool", 0, 4, 0.1f, false);
 		}
 		
 		// Right
@@ -120,6 +125,7 @@ void Player::Start()
 		{
 			PantsRenderer->CreateAnimation("Down_Idle", "Down_Player_Pants", 0, 0);
 			PantsRenderer->CreateAnimation("Down_Run", "Down_Player_Pants", 1, 8, 0.08f);
+			PantsRenderer->CreateAnimation("Down_Tool", "Down_Player_pants_Tool", 0, 4, 0.1f, false);
 		}
 
 		//Right
@@ -147,6 +153,7 @@ void Player::Start()
 		{
 			ShirtRenderer->CreateAnimation("Down_Idle", "Down_Player_Shirt", 0, 0);
 			ShirtRenderer->CreateAnimation("Down_Run", "Down_Player_Shirt", 1, 8, 0.08f);
+			ShirtRenderer->CreateAnimation("Down_Tool", "Down_Player_Shirt_Tool", 0, 4, 0.1f, false);
 		}
 
 		//Right
@@ -174,6 +181,7 @@ void Player::Start()
 		{
 			ArmRenderer->CreateAnimation("Down_Idle", "Down_Player_arm", 0, 0);
 			ArmRenderer->CreateAnimation("Down_Run", "Down_Player_arm", 1, 8, 0.08f);
+			ArmRenderer->CreateAnimation("Down_Tool", "Down_Player_arm_Tool", 0, 4, 0.1f, false);
 		}
 
 		// Right
