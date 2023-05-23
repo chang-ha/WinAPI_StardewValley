@@ -17,19 +17,19 @@ class GameEngineCollision : public GameEngineObject
 {
 	friend GameEngineActor;
 public:
-	// static bool PointToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// static bool PointToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// static bool PointToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// 
-	// static bool RectToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// static bool RectToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// static bool RectToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// 
-	// static bool CirCleToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// static bool CirCleToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// static bool CirCleToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right);
-	// 
-	// static bool (*CollisionFunction[static_cast<int>(CollisionType::Null)][static_cast<int>(CollisionType::Null)])(GameEngineCollision* _Left, GameEngineCollision* _Right);
+	static bool PointToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right);
+	static bool PointToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
+	static bool PointToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right);
+
+	static bool RectToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right);
+	static bool RectToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
+	static bool RectToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right);
+
+	static bool CirCleToPoint(GameEngineCollision* _Left, GameEngineCollision* _Right);
+	static bool CirCleToRect(GameEngineCollision* _Left, GameEngineCollision* _Right);
+	static bool CirCleToCirCle(GameEngineCollision* _Left, GameEngineCollision* _Right);
+
+	static bool (*CollisionFunction[static_cast<int>(CollisionType::Null)][static_cast<int>(CollisionType::Null)])(GameEngineCollision* _Left, GameEngineCollision* _Right);
 
 public:
 	// constructer destructer
@@ -59,15 +59,15 @@ public:
 		return Master;
 	}
 
-	// template <typename EnumType>
-	// bool Collision(EnumType _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::Circle, CollisionType _OtherType = CollisionType::Circle)
-	// {
-	// 	return Collision(static_cast<int>(_Order), _Result, _ThisType, _OtherType);
-	// }
-	// 
-	// bool Collision(int _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::Circle, CollisionType _OtherType = CollisionType::Circle);
-	// 
-	// bool CollisionCheck(GameEngineCollision* _Other, CollisionType _ThisType, CollisionType _OtherType);
+	template <typename EnumType>
+	bool Collision(EnumType _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::Circle, CollisionType _OtherType = CollisionType::Circle)
+	{
+		return Collision(static_cast<int>(_Order), _Result, _ThisType, _OtherType);
+	}
+	
+	bool Collision(int _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::Circle, CollisionType _OtherType = CollisionType::Circle);
+	
+	bool CollisionCheck(GameEngineCollision* _Other, CollisionType _ThisType, CollisionType _OtherType);
 protected:
 
 private:

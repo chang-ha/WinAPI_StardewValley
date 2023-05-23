@@ -42,13 +42,13 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Farm::Start()
 {
-	Back = CreateActor<BackGround>();
+	Back = CreateActor<BackGround>(0);
 	Back->Init("Farm.bmp");
 	Back->Renderer->SetTexture("Farm.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
-	Farmer = CreateActor<Player>();
+	Farmer = CreateActor<Player>(1);
 }
 void Farm::Update(float _Delta)
 {

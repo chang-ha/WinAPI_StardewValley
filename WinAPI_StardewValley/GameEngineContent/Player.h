@@ -5,7 +5,7 @@ enum class PlayerState
 {
 	Idle,
 	Run,
-	UseTool,
+	Tool,
 	Null, // StartValue
 };
 
@@ -56,12 +56,15 @@ private:
 	std::string CurState = "";
 
 	void StateUpdate(float _DeltaTime);
+
 	void IdleStart();
 	void RunStart();
-	void UseToolStart();
+	void ToolStart();
+
 	void IdleUpdate(float _DeltaTime);
 	void RunUpdate(float _DeltaTime);
-	void UseToolUpdate(float _DeltaTime);
+	void ToolUpdate(float _DeltaTime);
+
 	void ChangeState(PlayerState State);
 	void DirCheck();
 	void ChangeAnimationState(const std::string& _AnimationName);

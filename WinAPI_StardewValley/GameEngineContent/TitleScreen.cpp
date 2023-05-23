@@ -49,7 +49,7 @@ void TitleScreen::Start()
 	}
 
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	Back = CreateActor<BackGround>();
+	Back = CreateActor<BackGround>(0);
 	Back->Init("Title_background.bmp");
 	Back->Renderer->SetTexture("Title_background.bmp");
 	Back->Renderer->SetRenderScale(Back->GetScale() * 1.2f);

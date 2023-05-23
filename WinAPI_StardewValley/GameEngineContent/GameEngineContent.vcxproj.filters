@@ -22,7 +22,6 @@
     <ClInclude Include="PelicanTown.h">
       <Filter>Level\08. PelicanTown</Filter>
     </ClInclude>
-    <ClInclude Include="StardewValleyCore.h" />
     <ClInclude Include="Player.h">
       <Filter>Global</Filter>
     </ClInclude>
@@ -41,8 +40,15 @@
     <ClInclude Include="Creature.h">
       <Filter>Global</Filter>
     </ClInclude>
-    <ClInclude Include="ContentLevel.h" />
-    <ClInclude Include="ContentActor.h" />
+    <ClInclude Include="ContentActor.h">
+      <Filter>ContentEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentLevel.h">
+      <Filter>ContentEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="StardewValleyCore.h">
+      <Filter>ContentEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -66,7 +72,6 @@
     <ClCompile Include="PelicanTown.cpp">
       <Filter>Level\08. PelicanTown</Filter>
     </ClCompile>
-    <ClCompile Include="StardewValleyCore.cpp" />
     <ClCompile Include="Player.cpp">
       <Filter>Global</Filter>
     </ClCompile>
@@ -85,8 +90,15 @@
     <ClCompile Include="Creature.cpp">
       <Filter>Global</Filter>
     </ClCompile>
-    <ClCompile Include="ContentLevel.cpp" />
-    <ClCompile Include="ContentActor.cpp" />
+    <ClCompile Include="ContentActor.cpp">
+      <Filter>ContentEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentLevel.cpp">
+      <Filter>ContentEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="StardewValleyCore.cpp">
+      <Filter>ContentEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -118,6 +130,9 @@
     </Filter>
     <Filter Include="Level\09. Beach">
       <UniqueIdentifier>{5f2e8660-bece-4759-8e92-34217bda3222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentEngine">
+      <UniqueIdentifier>{85f90abd-2187-4ffd-b30f-486ea474acd9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

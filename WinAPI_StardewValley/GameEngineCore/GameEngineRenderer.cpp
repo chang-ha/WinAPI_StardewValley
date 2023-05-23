@@ -112,7 +112,6 @@ bool GameEngineRenderer::IsDeath()
 	return true == GameEngineObject::IsDeath() || Master->IsDeath();
 }
 
-
 GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::string& _AnimationName)
 {
 	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
@@ -151,7 +150,6 @@ void GameEngineRenderer::CreateAnimation(const std::string& _AnimationName, cons
 	else
 	{
 		Animation.StartFrame = 0;
-		_Start = 0;
 	}
 
 	if (_End != -1)
@@ -172,7 +170,8 @@ void GameEngineRenderer::CreateAnimation(const std::string& _AnimationName, cons
 		FrameDir = -1;
 	}
 
-	size_t Start = _Start;
+	size_t Start = Animation.StartFrame;
+
 	for (size_t i = 0; i < Animation.Inters.size(); i++)
 	{
 		Animation.Frames[i] = Start;

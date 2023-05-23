@@ -45,14 +45,14 @@ void Beach::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Beach::Start()
 {
-	Back = CreateActor<BackGround>();
+	Back = CreateActor<BackGround>(0);
 	Back->Init("Beach.bmp");
 	Back->Renderer->SetTexture("Beach.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
-	Farmer = CreateActor<Player>();
+	Farmer = CreateActor<Player>(1);
 }
 void Beach::Update(float _Delta)
 {

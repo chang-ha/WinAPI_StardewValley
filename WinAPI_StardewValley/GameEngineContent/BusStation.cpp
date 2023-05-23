@@ -42,13 +42,13 @@ void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
 
 void BusStation::Start()
 {
-	Back = CreateActor<BackGround>();
+	Back = CreateActor<BackGround>(0);
 	Back->Init("BusStation.bmp");
 	Back->Renderer->SetTexture("BusStation.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
-	Farmer = CreateActor<Player>();
+	Farmer = CreateActor<Player>(1);
 }
 void BusStation::Update(float _Delta)
 {

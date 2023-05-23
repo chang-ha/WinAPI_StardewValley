@@ -40,7 +40,7 @@ void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)
 
 void PelicanTown::Start()
 {
-	Back = CreateActor<BackGround>();
+	Back = CreateActor<BackGround>(0);
 	Back->Init("Town.bmp", "Collision_Town.bmp");
 	Back->Renderer->SetTexture("Town.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
@@ -50,7 +50,7 @@ void PelicanTown::Start()
 	Back->CollisionRenderer->SetTexture("Collision_Town.bmp");
 	Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
-	Farmer = CreateActor<Player>();
+	Farmer = CreateActor<Player>(1);
 }
 void PelicanTown::Update(float _Delta)
 {

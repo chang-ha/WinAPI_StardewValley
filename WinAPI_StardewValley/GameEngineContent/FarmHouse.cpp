@@ -45,13 +45,13 @@ void FarmHouse::Start()
 {
 	if (nullptr == Back)
 	{
-		Back = CreateActor<BackGround>();
+		Back = CreateActor<BackGround>(0);
 		Back->Init("farmhouse.bmp");
 		Back->Renderer->SetTexture("farmhouse.bmp");
 		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 		Back->SetRenderScale(Back->GetScale());
 		
-		Farmer = CreateActor<Player>();
+		Farmer = CreateActor<Player>(1);
 
 		PlayOver* Over = CreateActor<PlayOver>();
 		Over->Init("farmhouse_bed.bmp");
