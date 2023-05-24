@@ -12,6 +12,7 @@
 #include "BackGround.h"
 #include "Player.h"
 #include "PlayOver.h"
+#include "ContentUIManager.h"
 
 FarmHouse::FarmHouse()
 {
@@ -58,6 +59,7 @@ void FarmHouse::Start()
 		Over->Renderer->SetTexture("farmhouse_bed.bmp");
 		Over->SetPos({ 1056.5,678 });
 	}
+	CreateActor<ContentUIManager>(0);
 }
 void FarmHouse::Update(float _Delta)
 {

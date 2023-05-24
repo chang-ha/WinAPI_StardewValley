@@ -331,7 +331,6 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	switch (Dir)
 	{
 	case PlayerDir::Up:
-		ShirtPos = { 0 ,1 };
 		AnimationName = "Up_";
 		break;
 	case PlayerDir::Down:

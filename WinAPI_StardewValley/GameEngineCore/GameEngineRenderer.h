@@ -75,7 +75,7 @@ private:
 
 	float4 CopyPos = {};
 	float4 CopyScale = {};
-	void Render(GameEngineCamera* _Camera, float _DeltaTime);
+	void Render(float _DeltaTime);
 
 private:
 	class Animation
@@ -89,9 +89,13 @@ private:
 		std::vector<size_t> Frames;
 		std::vector<float> Inters;
 		bool Loop = true;
+		bool IsEnd = false;
 	};
 
 public:
+	std::map<std::string, Animation> AllAnimation;
+	Animation* CurAnimation = nullptr;
+
 	Animation* FindAnimation(const std::string& _AnimationName);
 
 	void CreateAnimation(
@@ -101,9 +105,13 @@ public:
 		float _Inter = 0.1f,
 		bool _Loop = true);
 
+	bool IsAnimationEnd()
+	{
+		return CurAnimation->IsEnd;
+	}
+
 	void ChangeAnimation(const std::string& _AnimationName, bool _ForceChange = false);
-	
-	std::map<std::string, Animation> AllAnimation;
-	Animation* CurAnimation = nullptr;
+	void MainCameraSetting();
+	void UICameraSetting();
 };
 

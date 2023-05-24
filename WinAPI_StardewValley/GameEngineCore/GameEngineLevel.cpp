@@ -4,6 +4,8 @@
 #include "GameEngineCamera.h"
 #include "GameEngineCollision.h"
 
+bool GameEngineLevel::IsCollisionDebugRender = false;
+
 GameEngineLevel::GameEngineLevel()
 {
 	MainCamera = new GameEngineCamera();
@@ -57,17 +59,7 @@ void GameEngineLevel::ActorUpdate(float _Delta)
 void GameEngineLevel::ActorRender(float _Delta)
 {
 	MainCamera->Render(_Delta);
-
-	// Collision Render Part
-	for (const std::pair<int, std::list<GameEngineCollision*>>& Pair : AllCollision)
-	{
-		const std::list < GameEngineCollision*>& Group = Pair.second;
-
-		for (GameEngineCollision* Collision : Group)
-		{
-			Collision->DebugRender();
-		}
-	}
+	UICamera->Render(_Delta);
 
 	for (const std::pair<int, std::list<GameEngineActor*>>& _Pair : AllActors)
 	{
@@ -79,6 +71,20 @@ void GameEngineLevel::ActorRender(float _Delta)
 				continue;
 			}
 			_Actor->Render(_Delta);
+		}
+	}
+
+	if (true == IsCollisionDebugRender)
+	{
+		for (const std::pair<int, std::list<GameEngineCollision*>>& Pair : AllCollision)
+		{
+			const std::list < GameEngineCollision*>& Group = Pair.second;
+
+			for (GameEngineCollision* Collision : Group)
+			{
+				Collision->DebugRender();
+			}
+
 		}
 	}
 }

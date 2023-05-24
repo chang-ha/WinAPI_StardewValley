@@ -37,7 +37,7 @@ void GameEngineCamera::Render(float _DeltaTime)
 			{
 				continue;
 			}
-			Renderer->Render(this, _DeltaTime);
+			Renderer->Render(_DeltaTime);
 		}
 	}
 }

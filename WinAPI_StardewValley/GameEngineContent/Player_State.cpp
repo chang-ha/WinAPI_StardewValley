@@ -36,7 +36,8 @@ void Player::ToolStart()
 
 	if (PlayerDir::Up == Dir)
 	{
-		ShirtRenderer->SetRenderPos({ 0,16 });
+		ArmRenderer->SetOrder(1); // RenderOrder::PlayBelow
+		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
 }
 
@@ -158,10 +159,10 @@ void Player::RunUpdate(float _DeltaTime)
 void Player::ToolUpdate(float _DeltaTime)
 {
 	static float Check = 0.5f;
-	if (0 >= Check)
+	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		Check = 0.5f;
+		ArmRenderer->SetOrder(7); // RenderOrder::arm
 	}
 	Check -= _DeltaTime;
 }

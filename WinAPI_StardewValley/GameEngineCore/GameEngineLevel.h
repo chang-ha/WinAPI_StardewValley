@@ -45,11 +45,23 @@ public:
 		return MainCamera;
 	}
 
+	GameEngineCamera* GetUICamera()
+	{
+		return UICamera;
+	}
+
+	static void CollisionDebugRenderSwitch()
+	{
+		IsCollisionDebugRender = !IsCollisionDebugRender;
+	}
+
 protected:
 	virtual void LevelStart(GameEngineLevel* _PrevLevel) {}
 	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
 
 private:
+	static bool IsCollisionDebugRender;
+
 	GameEngineCamera* MainCamera;
 	GameEngineCamera* UICamera;
 

@@ -9,6 +9,7 @@ enum class UpdateOrder
 enum class RenderOrder
 {
 	BackGround,
+	PlayBelow,
 	Play,
 	pants,
 	shirt,

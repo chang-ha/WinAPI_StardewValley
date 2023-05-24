@@ -59,19 +59,23 @@ void GameEngineRenderer::SetRenderScaleToTexture()
 }
 
 
-void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
+void GameEngineRenderer::Render(float _DeltaTime)
 {
 	if (nullptr != CurAnimation)
 	{
+		if (true == CurAnimation->Loop)
+		{
+			CurAnimation->IsEnd = false;
+		}
+
 		CurAnimation->CurInter -= _DeltaTime;
 		if (0.0f >= CurAnimation->CurInter)
 		{
-			CurAnimation->CurInter 
-				= CurAnimation->Inters[CurAnimation->CurFrame];
 			++CurAnimation->CurFrame;
-
 			if (CurAnimation->CurFrame > abs(static_cast<int>(CurAnimation->EndFrame - CurAnimation->StartFrame)))
 			{
+				CurAnimation->IsEnd = true;
+
 				if (true == CurAnimation->Loop)
 				{
 					CurAnimation->CurFrame = 0;
@@ -81,7 +85,8 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 					--CurAnimation->CurFrame;
 				}
 			}
-
+			CurAnimation->CurInter
+				= CurAnimation->Inters[CurAnimation->CurFrame];
 		}
 
 		size_t Frame = CurAnimation->Frames[CurAnimation->CurFrame];
@@ -104,7 +109,7 @@ void GameEngineRenderer::Render(GameEngineCamera* _Camera, float _DeltaTime)
 
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
 
-	BackBuffer->TransCopy(Texture, GetActor()->GetPos() + RenderPos - _Camera->GetPos(), RenderScale, CopyPos, CopyScale);
+	BackBuffer->TransCopy(Texture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale);
 }
 
 GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::string& _AnimationName)
@@ -193,11 +198,11 @@ void GameEngineRenderer::ChangeAnimation(const std::string& _AnimationName, bool
 	CurAnimation = ChangeAnimation;
 	CurAnimation->CurInter = CurAnimation->Inters[0];
 	CurAnimation->CurFrame = 0;
+	CurAnimation->IsEnd = false;
 }
 
 void GameEngineRenderer::Start()
 {
-	Camera = GetActor()->GetLevel()->GetMainCamera();
 }
 
 void GameEngineRenderer::SetOrder(int _Order)
@@ -212,4 +217,14 @@ void GameEngineRenderer::SetOrder(int _Order)
 	GameEngineObject::SetOrder(_Order);
 	std::list<GameEngineRenderer*>& NextRenders = Camera->Renderers[GetOrder()];
 	NextRenders.push_back(this);
+}
+
+void GameEngineRenderer::MainCameraSetting()
+{
+	Camera = GetActor()->GetLevel()->GetMainCamera();
+}
+
+void GameEngineRenderer::UICameraSetting()
+{
+	Camera = GetActor()->GetLevel()->GetUICamera();
 }
