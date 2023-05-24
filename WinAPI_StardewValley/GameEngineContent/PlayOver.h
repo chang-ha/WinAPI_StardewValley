@@ -24,7 +24,6 @@ public:
 		return Scale;
 	}
 
-
 	void SetRenderScale(float4 _RenderScale)
 	{
 		RenderScale = _RenderScale;

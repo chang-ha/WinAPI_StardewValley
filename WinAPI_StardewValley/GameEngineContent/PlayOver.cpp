@@ -32,7 +32,7 @@ void PlayOver::Init(const std::string& _FileName)
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\Title\\");
+		FilePath.MoveChild("Resources\\Textures\\Over\\");
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
 	}
 	Texture = ResourcesManager::GetInst().FindTexture(_FileName);

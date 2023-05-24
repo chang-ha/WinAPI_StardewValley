@@ -18,7 +18,7 @@ enum class RenderOrder
 	Arm,
 	Creature,
 	PlayOver,
-	PlayUI,
+	UI,
 };
 
 enum class CollisionOrder

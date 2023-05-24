@@ -17,6 +17,11 @@ public:
 
 	void Init(const std::string& _FileName);
 
+	float4 GetScale()
+	{
+		return Scale;
+	}
+
 	GameEngineRenderer* Renderer = nullptr;
 protected:
 
