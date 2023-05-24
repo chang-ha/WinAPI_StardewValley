@@ -61,11 +61,3 @@ void Farm::Update(float _Delta)
 		GameEngineCore::ChangeLevel("BusStation");
 	}
 }
-void Farm::Render()
-{
-
-}
-void Farm::Release()
-{
-
-}

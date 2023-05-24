@@ -19,11 +19,3 @@ void CindersapForest::Update(float _Delta)
 {
 
 }
-void CindersapForest::Render()
-{
-
-}
-void CindersapForest::Release()
-{
-
-}

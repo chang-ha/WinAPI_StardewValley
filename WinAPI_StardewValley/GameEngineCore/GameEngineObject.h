@@ -19,7 +19,7 @@ public:
 
 	virtual void Start() {}
 	virtual void Update(float _Delta) {}
-	virtual void Render() {}
+	virtual void Render(float _Delta) {}
 	virtual void Release() {}
 
 	void On()

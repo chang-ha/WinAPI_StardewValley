@@ -25,14 +25,6 @@ void Creature::Update(float _Delta)
 {
 }
 
-void Creature::Render()
-{
-}
-
-void Creature::Release()
-{
-}
-
 void Creature::Init(const std::string& _FileName)
 {
 	FileName = _FileName;

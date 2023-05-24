@@ -24,11 +24,6 @@ void PlayOver::Update(float _Delta)
 {
 }
 
-void PlayOver::Render()
-{
-
-}
-
 void PlayOver::Init(const std::string& _FileName)
 {
 	FileName = _FileName;

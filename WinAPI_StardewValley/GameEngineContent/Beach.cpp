@@ -61,11 +61,3 @@ void Beach::Update(float _Delta)
 		GameEngineCore::ChangeLevel("PelicanTown");
 	}
 }
-void Beach::Render()
-{
-
-}
-void Beach::Release()
-{
-
-}

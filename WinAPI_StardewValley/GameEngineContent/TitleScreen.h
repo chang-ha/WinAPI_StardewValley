@@ -22,8 +22,8 @@ protected:
 
 private:
 	void Start() override;
-	void Update(float _DeltaTime) override;
-	void Render() override;
+	void Update(float _Delta) override;
+	void Render(float _Delta) override;
 	void Release() override;
 
 	Creature* Bird1 = nullptr;

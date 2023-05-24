@@ -69,11 +69,3 @@ void PelicanTown::Update(float _Delta)
 		Back->SwitchRender();
 	}
 }
-void PelicanTown::Render()
-{
-
-}
-void PelicanTown::Release()
-{
-
-}

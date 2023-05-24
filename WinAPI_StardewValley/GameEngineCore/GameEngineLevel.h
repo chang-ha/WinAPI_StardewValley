@@ -56,8 +56,8 @@ private:
 	std::map<int, std::list<GameEngineActor*>> AllActors;
 	std::map<int, std::list<GameEngineCollision*>> AllCollision;
 
-	void ActorUpdate(float _DeltaTime);
-	void ActorRender(float _DeltaTime);
+	void ActorUpdate(float _Delta);
+	void ActorRender(float _Delta);
 	void ActorInit(GameEngineActor* _Actor, int _Order);
 	void ActorRelease();
 	void ActorLevelEnd();

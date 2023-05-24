@@ -61,11 +61,3 @@ void BusStation::Update(float _Delta)
 		GameEngineCore::ChangeLevel("PelicanTown");
 	}
 }
-void BusStation::Render()
-{
-
-}
-void BusStation::Release()
-{
-
-}

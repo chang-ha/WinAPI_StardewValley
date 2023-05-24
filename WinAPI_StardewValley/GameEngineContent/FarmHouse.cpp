@@ -70,11 +70,3 @@ void FarmHouse::Update(float _Delta)
 		GameEngineCore::ChangeLevel("Farm");
 	}
 }
-void FarmHouse::Render()
-{
-
-}
-void FarmHouse::Release()
-{
-
-}

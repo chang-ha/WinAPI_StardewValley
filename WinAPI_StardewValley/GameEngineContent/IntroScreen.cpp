@@ -20,11 +20,3 @@ void IntroScreen::Update(float _Delta)
 {
 
 }
-void IntroScreen::Render()
-{
-
-}
-void IntroScreen::Release()
-{
-
-}

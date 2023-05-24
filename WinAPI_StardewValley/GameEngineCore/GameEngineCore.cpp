@@ -63,7 +63,7 @@ void GameEngineCore::CoreUpdate()
 	CurLevel->ActorUpdate(Delta);
 	GameEngineWindow::MainWindow.ClearBackBuffer();
 
-	CurLevel->Render();
+	CurLevel->Render(Delta);
 	CurLevel->ActorRender(Delta);
 	GameEngineWindow::MainWindow.DoubleBuffering();
 

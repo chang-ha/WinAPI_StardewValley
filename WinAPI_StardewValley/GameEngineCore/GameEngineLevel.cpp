@@ -38,7 +38,7 @@ GameEngineLevel::~GameEngineLevel()
 	}
 }
 
-void GameEngineLevel::ActorUpdate(float _DeltaTime)
+void GameEngineLevel::ActorUpdate(float _Delta)
 {
 	for (const std::pair<int, std::list<GameEngineActor*>>& _Pair : AllActors)
 	{
@@ -49,14 +49,14 @@ void GameEngineLevel::ActorUpdate(float _DeltaTime)
 			{
 				continue;
 			}
-			_Actor->AddLiveTime(_DeltaTime);
-			_Actor->Update(_DeltaTime);
+			_Actor->AddLiveTime(_Delta);
+			_Actor->Update(_Delta);
 		}
 	}
 }
-void GameEngineLevel::ActorRender(float _DeltaTime)
+void GameEngineLevel::ActorRender(float _Delta)
 {
-	MainCamera->Render(_DeltaTime);
+	MainCamera->Render(_Delta);
 
 	// Collision Render Part
 	for (const std::pair<int, std::list<GameEngineCollision*>>& Pair : AllCollision)
@@ -78,7 +78,7 @@ void GameEngineLevel::ActorRender(float _DeltaTime)
 			{
 				continue;
 			}
-			_Actor->Render();
+			_Actor->Render(_Delta);
 		}
 	}
 }

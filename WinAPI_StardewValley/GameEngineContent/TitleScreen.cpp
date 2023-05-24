@@ -121,7 +121,7 @@ void TitleScreen::Start()
 	}
 }
 
-void TitleScreen::Update(float _DeltaTime)
+void TitleScreen::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown('2'))
 	{
@@ -134,7 +134,7 @@ void TitleScreen::Update(float _DeltaTime)
 		if (GameEngineWindow::MainWindow.GetScale().Y - Back->GetRenderScale().Y <= GetMainCamera()->GetPos().iY())
 		{
 			Speed *= 80.0f;
-			GetMainCamera()->AddPos(Speed * _DeltaTime);
+			GetMainCamera()->AddPos(Speed * _Delta);
 		}
 		else if (true)
 		{
@@ -146,11 +146,11 @@ void TitleScreen::Update(float _DeltaTime)
 	}
 	
 	{
-		Bird1->AddPos({ -50.0f * _DeltaTime, 0.0f });
-		Bird2->AddPos({ -50.0f * _DeltaTime, 0.0f });
+		Bird1->AddPos({ -50.0f * _Delta, 0.0f });
+		Bird2->AddPos({ -50.0f * _Delta, 0.0f });
 	}
 }
-void TitleScreen::Render()
+void TitleScreen::Render(float _Delta)
 {
 
 }
