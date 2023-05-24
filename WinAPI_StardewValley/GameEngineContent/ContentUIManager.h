@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+class GameEngineRenderer;
 class ContentUIManager : public GameEngineActor
 {
 public:
@@ -20,6 +21,8 @@ protected:
 	void Start() override;
 
 private:
-
+	GameEngineRenderer* Clock = nullptr;
+	GameEngineRenderer* ClockHand = nullptr;
+	GameEngineRenderer* EnergyBar = nullptr;
 };
 

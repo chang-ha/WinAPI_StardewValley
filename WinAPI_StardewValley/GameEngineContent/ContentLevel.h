@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 
 class BackGround;
+class Player;
 class ContentLevel : public GameEngineLevel
 {
 public:
@@ -21,6 +22,7 @@ public:
 
 protected:
 	BackGround* Back = nullptr;
+	Player* Farmer = nullptr;
 
 private:
 

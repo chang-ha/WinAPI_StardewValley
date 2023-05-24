@@ -20,8 +20,6 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
-	Player* Farmer = nullptr;
-
 	void Start() override;
 	void Update(float _Delta) override;
 };

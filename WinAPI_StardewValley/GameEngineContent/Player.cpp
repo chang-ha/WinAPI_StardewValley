@@ -78,24 +78,36 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm_Tool1", FilePath.PlusFilePath("Player_arm\\Left_Player_arm_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm_Tool1", FilePath.PlusFilePath("Player_arm\\Up_Player_arm_Tool1.bmp"), 5, 1);
 
-		// ResourcesManager::GetInst().CreateSpriteSheet("Player_hair", FilePath.PlusFilePath("Player_hair\\Player_hair.bmp"), 9, 1);
+		// Hair Animation
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_hair", FilePath.PlusFilePath("Player_hair\\Down_Player_hair1.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_hair", FilePath.PlusFilePath("Player_hair\\Right_Player_hair1.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_hair", FilePath.PlusFilePath("Player_hair\\Left_Player_hair1.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_hair_Tool1", FilePath.PlusFilePath("Player_hair\\Down_Player_hair1_Tool1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_hair_Tool1", FilePath.PlusFilePath("Player_hair\\Right_Player_hair1_Tool1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_hair_Tool1", FilePath.PlusFilePath("Player_hair\\Left_Player_hair1_Tool1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair_Tool1", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1_Tool1.bmp"), 5, 1);
+
 		// ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
 	}
 
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
 	BodyRenderer->SetScaleRatio(RENDERRATIO);
 
-	PantsRenderer = CreateRenderer(RenderOrder::pants);
+	PantsRenderer = CreateRenderer(RenderOrder::Pants);
 	PantsRenderer->SetScaleRatio(RENDERRATIO);
 
-	ShirtRenderer = CreateRenderer(RenderOrder::shirt);
+	ShirtRenderer = CreateRenderer(RenderOrder::Shirt);
 	ShirtRenderer->SetScaleRatio(RENDERRATIO);
 	
-	ArmRenderer = CreateRenderer(RenderOrder::arm);
+	ArmRenderer = CreateRenderer(RenderOrder::Arm);
 	ArmRenderer->SetScaleRatio(RENDERRATIO);
 
-	// HairRenderer = CreateRenderer(RenderOrder::hair);
-	// HatRenderer = CreateRenderer(RenderOrder::Equip);
+	HairRenderer = CreateRenderer(RenderOrder::Hair);
+	HairRenderer->SetScaleRatio(RENDERRATIO);
+
+
+	// HatRenderer = CreateRenderer(RenderOrder::Hat);
 
 	// Body
 	{
@@ -221,13 +233,36 @@ void Player::Start()
 		}
 	}
 
-	//{
-	//	HairRenderer->CreateAnimation("Idle", "Player_hair", 0, 0);
-	//	HairRenderer->CreateAnimation("Run", "Player_hair", 1, 8, 0.1f);
-	//	HairRenderer->SetScaleRatio(3.7f);
-	//	HairRenderer->SetRenderPos({ 0,-3.5f });
-	//	HairRenderer->ChangeAnimation("Idle");
-	//}
+	// Hair
+	{
+		//Up
+		{
+			HairRenderer->CreateAnimation("Up_Idle", "Up_Player_hair", 0, 0);
+			HairRenderer->CreateAnimation("Up_Run", "Up_Player_hair", 1, 8, 0.08f);
+			HairRenderer->CreateAnimation("Up_Tool1", "Up_Player_hair_Tool1", 0, 4, 0.08f, false);
+		}
+
+		//Down
+		{
+			HairRenderer->CreateAnimation("Down_Idle", "Down_Player_hair", 0, 0);
+			HairRenderer->CreateAnimation("Down_Run", "Down_Player_hair", 1, 8, 0.08f);
+			HairRenderer->CreateAnimation("Down_Tool1", "Down_Player_hair_Tool1", 0, 4, 0.1f, false);
+		}
+
+		//Right
+		{
+			HairRenderer->CreateAnimation("Right_Idle", "Right_Player_hair", 0, 0);
+			HairRenderer->CreateAnimation("Right_Run", "Right_Player_hair", 1, 6, 0.1f);
+			HairRenderer->CreateAnimation("Right_Tool1", "Right_Player_hair_Tool1", 0, 4, 0.1f, false);
+		}
+
+		//Left
+		{
+			HairRenderer->CreateAnimation("Left_Idle", "Left_Player_hair", 0, 0);
+			HairRenderer->CreateAnimation("Left_Run", "Left_Player_hair", 1, 6, 0.1f);
+			HairRenderer->CreateAnimation("Left_Tool1", "Left_Player_hair_Tool1", 0, 4, 0.1f, false);
+		}
+	}
 
 	//{
 	//	HatRenderer = CreateRenderer("Player_hat_05.bmp", RenderOrder::Equip);
@@ -357,4 +392,5 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	PantsRenderer->ChangeAnimation(AnimationName);
 	ShirtRenderer->ChangeAnimation(AnimationName);
 	ArmRenderer->ChangeAnimation(AnimationName);
+	HairRenderer->ChangeAnimation(AnimationName);
 }

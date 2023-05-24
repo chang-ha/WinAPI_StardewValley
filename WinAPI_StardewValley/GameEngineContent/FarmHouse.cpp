@@ -32,10 +32,8 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
-
+	Farmer->SetCollisionTexture("Collision_farmhouse.bmp");
 	Farmer->SetPos({ 1040,630 });
-	// float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	// GetMainCamera()->SetPos({});
 }
 
 void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
@@ -47,11 +45,12 @@ void FarmHouse::Start()
 	if (nullptr == Back)
 	{
 		Back = CreateActor<BackGround>(0);
-		Back->Init("farmhouse.bmp");
+		Back->Init("farmhouse.bmp", "Collision_farmhouse.bmp");
 		Back->Renderer->SetTexture("farmhouse.bmp");
 		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 		Back->SetRenderScale(Back->GetScale());
-		
+		Back->CollisionRenderer->SetTexture("Collision_farmhouse.bmp");
+
 		Farmer = CreateActor<Player>(1);
 
 		PlayOver* Over = CreateActor<PlayOver>();

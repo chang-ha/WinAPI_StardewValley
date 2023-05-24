@@ -28,6 +28,7 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
+	Farmer->SetCollisionTexture("Collision_Farm.bmp");
 	Farmer->SetPos({ 2465, -700 });
 	Farmer->SetDir(PlayerDir::Down);
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
@@ -43,11 +44,12 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 void Farm::Start()
 {
 	Back = CreateActor<BackGround>(0);
-	Back->Init("Farm.bmp");
+	Back->Init("Farm.bmp", "Collision_Farm.bmp");
 	Back->Renderer->SetTexture("Farm.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	Back->CollisionRenderer->SetTexture("Collision_Farm.bmp");
 	Farmer = CreateActor<Player>(1);
 }
 void Farm::Update(float _Delta)
