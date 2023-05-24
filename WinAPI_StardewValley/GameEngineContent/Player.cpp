@@ -278,10 +278,6 @@ void Player::Start()
 void Player::Update(float _DeltaTime)
 {
 	StateUpdate(_DeltaTime);
-	//if (true == GameEngineInput::IsPress('Y'))
-	//{
-	//	ArmRenderer->SetOrder(-100);
-	//}
 }
 
 void Player::StateUpdate(float _DeltaTime)

@@ -27,7 +27,7 @@ void StardewValleyCore::Start()
 	GameEngineCore::CreateLevel<BusStation>("BusStation");
 	GameEngineCore::CreateLevel<PelicanTown>("PelicanTown");
 	GameEngineCore::CreateLevel<Beach>("Beach");
-	GameEngineCore::ChangeLevel("FarmHouse");
+	GameEngineCore::ChangeLevel("TitleScreen");
 }
 void StardewValleyCore::Update(float _Delta)
 {

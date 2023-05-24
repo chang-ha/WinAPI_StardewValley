@@ -49,7 +49,9 @@ void FarmHouse::Start()
 		Back->Renderer->SetTexture("farmhouse.bmp");
 		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 		Back->SetRenderScale(Back->GetScale());
+
 		Back->CollisionRenderer->SetTexture("Collision_farmhouse.bmp");
+		Back->CollisionRenderer->SetRenderScale(Back->GetScale());
 
 		Farmer = CreateActor<Player>(1);
 
@@ -69,5 +71,10 @@ void FarmHouse::Update(float _Delta)
 	if (true == GameEngineInput::IsDown('2'))
 	{
 		GameEngineCore::ChangeLevel("Farm");
+	}
+
+	if (true == GameEngineInput::IsDown('P'))
+	{
+		Back->SwitchRender();
 	}
 }

@@ -51,6 +51,8 @@ void BusStation::Start()
 	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
 	Back->CollisionRenderer->SetTexture("Collision_BusStation.bmp");
+	Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+
 	Farmer = CreateActor<Player>(1);
 }
 void BusStation::Update(float _Delta)
@@ -62,5 +64,10 @@ void BusStation::Update(float _Delta)
 	if (true == GameEngineInput::IsDown('2'))
 	{
 		GameEngineCore::ChangeLevel("PelicanTown");
+	}
+
+	if (true == GameEngineInput::IsDown('P'))
+	{
+		Back->SwitchRender();
 	}
 }

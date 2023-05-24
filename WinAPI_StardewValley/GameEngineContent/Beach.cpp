@@ -31,6 +31,7 @@ void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
+	Farmer->SetCollisionTexture("Collision_Beach.bmp");
 	Farmer->SetPos({ 0, -900 });
 	Farmer->SetDir(PlayerDir::Down);
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
@@ -46,11 +47,14 @@ void Beach::LevelEnd(GameEngineLevel* _NextLevel)
 void Beach::Start()
 {
 	Back = CreateActor<BackGround>(0);
-	Back->Init("Beach.bmp");
+	Back->Init("Beach.bmp", "Collision_Beach.bmp");
 	Back->Renderer->SetTexture("Beach.bmp");
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+
+	Back->CollisionRenderer->SetTexture("Collision_Beach.bmp");
+	Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
 	Farmer = CreateActor<Player>(1);
 }
@@ -59,5 +63,10 @@ void Beach::Update(float _Delta)
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		GameEngineCore::ChangeLevel("PelicanTown");
+	}
+
+	if (true == GameEngineInput::IsDown('P'))
+	{
+		Back->SwitchRender();
 	}
 }

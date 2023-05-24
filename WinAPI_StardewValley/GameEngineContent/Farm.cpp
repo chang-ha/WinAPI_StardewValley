@@ -49,7 +49,10 @@ void Farm::Start()
 	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+
 	Back->CollisionRenderer->SetTexture("Collision_Farm.bmp");
+	Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+
 	Farmer = CreateActor<Player>(1);
 }
 void Farm::Update(float _Delta)
@@ -61,5 +64,10 @@ void Farm::Update(float _Delta)
 	if (true == GameEngineInput::IsDown('2'))
 	{
 		GameEngineCore::ChangeLevel("BusStation");
+	}
+
+	if (true == GameEngineInput::IsDown('P'))
+	{
+		Back->SwitchRender();
 	}
 }
