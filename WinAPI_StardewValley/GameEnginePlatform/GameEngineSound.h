@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 
+#include <GameEnginePlatform/ThirdParty/FMOD/inc/fmod.hpp>
+
 class GameEngineSound
 {
 public:
@@ -14,9 +16,10 @@ public:
 	GameEngineSound& operator=(const GameEngineSound& _Other) = delete;
 	GameEngineSound& operator=(GameEngineSound&& _Other) noexcept = delete;
 
-	static void SoundLoad(std::string& _Name, std::string& _Path);
-	static void SoundPlay(std::string& _Name);
-	static void PlayBgm(std::string& _Name);
+	static void Init();
+	static void SoundLoad(const std::string& _Name, const std::string& _Path);
+	static void SoundPlay(const std::string& _Name);
+	static void PlayBgm(const std::string& _Name);
 	static void StopBgm();
 
 protected:

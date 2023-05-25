@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 
+#include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/ResourcesManager.h>
 
 #include "ContentActor.h"
@@ -37,4 +38,9 @@ int ContentActor::GetFrontColor(unsigned int _Color, float4 _Pos /*= float4::ZER
 	Pos += _Pos;
 	Pos *= 0.25f;
 	return CollisionTexture->GetColor(_Color, Pos);
+}
+
+float4 ContentActor::ActorCameraPos()
+{
+	return GetPos() - GetLevel()->GetMainCamera()->GetPos();
 }

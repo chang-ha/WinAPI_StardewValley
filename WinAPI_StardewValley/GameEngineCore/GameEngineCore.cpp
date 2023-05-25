@@ -2,9 +2,11 @@
 
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 #include "GameEngineCore.h"
 #include "GameEngineLevel.h"
+
 
 std::string GameEngineCore::WindowTitle = "";
 std::map<std::string, GameEngineLevel*> GameEngineCore::AllLevel;
@@ -26,6 +28,7 @@ void GameEngineCore::CoreStart(HINSTANCE _Inst)
 {
 	GameEngineWindow::MainWindow.Open(WindowTitle, _Inst);
 	GameEngineInput::InputInit();
+	GameEngineSound::Init();
 	Process->Start();
 }
 
