@@ -34,6 +34,7 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	}
 	Farmer->SetCollisionTexture("Collision_farmhouse.bmp");
 	Farmer->SetPos({ 1010,630 });
+	Farmer->SetDir(PlayerDir::Right);
 }
 
 void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
@@ -53,7 +54,7 @@ void FarmHouse::Start()
 
 
 		Back->CollisionRenderer->SetTexture("Collision_farmhouse.bmp");
-		Back->CollisionRenderer->SetRenderScale(Back->GetScale());
+		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
 		Farmer = CreateActor<Player>(1);
 

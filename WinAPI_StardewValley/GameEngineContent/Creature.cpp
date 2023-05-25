@@ -5,6 +5,7 @@
 
 #include "Creature.h"
 #include "ContentsEnum.h"
+
 Creature::Creature()
 {
 

@@ -31,7 +31,7 @@ void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 	Farmer->SetCollisionTexture("Collision_BusStation.bmp");
-	Farmer->SetPos({ -200, 1030 });
+	Farmer->SetPos({ -275, 1000 });
 	GetMainCamera()->SetPos({ GameEngineWindow::MainWindow.GetScale().Half().X - Back->GetRenderScale().Half().X, 500 });
 }
 

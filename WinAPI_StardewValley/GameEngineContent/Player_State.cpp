@@ -27,11 +27,11 @@ void Player::ToolStart()
 	}
 	else if (true)
 	{
-		//ChangeAnimationState("Tool1");
+		//ChangeAnimationState("Tool2");
 	}
 	else if (true)
 	{
-		//ChangeAnimationState("Tool1");
+		//ChangeAnimationState("Tool3");
 	}
 
 	if (PlayerDir::Up == Dir)

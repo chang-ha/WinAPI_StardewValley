@@ -178,6 +178,11 @@ void GameEngineWindow::SetPosAndScale(const float4& _Pos, const float4& _Scale)
 
 void GameEngineWindow::DoubleBuffering()
 {
+    //float4 CopyLeftTop = float4::ZERO;
+    //float4 CopyRightBot = BackBuffer->GetScale();
+
+    //WindowBuffer->TransCopy(BackBuffer, Scale.Half(), BackBuffer->GetScale() * CopyRatio, CopyLeftTop, CopyRightBot);
+
     WindowBuffer->BitCopy(BackBuffer, Scale.Half(), BackBuffer->GetScale());
 }
 
