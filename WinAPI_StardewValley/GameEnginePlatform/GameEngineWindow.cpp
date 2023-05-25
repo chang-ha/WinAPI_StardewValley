@@ -86,7 +86,6 @@ LRESULT CALLBACK GameEngineWindow::WndProc(HWND hWnd, UINT message, WPARAM wPara
     break;
     case WM_DESTROY:
         IsWindowUpdate = false;
-        // WindowUpdateOff();
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
@@ -178,12 +177,10 @@ void GameEngineWindow::SetPosAndScale(const float4& _Pos, const float4& _Scale)
 
 void GameEngineWindow::DoubleBuffering()
 {
-    //float4 CopyLeftTop = float4::ZERO;
-    //float4 CopyRightBot = BackBuffer->GetScale();
+    float4 CopyLeftTop = float4::ZERO;
+    float4 CopyRightBot = BackBuffer->GetScale();
 
-    //WindowBuffer->TransCopy(BackBuffer, Scale.Half(), BackBuffer->GetScale() * CopyRatio, CopyLeftTop, CopyRightBot);
-
-    WindowBuffer->BitCopy(BackBuffer, Scale.Half(), BackBuffer->GetScale());
+    WindowBuffer->TransCopy(BackBuffer, Scale.Half(), BackBuffer->GetScale() * CopyRatio, CopyLeftTop, CopyRightBot);
 }
 
 void GameEngineWindow::ClearBackBuffer()

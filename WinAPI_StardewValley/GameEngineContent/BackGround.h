@@ -37,6 +37,7 @@ public:
 	}
 
 	void SwitchRender();
+
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineRenderer* CollisionRenderer = nullptr;
 protected:

@@ -29,7 +29,6 @@ void BackGround::Update(float _Delta)
 {
 }
 
-
 void BackGround::Init(const std::string& _FileName)
 {
 	FileName = _FileName;

@@ -44,6 +44,5 @@ void ContentUIManager::Start()
 		EnergyBar = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
 		EnergyBar->SetRenderScale(Texture->GetScale()*4);
 		EnergyBar->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, WinScale.Y - Texture->GetScale().Half().Y * 4 });
-
 	}
 }

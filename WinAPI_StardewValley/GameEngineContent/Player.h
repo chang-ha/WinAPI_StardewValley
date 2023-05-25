@@ -18,7 +18,6 @@ enum class PlayerDir
 	Null, // StartValue
 };
 
-class ContentLevel;
 class Player : public ContentActor
 {
 public:
