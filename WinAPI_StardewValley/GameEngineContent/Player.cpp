@@ -319,27 +319,25 @@ void Player::ChangeState(PlayerState _State)
 
 void Player::DirCheck()
 {
-	PlayerDir CheckDir = PlayerDir::Null;
+	int CheckDir = PlayerDir::Null;
 	bool ChangeDir = false;
 
 	if (true == GameEngineInput::IsPress('A'))
 	{
-		CheckDir = PlayerDir::Left;
+		CheckDir += PlayerDir::Left;
 	}
-
-	if (true == GameEngineInput::IsPress('D'))
+	else if (true == GameEngineInput::IsPress('D'))
 	{
-		CheckDir = PlayerDir::Right;
+		CheckDir += PlayerDir::Right;
 	}
 
 	if (true == GameEngineInput::IsPress('W'))
 	{
-		CheckDir = PlayerDir::Up;
+		CheckDir += PlayerDir::Up;
 	}
-
-	if (true == GameEngineInput::IsPress('S'))
+	else if (true == GameEngineInput::IsPress('S'))
 	{
-		CheckDir = PlayerDir::Down;
+		CheckDir += PlayerDir::Down;
 	}
 
 	if (PlayerDir::Null != CheckDir)
@@ -358,22 +356,22 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 {
 	std::string AnimationName;
 	float4 ShirtPos = { 0, 2 };
-	switch (Dir)
+
+	if (PlayerDir::Right == (Dir & PlayerDir::Right))
 	{
-	case PlayerDir::Up:
-		AnimationName = "Up_";
-		break;
-	case PlayerDir::Down:
-		AnimationName = "Down_";
-		break;
-	case PlayerDir::Right:
 		AnimationName = "Right_";
-		break;
-	case PlayerDir::Left:
+	}
+	else if (PlayerDir::Left == (Dir & PlayerDir::Left))
+	{
 		AnimationName = "Left_";
-		break;
-	default:
-		break;
+	}
+	else if (PlayerDir::Up == (Dir & PlayerDir::Up))
+	{
+		AnimationName = "Up_";
+	}
+	else if (PlayerDir::Down == (Dir & PlayerDir::Down))
+	{
+		AnimationName = "Down_";
 	}
 
 	// ShirtPos Setting

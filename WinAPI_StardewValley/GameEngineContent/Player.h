@@ -9,13 +9,13 @@ enum class PlayerState
 	Null, // StartValue
 };
 
-enum class PlayerDir
+enum PlayerDir
 {
-	Up,
-	Down,
-	Right,
-	Left,
-	Null, // StartValue
+	Up = 0b0001,
+	Down = 0b0010,
+	Right = 0b0100,
+	Left = 0b1000,
+	Null = 0b0000, // StartValue
 };
 
 class Player : public ContentActor
@@ -51,7 +51,7 @@ protected:
 private:
 	float Speed = 1000.0f;
 	PlayerState State = PlayerState::Null;
-	PlayerDir Dir = PlayerDir::Null;
+	int Dir = PlayerDir::Null;
 	std::string CurState = "";
 
 	void StateUpdate(float _DeltaTime);
