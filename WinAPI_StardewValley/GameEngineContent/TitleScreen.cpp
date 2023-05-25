@@ -179,10 +179,11 @@ void TitleScreen::Update(float _Delta)
 			Load_Button->Renderer->On();
 			Coop_Button->Renderer->On();
 			Exit_Button->Renderer->On();
+			IsSkip = true;
 		}
 	}
 
-	if (4.0f < Back->GetLiveTime() && true == GameEngineInput::IsDown(VK_LBUTTON))
+	if (4.0f < Back->GetLiveTime() && true == GameEngineInput::IsDown(VK_LBUTTON) && false == IsSkip)
 	{
 		GetMainCamera()->SetPos({ 0, GameEngineWindow::MainWindow.GetScale().Y - Back->GetRenderScale().Y });
 	}

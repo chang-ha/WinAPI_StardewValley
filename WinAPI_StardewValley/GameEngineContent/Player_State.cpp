@@ -70,13 +70,12 @@ void Player::RunUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress('A') /*&& Dir == PlayerDir::Left*/)
 	{
-		CheckPos = { -32, 32 };
+		CheckPos = LeftCollision;
 		MovePos = { -Speed * _DeltaTime, 0.0f };
 	}
-
 	if (true == GameEngineInput::IsPress('D') /*&& Dir == PlayerDir::Right*/)
 	{
-		CheckPos = { 32, 32 };
+		CheckPos = RightCollision;
 		MovePos = { Speed * _DeltaTime, 0.0f };
 	}
 
@@ -87,7 +86,7 @@ void Player::RunUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress('S') /*&& Dir == PlayerDir::Down*/)
 	{
-		CheckPos = { 0, 48 };
+		CheckPos = DownCollision;
 		MovePos = { 0.0f, Speed * _DeltaTime };
 	}
 
@@ -102,6 +101,12 @@ void Player::RunUpdate(float _DeltaTime)
 	if (RGB(0, 0, 0) == Color)
 	{
 		return;
+	}
+
+	Color = GetFrontColor(RGB(0, 0, 0), MovePos);
+	if (RGB(0, 0, 0) == Color)
+	{
+		int a = 0;
 	}
 
 	AddPos(MovePos);
@@ -122,7 +127,8 @@ void Player::RunUpdate(float _DeltaTime)
 				GetLevel()->GetMainCamera()->SetPos(CameraPos);
 			}
 		}
-		else if (PlayerDir::Right == Dir && BackScale_Half.X - WinScale_Half.X > CameraPos.X && GetPos().X >= CameraPos.X + WinScale_Half.X)
+
+		if (PlayerDir::Right == Dir && BackScale_Half.X - WinScale_Half.X > CameraPos.X && GetPos().X >= CameraPos.X + WinScale_Half.X)
 		{
 			GetLevel()->GetMainCamera()->AddPos(MovePos);
 			CameraPos = GetLevel()->GetMainCamera()->GetPos();
@@ -143,7 +149,8 @@ void Player::RunUpdate(float _DeltaTime)
 				GetLevel()->GetMainCamera()->SetPos(CameraPos);
 			}
 		}
-		else if (PlayerDir::Down == Dir && BackScale_Half.Y - WinScale_Half.Y > CameraPos.Y && GetPos().Y >= CameraPos.Y + WinScale_Half.Y)
+
+		if (PlayerDir::Down == Dir && BackScale_Half.Y - WinScale_Half.Y > CameraPos.Y && GetPos().Y >= CameraPos.Y + WinScale_Half.Y)
 		{
 			GetLevel()->GetMainCamera()->AddPos(MovePos);
 			CameraPos = GetLevel()->GetMainCamera()->GetPos();
@@ -158,11 +165,9 @@ void Player::RunUpdate(float _DeltaTime)
 
 void Player::ToolUpdate(float _DeltaTime)
 {
-	static float Check = 0.5f;
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
 		ArmRenderer->SetOrder(7); // RenderOrder::arm
 	}
-	Check -= _DeltaTime;
 }

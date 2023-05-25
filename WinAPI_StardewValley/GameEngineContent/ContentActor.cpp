@@ -40,7 +40,7 @@ int ContentActor::GetFrontColor(unsigned int _Color, float4 _Pos /*= float4::ZER
 	return CollisionTexture->GetColor(_Color, Pos);
 }
 
-float4 ContentActor::ActorCameraPos()
+float4 ContentActor::WindowActorPos()
 {
 	return GetPos() - GetLevel()->GetMainCamera()->GetPos();
 }

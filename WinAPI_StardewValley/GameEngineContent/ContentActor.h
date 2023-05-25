@@ -25,7 +25,7 @@ public:
 		PlayLevel = _ContentLevel;
 	}
 
-	float4 ActorCameraPos();
+	float4 WindowActorPos();
 protected:
 	ContentLevel* PlayLevel = nullptr;
 

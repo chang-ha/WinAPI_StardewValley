@@ -7,6 +7,7 @@
 
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Player.h"
 #include "ContentLevel.h"
@@ -27,7 +28,6 @@ Player::~Player()
 void Player::LevelStart()
 {
 }
-
 
 void Player::Start()
 {
@@ -105,7 +105,6 @@ void Player::Start()
 
 	HairRenderer = CreateRenderer(RenderOrder::Hair);
 	HairRenderer->SetScaleRatio(RENDERRATIO);
-
 
 	// HatRenderer = CreateRenderer(RenderOrder::Hat);
 
@@ -332,12 +331,12 @@ void Player::DirCheck()
 	{
 		CheckDir = PlayerDir::Right;
 	}
-	
+
 	if (true == GameEngineInput::IsPress('W'))
 	{
 		CheckDir = PlayerDir::Up;
 	}
-	
+
 	if (true == GameEngineInput::IsPress('S'))
 	{
 		CheckDir = PlayerDir::Down;
@@ -389,4 +388,23 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	ShirtRenderer->ChangeAnimation(AnimationName);
 	ArmRenderer->ChangeAnimation(AnimationName);
 	HairRenderer->ChangeAnimation(AnimationName);
+}
+
+void Player::Render(float _Delta)
+{
+	HDC handle = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();
+
+	CollisionData PlayerCollision;
+	PlayerCollision.Pos = WindowActorPos();
+	PlayerCollision.Scale = { 8,8 };
+	Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+
+	PlayerCollision.Pos = WindowActorPos() + RightCollision;
+	Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+
+	PlayerCollision.Pos = WindowActorPos() + LeftCollision;
+	Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+
+	PlayerCollision.Pos = WindowActorPos() + DownCollision;
+	Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 }

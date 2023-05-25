@@ -49,7 +49,7 @@ public:
 protected:
 
 private:
-	float Speed = 400.0f;
+	float Speed = 1000.0f;
 	PlayerState State = PlayerState::Null;
 	PlayerDir Dir = PlayerDir::Null;
 	std::string CurState = "";
@@ -64,11 +64,19 @@ private:
 	void RunUpdate(float _DeltaTime);
 	void ToolUpdate(float _DeltaTime);
 
-	void ChangeState(PlayerState State);
 	void DirCheck();
+	void ChangeState(PlayerState State);
 	void ChangeAnimationState(const std::string& _AnimationName);
+
 	void LevelStart() override;
 	void Start() override;
-	void Update(float _DeltaTime) override;
+	void Update(float _Delta) override;
+	void Render(float _Delta) override;
+
+	// PlayerCollision Value
+	// TopCollision = Player¿« GetPos()
+	float4 LeftCollision = { -32, 32 };
+	float4 RightCollision = { 32, 32 };
+	float4 DownCollision = { 0 , 48 };
 };
 

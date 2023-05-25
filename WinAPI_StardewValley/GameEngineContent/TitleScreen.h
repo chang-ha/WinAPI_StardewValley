@@ -21,6 +21,7 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	bool IsSkip = false;
 	void Start() override;
 	void Update(float _Delta) override;
 	void Render(float _Delta) override;
