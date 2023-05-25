@@ -41,6 +41,22 @@ void Player::ToolStart()
 	}
 }
 
+void Player::Tool2Start()
+{
+
+	ChangeAnimationState("Tool2");
+
+	if (PlayerDir::Down == Dir)
+	{
+		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+	}
+	if (PlayerDir::Up == Dir)
+	{
+		ArmRenderer->SetOrder(1); // RenderOrder::PlayBelow
+		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+	}
+}
+
 void Player::IdleUpdate(float _DeltaTime)
 {
 	if (true == GameEngineInput::IsDown('A')
@@ -57,6 +73,12 @@ void Player::IdleUpdate(float _DeltaTime)
 	{
 		DirCheck();
 		ChangeState(PlayerState::Tool);
+		return;
+	}
+	if (true == GameEngineInput::IsDown(VK_RBUTTON))
+	{
+		DirCheck();
+		ChangeState(PlayerState::Tool2);
 		return;
 	}
 }
@@ -106,7 +128,7 @@ void Player::RunUpdate(float _DeltaTime)
 	Color = GetFrontColor(RGB(0, 0, 0), MovePos);
 	if (RGB(0, 0, 0) == Color)
 	{
-		int a = 0;
+
 	}
 
 	AddPos(MovePos);
@@ -162,6 +184,15 @@ void Player::RunUpdate(float _DeltaTime)
 }
 
 void Player::ToolUpdate(float _DeltaTime)
+{
+	if (true == ArmRenderer->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::Idle);
+		ArmRenderer->SetOrder(7); // RenderOrder::arm
+	}
+}
+
+void Player::Tool2Update(float _DeltaTime)
 {
 	if (true == ArmRenderer->IsAnimationEnd())
 	{

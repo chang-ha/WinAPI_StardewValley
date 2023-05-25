@@ -8,6 +8,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineRenderer.h>
 
 #include "Player.h"
 #include "ContentLevel.h"
@@ -43,10 +44,14 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Body", FilePath.PlusFilePath("Player_body\\Down_Player_Body.bmp"), 9, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Body", FilePath.PlusFilePath("Player_body\\Right_Player_Body.bmp"), 7, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Body", FilePath.PlusFilePath("Player_body\\Left_Player_Body.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_body_Tool1", FilePath.PlusFilePath("Player_body\\Up_Player_body_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_body_Tool1", FilePath.PlusFilePath("Player_body\\Down_Player_body_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_body_Tool1", FilePath.PlusFilePath("Player_body\\Right_Player_body_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_body_Tool1", FilePath.PlusFilePath("Player_body\\Left_Player_body_Tool1.bmp"), 5, 1);
-		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_body_Tool1", FilePath.PlusFilePath("Player_body\\Up_Player_body_Tool1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_body_Tool2", FilePath.PlusFilePath("Player_body\\Down_Player_body_Tool2.bmp"), 3, 1);		
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_body_Tool2", FilePath.PlusFilePath("Player_body\\Right_Player_body_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_body_Tool2", FilePath.PlusFilePath("Player_body\\Left_Player_body_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_body_Tool2", FilePath.PlusFilePath("Player_body\\Up_Player_body_Tool2.bmp"), 3, 1);
 
 		// Pants Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants", FilePath.PlusFilePath("Player_pants\\Up_Player_pants1.bmp"), 9, 1);
@@ -57,6 +62,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Pants_Tool1", FilePath.PlusFilePath("Player_pants\\Right_Player_pants1_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Pants_Tool1", FilePath.PlusFilePath("Player_pants\\Left_Player_pants1_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants_Tool1", FilePath.PlusFilePath("Player_pants\\Up_Player_pants1_Tool1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Pants_Tool2", FilePath.PlusFilePath("Player_pants\\Down_Player_pants1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Pants_Tool2", FilePath.PlusFilePath("Player_pants\\Right_Player_pants1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Pants_Tool2", FilePath.PlusFilePath("Player_pants\\Left_Player_pants1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants_Tool2", FilePath.PlusFilePath("Player_pants\\Up_Player_pants1_Tool2.bmp"), 3, 1);
 
 		// Shirt Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt1.bmp"), 9, 1);
@@ -67,6 +76,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Shirt_Tool1", FilePath.PlusFilePath("Player_shirt\\Right_Player_shirt1_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Shirt_Tool1", FilePath.PlusFilePath("Player_shirt\\Left_Player_shirt1_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt_Tool1", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt1_Tool1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Shirt_Tool2", FilePath.PlusFilePath("Player_shirt\\Down_Player_shirt1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Shirt_Tool2", FilePath.PlusFilePath("Player_shirt\\Right_Player_shirt1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Shirt_Tool2", FilePath.PlusFilePath("Player_shirt\\Left_Player_shirt1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt_Tool2", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt1_Tool2.bmp"), 3, 1);
 
 		// Arm Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm", FilePath.PlusFilePath("Player_arm\\Up_Player_arm.bmp"), 9, 1);
@@ -77,6 +90,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_arm_Tool1", FilePath.PlusFilePath("Player_arm\\Right_Player_arm_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm_Tool1", FilePath.PlusFilePath("Player_arm\\Left_Player_arm_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm_Tool1", FilePath.PlusFilePath("Player_arm\\Up_Player_arm_Tool1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm_Tool2", FilePath.PlusFilePath("Player_arm\\Down_Player_arm_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_arm_Tool2", FilePath.PlusFilePath("Player_arm\\Right_Player_arm_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm_Tool2", FilePath.PlusFilePath("Player_arm\\Left_Player_arm_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm_Tool2", FilePath.PlusFilePath("Player_arm\\Up_Player_arm_Tool2.bmp"), 3, 1);
 
 		// Hair Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1.bmp"), 9, 1);
@@ -87,6 +104,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_hair_Tool1", FilePath.PlusFilePath("Player_hair\\Right_Player_hair1_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_hair_Tool1", FilePath.PlusFilePath("Player_hair\\Left_Player_hair1_Tool1.bmp"), 5, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair_Tool1", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1_Tool1.bmp"), 5, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_hair_Tool2", FilePath.PlusFilePath("Player_hair\\Down_Player_hair1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_hair_Tool2", FilePath.PlusFilePath("Player_hair\\Right_Player_hair1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_hair_Tool2", FilePath.PlusFilePath("Player_hair\\Left_Player_hair1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair_Tool2", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1_Tool2.bmp"), 3, 1);
 
 		// ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
 	}
@@ -107,7 +128,7 @@ void Player::Start()
 	HairRenderer->SetScaleRatio(RENDERRATIO);
 
 	// HatRenderer = CreateRenderer(RenderOrder::Hat);
-
+	
 	// Body
 	{
 		// Up
@@ -115,6 +136,8 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Up_Idle", "Up_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Up_Run", "Up_Player_Body", 1, 8, 0.08f);
 			BodyRenderer->CreateAnimation("Up_Tool1", "Up_Player_body_Tool1", 0, 4, 0.08f, false);
+			BodyRenderer->CreateAnimation("Up_Tool2", "Up_Player_body_Tool2", 0, 2, 0.05f, false);
+			BodyRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
 		}
 
 		// Down
@@ -122,6 +145,8 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Down_Idle", "Down_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Down_Run", "Down_Player_Body", 1, 8, 0.08f);
 			BodyRenderer->CreateAnimation("Down_Tool1", "Down_Player_body_Tool1", 0, 4, 0.1f, false);
+			BodyRenderer->CreateAnimation("Down_Tool2", "Down_Player_body_Tool2", 0, 2, 0.05f, false);
+			BodyRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
 		}
 		
 		// Right
@@ -129,6 +154,8 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Right_Idle", "Right_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Right_Run", "Right_Player_Body", 1, 6, 0.1f);
 			BodyRenderer->CreateAnimation("Right_Tool1", "Right_Player_body_Tool1", 0, 4, 0.1f, false);
+			BodyRenderer->CreateAnimation("Right_Tool2", "Right_Player_body_Tool2", 0, 2, 0.05f, false);
+			BodyRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
 		}
 		
 		// Left
@@ -136,6 +163,8 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Left_Idle", "Left_Player_Body", 0, 0);
 			BodyRenderer->CreateAnimation("Left_Run", "Left_Player_Body", 1, 6, 0.1f);
 			BodyRenderer->CreateAnimation("Left_Tool1", "Left_Player_body_Tool1", 0, 4, 0.1f, false);
+			BodyRenderer->CreateAnimation("Left_Tool2", "Left_Player_body_Tool2", 0, 2, 0.05f, false);
+			BodyRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
 		}
 	}
 
@@ -146,6 +175,8 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Up_Idle", "Up_Player_Pants", 0, 0);
 			PantsRenderer->CreateAnimation("Up_Run", "Up_Player_Pants", 1, 8, 0.08f);
 			PantsRenderer->CreateAnimation("Up_Tool1", "Up_Player_Pants_Tool1", 0, 4, 0.08f, false);
+			PantsRenderer->CreateAnimation("Up_Tool2", "Up_Player_Pants_Tool2", 0, 2, 0.05f, false);
+			PantsRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Down
@@ -153,6 +184,8 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Down_Idle", "Down_Player_Pants", 0, 0);
 			PantsRenderer->CreateAnimation("Down_Run", "Down_Player_Pants", 1, 8, 0.08f);
 			PantsRenderer->CreateAnimation("Down_Tool1", "Down_Player_Pants_Tool1", 0, 4, 0.1f, false);
+			PantsRenderer->CreateAnimation("Down_Tool2", "Down_Player_Pants_Tool2", 0, 2, 0.05f, false);
+			PantsRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Right
@@ -160,6 +193,8 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Right_Idle", "Right_Player_Pants", 0, 0);
 			PantsRenderer->CreateAnimation("Right_Run", "Right_Player_Pants", 1, 6, 0.1f);
 			PantsRenderer->CreateAnimation("Right_Tool1", "Right_Player_Pants_Tool1", 0, 4, 0.1f, false);
+			PantsRenderer->CreateAnimation("Right_Tool2", "Right_Player_Pants_Tool2", 0, 2, 0.05f, false);
+			PantsRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Left
@@ -167,6 +202,8 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Left_Idle", "Left_Player_Pants", 0, 0);
 			PantsRenderer->CreateAnimation("Left_Run", "Left_Player_Pants", 1, 6, 0.1f);
 			PantsRenderer->CreateAnimation("Left_Tool1", "Left_Player_Pants_Tool1", 0, 4, 0.1f, false);
+			PantsRenderer->CreateAnimation("Left_Tool2", "Left_Player_Pants_Tool2", 0, 2, 0.05f, false);
+			PantsRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
 		}
 	}
 
@@ -177,6 +214,8 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Up_Idle", "Up_Player_Shirt", 0, 0);
 			ShirtRenderer->CreateAnimation("Up_Run", "Up_Player_Shirt", 1, 8, 0.08f);
 			ShirtRenderer->CreateAnimation("Up_Tool1", "Up_Player_Shirt_Tool1", 0, 4, 0.08f, false);
+			ShirtRenderer->CreateAnimation("Up_Tool2", "Up_Player_Shirt_Tool2", 0, 2, 0.05f, false);
+			ShirtRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Down
@@ -184,6 +223,8 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Down_Idle", "Down_Player_Shirt", 0, 0);
 			ShirtRenderer->CreateAnimation("Down_Run", "Down_Player_Shirt", 1, 8, 0.08f);
 			ShirtRenderer->CreateAnimation("Down_Tool1", "Down_Player_Shirt_Tool1", 0, 4, 0.1f, false);
+			ShirtRenderer->CreateAnimation("Down_Tool2", "Down_Player_Shirt_Tool2", 0, 2, 0.05f, false);
+			ShirtRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Right
@@ -191,6 +232,8 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Right_Idle", "Right_Player_Shirt", 0, 0);
 			ShirtRenderer->CreateAnimation("Right_Run", "Right_Player_Shirt", 1, 6, 0.1f);
 			ShirtRenderer->CreateAnimation("Right_Tool1", "Right_Player_Shirt_Tool1", 0, 4, 0.1f, false);
+			ShirtRenderer->CreateAnimation("Right_Tool2", "Right_Player_Shirt_Tool2", 0, 2, 0.05f, false);
+			ShirtRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Left
@@ -198,6 +241,8 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Left_Idle", "Left_Player_Shirt", 0, 0);
 			ShirtRenderer->CreateAnimation("Left_Run", "Left_Player_Shirt", 1, 6, 0.1f);
 			ShirtRenderer->CreateAnimation("Left_Tool1", "Left_Player_Shirt_Tool1", 0, 4, 0.1f, false);
+			ShirtRenderer->CreateAnimation("Left_Tool2", "Left_Player_Shirt_Tool2", 0, 2, 0.05f, false);
+			ShirtRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
 		}
 	}
 	
@@ -208,6 +253,8 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Up_Idle", "Up_Player_arm", 0, 0);
 			ArmRenderer->CreateAnimation("Up_Run", "Up_Player_arm", 1, 8, 0.08f);
 			ArmRenderer->CreateAnimation("Up_Tool1", "Up_Player_arm_Tool1", 0, 4, 0.08f, false);
+			ArmRenderer->CreateAnimation("Up_Tool2", "Up_Player_arm_Tool2", 0, 2, 0.05f, false);
+			ArmRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
 		}
 
 		// Down
@@ -215,6 +262,8 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Down_Idle", "Down_Player_arm", 0, 0);
 			ArmRenderer->CreateAnimation("Down_Run", "Down_Player_arm", 1, 8, 0.08f);
 			ArmRenderer->CreateAnimation("Down_Tool1", "Down_Player_arm_Tool1", 0, 4, 0.1f, false);
+			ArmRenderer->CreateAnimation("Down_Tool2", "Down_Player_arm_Tool2", 0, 2, 0.05f, false);
+			ArmRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
 		}
 
 		// Right
@@ -222,6 +271,8 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Right_Idle", "Right_Player_arm", 0, 0);
 			ArmRenderer->CreateAnimation("Right_Run", "Right_Player_arm", 1, 6, 0.1f);
 			ArmRenderer->CreateAnimation("Right_Tool1", "Right_Player_arm_Tool1", 0, 4, 0.1f, false);
+			ArmRenderer->CreateAnimation("Right_Tool2", "Right_Player_arm_Tool2", 0, 2, 0.05f, false);
+			ArmRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
 		}
 
 		// Left
@@ -229,6 +280,8 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Left_Idle", "Left_Player_arm", 0, 0);
 			ArmRenderer->CreateAnimation("Left_Run", "Left_Player_arm", 1, 6, 0.1f);
 			ArmRenderer->CreateAnimation("Left_Tool1", "Left_Player_arm_Tool1", 0, 4, 0.1f, false);
+			ArmRenderer->CreateAnimation("Left_Tool2", "Left_Player_arm_Tool2", 0, 2, 0.05f, false);
+			ArmRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
 		}
 	}
 
@@ -239,6 +292,8 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Up_Idle", "Up_Player_hair", 0, 0);
 			HairRenderer->CreateAnimation("Up_Run", "Up_Player_hair", 1, 8, 0.08f);
 			HairRenderer->CreateAnimation("Up_Tool1", "Up_Player_hair_Tool1", 0, 4, 0.08f, false);
+			HairRenderer->CreateAnimation("Up_Tool2", "Up_Player_hair_Tool2", 0, 2, 0.05f, false);
+			HairRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Down
@@ -246,6 +301,8 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Down_Idle", "Down_Player_hair", 0, 0);
 			HairRenderer->CreateAnimation("Down_Run", "Down_Player_hair", 1, 8, 0.08f);
 			HairRenderer->CreateAnimation("Down_Tool1", "Down_Player_hair_Tool1", 0, 4, 0.1f, false);
+			HairRenderer->CreateAnimation("Down_Tool2", "Down_Player_hair_Tool2", 0, 2, 0.05f, false);
+			HairRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Right
@@ -253,6 +310,8 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Right_Idle", "Right_Player_hair", 0, 0);
 			HairRenderer->CreateAnimation("Right_Run", "Right_Player_hair", 1, 6, 0.1f);
 			HairRenderer->CreateAnimation("Right_Tool1", "Right_Player_hair_Tool1", 0, 4, 0.1f, false);
+			HairRenderer->CreateAnimation("Right_Tool2", "Right_Player_hair_Tool2", 0, 2, 0.05f, false);
+			HairRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
 		}
 
 		//Left
@@ -260,6 +319,8 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Left_Idle", "Left_Player_hair", 0, 0);
 			HairRenderer->CreateAnimation("Left_Run", "Left_Player_hair", 1, 6, 0.1f);
 			HairRenderer->CreateAnimation("Left_Tool1", "Left_Player_hair_Tool1", 0, 4, 0.1f, false);
+			HairRenderer->CreateAnimation("Left_Tool2", "Left_Player_hair_Tool2", 0, 2, 0.05f, false);
+			HairRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
 		}
 	}
 
@@ -274,21 +335,27 @@ void Player::Start()
 	ChangeState(PlayerState::Idle);
 }
 
-void Player::Update(float _DeltaTime)
+void Player::Update(float _Delta)
 {
-	StateUpdate(_DeltaTime);
+	StateUpdate(_Delta);
+	if (true == GameEngineInput::IsDown('P'))
+	{
+		CollisionDebug = !CollisionDebug;
+	}
 }
 
-void Player::StateUpdate(float _DeltaTime)
+void Player::StateUpdate(float _Delta)
 {
 	switch (State)
 	{
 	case PlayerState::Idle:
-		return IdleUpdate(_DeltaTime);
+		return IdleUpdate(_Delta);
 	case PlayerState::Run:
-		return RunUpdate(_DeltaTime);
+		return RunUpdate(_Delta);
 	case PlayerState::Tool:
-		return ToolUpdate(_DeltaTime);
+		return ToolUpdate(_Delta);
+	case PlayerState::Tool2:
+		return ToolUpdate(_Delta);
 	default:
 		break;
 	}
@@ -308,6 +375,9 @@ void Player::ChangeState(PlayerState _State)
 			break;
 		case PlayerState::Tool:
 			ToolStart();
+			break;
+		case PlayerState::Tool2:
+			Tool2Start();
 			break;
 		default:
 			break;
@@ -390,19 +460,22 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 
 void Player::Render(float _Delta)
 {
-	HDC handle = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();
+	if (true == CollisionDebug)
+	{
+		HDC handle = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();
 
-	CollisionData PlayerCollision;
-	PlayerCollision.Pos = WindowActorPos();
-	PlayerCollision.Scale = { 8,8 };
-	Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+		CollisionData PlayerCollision;
+		PlayerCollision.Pos = WindowActorPos();
+		PlayerCollision.Scale = { 8,8 };
+		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 
-	PlayerCollision.Pos = WindowActorPos() + RightCollision;
-	Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+		PlayerCollision.Pos = WindowActorPos() + RightCollision;
+		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 
-	PlayerCollision.Pos = WindowActorPos() + LeftCollision;
-	Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+		PlayerCollision.Pos = WindowActorPos() + LeftCollision;
+		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 
-	PlayerCollision.Pos = WindowActorPos() + DownCollision;
-	Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+		PlayerCollision.Pos = WindowActorPos() + DownCollision;
+		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+	}
 }

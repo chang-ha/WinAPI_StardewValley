@@ -6,6 +6,7 @@ enum class PlayerState
 	Idle,
 	Run,
 	Tool,
+	Tool2,
 	Null, // StartValue
 };
 
@@ -49,20 +50,22 @@ public:
 protected:
 
 private:
-	float Speed = 1000.0f;
+	float Speed = 350.0f;
 	PlayerState State = PlayerState::Null;
 	int Dir = PlayerDir::Null;
 	std::string CurState = "";
 
-	void StateUpdate(float _DeltaTime);
+	void StateUpdate(float _Delta);
 
 	void IdleStart();
 	void RunStart();
 	void ToolStart();
+	void Tool2Start();
 
-	void IdleUpdate(float _DeltaTime);
-	void RunUpdate(float _DeltaTime);
-	void ToolUpdate(float _DeltaTime);
+	void IdleUpdate(float _Delta);
+	void RunUpdate(float _Delta);
+	void ToolUpdate(float _Delta);
+	void Tool2Update(float _Delta);
 
 	void DirCheck();
 	void ChangeState(PlayerState State);
@@ -75,6 +78,7 @@ private:
 
 	// PlayerCollision Value
 	// TopCollision = Player¿« GetPos()
+	bool CollisionDebug = false;
 	float4 LeftCollision = { -32, 32 };
 	float4 RightCollision = { 32, 32 };
 	float4 DownCollision = { 0 , 48 };
