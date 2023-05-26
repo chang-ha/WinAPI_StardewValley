@@ -90,23 +90,23 @@ void Player::RunUpdate(float _DeltaTime)
 	float4 MovePos = float4::ZERO;
 	float4 CheckPos = float4::ZERO;
 
-	if (true == GameEngineInput::IsPress('A'))
+	if (true == GameEngineInput::IsPress('A') && PlayerDir::Left == (Dir & PlayerDir::Left))
 	{
 		CheckPos = LeftCollision;
 		MovePos += { -Speed * _DeltaTime, 0.0f };
 	}
-	if (true == GameEngineInput::IsPress('D'))
+	if (true == GameEngineInput::IsPress('D') && PlayerDir::Right == (Dir & PlayerDir::Right))
 	{
 		CheckPos = RightCollision;
 		MovePos += { Speed * _DeltaTime, 0.0f };
 	}
 
-	if (true == GameEngineInput::IsPress('W'))
+	if (true == GameEngineInput::IsPress('W') && PlayerDir::Up == (Dir & PlayerDir::Up))
 	{
 		MovePos += { 0.0f, -Speed * _DeltaTime };
 	}
 
-	if (true == GameEngineInput::IsPress('S'))
+	if (true == GameEngineInput::IsPress('S') && PlayerDir::Down == (Dir & PlayerDir::Down))
 	{
 		CheckPos = DownCollision;
 		MovePos += { 0.0f, Speed * _DeltaTime };
@@ -128,7 +128,7 @@ void Player::RunUpdate(float _DeltaTime)
 	Color = GetFrontColor(RGB(0, 0, 0), MovePos);
 	if (RGB(0, 0, 0) == Color)
 	{
-
+		// MovePos = CheckPos;
 	}
 
 	AddPos(MovePos);
