@@ -28,7 +28,6 @@ TitleScreen::~TitleScreen()
 void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	BGMPlayer = GameEngineSound::SoundPlay("Title.mp3");
-	BGMPlayer.SetVolume(0.5f);
 }
 
 void TitleScreen::LevelEnd(GameEngineLevel* _NextLevel)
@@ -76,6 +75,7 @@ void TitleScreen::Start()
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Sounds\\BGM");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Title.mp3"));
+		GameEngineSound::SetGlobalVolume(0.5f);
 	}
 
 	// BackGround

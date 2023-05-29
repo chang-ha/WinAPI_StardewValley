@@ -43,7 +43,6 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<TitleScreen*>(_PrevLevel))
 	{
 		BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3");
-		BGMPlayer.SetVolume(0.5f);
 	}
 
 	// _PrevLevel == Farm

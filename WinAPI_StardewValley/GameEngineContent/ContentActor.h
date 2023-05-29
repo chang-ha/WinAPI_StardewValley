@@ -1,4 +1,6 @@
 #pragma once
+#include <GameEnginePlatform/GameEngineSound.h>
+
 #include <GameEngineCore/GameEngineActor.h>
 
 class GameEngineWindowTexture;
@@ -26,6 +28,9 @@ public:
 	}
 
 	float4 WindowActorPos();
+
+	GameEngineSoundPlayer EffectPlayer;
+
 protected:
 	ContentLevel* PlayLevel = nullptr;
 

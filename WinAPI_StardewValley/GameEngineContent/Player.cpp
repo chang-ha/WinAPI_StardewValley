@@ -4,6 +4,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -112,6 +113,22 @@ void Player::Start()
 		// ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
 	}
 
+	// Sound Load
+	if (nullptr == GameEngineSound::FindSound("grassyStep.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
+
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("grassyStep.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("woodyStep.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("sandyStep.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("stoneStep.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("thudStep.wav"));
+	}
+
+	// Player Renderer 
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
 	BodyRenderer->SetScaleRatio(RENDERRATIO);
 

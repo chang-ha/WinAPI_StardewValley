@@ -10,6 +10,15 @@ enum class PlayerState
 	Null, // StartValue
 };
 
+enum Tile
+{
+	Wood = RGB(155, 75, 0),
+	Grass = RGB(0, 255, 0),
+	Sand = RGB(255, 200, 0),
+	Stone = RGB(211, 211, 211),
+	Floor = RGB(255, 255, 0),
+};
+
 enum PlayerDir
 {
 	Up = 0b0001,
@@ -54,6 +63,8 @@ private:
 	PlayerState State = PlayerState::Null;
 	int Dir = PlayerDir::Null;
 	std::string CurState = "";
+	int PrevTileColor = 0;
+	int CurTileColor = 0;
 
 	void StateUpdate(float _Delta);
 

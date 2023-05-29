@@ -49,7 +49,7 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetPos({ 450, Back->GetRenderScale().Half().Y + WinScale.Half().Y - 50});
 		GetMainCamera()->SetPos({-WinScale.Half().X * 0.5f + 75 , Back->GetRenderScale().Half().Y - WinScale.Half().Y});
 		Farmer->SetDir(PlayerDir::Up);
-		BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3");
+		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3");
 	}
 }
 
@@ -60,6 +60,7 @@ void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)
 	{
 		BusStation* NextLevel = dynamic_cast<BusStation*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
+		BGMPlayer.Stop();
 	}
 
 	// _NextLevel == Beach
@@ -85,7 +86,14 @@ void PelicanTown::Start()
 	}
 	Farmer = CreateActor<Player>(1);
 
-
+	if (nullptr == GameEngineSound::FindSound("Town.mp3"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\BGM");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Town.mp3"));
+	}
 }
 void PelicanTown::Update(float _Delta)
 {

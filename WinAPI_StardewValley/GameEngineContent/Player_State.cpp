@@ -11,6 +11,8 @@
 void Player::IdleStart()
 {
 	ChangeAnimationState("Idle");
+	EffectPlayer.Stop();
+	PrevTileColor = RGB(0, 0, 0);
 }
 
 void Player::RunStart()
@@ -59,6 +61,8 @@ void Player::Tool2Start()
 
 void Player::IdleUpdate(float _DeltaTime)
 {
+	EffectPlayer.Stop();
+
 	if (true == GameEngineInput::IsDown('A')
 		|| true == GameEngineInput::IsDown('W')
 		|| true == GameEngineInput::IsDown('S')
@@ -75,6 +79,7 @@ void Player::IdleUpdate(float _DeltaTime)
 		ChangeState(PlayerState::Tool);
 		return;
 	}
+
 	if (true == GameEngineInput::IsDown(VK_RBUTTON))
 	{
 		DirCheck();
@@ -87,6 +92,45 @@ void Player::IdleUpdate(float _DeltaTime)
 void Player::RunUpdate(float _DeltaTime)
 {
 	DirCheck();
+
+	// Player TileColor Check
+	if (PlayerDir::Up == (PlayerDir::Up & Dir))
+	{
+		CurTileColor = GetFrontColor(RGB(0, 0, 0));
+	}
+	else
+	{
+		CurTileColor = GetFrontColor(RGB(0, 0, 0), DownCollision);
+	}
+
+	if (PrevTileColor != CurTileColor)
+	{
+		PrevTileColor = CurTileColor;
+		EffectPlayer.Stop();
+		switch (CurTileColor)
+		{
+		case Tile::Wood:
+			EffectPlayer = GameEngineSound::SoundPlay("woodyStep.wav");
+			break;
+		case Tile::Grass :
+			EffectPlayer = GameEngineSound::SoundPlay("grassyStep.wav");
+			break;
+		case Tile::Sand :
+			EffectPlayer = GameEngineSound::SoundPlay("sandyStep.wav");
+			break;
+		case Tile::Stone:
+			EffectPlayer = GameEngineSound::SoundPlay("stoneStep.wav");
+			break;
+		case Tile::Floor:
+			EffectPlayer = GameEngineSound::SoundPlay("thudStep.wav");
+			break;
+		default:
+			// EffectPlayer.Stop();
+			break;
+		}
+	}
+
+	// Player Move
 	float4 MovePos = float4::ZERO;
 	float4 CheckPos = float4::ZERO;
 
