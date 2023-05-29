@@ -88,10 +88,10 @@ private:
 	void Render(float _Delta) override;
 
 	// PlayerCollision Value
-	// TopCollision = Player¿« GetPos()
 	bool CollisionDebug = false;
+	float4 UpCollision = { 0, 32 };
 	float4 LeftCollision = { -32, 32 };
 	float4 RightCollision = { 32, 32 };
-	float4 DownCollision = { 0 , 48 };
+	// float4 DownCollision = { 0 , 55 };
 };
 

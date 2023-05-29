@@ -482,6 +482,7 @@ void Player::Render(float _Delta)
 		CollisionData PlayerCollision;
 		PlayerCollision.Pos = WindowActorPos();
 		PlayerCollision.Scale = { 8,8 };
+		PlayerCollision.Pos = WindowActorPos() + UpCollision;
 		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 
 		PlayerCollision.Pos = WindowActorPos() + RightCollision;
@@ -490,7 +491,7 @@ void Player::Render(float _Delta)
 		PlayerCollision.Pos = WindowActorPos() + LeftCollision;
 		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 
-		PlayerCollision.Pos = WindowActorPos() + DownCollision;
-		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
+		// PlayerCollision.Pos = WindowActorPos() + DownCollision;
+		// Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 	}
 }

@@ -45,7 +45,7 @@ void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 
 	if (nullptr != dynamic_cast<PelicanTown*>(_PrevLevel))
 	{
-		BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3");
+		// BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3");
 		Farmer->SetPos({ 1900, 1000 });
 		Farmer->SetDir(PlayerDir::Left);
 		GetMainCamera()->SetPos({ Back->GetRenderScale().Half().X - WinScale.Half().X, 500});

@@ -100,13 +100,15 @@ void Player::RunUpdate(float _DeltaTime)
 	}
 	else
 	{
-		CurTileColor = GetFrontColor(RGB(0, 0, 0), DownCollision);
+		CurTileColor = GetFrontColor(RGB(0, 0, 0), UpCollision);
 	}
 
-	if (PrevTileColor != CurTileColor)
+	static float PerTime = 0.2f;
+	if (PrevTileColor != CurTileColor && PerTime < 0.0f)
 	{
 		PrevTileColor = CurTileColor;
 		EffectPlayer.Stop();
+		PerTime = 0.2f;
 		switch (CurTileColor)
 		{
 		case Tile::Wood:
@@ -128,11 +130,14 @@ void Player::RunUpdate(float _DeltaTime)
 			// EffectPlayer.Stop();
 			break;
 		}
+		EffectPlayer.SetVolume(0.5f);
 	}
+	PerTime -= _DeltaTime;
 
 	// Player Move
 	float4 MovePos = float4::ZERO;
 	float4 CheckPos = float4::ZERO;
+	unsigned int Color = 0;
 
 	if (true == GameEngineInput::IsPress('A') && PlayerDir::Left == (Dir & PlayerDir::Left))
 	{
@@ -147,11 +152,13 @@ void Player::RunUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsPress('W') && PlayerDir::Up == (Dir & PlayerDir::Up))
 	{
+		CheckPos = UpCollision;
 		MovePos += { 0.0f, -Speed * _DeltaTime };
 	}
 	else if (true == GameEngineInput::IsPress('S') && PlayerDir::Down == (Dir & PlayerDir::Down))
 	{
-		CheckPos = DownCollision;
+		CheckPos = UpCollision;
+		// CheckPos = DownCollision;
 		MovePos += { 0.0f, Speed * _DeltaTime };
 	}
 
@@ -162,7 +169,7 @@ void Player::RunUpdate(float _DeltaTime)
 	}
 
 	// Map Collision
-	unsigned int Color = GetFrontColor(RGB(0, 0, 0), CheckPos);
+	Color = GetFrontColor(RGB(0, 0, 0), CheckPos);
 	if (RGB(0, 0, 0) == Color)
 	{
 		return;
