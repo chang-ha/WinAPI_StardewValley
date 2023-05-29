@@ -67,6 +67,7 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 		Farm* NextLevel = dynamic_cast<Farm*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
 	}
+	Farmer->EffectPlayer.Stop();
 }
 
 void FarmHouse::Start()

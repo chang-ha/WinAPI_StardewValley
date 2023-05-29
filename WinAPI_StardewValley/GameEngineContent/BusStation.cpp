@@ -67,6 +67,7 @@ void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
 		PelicanTown* NextLevel = dynamic_cast<PelicanTown*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
 	}
+	Farmer->EffectPlayer.Stop();
 }
 
 

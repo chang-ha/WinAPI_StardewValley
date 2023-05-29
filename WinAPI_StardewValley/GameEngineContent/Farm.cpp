@@ -67,6 +67,7 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 		BusStation* NextLevel = dynamic_cast<BusStation*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
 	}
+	Farmer->EffectPlayer.Stop();
 }
 
 

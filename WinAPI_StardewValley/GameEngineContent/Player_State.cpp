@@ -91,6 +91,16 @@ void Player::IdleUpdate(float _DeltaTime)
 
 void Player::RunUpdate(float _DeltaTime)
 {
+	if (true == GameEngineInput::IsFree('A')
+		&& true == GameEngineInput::IsFree('W')
+		&& true == GameEngineInput::IsFree('S')
+		&& true == GameEngineInput::IsFree('D'))
+	{
+		DirCheck();
+		ChangeState(PlayerState::Idle);
+		return;
+	}
+
 	DirCheck();
 
 	// Player TileColor Check
@@ -100,7 +110,7 @@ void Player::RunUpdate(float _DeltaTime)
 	}
 	else
 	{
-		CurTileColor = GetFrontColor(RGB(0, 0, 0), UpCollision);
+		CurTileColor = GetFrontColor(RGB(0, 0, 0), DownCollision);
 	}
 
 	static float PerTime = 0.2f;
@@ -134,7 +144,7 @@ void Player::RunUpdate(float _DeltaTime)
 	}
 	PerTime -= _DeltaTime;
 
-	// Player Move
+	// Player Move(Right, Left)
 	float4 MovePos = float4::ZERO;
 	float4 CheckPos = float4::ZERO;
 	unsigned int Color = 0;
@@ -150,6 +160,33 @@ void Player::RunUpdate(float _DeltaTime)
 		MovePos += { Speed * _DeltaTime, 0.0f };
 	}
 
+	// Map Collision
+	//Color = GetFrontColor(RGB(0, 0, 0), CheckPos);
+	//if (RGB(0, 0, 0) == Color)
+	//{
+	//	MovePos.X = 0.0f;
+	//}
+
+	Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+	if (RGB(0, 0, 0) == Color)
+	{
+		if (LeftCollision == CheckPos)
+		{
+			while (RGB(0,0,0 == GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos)))
+			{
+				MovePos += float4::RIGHT;
+			}
+		}
+		else if(RightCollision == CheckPos)
+		{
+			while (RGB(0, 0, 0 == GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos)))
+			{
+				MovePos += float4::LEFT;
+			}
+		}
+	}
+
+	// Player Move(Up, Down)
 	if (true == GameEngineInput::IsPress('W') && PlayerDir::Up == (Dir & PlayerDir::Up))
 	{
 		CheckPos = UpCollision;
@@ -157,30 +194,42 @@ void Player::RunUpdate(float _DeltaTime)
 	}
 	else if (true == GameEngineInput::IsPress('S') && PlayerDir::Down == (Dir & PlayerDir::Down))
 	{
-		CheckPos = UpCollision;
-		// CheckPos = DownCollision;
+		CheckPos = DownCollision;
 		MovePos += { 0.0f, Speed * _DeltaTime };
 	}
 
-	if (MovePos == float4::ZERO)
+	// Map Collision
+	//Color = GetFrontColor(RGB(0, 0, 0), CheckPos);
+	//if (RGB(0, 0, 0) == Color)
+	//{
+	//	MovePos.Y = 0.0f;
+	//}
+
+	Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+	if (RGB(0, 0, 0) == Color)
 	{
-		DirCheck();
-		ChangeState(PlayerState::Idle);
+		if (UpCollision == CheckPos)
+		{
+			while (RGB(0, 0, 0 == GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos)))
+			{
+				MovePos += float4::DOWN;
+			}
+		}
+		else if (DownCollision == CheckPos)
+		{
+			while (RGB(0, 0, 0 == GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos)))
+			{
+				MovePos += float4::UP;
+			}
+		}
 	}
 
-	// Map Collision
-	Color = GetFrontColor(RGB(0, 0, 0), CheckPos);
-	if (RGB(0, 0, 0) == Color)
+
+
+	if (float4::ZERO == MovePos)
 	{
 		return;
 	}
-
-	Color = GetFrontColor(RGB(0, 0, 0), MovePos);
-	if (RGB(0, 0, 0) == Color)
-	{
-		// MovePos = CheckPos;
-	}
-
 	AddPos(MovePos);
 
 	// CameraSetting
