@@ -54,10 +54,18 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 
 void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	// _NextLevel == FarmHouse
+	if (nullptr != dynamic_cast<FarmHouse*>(_NextLevel))
+	{
+		FarmHouse* NextLevel = dynamic_cast<FarmHouse*>(_NextLevel);
+		NextLevel->BGMPlayer = this->BGMPlayer;
+	}
+
+	// _NextLevel == BusStation
 	if (nullptr != dynamic_cast<BusStation*>(_NextLevel))
 	{
-		BusStation* FarmLevel = dynamic_cast<BusStation*>(_NextLevel);
-		FarmLevel->BGMPlayer = this->BGMPlayer;
+		BusStation* NextLevel = dynamic_cast<BusStation*>(_NextLevel);
+		NextLevel->BGMPlayer = this->BGMPlayer;
 	}
 }
 

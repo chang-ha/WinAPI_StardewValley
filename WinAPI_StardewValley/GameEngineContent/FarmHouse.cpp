@@ -60,13 +60,13 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 	if (nullptr != dynamic_cast<TitleScreen*>(_NextLevel))
 	{
 		BGMPlayer.Stop();
-		BGMPlayer.SetVolume(0.0f);
 	}
 
+	// _NextLevel == Farm
 	if (nullptr != dynamic_cast<Farm*>(_NextLevel))
 	{
-		Farm* FarmLevel = dynamic_cast<Farm*>(_NextLevel);
-		FarmLevel->BGMPlayer = this->BGMPlayer;
+		Farm* NextLevel = dynamic_cast<Farm*>(_NextLevel);
+		NextLevel->BGMPlayer = this->BGMPlayer;
 	}
 }
 

@@ -53,7 +53,19 @@ void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 
 void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	// _NextLevel == Farm
+	if (nullptr != dynamic_cast<Farm*>(_NextLevel))
+	{
+		Farm* NextLevel = dynamic_cast<Farm*>(_NextLevel);
+		NextLevel->BGMPlayer = this->BGMPlayer;
+	}
 
+	// _NextLevel == PelicanTown
+	if (nullptr != dynamic_cast<PelicanTown*>(_NextLevel))
+	{
+		PelicanTown* NextLevel = dynamic_cast<PelicanTown*>(_NextLevel);
+		NextLevel->BGMPlayer = this->BGMPlayer;
+	}
 }
 
 

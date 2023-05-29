@@ -55,7 +55,18 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 
 void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	// _NextLevel == BusStation
+	if (nullptr != dynamic_cast<BusStation*>(_NextLevel))
+	{
+		BusStation* NextLevel = dynamic_cast<BusStation*>(_NextLevel);
+		NextLevel->BGMPlayer = this->BGMPlayer;
+	}
 
+	// _NextLevel == Beach
+	if (nullptr != dynamic_cast<Beach*>(_NextLevel))
+	{
+		BGMPlayer.Stop();
+	}
 }
 
 void PelicanTown::Start()
