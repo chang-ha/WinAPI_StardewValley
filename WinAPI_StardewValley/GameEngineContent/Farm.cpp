@@ -10,6 +10,9 @@
 #include "Farm.h"
 #include "BackGround.h"
 #include "Player.h"
+#include "FarmHouse.h"
+#include "BusStation.h"
+
 Farm::Farm()
 {
 
@@ -29,15 +32,33 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 	Farmer->SetCollisionTexture("Collision_Farm.bmp");
-	Farmer->SetPos({ 2365, -700 });
-	Farmer->SetDir(PlayerDir::Down);
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-	GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
+
+	// _PrevLevel == FarmHouse
+	if (nullptr != dynamic_cast<FarmHouse*>(_PrevLevel))
+	{
+		Farmer->SetPos({ 2365, -700 });
+		Farmer->SetDir(PlayerDir::Down);
+		GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
+	}
+
+	// _PrveLevel == BusStation
+	if (nullptr != dynamic_cast<BusStation*>(_PrevLevel))
+	{
+		Farmer->SetPos({ 3325, -575 });
+		Farmer->SetDir(PlayerDir::Left);
+		GetMainCamera()->SetPos({Back->GetRenderScale().Half().X - WinScale.Half().X, -1100});
+	}
+
 }
 
 void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 {
-
+	if (nullptr != dynamic_cast<BusStation*>(_NextLevel))
+	{
+		BusStation* FarmLevel = dynamic_cast<BusStation*>(_NextLevel);
+		FarmLevel->BGMPlayer = this->BGMPlayer;
+	}
 }
 
 

@@ -425,7 +425,6 @@ void Player::DirCheck()
 void Player::ChangeAnimationState(const std::string& _StateName)
 {
 	std::string AnimationName;
-	float4 ShirtPos = { 0, 2 };
 
 	if (PlayerDir::Right == (Dir & PlayerDir::Right))
 	{
@@ -445,8 +444,7 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	}
 
 	// ShirtPos Setting
-	ShirtPos *= RENDERRATIO;
-	ShirtRenderer->SetRenderPos(ShirtPos);
+	ShirtRenderer->SetRenderPos({ 0, 2 * RENDERRATIO });
 
 	// Animation Change
 	AnimationName += _StateName;

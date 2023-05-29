@@ -28,7 +28,6 @@ void GameEngineCore::CoreStart(HINSTANCE _Inst)
 {
 	GameEngineWindow::MainWindow.Open(WindowTitle, _Inst);
 	GameEngineInput::InputInit();
-	GameEngineSound::Init();
 	Process->Start();
 }
 
@@ -49,6 +48,7 @@ void GameEngineCore::CoreUpdate()
 		GameEngineTime::MainTimer.Reset();
 	}
 
+	GameEngineSound::Update();
 	GameEngineTime::MainTimer.Update();
 	float Delta = GameEngineTime::MainTimer.GetDeltaTime();
 
@@ -75,6 +75,7 @@ void GameEngineCore::CoreUpdate()
 
 void GameEngineCore::CoreEnd()
 {
+	GameEngineSound::Release();
 	Process->Release();
 
 	if (nullptr != Process)

@@ -2,6 +2,7 @@
 
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 class BackGround;
 class Player;
@@ -20,10 +21,10 @@ public:
 
 	float4 GetRenderScale();
 
+	GameEngineSoundPlayer BGMPlayer;
 protected:
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
-
 private:
 
 };

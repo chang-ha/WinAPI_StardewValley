@@ -1,7 +1,6 @@
 ﻿#include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineString.h>
 #include <GameEngineBase/GameEngineDirectory.h>
-// #include <GameEngineBase/GameEnginePath.h>
 
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 

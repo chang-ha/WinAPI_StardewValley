@@ -25,8 +25,20 @@ TitleScreen::~TitleScreen()
 
 }
 
+void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
+{
+	BGMPlayer = GameEngineSound::SoundPlay("Title.mp3");
+	BGMPlayer.SetVolume(0.5f);
+}
+
+void TitleScreen::LevelEnd(GameEngineLevel* _NextLevel)
+{
+	BGMPlayer.Stop();
+}
+
 void TitleScreen::Start()
 {
+	// Texture Load
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Title_background.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -54,6 +66,16 @@ void TitleScreen::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Title_Bird", FilePath.PlusFilePath("Creature\\Title_Bird.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Title_Bird1", FilePath.PlusFilePath("Creature\\Title_Bird1.bmp"), 6, 1);
+	}
+
+	// Music Load
+	if (nullptr == GameEngineSound::FindSound("Title.mp3"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\BGM");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Title.mp3"));
 	}
 
 	// BackGround
@@ -102,7 +124,7 @@ void TitleScreen::Start()
 		Exit_Button->Renderer->Off();
 	}
 
-	// Title Detail
+	// Detail
 	{
 		LeftTree = CreateActor<PlayOver>();
 		RightTree = CreateActor<PlayOver>();
@@ -182,13 +204,14 @@ void TitleScreen::Update(float _Delta)
 			IsSkip = true;
 		}
 	}
-
+	
+	// Mouse Click To Skip
 	if (4.0f < Back->GetLiveTime() && true == GameEngineInput::IsDown(VK_LBUTTON) && false == IsSkip)
 	{
 		GetMainCamera()->SetPos({ 0, GameEngineWindow::MainWindow.GetScale().Y - Back->GetRenderScale().Y });
 	}
 	
-	// Leaf Update
+	// Detail Update
 	static float LeftLeafTime = 3.0f;
 	static float RightLeafTime = 5.0f;
 	if (0.0f >= LeftLeafTime)
@@ -205,7 +228,6 @@ void TitleScreen::Update(float _Delta)
 	LeftLeafTime -= _Delta;
 	RightLeafTime -= _Delta;
 
-	// Bird&Cloud Update
 	{
 		Bird1->AddPos({ -50.0f * _Delta, 0.0f });
 		Bird2->AddPos({ -50.0f * _Delta, 0.0f });
@@ -221,10 +243,3 @@ void TitleScreen::Release()
 {
 }
 
-void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
-{
-
-}
-void TitleScreen::LevelEnd(GameEngineLevel* _NextLevel)
-{
-}

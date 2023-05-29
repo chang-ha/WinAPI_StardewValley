@@ -95,7 +95,7 @@ void Player::RunUpdate(float _DeltaTime)
 		CheckPos = LeftCollision;
 		MovePos += { -Speed * _DeltaTime, 0.0f };
 	}
-	if (true == GameEngineInput::IsPress('D') && PlayerDir::Right == (Dir & PlayerDir::Right))
+	else if (true == GameEngineInput::IsPress('D') && PlayerDir::Right == (Dir & PlayerDir::Right))
 	{
 		CheckPos = RightCollision;
 		MovePos += { Speed * _DeltaTime, 0.0f };
@@ -105,8 +105,7 @@ void Player::RunUpdate(float _DeltaTime)
 	{
 		MovePos += { 0.0f, -Speed * _DeltaTime };
 	}
-
-	if (true == GameEngineInput::IsPress('S') && PlayerDir::Down == (Dir & PlayerDir::Down))
+	else if (true == GameEngineInput::IsPress('S') && PlayerDir::Down == (Dir & PlayerDir::Down))
 	{
 		CheckPos = DownCollision;
 		MovePos += { 0.0f, Speed * _DeltaTime };
