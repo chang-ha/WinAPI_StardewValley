@@ -5,6 +5,7 @@
 #include "BackGround.h"
 #include "ContentUIManager.h"
 #include "TitleScreen.h"
+#include "Player.h"
 
 ContentLevel::ContentLevel()
 {
@@ -50,6 +51,7 @@ void ContentLevel::Start()
 	{
 		UIManager = CreateActor<ContentUIManager>(0);
 		UIManager->OverOn();
+		ContentUIManager::MainUI = UIManager;
 	}
 }
 

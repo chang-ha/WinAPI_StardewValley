@@ -22,7 +22,7 @@ public:
 
 	int GetFrontColor(unsigned int _Color, float4 _Pos = float4::ZERO);
 
-	void SetPlayLevel(ContentLevel* _ContentLevel)
+	virtual void SetPlayLevel(ContentLevel* _ContentLevel)
 	{
 		PlayLevel = _ContentLevel;
 	}

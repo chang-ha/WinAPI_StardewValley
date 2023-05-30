@@ -69,7 +69,6 @@ void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)
 	{
 		BGMPlayer.Stop();
 	}
-	Farmer->EffectPlayer.Stop();
 }
 
 void PelicanTown::Start()

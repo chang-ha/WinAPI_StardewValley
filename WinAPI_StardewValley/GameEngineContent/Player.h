@@ -50,12 +50,20 @@ public:
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* HatRenderer = nullptr;
 
-	void SetDir(PlayerDir _Dir)
+	void SetDir(const PlayerDir _Dir)
 	{
 		Dir = _Dir;
 		ChangeAnimationState(CurState);
 	}
 
+	void SetPlayLevel(ContentLevel* _ContentLevel) override
+	{
+		ContentActor::SetPlayLevel(_ContentLevel);
+		if (true == CollisionDebug)
+		{
+			CollisionDebug = false;
+		}
+	}
 protected:
 
 private:
@@ -90,8 +98,8 @@ private:
 	// PlayerCollision Value
 	bool CollisionDebug = false;
 	float4 UpCollision = { 0, 32 };
-	float4 LeftCollision = { -32, 63 };
-	float4 RightCollision = { 32, 63 };
+	float4 LeftCollision = { -32, 48 };
+	float4 RightCollision = { 32, 48 };
 	float4 DownCollision = { 0 , 64 };
 };
 

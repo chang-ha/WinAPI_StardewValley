@@ -71,7 +71,6 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 		NextLevel->BGMPlayer = this->BGMPlayer;
 		Farmer->OverOn();
 	}
-	Farmer->EffectPlayer.Stop();
 }
 
 void FarmHouse::Start()

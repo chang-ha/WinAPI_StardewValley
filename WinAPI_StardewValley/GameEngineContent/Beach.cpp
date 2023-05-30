@@ -47,7 +47,6 @@ void Beach::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	ContentLevel::LevelEnd(_NextLevel);
 	BGMPlayer.Stop();
-	Farmer->EffectPlayer.Stop();
 }
 
 
