@@ -38,6 +38,7 @@ protected:
 
 private:
 	GameEngineWindowTexture* Texture = nullptr;
+	GameEngineCollision* Collision = nullptr;
 	std::string FileName = "";
 	float4 Scale = float4::ZERO;
 	float4 RenderScale = float4::ZERO;

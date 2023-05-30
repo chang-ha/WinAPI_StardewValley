@@ -14,6 +14,7 @@
 #include "PlayOver.h"
 #include "ContentLevel.h"
 #include "Creature.h"
+#include "ContentsEnum.h"
 
 TitleScreen::TitleScreen()
 {
@@ -29,6 +30,19 @@ void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
 	BGMPlayer = GameEngineSound::SoundPlay("Title.mp3");
+
+	// Reset TitleScreen
+	GetMainCamera()->SetPos({});
+	Back->ResetLiveTime();
+
+	New_Button->Renderer->Off();
+	Load_Button->Renderer->Off();
+	Coop_Button->Renderer->Off();
+	Exit_Button->Renderer->Off();
+	IsSkip = false;
+
+	Bird1->SetPos({ 1200, 600 });
+	Bird2->SetPos({ 1285, 650 });
 }
 
 void TitleScreen::LevelEnd(GameEngineLevel* _NextLevel)
@@ -175,12 +189,10 @@ void TitleScreen::Start()
 		Bird1->Renderer->SetScaleRatio(3.0f);
 		Bird1->Renderer->CreateAnimation("Bird_Idle","Title_Bird");
 		Bird1->Renderer->ChangeAnimation("Bird_Idle");
-		Bird1->SetPos({ 1200, 600 });
 
 		Bird2->Renderer->SetScaleRatio(3.0f);
 		Bird2->Renderer->CreateAnimation("Bird_Idle1", "Title_Bird1");
 		Bird2->Renderer->ChangeAnimation("Bird_Idle1");
-		Bird2->SetPos({ 1285, 650 });
 	}
 }
 

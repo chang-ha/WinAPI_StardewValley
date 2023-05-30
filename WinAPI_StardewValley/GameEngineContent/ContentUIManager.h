@@ -26,7 +26,6 @@ private:
 	GameEngineRenderer* Clock = nullptr;
 	GameEngineRenderer* ClockHand = nullptr;
 	GameEngineRenderer* Energy = nullptr;
-	GameEngineRenderer* ContentMouse = nullptr;
 	// GameEngineRenderer* EnergyBar = nullptr;
 };
 

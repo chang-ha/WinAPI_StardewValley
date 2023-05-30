@@ -4,6 +4,8 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineSound.h>
 
+#include "ContentMouse.h"
+
 class BackGround;
 class Player;
 class ContentUIManager;
@@ -33,7 +35,8 @@ protected:
 
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
-private:
 
+private:
+	ContentMouse* MainMouse = nullptr;
 };
 

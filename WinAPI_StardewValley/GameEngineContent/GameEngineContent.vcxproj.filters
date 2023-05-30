@@ -49,6 +49,9 @@
     <ClInclude Include="StardewValleyCore.h">
       <Filter>ContentCore</Filter>
     </ClInclude>
+    <ClInclude Include="ContentMouse.h">
+      <Filter>Global</Filter>
+    </ClInclude>
     <ClInclude Include="ContentUIManager.h">
       <Filter>ContentCore</Filter>
     </ClInclude>
@@ -101,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="StardewValleyCore.cpp">
       <Filter>ContentCore</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentMouse.cpp">
+      <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="ContentUIManager.cpp">
       <Filter>ContentCore</Filter>

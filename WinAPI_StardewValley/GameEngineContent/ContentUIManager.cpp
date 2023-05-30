@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 
@@ -46,15 +47,6 @@ void ContentUIManager::Start()
 		Energy->SetRenderScale(Texture->GetScale()*4);
 		Energy->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, WinScale.Y - Texture->GetScale().Half().Y * 4 });
 
-		// Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("EnergyBar.bmp"));
-		// EnergyBar = CreateUIRenderer("EnergyBar.bmp", RenderOrder::UI);
-		// EnergyBar->SetRenderScale(Texture->GetScale()* 4);
-		// EnergyBar->SetRenderPos(WinScale.Half());
-		// EnergyBar->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, WinScale.Y - Texture->GetScale().Half().Y * 4 });
-
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor01.bmp"));
-		ContentMouse = CreateUIRenderer("Cursor01.bmp", RenderOrder::UI);
-		ContentMouse->SetRenderScale(Texture->GetScale()*4);
-		ContentMouse->SetRenderPos(GameEngineWindow::MainWindow.GetMousePos());
+		// ContentMouse->Renderer->SetRenderPos(GameEngineWindow::MainWindow.GetMousePos());
 	}
 }
