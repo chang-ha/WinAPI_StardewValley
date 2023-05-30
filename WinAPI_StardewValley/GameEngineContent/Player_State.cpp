@@ -106,7 +106,7 @@ void Player::RunUpdate(float _DeltaTime)
 	// Player TileColor Check
 	if (PlayerDir::Up == (PlayerDir::Up & Dir))
 	{
-		CurTileColor = GetFrontColor(RGB(0, 0, 0));
+		CurTileColor = GetFrontColor(RGB(0, 0, 0), UpCollision);
 	}
 	else
 	{
@@ -160,6 +160,29 @@ void Player::RunUpdate(float _DeltaTime)
 		MovePos += { Speed * _DeltaTime, 0.0f };
 	}
 
+	// MapCollision
+	Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+	if (RGB(0,0,0) == Color)
+	{
+		if (LeftCollision == CheckPos)
+		{
+			while (RGB(0,0,0) == Color)
+			{
+				MovePos += float4::RIGHT;
+				Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+			}
+		}
+		else if (RightCollision == CheckPos)
+		{
+			while (RGB(0, 0, 0) == Color)
+			{
+				MovePos += float4::LEFT;
+				Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+			}
+		}
+		MovePos.X = static_cast<float>(static_cast<int>(MovePos.X));
+	}
+
 	// Player Move(Up, Down)
 	if (true == GameEngineInput::IsPress('W') && PlayerDir::Up == (Dir & PlayerDir::Up))
 	{
@@ -172,17 +195,27 @@ void Player::RunUpdate(float _DeltaTime)
 		MovePos += { 0.0f, Speed * _DeltaTime };
 	}
 
-
-	Color = GetFrontColor(RGB(0, 0, 0), CheckPos);
+	// MapCollision
+	Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
 	if (RGB(0, 0, 0) == Color)
 	{
-		return;
-	}
-
-	Color = GetFrontColor(RGB(0, 0, 0), MovePos);
-	if (RGB(0, 0, 0) == Color)
-	{
-		// MovePos = CheckPos;
+		if (UpCollision == CheckPos)
+		{
+			while (RGB(0, 0, 0) == Color)
+			{
+				MovePos += float4::DOWN;
+				Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+			}
+		}
+		else if (DownCollision == CheckPos)
+		{
+			while (RGB(0, 0, 0) == Color)
+			{
+				MovePos += float4::UP;
+				Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+			}
+		}
+		MovePos.Y = static_cast<float>(static_cast<int>(MovePos.Y));
 	}
 
 	AddPos(MovePos);
