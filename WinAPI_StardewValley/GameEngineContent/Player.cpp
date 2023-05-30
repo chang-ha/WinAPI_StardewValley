@@ -19,7 +19,7 @@ Player* Player::MainPlayer = nullptr;
 
 Player::Player()
 {
-	MainPlayer = this;
+
 }
 
 Player::~Player()

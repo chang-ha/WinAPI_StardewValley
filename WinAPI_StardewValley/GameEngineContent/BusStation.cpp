@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/ResourcesManager.h>
 
 #include "Player.h"
 #include "BusStation.h"
@@ -26,7 +27,7 @@ BusStation::~BusStation()
 
 void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	// Farmer = Player::MainPlayer;
+	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
 	{
@@ -73,17 +74,18 @@ void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
 
 void BusStation::Start()
 {
-	Back = CreateActor<BackGround>(0);
-	Back->Init("BusStation.bmp", "Collision_BusStation.bmp");
-	Back->Renderer->SetTexture("BusStation.bmp");
-	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	if (false == ResourcesManager::GetInst().IsLoadTexture("BusStation.bmp"))
+	{
+		Back = CreateActor<BackGround>(0);
+		Back->Init("BusStation.bmp", "Collision_BusStation.bmp");
+		Back->Renderer->SetTexture("BusStation.bmp");
+		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
+		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
-	Back->CollisionRenderer->SetTexture("Collision_BusStation.bmp");
-	Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-
-	Farmer = CreateActor<Player>(1);
+		Back->CollisionRenderer->SetTexture("Collision_BusStation.bmp");
+		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	}
 }
 void BusStation::Update(float _Delta)
 {

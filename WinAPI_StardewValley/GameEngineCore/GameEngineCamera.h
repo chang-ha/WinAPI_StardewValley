@@ -48,5 +48,6 @@ private:
 	void PushRenderer(GameEngineRenderer* _Renderer, int _Order);
 	void Render(float _DeltaTime);
 	void Release();
+	void OverRelease();
 };
 

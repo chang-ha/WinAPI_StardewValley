@@ -222,9 +222,11 @@ void GameEngineRenderer::SetOrder(int _Order)
 void GameEngineRenderer::MainCameraSetting()
 {
 	Camera = GetActor()->GetLevel()->GetMainCamera();
+	CameraTypeValue = CameraType::MAIN;
 }
 
 void GameEngineRenderer::UICameraSetting()
 {
 	Camera = GetActor()->GetLevel()->GetUICamera();
+	CameraTypeValue = CameraType::UI;
 }

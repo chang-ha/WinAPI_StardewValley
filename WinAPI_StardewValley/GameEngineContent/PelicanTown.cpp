@@ -26,7 +26,7 @@ PelicanTown::~PelicanTown()
 
 void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	// Farmer = Player::MainPlayer;
+	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
 	{
@@ -84,7 +84,6 @@ void PelicanTown::Start()
 		Back->CollisionRenderer->SetTexture("Collision_Town.bmp");
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
-	Farmer = CreateActor<Player>(1);
 
 	if (nullptr == GameEngineSound::FindSound("Town.mp3"))
 	{

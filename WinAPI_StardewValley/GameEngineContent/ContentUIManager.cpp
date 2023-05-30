@@ -23,7 +23,8 @@ ContentUIManager::~ContentUIManager()
 void ContentUIManager::Start()
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Clock.bmp"))
-	{		GameEnginePath FilePath;
+	{
+		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\UI\\");

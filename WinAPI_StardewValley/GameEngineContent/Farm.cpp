@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/ResourcesManager.h>
 
 #include "Farm.h"
 #include "BackGround.h"
@@ -25,7 +26,7 @@ Farm::~Farm()
 
 void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	// Farmer = Player::MainPlayer;
+	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
 	{
@@ -73,17 +74,18 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Farm::Start()
 {
-	Back = CreateActor<BackGround>(0);
-	Back->Init("Farm.bmp", "Collision_Farm.bmp");
-	Back->Renderer->SetTexture("Farm.bmp");
-	Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
-	Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-	Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Farm.bmp"))
+	{
+		Back = CreateActor<BackGround>(0);
+		Back->Init("Farm.bmp", "Collision_Farm.bmp");
+		Back->Renderer->SetTexture("Farm.bmp");
+		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
+		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
-	Back->CollisionRenderer->SetTexture("Collision_Farm.bmp");
-	Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-
-	Farmer = CreateActor<Player>(1);
+		Back->CollisionRenderer->SetTexture("Collision_Farm.bmp");
+		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	}
 }
 void Farm::Update(float _Delta)
 {

@@ -88,6 +88,22 @@ public:
 	{
 		return Level;
 	}
+
+	bool IsLevelOver()
+	{
+		return IsOverValue;
+	}
+
+	void OverOn()
+	{
+		IsOverValue = true;
+	}
+
+	void OverOff()
+	{
+		IsOverValue = false;
+	}
+
 protected:
 	virtual void LevelStart() {}
 	virtual void LevelEnd() {}
@@ -95,6 +111,8 @@ protected:
 private:
 	GameEngineLevel* Level = nullptr;
 	float4 Pos = float4::ZERO;
+	bool IsOverValue = false;
+
 	std::list<GameEngineRenderer*> AllRenderer;
 	std::list<GameEngineCollision*> AllCollision;
 	void ActorRelease();

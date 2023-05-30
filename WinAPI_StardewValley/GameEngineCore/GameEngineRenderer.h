@@ -7,6 +7,12 @@
 
 #include "GameEngineActorSubObject.h"
 
+enum class CameraType
+{
+	MAIN,
+	UI,
+};
+
 class GameEngineWindowTexture;
 class GameEngineActor;
 class GameEngineCamera;
@@ -95,6 +101,7 @@ private:
 public:
 	std::map<std::string, Animation> AllAnimation;
 	Animation* CurAnimation = nullptr;
+	CameraType CameraTypeValue = CameraType::MAIN;
 
 	Animation* FindAnimation(const std::string& _AnimationName);
 
@@ -104,6 +111,11 @@ public:
 		size_t _Start = -1, size_t _End = -1,
 		float _Inter = 0.1f,
 		bool _Loop = true);
+
+	size_t GetCurFrame()
+	{
+		return CurAnimation->CurFrame;
+	}
 
 	bool IsAnimationEnd()
 	{

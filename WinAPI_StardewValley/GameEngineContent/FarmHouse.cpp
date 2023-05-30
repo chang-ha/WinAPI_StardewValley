@@ -29,7 +29,7 @@ FarmHouse::~FarmHouse()
 
 void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	// Farmer = Player::MainPlayer;
+	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
 	{
@@ -59,6 +59,7 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 	if (nullptr != dynamic_cast<TitleScreen*>(_NextLevel))
 	{
 		BGMPlayer.Stop();
+		Farmer->OverOff();
 	}
 
 	// _NextLevel == Farm
@@ -66,6 +67,7 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 	{
 		Farm* NextLevel = dynamic_cast<Farm*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
+		Farmer->OverOn();
 	}
 	Farmer->EffectPlayer.Stop();
 }
@@ -89,6 +91,7 @@ void FarmHouse::Start()
 
 		// Player
 		Farmer = CreateActor<Player>(1);
+		Player::MainPlayer = Farmer;
 
 		// Detail
 		PlayOver* Over = CreateActor<PlayOver>();

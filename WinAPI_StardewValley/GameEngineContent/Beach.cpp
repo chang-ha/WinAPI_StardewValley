@@ -64,7 +64,6 @@ void Beach::Start()
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 
-	Farmer = CreateActor<Player>(1);
 	if (nullptr == GameEngineSound::FindSound("ocean.wav"))
 	{
 		GameEnginePath FilePath;

@@ -55,6 +55,8 @@ public:
 		IsCollisionDebugRender = !IsCollisionDebugRender;
 	}
 
+	void OverCheck(GameEngineLevel* _PrevLevel);
+
 protected:
 	virtual void LevelStart(GameEngineLevel* _PrevLevel) {}
 	virtual void LevelEnd(GameEngineLevel* _NextLevel) {}
@@ -74,5 +76,7 @@ private:
 	void ActorRelease();
 	void ActorLevelEnd();
 	void ActorLevelStart();
+	void CollisionOverRelease();
+	void CollisionRelease();
 };
 

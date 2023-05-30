@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "ContentLevel.h"
 #include "ContentActor.h"
+#include "ContentsEnum.h"
 
 void Player::IdleStart()
 {
