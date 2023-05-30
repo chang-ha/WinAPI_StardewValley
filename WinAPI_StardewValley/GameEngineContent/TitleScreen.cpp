@@ -187,6 +187,7 @@ void TitleScreen::Start()
 void TitleScreen::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
+
 	if (true == GameEngineInput::IsDown('2'))
 	{
 		GameEngineCore::ChangeLevel("FarmHouse");
@@ -222,13 +223,13 @@ void TitleScreen::Update(float _Delta)
 	static float RightLeafTime = 5.0f;
 	if (0.0f >= LeftLeafTime)
 	{
-		LeftLeaf->Renderer->ChangeAnimation("LeftLeaf_Move", true);
+		LeftLeaf->Renderer->ChangeAnimation("LeftLeaf_Move", 0, true);
 		LeftLeafTime = 3.0f;
 	}
-
+		
 	if (0.0f >= RightLeafTime)
 	{
-		RightLeaf->Renderer->ChangeAnimation("RightLeaf_Move", true);
+		RightLeaf->Renderer->ChangeAnimation("RightLeaf_Move", 0, true);
 		RightLeafTime = 3.0f;
 	}
 	LeftLeafTime -= _Delta;
