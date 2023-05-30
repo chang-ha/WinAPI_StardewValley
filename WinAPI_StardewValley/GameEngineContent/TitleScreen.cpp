@@ -27,16 +27,19 @@ TitleScreen::~TitleScreen()
 
 void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	ContentLevel::LevelStart(_PrevLevel);
 	BGMPlayer = GameEngineSound::SoundPlay("Title.mp3");
 }
 
 void TitleScreen::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	ContentLevel::LevelEnd(_NextLevel);
 	BGMPlayer.Stop();
 }
 
 void TitleScreen::Start()
 {
+	ContentLevel::Start();
 	// Texture Load
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Title_background.bmp"))
 	{
@@ -183,6 +186,7 @@ void TitleScreen::Start()
 
 void TitleScreen::Update(float _Delta)
 {
+	ContentLevel::Update(_Delta);
 	if (true == GameEngineInput::IsDown('2'))
 	{
 		GameEngineCore::ChangeLevel("FarmHouse");

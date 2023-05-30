@@ -29,6 +29,7 @@ FarmHouse::~FarmHouse()
 
 void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	ContentLevel::LevelStart(_PrevLevel);
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
@@ -55,6 +56,7 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 
 void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	ContentLevel::LevelEnd(_NextLevel);
 	// _NexxtLevel == TitleScreen
 	if (nullptr != dynamic_cast<TitleScreen*>(_NextLevel))
 	{
@@ -101,8 +103,7 @@ void FarmHouse::Start()
 		Over->SetRenderScale(Over->GetScale() * RENDERRATIO);
 		Over->SetPos({ 1024,650 });
 	}
-	//UI
-	CreateActor<ContentUIManager>(0);
+
 
 	// Sound
 	if (nullptr == GameEngineSound::FindSound("Farm.mp3"))
@@ -116,6 +117,7 @@ void FarmHouse::Start()
 }
 void FarmHouse::Update(float _Delta)
 {
+	ContentLevel::Update(_Delta);
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		GameEngineCore::ChangeLevel("TitleScreen");

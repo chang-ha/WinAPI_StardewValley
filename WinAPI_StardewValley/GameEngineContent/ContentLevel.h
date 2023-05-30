@@ -6,6 +6,7 @@
 
 class BackGround;
 class Player;
+class ContentUIManager;
 class ContentLevel : public GameEngineLevel
 {
 public:
@@ -21,8 +22,15 @@ public:
 
 	float4 GetRenderScale();
 
+	ContentUIManager* UIManager = nullptr;
 	GameEngineSoundPlayer BGMPlayer;
+
 protected:
+	void Start() override;
+	void Update(float _Delta) override;
+	void LevelStart(GameEngineLevel* _PrevLevel) override;
+	void LevelEnd(GameEngineLevel* _NextLevel) override;
+
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
 private:

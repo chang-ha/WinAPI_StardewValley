@@ -26,6 +26,7 @@ PelicanTown::~PelicanTown()
 
 void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	ContentLevel::LevelStart(_PrevLevel);
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
@@ -55,6 +56,7 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 
 void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	ContentLevel::LevelEnd(_NextLevel);
 	// _NextLevel == BusStation
 	if (nullptr != dynamic_cast<BusStation*>(_NextLevel))
 	{
@@ -96,6 +98,7 @@ void PelicanTown::Start()
 }
 void PelicanTown::Update(float _Delta)
 {
+	ContentLevel::Update(_Delta);
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		GameEngineCore::ChangeLevel("BusStation");

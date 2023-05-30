@@ -26,6 +26,7 @@ Farm::~Farm()
 
 void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	ContentLevel::LevelStart(_PrevLevel);
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
@@ -55,6 +56,7 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 
 void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	ContentLevel::LevelEnd(_NextLevel);
 	// _NextLevel == FarmHouse
 	if (nullptr != dynamic_cast<FarmHouse*>(_NextLevel))
 	{
@@ -89,6 +91,7 @@ void Farm::Start()
 }
 void Farm::Update(float _Delta)
 {
+	ContentLevel::Update(_Delta);
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		GameEngineCore::ChangeLevel("FarmHouse");

@@ -26,6 +26,7 @@ Beach::~Beach()
 
 void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	ContentLevel::LevelStart(_PrevLevel);
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
@@ -44,6 +45,7 @@ void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 
 void Beach::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	ContentLevel::LevelEnd(_NextLevel);
 	BGMPlayer.Stop();
 	Farmer->EffectPlayer.Stop();
 }
@@ -75,6 +77,7 @@ void Beach::Start()
 }
 void Beach::Update(float _Delta)
 {
+	ContentLevel::Update(_Delta);
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		GameEngineCore::ChangeLevel("PelicanTown");

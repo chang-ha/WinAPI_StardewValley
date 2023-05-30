@@ -27,6 +27,7 @@ BusStation::~BusStation()
 
 void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 {
+	ContentLevel::LevelStart(_PrevLevel);
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
@@ -55,6 +56,7 @@ void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 
 void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	ContentLevel::LevelEnd(_NextLevel);
 	// _NextLevel == Farm
 	if (nullptr != dynamic_cast<Farm*>(_NextLevel))
 	{
@@ -89,6 +91,7 @@ void BusStation::Start()
 }
 void BusStation::Update(float _Delta)
 {
+	ContentLevel::Update(_Delta);
 	if (true == GameEngineInput::IsDown('1'))
 	{
 		GameEngineCore::ChangeLevel("Farm");

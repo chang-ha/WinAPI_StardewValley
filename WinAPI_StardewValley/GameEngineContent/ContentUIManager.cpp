@@ -35,15 +35,24 @@ void ContentUIManager::Start()
 		Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
 		Clock->SetRenderScale(Texture->GetScale()*4);
 		Clock->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, Texture->GetScale().Half().Y * 4});
+		Clock->UICameraSetting();
 
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand.bmp"));
 		ClockHand = CreateUIRenderer("Clock_hand.bmp", RenderOrder::UI);
 		ClockHand->SetRenderScale(Texture->GetScale()*4);
 		ClockHand->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4 - 180, Texture->GetScale().Half().Y * 4 + 10});
+		ClockHand->UICameraSetting();
 
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
 		EnergyBar = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
 		EnergyBar->SetRenderScale(Texture->GetScale()*4);
 		EnergyBar->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, WinScale.Y - Texture->GetScale().Half().Y * 4 });
+		EnergyBar->UICameraSetting();
+
+		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor01.bmp"));
+		ContentMouse = CreateUIRenderer("Cursor01.bmp", RenderOrder::UI);
+		ContentMouse->SetRenderScale(Texture->GetScale()*4);
+		ContentMouse->SetRenderPos(GameEngineWindow::MainWindow.GetMousePos());
+		ContentMouse->UICameraSetting();
 	}
 }

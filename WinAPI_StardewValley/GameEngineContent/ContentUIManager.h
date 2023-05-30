@@ -17,12 +17,13 @@ public:
 	ContentUIManager& operator=(const ContentUIManager& _Other) = delete;
 	ContentUIManager& operator=(ContentUIManager&& _Other) noexcept = delete;
 
+	GameEngineRenderer* Clock = nullptr;
+	GameEngineRenderer* ClockHand = nullptr;
+	GameEngineRenderer* EnergyBar = nullptr;
+	GameEngineRenderer* ContentMouse = nullptr;
 protected:
 	void Start() override;
 
 private:
-	GameEngineRenderer* Clock = nullptr;
-	GameEngineRenderer* ClockHand = nullptr;
-	GameEngineRenderer* EnergyBar = nullptr;
 };
 
