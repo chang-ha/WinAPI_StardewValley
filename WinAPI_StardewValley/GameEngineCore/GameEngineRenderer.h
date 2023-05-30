@@ -122,7 +122,7 @@ public:
 		return CurAnimation->IsEnd;
 	}
 
-	void ChangeAnimation(const std::string& _AnimationName, bool _ForceChange = false);
+	void ChangeAnimation(const std::string& _AnimationName, int _StartFrame = 0, bool _ForceChange = false);
 	void MainCameraSetting();
 	void UICameraSetting();
 };

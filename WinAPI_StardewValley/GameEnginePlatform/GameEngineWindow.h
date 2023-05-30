@@ -74,6 +74,7 @@ public:
 	void ClearBackBuffer();
 	void DoubleBuffering();
 	float4 GetMousePos();
+	void CursorOff();
 protected:
 
 private:

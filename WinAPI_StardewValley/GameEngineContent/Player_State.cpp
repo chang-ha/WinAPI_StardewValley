@@ -39,7 +39,7 @@ void Player::ToolStart()
 
 	if (PlayerDir::Up == Dir)
 	{
-		ArmRenderer->SetOrder(1); // RenderOrder::PlayBelow
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
 }
@@ -55,7 +55,7 @@ void Player::Tool2Start()
 	}
 	if (PlayerDir::Up == Dir)
 	{
-		ArmRenderer->SetOrder(1); // RenderOrder::PlayBelow
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
 }
@@ -276,7 +276,7 @@ void Player::ToolUpdate(float _DeltaTime)
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		ArmRenderer->SetOrder(7); // RenderOrder::arm
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
 	}
 }
 
@@ -285,6 +285,6 @@ void Player::Tool2Update(float _DeltaTime)
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		ArmRenderer->SetOrder(7); // RenderOrder::arm
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm)); 
 	}
 }

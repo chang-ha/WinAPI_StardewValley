@@ -65,6 +65,8 @@ void TitleScreen::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Title_Bird", FilePath.PlusFilePath("Creature\\Title_Bird.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Title_Bird1", FilePath.PlusFilePath("Creature\\Title_Bird1.bmp"), 6, 1);
+
+		GameEngineWindow::MainWindow.CursorOff();
 	}
 
 	// Music Load
