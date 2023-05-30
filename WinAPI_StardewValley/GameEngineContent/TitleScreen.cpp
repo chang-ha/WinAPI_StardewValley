@@ -34,7 +34,7 @@ void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 	// Reset TitleScreen
 	GetMainCamera()->SetPos({});
 	Back->ResetLiveTime();
-
+	Speed = {};
 	New_Button->Renderer->Off();
 	Load_Button->Renderer->Off();
 	Coop_Button->Renderer->Off();
@@ -206,12 +206,15 @@ void TitleScreen::Update(float _Delta)
 	}
 
 	// Camera Update
-	float4 Speed = float4::UP;
 	if (4.0f < Back->GetLiveTime())
 	{
+		if (-60.0f < Speed.Y)
+		{
+			Speed += {0, -15.0f * _Delta};
+		}
+
 		if (GameEngineWindow::MainWindow.GetScale().Y - Back->GetRenderScale().Y <= GetMainCamera()->GetPos().iY())
 		{
-			Speed *= 80.0f;
 			GetMainCamera()->AddPos(Speed * _Delta);
 		}
 		else if (true)

@@ -21,6 +21,7 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
+	float4 Speed = {};
 	bool IsSkip = false;
 	void Start() override;
 	void Update(float _Delta) override;
