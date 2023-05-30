@@ -8,6 +8,7 @@
 
 #include "ContentUIManager.h"
 #include "ContentsEnum.h"
+
 ContentUIManager* ContentUIManager::MainUI = nullptr;
 
 ContentUIManager::ContentUIManager()
@@ -41,9 +42,15 @@ void ContentUIManager::Start()
 		ClockHand->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4 - 180, Texture->GetScale().Half().Y * 4 + 10});
 
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
-		EnergyBar = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
-		EnergyBar->SetRenderScale(Texture->GetScale()*4);
-		EnergyBar->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, WinScale.Y - Texture->GetScale().Half().Y * 4 });
+		Energy = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
+		Energy->SetRenderScale(Texture->GetScale()*4);
+		Energy->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, WinScale.Y - Texture->GetScale().Half().Y * 4 });
+
+		// Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("EnergyBar.bmp"));
+		// EnergyBar = CreateUIRenderer("EnergyBar.bmp", RenderOrder::UI);
+		// EnergyBar->SetRenderScale(Texture->GetScale()* 4);
+		// EnergyBar->SetRenderPos(WinScale.Half());
+		// EnergyBar->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, WinScale.Y - Texture->GetScale().Half().Y * 4 });
 
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor01.bmp"));
 		ContentMouse = CreateUIRenderer("Cursor01.bmp", RenderOrder::UI);

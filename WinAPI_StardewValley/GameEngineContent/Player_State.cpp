@@ -23,7 +23,6 @@ void Player::RunStart()
 
 void Player::ToolStart()
 {
-
 	if (true)
 	{
 		ChangeAnimationState("Tool1");

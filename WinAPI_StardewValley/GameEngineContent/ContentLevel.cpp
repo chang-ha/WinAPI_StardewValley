@@ -28,22 +28,21 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		UIManager->Clock->Off();
 		UIManager->ClockHand->Off();
-		UIManager->EnergyBar->Off();
+		UIManager->Energy->Off();
 	}
 	else
 	{
 		UIManager->Clock->On();
 		UIManager->ClockHand->On();
-		UIManager->EnergyBar->On();
+		UIManager->Energy->On();
 	}
 }
+
 void ContentLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	ContentLevel* NextLevel = dynamic_cast<ContentLevel*>(_NextLevel);
 	NextLevel->UIManager = UIManager;
 }
-
-
 
 void ContentLevel::Start()
 {

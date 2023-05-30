@@ -64,6 +64,7 @@ public:
 			CollisionDebug = false;
 		}
 	}
+
 protected:
 
 private:

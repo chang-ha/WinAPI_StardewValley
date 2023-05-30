@@ -48,7 +48,7 @@ void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<PelicanTown*>(_PrevLevel))
 	{
 		// BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3");
-		Farmer->SetPos({ 1900, 1000 });
+		Farmer->SetPos({ 1850, 1000 });
 		Farmer->SetDir(PlayerDir::Left);
 		GetMainCamera()->SetPos({ Back->GetRenderScale().Half().X - WinScale.Half().X, 500});
 	}
@@ -72,7 +72,6 @@ void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
 	}
 }
 
-
 void BusStation::Start()
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture("BusStation.bmp"))
@@ -88,6 +87,7 @@ void BusStation::Start()
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 }
+
 void BusStation::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);

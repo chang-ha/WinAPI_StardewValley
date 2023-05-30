@@ -2,8 +2,10 @@
 #include <GameEngineCore/GameEngineActor.h>
 
 class GameEngineRenderer;
+class ContentLevel;
 class ContentUIManager : public GameEngineActor
 {
+	friend ContentLevel;
 public:
 	static ContentUIManager* MainUI;
 
@@ -17,13 +19,14 @@ public:
 	ContentUIManager& operator=(const ContentUIManager& _Other) = delete;
 	ContentUIManager& operator=(ContentUIManager&& _Other) noexcept = delete;
 
-	GameEngineRenderer* Clock = nullptr;
-	GameEngineRenderer* ClockHand = nullptr;
-	GameEngineRenderer* EnergyBar = nullptr;
-	GameEngineRenderer* ContentMouse = nullptr;
 protected:
 	void Start() override;
 
 private:
+	GameEngineRenderer* Clock = nullptr;
+	GameEngineRenderer* ClockHand = nullptr;
+	GameEngineRenderer* Energy = nullptr;
+	GameEngineRenderer* ContentMouse = nullptr;
+	// GameEngineRenderer* EnergyBar = nullptr;
 };
 

@@ -14,6 +14,7 @@
 #include "Player.h"
 #include "ContentLevel.h"
 #include "ContentsEnum.h"
+#include "ContentUIManager.h"
 
 Player* Player::MainPlayer = nullptr;
 
