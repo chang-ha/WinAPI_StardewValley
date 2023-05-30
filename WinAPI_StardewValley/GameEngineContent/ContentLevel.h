@@ -35,8 +35,8 @@ protected:
 
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
+	ContentMouse* MainMouse = nullptr;
 
 private:
-	ContentMouse* MainMouse = nullptr;
 };
 

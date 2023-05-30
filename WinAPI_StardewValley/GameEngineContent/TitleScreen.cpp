@@ -7,6 +7,7 @@
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "TitleScreen.h"
 #include "BackGround.h"
@@ -34,12 +35,19 @@ void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 	// Reset TitleScreen
 	GetMainCamera()->SetPos({});
 	Back->ResetLiveTime();
+	IsSkip = false;
 	Speed = {};
+
 	New_Button->Renderer->Off();
 	Load_Button->Renderer->Off();
 	Coop_Button->Renderer->Off();
 	Exit_Button->Renderer->Off();
-	IsSkip = false;
+
+	New_Button->Collision->Off();
+	Load_Button->Collision->Off();
+	Coop_Button->Collision->Off();
+	Exit_Button->Collision->Off();
+
 
 	Bird1->SetPos({ 1200, 600 });
 	Bird2->SetPos({ 1285, 650 });
@@ -116,31 +124,44 @@ void TitleScreen::Start()
 
 		New_Button = CreateActor<PlayOver>();
 		New_Button->Init("Title_new01.bmp");
-		New_Button->Renderer->SetTexture("Title_new01.bmp");
 		New_Button->Renderer->SetRenderScale(New_Button->GetScale() * 3.0f);
 		New_Button->SetPos({ 375, 200 });
 		New_Button->Renderer->Off();
 
 		Load_Button = CreateActor<PlayOver>();
 		Load_Button->Init("Title_load01.bmp");
-		Load_Button->Renderer->SetTexture("Title_load01.bmp");
 		Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * 3.0f);
 		Load_Button->SetPos({ 658, 200 }); // 185 + 98
 		Load_Button->Renderer->Off();
 
 		Coop_Button = CreateActor<PlayOver>();
 		Coop_Button->Init("Title_coop01.bmp");
-		Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
 		Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() * 3.0f);
 		Coop_Button->SetPos({ 941, 200 });
 		Coop_Button->Renderer->Off();
 
 		Exit_Button = CreateActor<PlayOver>();
 		Exit_Button->Init("Title_exit01.bmp");
-		Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
 		Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() * 3.0f);
 		Exit_Button->SetPos({ 1225, 200 });
 		Exit_Button->Renderer->Off();
+
+		// Create Collision
+		New_Button->Collision = New_Button->CreateCollision(CollisionOrder::Button);
+		New_Button->Collision->SetCollisionScale(New_Button->GetScale() * 3.0f);
+		New_Button->Collision->Off();
+
+		Load_Button->Collision = Load_Button->CreateCollision(CollisionOrder::Button);
+		Load_Button->Collision->SetCollisionScale(Load_Button->GetScale() * 3.0f);
+		Load_Button->Collision->Off();
+
+		Coop_Button->Collision = Coop_Button->CreateCollision(CollisionOrder::Button);
+		Coop_Button->Collision->SetCollisionScale(Coop_Button->GetScale() * 3.0f);
+		Coop_Button->Collision->Off();
+
+		Exit_Button->Collision = Exit_Button->CreateCollision(CollisionOrder::Button);
+		Exit_Button->Collision->SetCollisionScale(Exit_Button->GetScale() * 3.0f);
+		Exit_Button->Collision->Off();
 	}
 
 	// Detail
@@ -170,7 +191,7 @@ void TitleScreen::Start()
 		// LargeCloud1->Renderer->SetTexture("BigCloud.bmp");
 		// LargeCloud1->Renderer->SetRenderScale(LargeCloud1->GetScale() * 3.0f);
 		// LargeCloud1->SetPos({1600,270 });
-		// 
+		
 		// LargeCloud2->Init("BigCloud.bmp");
 		// LargeCloud2->Renderer->SetTexture("BigCloud.bmp");
 		// LargeCloud2->Renderer->SetRenderScale(LargeCloud2->GetScale() * 3.0f);
@@ -200,11 +221,6 @@ void TitleScreen::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
 
-	if (true == GameEngineInput::IsDown('2'))
-	{
-		GameEngineCore::ChangeLevel("FarmHouse");
-	}
-
 	// Camera Update
 	if (4.0f < Back->GetLiveTime())
 	{
@@ -220,9 +236,15 @@ void TitleScreen::Update(float _Delta)
 		else if (true)
 		{
 			New_Button->Renderer->On();
-			Load_Button->Renderer->On();
+		 	Load_Button->Renderer->On();
 			Coop_Button->Renderer->On();
 			Exit_Button->Renderer->On();
+
+			New_Button->Collision->On();
+			Load_Button->Collision->On();
+			Coop_Button->Collision->On();
+			Exit_Button->Collision->On();
+
 			IsSkip = true;
 		}
 	}
@@ -231,7 +253,7 @@ void TitleScreen::Update(float _Delta)
 	if (4.0f < Back->GetLiveTime() && true == GameEngineInput::IsDown(VK_LBUTTON) && false == IsSkip)
 	{
 		GetMainCamera()->SetPos({ 0, GameEngineWindow::MainWindow.GetScale().Y - Back->GetRenderScale().Y });
-	}
+	} 
 	
 	// Detail Update
 	static float LeftLeafTime = 3.0f;
@@ -255,6 +277,53 @@ void TitleScreen::Update(float _Delta)
 		Bird2->AddPos({ -50.0f * _Delta, 0.0f });
 		// LargeCloud1->AddPos({ -10.0f * _Delta, 0.0f });
 		// LargeCloud2->AddPos({ -10.0f * _Delta, 0.0f });
+	}
+
+	// Collision Check
+	{
+		New_Button->Renderer->SetTexture("Title_new01.bmp");
+		Load_Button->Renderer->SetTexture("Title_load01.bmp");
+		Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
+		Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
+
+		std::vector<GameEngineCollision*> _CheckCollision;
+		if (true == MainMouse->MouseCollision->Collision(CollisionOrder::Button, _CheckCollision, CollisionType::Rect, CollisionType::Rect))
+		{
+			GameEngineCollision* CheckCollision = _CheckCollision[0];
+			GameEngineActor* Actor = CheckCollision->GetActor();
+
+			PlayOver* TitleButton = dynamic_cast<PlayOver*>(Actor);
+			if (nullptr == TitleButton)
+			{
+				MsgBoxAssert("Collision충돌이 잘못되었습니다.");
+			}
+
+			std::string ButtonName = TitleButton->GetFileName();
+			if ("Title_new01.bmp" == ButtonName)
+			{
+				TitleButton->Renderer->SetTexture("Title_new02.bmp");
+				if (true == GameEngineInput::IsDown(VK_LBUTTON))
+				{
+					GameEngineCore::ChangeLevel("FarmHouse");
+				}
+			}
+			else if ("Title_load01.bmp" == ButtonName)
+			{
+				TitleButton->Renderer->SetTexture("Title_load02.bmp");
+			}
+			else if ("Title_coop01.bmp" == ButtonName)
+			{
+				TitleButton->Renderer->SetTexture("Title_coop02.bmp");
+			}
+			else if ("Title_exit01.bmp" == ButtonName)
+			{
+				TitleButton->Renderer->SetTexture("Title_exit02.bmp");
+				if (true == GameEngineInput::IsDown(VK_LBUTTON))
+				{
+					GameEngineWindow::MainWindow.WindowUpdateOff();
+				}
+			}
+		}
 	}
 }
 void TitleScreen::Render(float _Delta)

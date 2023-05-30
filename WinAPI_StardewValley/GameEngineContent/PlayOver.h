@@ -17,6 +17,8 @@ public:
 	PlayOver& operator=(PlayOver&& _Other) noexcept = delete;
 
 	GameEngineRenderer* Renderer = nullptr;
+	GameEngineCollision* Collision = nullptr;
+
 	void Init(const std::string& _FileName);
 
 	float4 GetScale()
@@ -32,6 +34,11 @@ public:
 	float4 GetRenderScale()
 	{
 		return RenderScale;
+	}
+
+	std::string GetFileName()
+	{
+		return FileName;
 	}
 
 protected:
