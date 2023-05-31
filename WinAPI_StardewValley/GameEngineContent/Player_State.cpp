@@ -41,8 +41,6 @@ void Player::ToolStart()
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
-	EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
-	EffectPlayer.SetVolume(0.5f);
 }
 
 void Player::Tool2Start()

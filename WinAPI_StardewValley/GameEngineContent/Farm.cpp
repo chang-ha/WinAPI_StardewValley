@@ -137,8 +137,64 @@ void Farm::Update(float _Delta)
 
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		FarmTileMap->SetTile(MainMouse->GetPos(), 0);
-		//EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
-		//EffectPlayer.SetVolume(0.5f);
+		float4 Index = FarmTileMap->PosToIndex(MainMouse->GetPos());
+		float4 FarmerIndex = FarmTileMap->PosToIndex(Farmer->GetPos());
+
+		if ( Index.iX() <= FarmerIndex.iX() - 1)
+		{
+			Index.X = FarmerIndex.X - 1.0f;
+			if (Index.iY() <= FarmerIndex.iY() - 1)
+			{
+				Index.Y = FarmerIndex.Y - 1.0f;
+			}
+			else if (Index.iY() >= FarmerIndex.iY() + 1)
+			{
+				Index.Y = FarmerIndex.Y + 1.0f;
+			}
+			else
+			{
+				Index.Y = FarmerIndex.Y;
+			}
+		}
+		else if (Index.iX() >= FarmerIndex.iX() + 1)
+		{
+			Index.X = FarmerIndex.X + 1.0f;
+			if (Index.iY() <= FarmerIndex.iY() - 1)
+			{
+				Index.Y = FarmerIndex.Y - 1.0f;
+			}
+			else if (Index.iY() >= FarmerIndex.iY() + 1)
+			{
+				Index.Y = FarmerIndex.Y + 1.0f;
+			}
+			else
+			{
+				Index.Y = FarmerIndex.Y;
+			}
+		}
+		else
+		{
+			Index.X = FarmerIndex.X;
+			if (Index.iY() <= FarmerIndex.iY() - 1)
+			{
+				Index.Y = FarmerIndex.Y - 1.0f;
+			}
+			else if (Index.iY() >= FarmerIndex.iY() + 1)
+			{
+				Index.Y = FarmerIndex.Y + 1.0f;
+			}
+			else
+			{
+				Index.Y = FarmerIndex.Y;
+			}
+		}
+
+		float4 CheckPos = FarmTileMap->IndexToPos(Index.iX(), Index.iY());
+
+		if (RGB(255, 200, 0) == Farmer->GetTileColor(RGB(0, 0, 0), CheckPos - Farmer->GetPos()))
+		{
+			FarmTileMap->SetTile(CheckPos, 0);
+			// Farmer->EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
+		}
 	}
 }
