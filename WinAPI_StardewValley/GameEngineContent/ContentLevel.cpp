@@ -15,7 +15,7 @@
 
 ContentLevel::ContentLevel()
 {
-
+	WinScale = GameEngineWindow::MainWindow.GetScale();
 }
 
 ContentLevel::~ContentLevel()

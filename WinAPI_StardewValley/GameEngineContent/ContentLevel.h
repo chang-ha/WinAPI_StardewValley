@@ -36,7 +36,7 @@ protected:
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
 	ContentMouse* MainMouse = nullptr;
-
+	float4 WinScale = {};
 private:
 };
 

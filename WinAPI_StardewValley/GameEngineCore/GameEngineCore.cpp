@@ -29,6 +29,7 @@ void GameEngineCore::CoreStart(HINSTANCE _Inst)
 	GameEngineWindow::MainWindow.Open(WindowTitle, _Inst);
 	GameEngineInput::InputInit();
 	Process->Start();
+	GameEngineWindow::MainWindow.CursorOff();
 }
 
 void GameEngineCore::CoreUpdate()
