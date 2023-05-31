@@ -48,7 +48,6 @@ void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 	Coop_Button->Collision->Off();
 	Exit_Button->Collision->Off();
 
-
 	Bird1->SetPos({ 1200, 600 });
 	Bird2->SetPos({ 1285, 650 });
 }
@@ -221,6 +220,12 @@ void TitleScreen::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
 
+	// Debug Key
+	if (true == GameEngineInput::IsDown('2'))
+	{
+		GameEngineCore::ChangeLevel("FarmHouse");
+	}
+
 	// Camera Update
 	if (4.0f < Back->GetLiveTime())
 	{
@@ -267,7 +272,7 @@ void TitleScreen::Update(float _Delta)
 	if (0.0f >= RightLeafTime)
 	{
 		RightLeaf->Renderer->ChangeAnimation("RightLeaf_Move", 0, true);
-		RightLeafTime = 3.0f;
+		RightLeafTime = 5.0f;
 	}
 	LeftLeafTime -= _Delta;
 	RightLeafTime -= _Delta;

@@ -47,6 +47,5 @@ void ContentUIManager::Start()
 		Energy->SetRenderScale(Texture->GetScale()*4);
 		Energy->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * 4, WinScale.Y - Texture->GetScale().Half().Y * 4 });
 
-		// ContentMouse->Renderer->SetRenderPos(GameEngineWindow::MainWindow.GetMousePos());
 	}
 }

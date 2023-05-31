@@ -103,16 +103,7 @@ void Player::RunUpdate(float _DeltaTime)
 
 	DirCheck();
 
-	// Player TileColor Check
-	// if (PlayerDir::Up == (PlayerDir::Up & Dir))
-	// {
-	// 	CurTileColor = GetFrontColor(RGB(0, 0, 0), UpCollision);
-	// }
-	// else
-	// {
-	// 	CurTileColor = GetFrontColor(RGB(0, 0, 0), DownCollision);
-	// }
-
+	// Player TileColor Check & StepSound Play
 	if (PlayerDir::Right == (Dir & PlayerDir::Right))
 	{
 		CurTileColor = GetFrontColor(RGB(0, 0, 0), RightCollision);
@@ -238,7 +229,6 @@ void Player::RunUpdate(float _DeltaTime)
 			MovePos.Y = static_cast<float>(static_cast<int>(MovePos.Y));
 		}
 	}
-
 	AddPos(MovePos);
 
 	// CameraSetting

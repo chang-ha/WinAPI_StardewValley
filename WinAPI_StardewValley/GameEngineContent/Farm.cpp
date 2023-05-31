@@ -13,6 +13,9 @@
 #include "Player.h"
 #include "FarmHouse.h"
 #include "BusStation.h"
+#include "ContentsEnum.h"
+
+#include <GameEngineCore/TileMap.h>
 
 Farm::Farm()
 {
@@ -88,6 +91,26 @@ void Farm::Start()
 
 		Back->CollisionRenderer->SetTexture("Collision_Farm.bmp");
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
+	}
+
+	if (nullptr == FarmTileMap)
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Textures\\");
+
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\hoeDirt.bmp"));
+		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 12, 4);
+		FarmTileMap = CreateActor<TileMap>();
+		FarmTileMap->CreateTileMap("hoeDirt.bmp", 80, 65, {16*RENDERRATIO, 16*RENDERRATIO}, static_cast<int>(RenderOrder::PlayBelow));
+		for (int y = 0; y < 80; y++)
+		{
+			for (int x = 0; x < 65; x++)
+			{
+				FarmTileMap->SetTile(x,y,0);
+			}
+		}
 	}
 }
 void Farm::Update(float _Delta)

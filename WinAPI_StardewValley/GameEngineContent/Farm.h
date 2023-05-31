@@ -2,6 +2,7 @@
 #include "ContentLevel.h"
 
 class Player;
+class TileMap;
 class Farm : public ContentLevel
 {
 public:
@@ -22,5 +23,7 @@ protected:
 private:
 	void Start() override;
 	void Update(float _Delta) override;
+
+	TileMap* FarmTileMap = nullptr;
 };
 
