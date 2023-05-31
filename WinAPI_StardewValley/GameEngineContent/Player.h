@@ -90,6 +90,8 @@ private:
 	void Tool2Update(float _Delta);
 
 	void DirCheck();
+	void ToolDirCheck();
+
 	void ChangeState(PlayerState State);
 	void ChangeAnimationState(const std::string& _AnimationName);
 

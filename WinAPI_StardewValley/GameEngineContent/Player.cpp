@@ -446,6 +446,27 @@ void Player::DirCheck()
 	}
 }
 
+void Player::ToolDirCheck()
+{
+	float4 MousePos = PlayLevel->GetMainMouse()->GetPos();
+	if (GetPos().X - MousePos.X > 0)
+	{
+		Dir = PlayerDir::Left;
+	}
+	else if (GetPos().X - MousePos.X < 0)
+	{
+		Dir = PlayerDir::Right;
+	}
+	else if (GetPos().Y - MousePos.Y > 0)
+	{
+		Dir = PlayerDir::Down;
+	}
+	else if (GetPos().Y - MousePos.Y < 0 )
+	{
+		Dir = PlayerDir::Up;
+	}
+}
+
 void Player::ChangeAnimationState(const std::string& _StateName)
 {
 	std::string AnimationName;

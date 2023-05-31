@@ -28,16 +28,22 @@ public:
 	GameEngineSoundPlayer BGMPlayer;
 	GameEngineSoundPlayer EffectPlayer;
 
+	ContentMouse* GetMainMouse()
+	{
+		return MainMouse;
+	}
 protected:
+	float4 WinScale = {};
+
+	BackGround* Back = nullptr;
+	Player* Farmer = nullptr;
+	ContentMouse* MainMouse = nullptr;
+
 	void Start() override;
 	void Update(float _Delta) override;
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
-	BackGround* Back = nullptr;
-	Player* Farmer = nullptr;
-	ContentMouse* MainMouse = nullptr;
-	float4 WinScale = {};
 private:
 };
 

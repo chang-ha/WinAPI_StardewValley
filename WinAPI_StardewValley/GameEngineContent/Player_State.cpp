@@ -75,14 +75,14 @@ void Player::IdleUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		DirCheck();
+		ToolDirCheck();
 		ChangeState(PlayerState::Tool);
 		return;
 	}
 
 	if (true == GameEngineInput::IsDown(VK_RBUTTON))
 	{
-		DirCheck();
+		ToolDirCheck();
 		ChangeState(PlayerState::Tool2);
 		return;
 	}

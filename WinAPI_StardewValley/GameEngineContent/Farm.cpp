@@ -138,7 +138,7 @@ void Farm::Update(float _Delta)
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		float4 Index = FarmTileMap->PosToIndex(MainMouse->GetPos());
-		float4 FarmerIndex = FarmTileMap->PosToIndex(Farmer->GetPos());
+		float4 FarmerIndex = FarmTileMap->PosToIndex(Farmer->GetPos() + float4{0, 16*RENDERRATIO});
 
 		if ( Index.iX() <= FarmerIndex.iX() - 1)
 		{
