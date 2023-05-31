@@ -34,9 +34,9 @@ int ContentActor::GetFrontColor(unsigned int _Color, float4 _Pos /*= float4::ZER
 	{
 		MsgBoxAssert("CollisionTexture가 세팅되어 있지 않습니다.");
 	}
-	float4 Pos = GetPos() - GameEngineWindow::MainWindow.GetScale().Half() + PlayLevel->GetRenderScale().Half();
+	float4 Pos = GetPos();
 	Pos += _Pos;
-	Pos *= 0.25f;
+	Pos *= 1.0f / RENDERRATIO;
 	return CollisionTexture->GetColor(_Color, Pos);
 }
 

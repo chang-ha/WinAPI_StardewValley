@@ -98,9 +98,9 @@ private:
 
 	// PlayerCollision Value
 	bool CollisionDebug = false;
-	float4 UpCollision = { 0, 32 };
-	float4 LeftCollision = { -32, 48 };
-	float4 RightCollision = { 32, 48 };
-	float4 DownCollision = { 0 , 64 };
+	float4 UpCollision = { };
+	float4 LeftCollision = { };
+	float4 RightCollision = { };
+	float4 DownCollision = { };
 };
 

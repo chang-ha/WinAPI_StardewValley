@@ -35,22 +35,21 @@ void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 	Farmer->SetCollisionTexture("Collision_BusStation.bmp");
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 
 	// _PrevLevel == Farm
 	if (nullptr != dynamic_cast<Farm*>(_PrevLevel))
 	{
-		Farmer->SetPos({ -275, 1000 });
+		Farmer->SetPos({ 50, Back->GetRenderScale().Y * 0.78f});
 		Farmer->SetDir(PlayerDir::Right);
-		GetMainCamera()->SetPos({ WinScale.Half().X - Back->GetRenderScale().Half().X, 500 });
+		GetMainCamera()->SetPos({ 0, Back->GetRenderScale().Y - WinScale.Y});
 	}
 
 	if (nullptr != dynamic_cast<PelicanTown*>(_PrevLevel))
 	{
 		// BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3");
-		Farmer->SetPos({ 1850, 1000 });
+		Farmer->SetPos({ Back->GetRenderScale().X - 50, Back->GetRenderScale().Y * 0.78f });
 		Farmer->SetDir(PlayerDir::Left);
-		GetMainCamera()->SetPos({ Back->GetRenderScale().Half().X - WinScale.Half().X, 500});
+		GetMainCamera()->SetPos({ Back->GetRenderScale().X - WinScale.X, Back->GetRenderScale().Y - WinScale.Y });
 	}
 }
 
@@ -79,9 +78,9 @@ void BusStation::Start()
 		Back = CreateActor<BackGround>(0);
 		Back->Init("BusStation.bmp", "Collision_BusStation.bmp");
 		Back->Renderer->SetTexture("BusStation.bmp");
-		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->SetPos(GetRenderScale().Half());
 
 		Back->CollisionRenderer->SetTexture("Collision_BusStation.bmp");
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);

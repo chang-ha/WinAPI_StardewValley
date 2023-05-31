@@ -349,6 +349,12 @@ void Player::Start()
 	//	HatRenderer->SetRenderScale(HatRenderer->GetTextureScale() * 3.7f);
 	//}
 
+	// Player Collision
+	UpCollision = { 0, 8 * RENDERRATIO };
+	LeftCollision = { -8 * RENDERRATIO, 12 * RENDERRATIO };
+	RightCollision = { 8 * RENDERRATIO, 12 * RENDERRATIO };
+	DownCollision = { 0 , 16 * RENDERRATIO };
+
 	Dir = PlayerDir::Right;
 	ChangeState(PlayerState::Idle);
 }

@@ -35,21 +35,20 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 	Farmer->SetCollisionTexture("Collision_Town.bmp");
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 
 	// _PrevLevel == BusStation
 	if (nullptr != dynamic_cast<BusStation*>(_PrevLevel))
 	{
-		Farmer->SetPos({ WinScale.Half().X - Back->GetRenderScale().Half().X + 50, 400 });
-		GetMainCamera()->SetPos({ WinScale.Half().X - Back->GetRenderScale().Half().X, 0 });
+		Farmer->SetPos({ 50, Back->GetRenderScale().Y * 0.5f });
+		GetMainCamera()->SetPos({ 0, Back->GetRenderScale().Y * 0.5f - WinScale.Half().Y});
 		Farmer->SetDir(PlayerDir::Right);
 	}
 
 	// _PrevLevel == Beach
 	if (nullptr != dynamic_cast<Beach*>(_PrevLevel))
 	{
-		Farmer->SetPos({ 450, Back->GetRenderScale().Half().Y + WinScale.Half().Y - 50});
-		GetMainCamera()->SetPos({-WinScale.Half().X * 0.5f + 75 , Back->GetRenderScale().Half().Y - WinScale.Half().Y});
+		Farmer->SetPos({ Back->GetRenderScale().X * 0.455f, Back->GetRenderScale().Y - 50});
+		GetMainCamera()->SetPos({ Farmer->GetPos().X - WinScale.Half().X , Back->GetRenderScale().Y - WinScale.Y});
 		Farmer->SetDir(PlayerDir::Up);
 		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3");
 	}
@@ -80,9 +79,9 @@ void PelicanTown::Start()
 		Back = CreateActor<BackGround>(0);
 		Back->Init("Town.bmp", "Collision_Town.bmp");
 		Back->Renderer->SetTexture("Town.bmp");
-		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->SetPos(GetRenderScale().Half());
 
 		Back->CollisionRenderer->SetTexture("Collision_Town.bmp");
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);

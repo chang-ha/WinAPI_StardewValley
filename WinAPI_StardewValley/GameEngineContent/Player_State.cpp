@@ -234,47 +234,47 @@ void Player::RunUpdate(float _DeltaTime)
 	// CameraSetting
 	{
 		float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
-		float4 WinScale_Half = GameEngineWindow::MainWindow.GetScale().Half();
-		float4 BackScale_Half = PlayLevel->GetRenderScale().Half();
+		float4 WinScale = GameEngineWindow::MainWindow.GetScale();
+		float4 BackScale = PlayLevel->GetRenderScale();
 
-		if ((PlayerDir::Left == (Dir & PlayerDir::Left)) && CameraPos.X > WinScale_Half.X - BackScale_Half.X && GetPos().X <= CameraPos.X + WinScale_Half.X)
+		if ((PlayerDir::Left == (Dir & PlayerDir::Left)) && CameraPos.X > 0 && GetPos().X <= CameraPos.X + WinScale.Half().X)
 		{
 			GetLevel()->GetMainCamera()->AddPos({MovePos.X, 0});
 			CameraPos = GetLevel()->GetMainCamera()->GetPos();
-			if (CameraPos.X < WinScale_Half.X - BackScale_Half.X)
+			if (CameraPos.X < 0)
 			{
-				CameraPos.X = WinScale_Half.X - BackScale_Half.X;
+				CameraPos.X = 0;
 				GetLevel()->GetMainCamera()->SetPos(CameraPos);
 			}
 		}
-		else if ((PlayerDir::Right == (Dir & PlayerDir::Right)) && BackScale_Half.X - WinScale_Half.X > CameraPos.X && GetPos().X >= CameraPos.X + WinScale_Half.X)
+		else if ((PlayerDir::Right == (Dir & PlayerDir::Right)) && BackScale.X - WinScale.X > CameraPos.X && GetPos().X >= CameraPos.X + WinScale.Half().X)
 		{
 			GetLevel()->GetMainCamera()->AddPos({MovePos.X,0});
 			CameraPos = GetLevel()->GetMainCamera()->GetPos();
-			if (BackScale_Half.X - WinScale_Half.X < CameraPos.X)
+			if (BackScale.X - WinScale.X < CameraPos.X)
 			{
-				CameraPos.X = BackScale_Half.X - WinScale_Half.X;
+				CameraPos.X = BackScale.X - WinScale.X;
 				GetLevel()->GetMainCamera()->SetPos(CameraPos);
 			}
 		}
 
-		if ((PlayerDir::Up == (Dir & PlayerDir::Up)) && CameraPos.Y > WinScale_Half.Y - BackScale_Half.Y && GetPos().Y <= CameraPos.Y + WinScale_Half.Y)
+		if ((PlayerDir::Up == (Dir & PlayerDir::Up)) && CameraPos.Y > 0 && GetPos().Y <= CameraPos.Y + WinScale.Half().Y)
 		{
 			GetLevel()->GetMainCamera()->AddPos({0, MovePos.Y});
 			CameraPos = GetLevel()->GetMainCamera()->GetPos();
-			if (CameraPos.Y < WinScale_Half.Y - BackScale_Half.Y)
+			if (CameraPos.Y < 0)
 			{
-				CameraPos.Y = WinScale_Half.Y - BackScale_Half.Y;
+				CameraPos.Y = 0;
 				GetLevel()->GetMainCamera()->SetPos(CameraPos);
 			}
 		}
-		else if ((PlayerDir::Down == (Dir & PlayerDir::Down)) && BackScale_Half.Y - WinScale_Half.Y > CameraPos.Y && GetPos().Y >= CameraPos.Y + WinScale_Half.Y)
+		else if ((PlayerDir::Down == (Dir & PlayerDir::Down)) && BackScale.Y - WinScale.Y > CameraPos.Y && GetPos().Y >= CameraPos.Y + WinScale.Half().Y)
 		{
 			GetLevel()->GetMainCamera()->AddPos({0, MovePos.Y});
 			CameraPos = GetLevel()->GetMainCamera()->GetPos();
-			if (BackScale_Half.Y - WinScale_Half.Y < CameraPos.Y)
+			if (BackScale.Y - WinScale.Y < CameraPos.Y)
 			{
-				CameraPos.Y = BackScale_Half.Y - WinScale_Half.Y;
+				CameraPos.Y = BackScale.Y - WinScale.Y;
 				GetLevel()->GetMainCamera()->SetPos(CameraPos);
 			}
 		}

@@ -1,4 +1,4 @@
-#define RENDERRATIO 4
+#define RENDERRATIO 3
 
 #pragma once
 #include <GameEngineCore/GameEngineLevel.h>

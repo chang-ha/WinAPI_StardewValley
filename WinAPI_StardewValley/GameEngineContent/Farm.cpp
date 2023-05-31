@@ -33,17 +33,17 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
+
 	if (nullptr == Farmer)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
 	Farmer->SetCollisionTexture("Collision_Farm.bmp");
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 
 	// _PrevLevel == FarmHouse
 	if (nullptr != dynamic_cast<FarmHouse*>(_PrevLevel))
 	{
-		Farmer->SetPos({ 2365, -700 });
+		Farmer->SetPos({ Back->GetRenderScale().X * 0.8055f, Back->GetRenderScale().Y * 0.225f});
 		Farmer->SetDir(PlayerDir::Down);
 		GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
 	}
@@ -51,9 +51,9 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 	// _PrveLevel == BusStation
 	if (nullptr != dynamic_cast<BusStation*>(_PrevLevel))
 	{
-		Farmer->SetPos({ 3325, -575 });
 		Farmer->SetDir(PlayerDir::Left);
-		GetMainCamera()->SetPos({Back->GetRenderScale().Half().X - WinScale.Half().X, -1100});
+		GetMainCamera()->SetPos({Back->GetRenderScale().X - WinScale.X, Back->GetRenderScale().Y * 0.36f - WinScale.Y});
+		Farmer->SetPos({ Back->GetRenderScale().X - 100 , Back->GetRenderScale().Y * 0.25f });
 	}
 
 }
@@ -85,9 +85,9 @@ void Farm::Start()
 		Back = CreateActor<BackGround>(0);
 		Back->Init("Farm.bmp", "Collision_Farm.bmp");
 		Back->Renderer->SetTexture("Farm.bmp");
-		Back->SetPos(GameEngineWindow::MainWindow.GetScale().Half());
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->SetPos(GetRenderScale().Half());
 
 		Back->CollisionRenderer->SetTexture("Collision_Farm.bmp");
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
@@ -104,13 +104,6 @@ void Farm::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 12, 4);
 		FarmTileMap = CreateActor<TileMap>();
 		FarmTileMap->CreateTileMap("hoeDirt.bmp", 80, 65, {16*RENDERRATIO, 16*RENDERRATIO}, static_cast<int>(RenderOrder::PlayBelow));
-		for (int y = 0; y < 80; y++)
-		{
-			for (int x = 0; x < 65; x++)
-			{
-				FarmTileMap->SetTile(x,y,0);
-			}
-		}
 	}
 }
 void Farm::Update(float _Delta)
