@@ -26,6 +26,7 @@ public:
 
 	ContentUIManager* UIManager = nullptr;
 	GameEngineSoundPlayer BGMPlayer;
+	GameEngineSoundPlayer EffectPlayer;
 
 protected:
 	void Start() override;

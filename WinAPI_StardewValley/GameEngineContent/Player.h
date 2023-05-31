@@ -1,5 +1,7 @@
 #pragma once
 #include "ContentActor.h"
+#define TOOL1SPEED 0.065f
+#define TOOL2SPEED 0.05f
 
 enum class PlayerState
 {

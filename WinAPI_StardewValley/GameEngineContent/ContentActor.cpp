@@ -28,7 +28,7 @@ void ContentActor::SetCollisionTexture(const std::string& _CollisionTexture)
 	}
 }
 
-int ContentActor::GetFrontColor(unsigned int _Color, float4 _Pos /*= float4::ZERO*/)
+int ContentActor::GetTileColor(unsigned int _Color, float4 _Pos /*= float4::ZERO*/)
 {
 	if (nullptr == CollisionTexture)
 	{

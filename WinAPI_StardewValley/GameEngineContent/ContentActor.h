@@ -20,7 +20,7 @@ public:
 
 	void SetCollisionTexture(const std::string& _CollisionTexture);
 
-	int GetFrontColor(unsigned int _Color, float4 _Pos = float4::ZERO);
+	int GetTileColor(unsigned int _Color, float4 _Pos = float4::ZERO);
 
 	virtual void SetPlayLevel(ContentLevel* _ContentLevel)
 	{

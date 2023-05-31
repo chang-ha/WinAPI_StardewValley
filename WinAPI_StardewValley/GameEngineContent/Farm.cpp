@@ -80,6 +80,9 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Farm::Start()
 {
+	GameEnginePath FilePath;
+
+	// Load Texture
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Farm.bmp"))
 	{
 		Back = CreateActor<BackGround>(0);
@@ -93,9 +96,18 @@ void Farm::Start()
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 
+	// Load Sound
+	if (nullptr == GameEngineSound::FindSound("hoeHit.wav"))
+	{
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Effect\\hoeHit.wav"));
+	}
+
+	// Create TileMap
 	if (nullptr == FarmTileMap)
 	{
-		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\");
@@ -121,5 +133,12 @@ void Farm::Update(float _Delta)
 	if (true == GameEngineInput::IsDown('P'))
 	{
 		Back->SwitchRender();
+	}
+
+	if (true == GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		FarmTileMap->SetTile(MainMouse->GetPos(), 0);
+		//EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
+		//EffectPlayer.SetVolume(0.5f);
 	}
 }

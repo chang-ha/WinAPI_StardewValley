@@ -41,6 +41,8 @@ void Player::ToolStart()
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
+	EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
+	EffectPlayer.SetVolume(0.5f);
 }
 
 void Player::Tool2Start()
@@ -106,19 +108,19 @@ void Player::RunUpdate(float _DeltaTime)
 	// Player TileColor Check & StepSound Play
 	if (PlayerDir::Right == (Dir & PlayerDir::Right))
 	{
-		CurTileColor = GetFrontColor(RGB(0, 0, 0), RightCollision);
+		CurTileColor = GetTileColor(RGB(0, 0, 0), RightCollision);
 	}
 	else if (PlayerDir::Left == (Dir & PlayerDir::Left))
 	{
-		CurTileColor = GetFrontColor(RGB(0, 0, 0), LeftCollision);
+		CurTileColor = GetTileColor(RGB(0, 0, 0), LeftCollision);
 	}
 	else if (PlayerDir::Up == (Dir & PlayerDir::Up))
 	{
-		CurTileColor = GetFrontColor(RGB(0, 0, 0), UpCollision);
+		CurTileColor = GetTileColor(RGB(0, 0, 0), UpCollision);
 	}
 	else if (PlayerDir::Down == (Dir & PlayerDir::Down))
 	{
-		CurTileColor = GetFrontColor(RGB(0, 0, 0), DownCollision);
+		CurTileColor = GetTileColor(RGB(0, 0, 0), DownCollision);
 	}
 
 	static float PerTime = 0.2f;
@@ -170,7 +172,7 @@ void Player::RunUpdate(float _DeltaTime)
 		}
 
 		// MapCollision
-		Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+		Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 		if (RGB(0, 0, 0) == Color)
 		{
 			if (LeftCollision == CheckPos)
@@ -178,7 +180,7 @@ void Player::RunUpdate(float _DeltaTime)
 				while (RGB(0, 0, 0) == Color)
 				{
 					MovePos += float4::RIGHT;
-					Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+					Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 				}
 			}
 			else if (RightCollision == CheckPos)
@@ -186,7 +188,7 @@ void Player::RunUpdate(float _DeltaTime)
 				while (RGB(0, 0, 0) == Color)
 				{
 					MovePos += float4::LEFT;
-					Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+					Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 				}
 			}
 			MovePos.X = static_cast<float>(static_cast<int>(MovePos.X));
@@ -207,7 +209,7 @@ void Player::RunUpdate(float _DeltaTime)
 		}
 
 		// MapCollision
-		Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+		Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 		if (RGB(0, 0, 0) == Color)
 		{
 			if (UpCollision == CheckPos)
@@ -215,7 +217,7 @@ void Player::RunUpdate(float _DeltaTime)
 				while (RGB(0, 0, 0) == Color)
 				{
 					MovePos += float4::DOWN;
-					Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+					Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 				}
 			}
 			else if (DownCollision == CheckPos)
@@ -223,7 +225,7 @@ void Player::RunUpdate(float _DeltaTime)
 				while (RGB(0, 0, 0) == Color)
 				{
 					MovePos += float4::UP;
-					Color = GetFrontColor(RGB(0, 0, 0), CheckPos + MovePos);
+					Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 				}
 			}
 			MovePos.Y = static_cast<float>(static_cast<int>(MovePos.Y));

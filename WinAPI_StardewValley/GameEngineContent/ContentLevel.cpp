@@ -63,7 +63,7 @@ void ContentLevel::Start()
 		MainMouse->Init("Cursor01.bmp");
 		MainMouse->Renderer->SetTexture("Cursor01.bmp");
 		MainMouse->Renderer->SetRenderScale(MainMouse->GetScale() * RENDERRATIO);
-		MainMouse->MouseCollision->SetCollisionPos({-32, -32});
+		MainMouse->Renderer->SetRenderPos(MainMouse->GetScale().Half() * RENDERRATIO);
 		MainMouse->OverOn();
 	}
 }
