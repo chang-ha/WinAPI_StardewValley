@@ -30,6 +30,7 @@ enum PlayerDir
 	Null = 0b0000, // StartValue
 };
 
+class TileMap;
 class Player : public ContentActor
 {
 public:
@@ -67,6 +68,8 @@ public:
 		}
 	}
 
+	float4 TileLimit(TileMap* _CurTile);
+
 protected:
 
 private:
@@ -76,6 +79,7 @@ private:
 	std::string CurState = "";
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
+	bool FPS = false;
 
 	void StateUpdate(float _Delta);
 

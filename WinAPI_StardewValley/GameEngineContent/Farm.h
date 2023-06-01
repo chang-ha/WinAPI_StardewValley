@@ -16,6 +16,11 @@ public:
 	Farm& operator=(const Farm& _Other) = delete;
 	Farm& operator=(Farm&& _Other) noexcept = delete;
 
+	TileMap* GetTileMap()
+	{
+		return FarmTileMap;
+	}
+
 protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;

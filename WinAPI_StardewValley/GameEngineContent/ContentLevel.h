@@ -9,6 +9,7 @@
 class BackGround;
 class Player;
 class ContentUIManager;
+class TileMap;
 class ContentLevel : public GameEngineLevel
 {
 public:
@@ -38,6 +39,9 @@ protected:
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
 	ContentMouse* MainMouse = nullptr;
+	TileMap* UITileMap = nullptr;
+	float4 CurIndex = {};
+	float4 PrevIndex = {};
 
 	void Start() override;
 	void Update(float _Delta) override;

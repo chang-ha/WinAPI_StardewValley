@@ -26,8 +26,6 @@ PelicanTown::~PelicanTown()
 
 void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	ContentLevel::LevelStart(_PrevLevel);
-
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
@@ -52,6 +50,8 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetDir(PlayerDir::Up);
 		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3");
 	}
+
+	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)

@@ -41,6 +41,19 @@ void Player::ToolStart()
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
+
+	//if (true)
+	//{
+	//	float4 Index = TileLimit();
+
+	//	float4 CheckPos = FarmTileMap->IndexToPos(Index.iX(), Index.iY());
+
+	//	if (RGB(255, 200, 0) == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()))
+	//	{
+	//		FarmTileMap->SetTile(CheckPos, 0);
+	//		// Farmer->EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
+	//	}
+	//}
 }
 
 void Player::Tool2Start()

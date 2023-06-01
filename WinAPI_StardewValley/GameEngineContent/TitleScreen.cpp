@@ -17,7 +17,6 @@
 #include "Creature.h"
 #include "ContentsEnum.h"
 
-#define TITLERATIO 3.0f
 TitleScreen::TitleScreen()
 {
 
@@ -30,7 +29,6 @@ TitleScreen::~TitleScreen()
 
 void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	ContentLevel::LevelStart(_PrevLevel);
 	BGMPlayer = GameEngineSound::SoundPlay("Title.mp3");
 
 	// Reset TitleScreen
@@ -51,6 +49,7 @@ void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 
 	Bird1->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.80f, GetMainCamera()->GetPos().Y + WinScale.Y * 0.75f });
 	Bird2->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.80f - 100, GetMainCamera()->GetPos().Y + WinScale.Y * 0.75f - 50});
+	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void TitleScreen::LevelEnd(GameEngineLevel* _NextLevel)
@@ -120,47 +119,47 @@ void TitleScreen::Start()
 
 		New_Button = CreateActor<PlayOver>();
 		New_Button->Init("Title_new01.bmp");
-		New_Button->Renderer->SetRenderScale(New_Button->GetScale() * TITLERATIO);
-		New_Button->SetRenderScale(New_Button->GetScale() * TITLERATIO);
+		New_Button->Renderer->SetRenderScale(New_Button->GetScale() * RENDERRATIO);
+		New_Button->SetRenderScale(New_Button->GetScale() * RENDERRATIO);
 		New_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.2f, WinScale.Y - New_Button->GetRenderScale().Half().Y - 50 });
 		New_Button->Renderer->Off();
 
 		Load_Button = CreateActor<PlayOver>();
 		Load_Button->Init("Title_load01.bmp");
-		Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * TITLERATIO);
-		Load_Button->SetRenderScale(Load_Button->GetScale() * TITLERATIO);
+		Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * RENDERRATIO);
+		Load_Button->SetRenderScale(Load_Button->GetScale() * RENDERRATIO);
 		Load_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.4f, WinScale.Y - Load_Button->GetRenderScale().Half().Y - 50 });
 		Load_Button->Renderer->Off();
 
 		Coop_Button = CreateActor<PlayOver>();
 		Coop_Button->Init("Title_coop01.bmp");
-		Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() * TITLERATIO);
-		Coop_Button->SetRenderScale(Coop_Button->GetScale() * TITLERATIO);
+		Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() * RENDERRATIO);
+		Coop_Button->SetRenderScale(Coop_Button->GetScale() * RENDERRATIO);
 		Coop_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.6f, WinScale.Y - Coop_Button->GetRenderScale().Half().Y - 50 });
 		Coop_Button->Renderer->Off();
 
 		Exit_Button = CreateActor<PlayOver>();
 		Exit_Button->Init("Title_exit01.bmp");
-		Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() * TITLERATIO);
-		Exit_Button->SetRenderScale(Exit_Button->GetScale() * TITLERATIO);
+		Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() * RENDERRATIO);
+		Exit_Button->SetRenderScale(Exit_Button->GetScale() * RENDERRATIO);
 		Exit_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.8f, WinScale.Y - Exit_Button->GetRenderScale().Half().Y - 50 });
 		Exit_Button->Renderer->Off();
 
 		// Create Button Collision
 		New_Button->Collision = New_Button->CreateCollision(CollisionOrder::Button);
-		New_Button->Collision->SetCollisionScale(New_Button->GetScale() * TITLERATIO);
+		New_Button->Collision->SetCollisionScale(New_Button->GetScale() * RENDERRATIO);
 		New_Button->Collision->Off();
 
 		Load_Button->Collision = Load_Button->CreateCollision(CollisionOrder::Button);
-		Load_Button->Collision->SetCollisionScale(Load_Button->GetScale() * TITLERATIO);
+		Load_Button->Collision->SetCollisionScale(Load_Button->GetScale() * RENDERRATIO);
 		Load_Button->Collision->Off();
 
 		Coop_Button->Collision = Coop_Button->CreateCollision(CollisionOrder::Button);
-		Coop_Button->Collision->SetCollisionScale(Coop_Button->GetScale() * TITLERATIO);
+		Coop_Button->Collision->SetCollisionScale(Coop_Button->GetScale() * RENDERRATIO);
 		Coop_Button->Collision->Off();
 
 		Exit_Button->Collision = Exit_Button->CreateCollision(CollisionOrder::Button);
-		Exit_Button->Collision->SetCollisionScale(Exit_Button->GetScale() * TITLERATIO);
+		Exit_Button->Collision->SetCollisionScale(Exit_Button->GetScale() * RENDERRATIO);
 		Exit_Button->Collision->Off();
 	}
 
@@ -175,14 +174,14 @@ void TitleScreen::Start()
 
 		LeftTree->Init("Title_LeftTree.bmp");
 		LeftTree->Renderer->SetTexture("Title_LeftTree.bmp");
-		LeftTree->Renderer->SetRenderScale(LeftTree->GetScale() * TITLERATIO);
-		LeftTree->SetRenderScale(LeftTree->GetScale() * TITLERATIO);
+		LeftTree->Renderer->SetRenderScale(LeftTree->GetScale() * RENDERRATIO);
+		LeftTree->SetRenderScale(LeftTree->GetScale() * RENDERRATIO);
 		LeftTree->SetPos({ GetMainCamera()->GetPos().X + LeftTree->GetRenderScale().Half().X, Back->GetRenderScale().Y - LeftTree->GetRenderScale().Half().Y});
 
 		RightTree->Init("Title_RightTree.bmp");
 		RightTree->Renderer->SetTexture("Title_RightTree.bmp");
-		RightTree->Renderer->SetRenderScale(RightTree->GetScale() * TITLERATIO);
-		RightTree->SetRenderScale(RightTree->GetScale() * TITLERATIO);
+		RightTree->Renderer->SetRenderScale(RightTree->GetScale() * RENDERRATIO);
+		RightTree->SetRenderScale(RightTree->GetScale() * RENDERRATIO);
 		RightTree->SetPos({ GetMainCamera()->GetPos().X + WinScale.X - RightTree->GetRenderScale().Half().X, Back->GetRenderScale().Y - RightTree->GetRenderScale().Half().Y });
 
 		LeftLeaf->Renderer->SetScaleRatio(2.5f);
@@ -195,11 +194,11 @@ void TitleScreen::Start()
 		RightLeaf->Renderer->ChangeAnimation("RightLeaf_Move");
 		RightLeaf->SetPos(Logo->GetPos() + Logo->GetRenderScale().Half() + float4{-150, -175});
 
-		Bird1->Renderer->SetScaleRatio(TITLERATIO);
+		Bird1->Renderer->SetScaleRatio(RENDERRATIO);
 		Bird1->Renderer->CreateAnimation("Bird_Idle","Title_Bird");
 		Bird1->Renderer->ChangeAnimation("Bird_Idle");
 
-		Bird2->Renderer->SetScaleRatio(TITLERATIO);
+		Bird2->Renderer->SetScaleRatio(RENDERRATIO);
 		Bird2->Renderer->CreateAnimation("Bird_Idle1", "Title_Bird1");
 		Bird2->Renderer->ChangeAnimation("Bird_Idle1");
 	}

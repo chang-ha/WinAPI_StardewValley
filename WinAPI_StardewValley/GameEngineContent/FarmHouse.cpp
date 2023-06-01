@@ -29,7 +29,6 @@ FarmHouse::~FarmHouse()
 
 void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	ContentLevel::LevelStart(_PrevLevel);
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 	if (nullptr == Farmer)
@@ -52,6 +51,7 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetPos({ GetRenderScale().X * 0.5f, GetRenderScale().Y * 0.5f });
 		Farmer->SetDir(PlayerDir::Up);
 	}
+	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)

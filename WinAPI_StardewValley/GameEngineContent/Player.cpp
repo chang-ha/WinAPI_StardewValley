@@ -10,6 +10,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/TileMap.h>
 
 #include "Player.h"
 #include "ContentLevel.h"
@@ -366,6 +367,11 @@ void Player::Update(float _Delta)
 	{
 		CollisionDebug = !CollisionDebug;
 	}
+
+	if (true == GameEngineInput::IsDown(VK_F2))
+	{
+		FPS = !FPS;
+	}
 }
 
 void Player::StateUpdate(float _Delta)
@@ -449,8 +455,6 @@ void Player::DirCheck()
 void Player::ToolDirCheck()
 {
 	float4 MousePos = PlayLevel->GetMainMouse()->GetPos();
-	float CheckPosX = GetPos().X - MousePos.X;
-	float CheckPosY = GetPos().Y - MousePos.Y;
 	if (GetPos().X - MousePos.X > 16 * RENDERRATIO)
 	{
 		Dir = PlayerDir::Left;
@@ -467,6 +471,62 @@ void Player::ToolDirCheck()
 	{
 		Dir = PlayerDir::Down;
 	}
+}
+
+float4 Player::TileLimit(TileMap* _CurTile)
+{
+	float4 Index = _CurTile->PosToIndex(PlayLevel->GetMainMouse()->GetPos());
+	float4 FarmerIndex = _CurTile->PosToIndex(GetPos() + DownCollision);
+
+	if (Index.iX() <= FarmerIndex.iX() - 1)
+	{
+		Index.X = FarmerIndex.X - 1.0f;
+		if (Index.iY() <= FarmerIndex.iY() - 1)
+		{
+			Index.Y = FarmerIndex.Y - 1.0f;
+		}
+		else if (Index.iY() >= FarmerIndex.iY() + 1)
+		{
+			Index.Y = FarmerIndex.Y + 1.0f;
+		}
+		else
+		{
+			Index.Y = FarmerIndex.Y;
+		}
+	}
+	else if (Index.iX() >= FarmerIndex.iX() + 1)
+	{
+		Index.X = FarmerIndex.X + 1.0f;
+		if (Index.iY() <= FarmerIndex.iY() - 1)
+		{
+			Index.Y = FarmerIndex.Y - 1.0f;
+		}
+		else if (Index.iY() >= FarmerIndex.iY() + 1)
+		{
+			Index.Y = FarmerIndex.Y + 1.0f;
+		}
+		else
+		{
+			Index.Y = FarmerIndex.Y;
+		}
+	}
+	else
+	{
+		Index.X = FarmerIndex.X;
+		if (Index.iY() <= FarmerIndex.iY() - 1)
+		{
+			Index.Y = FarmerIndex.Y - 1.0f;
+		}
+		else if (Index.iY() >= FarmerIndex.iY() + 1)
+		{
+			Index.Y = FarmerIndex.Y + 1.0f;
+		}
+		else
+		{
+			Index.Y = FarmerIndex.Y;
+		}
+	}
+	return Index;
 }
 
 void Player::ChangeAnimationState(const std::string& _StateName)

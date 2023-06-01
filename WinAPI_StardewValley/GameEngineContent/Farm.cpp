@@ -29,8 +29,6 @@ Farm::~Farm()
 
 void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	ContentLevel::LevelStart(_PrevLevel);
-
 	Farmer = Player::MainPlayer;
 	Farmer->SetPlayLevel(this);
 
@@ -56,6 +54,7 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetPos({ Back->GetRenderScale().X - 100 , Back->GetRenderScale().Y * 0.25f });
 	}
 
+	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void Farm::LevelEnd(GameEngineLevel* _NextLevel)
@@ -115,9 +114,10 @@ void Farm::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\hoeDirt.bmp"));
 		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 12, 4);
 		FarmTileMap = CreateActor<TileMap>();
-		FarmTileMap->CreateTileMap("hoeDirt.bmp", 80, 65, {16*RENDERRATIO, 16*RENDERRATIO}, static_cast<int>(RenderOrder::PlayBelow));
+		FarmTileMap->CreateTileMap("hoeDirt.bmp", Back->GetScale().iX() / 16, Back->GetScale().iY() / 16, {16 * RENDERRATIO, 16 * RENDERRATIO}, static_cast<int>(RenderOrder::PlayBelow));
 	}
 }
+
 void Farm::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
@@ -125,6 +125,7 @@ void Farm::Update(float _Delta)
 	{
 		GameEngineCore::ChangeLevel("FarmHouse");
 	}
+
 	if (true == GameEngineInput::IsDown('2'))
 	{
 		GameEngineCore::ChangeLevel("BusStation");
@@ -133,68 +134,5 @@ void Farm::Update(float _Delta)
 	if (true == GameEngineInput::IsDown('P'))
 	{
 		Back->SwitchRender();
-	}
-
-	if (true == GameEngineInput::IsDown(VK_LBUTTON))
-	{
-		float4 Index = FarmTileMap->PosToIndex(MainMouse->GetPos());
-		float4 FarmerIndex = FarmTileMap->PosToIndex(Farmer->GetPos() + float4{0, 16*RENDERRATIO});
-
-		if ( Index.iX() <= FarmerIndex.iX() - 1)
-		{
-			Index.X = FarmerIndex.X - 1.0f;
-			if (Index.iY() <= FarmerIndex.iY() - 1)
-			{
-				Index.Y = FarmerIndex.Y - 1.0f;
-			}
-			else if (Index.iY() >= FarmerIndex.iY() + 1)
-			{
-				Index.Y = FarmerIndex.Y + 1.0f;
-			}
-			else
-			{
-				Index.Y = FarmerIndex.Y;
-			}
-		}
-		else if (Index.iX() >= FarmerIndex.iX() + 1)
-		{
-			Index.X = FarmerIndex.X + 1.0f;
-			if (Index.iY() <= FarmerIndex.iY() - 1)
-			{
-				Index.Y = FarmerIndex.Y - 1.0f;
-			}
-			else if (Index.iY() >= FarmerIndex.iY() + 1)
-			{
-				Index.Y = FarmerIndex.Y + 1.0f;
-			}
-			else
-			{
-				Index.Y = FarmerIndex.Y;
-			}
-		}
-		else
-		{
-			Index.X = FarmerIndex.X;
-			if (Index.iY() <= FarmerIndex.iY() - 1)
-			{
-				Index.Y = FarmerIndex.Y - 1.0f;
-			}
-			else if (Index.iY() >= FarmerIndex.iY() + 1)
-			{
-				Index.Y = FarmerIndex.Y + 1.0f;
-			}
-			else
-			{
-				Index.Y = FarmerIndex.Y;
-			}
-		}
-
-		float4 CheckPos = FarmTileMap->IndexToPos(Index.iX(), Index.iY());
-
-		if (RGB(255, 200, 0) == Farmer->GetTileColor(RGB(0, 0, 0), CheckPos - Farmer->GetPos()))
-		{
-			FarmTileMap->SetTile(CheckPos, 0);
-			// Farmer->EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
-		}
 	}
 }
