@@ -73,6 +73,7 @@ void Beach::Start()
 		FilePath.MoveChild("Resources\\Sounds\\BGM");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("ocean.wav"));
 	}
+	ContentLevel::Start();
 }
 void Beach::Update(float _Delta)
 {
