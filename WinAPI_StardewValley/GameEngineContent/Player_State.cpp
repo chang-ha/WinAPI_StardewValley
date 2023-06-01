@@ -52,6 +52,7 @@ void Player::Tool2Start()
 	{
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
+
 	if (PlayerDir::Up == Dir)
 	{
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));

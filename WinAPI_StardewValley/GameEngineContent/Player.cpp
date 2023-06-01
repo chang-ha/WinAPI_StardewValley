@@ -449,21 +449,23 @@ void Player::DirCheck()
 void Player::ToolDirCheck()
 {
 	float4 MousePos = PlayLevel->GetMainMouse()->GetPos();
-	if (GetPos().X - MousePos.X > 0)
+	float CheckPosX = GetPos().X - MousePos.X;
+	float CheckPosY = GetPos().Y - MousePos.Y;
+	if (GetPos().X - MousePos.X > 16 * RENDERRATIO)
 	{
 		Dir = PlayerDir::Left;
 	}
-	else if (GetPos().X - MousePos.X < 0)
+	else if (GetPos().X - MousePos.X < -16 * RENDERRATIO)
 	{
 		Dir = PlayerDir::Right;
 	}
 	else if (GetPos().Y - MousePos.Y > 0)
 	{
-		Dir = PlayerDir::Down;
+		Dir = PlayerDir::Up;
 	}
 	else if (GetPos().Y - MousePos.Y < 0 )
 	{
-		Dir = PlayerDir::Up;
+		Dir = PlayerDir::Down;
 	}
 }
 
