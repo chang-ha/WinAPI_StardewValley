@@ -128,6 +128,7 @@ void Player::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("sandyStep.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("stoneStep.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("thudStep.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("hoeHit.wav"));
 	}
 
 	// Player Renderer 

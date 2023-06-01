@@ -3,11 +3,13 @@
 
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/TileMap.h>
 
 #include "Player.h"
 #include "ContentLevel.h"
 #include "ContentActor.h"
 #include "ContentsEnum.h"
+#include "Farm.h"
 
 void Player::IdleStart()
 {
@@ -42,18 +44,21 @@ void Player::ToolStart()
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
 
-	//if (true)
-	//{
-	//	float4 Index = TileLimit();
+	Farm* _PlayLevel = dynamic_cast<Farm*>(PlayLevel);
+	if (nullptr != _PlayLevel)
+	{
+		TileMap* CurTileMap = _PlayLevel->GetTileMap();
+		float4 Index = TileLimit(CurTileMap);
 
-	//	float4 CheckPos = FarmTileMap->IndexToPos(Index.iX(), Index.iY());
+		float4 CheckPos = _PlayLevel->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
 
-	//	if (RGB(255, 200, 0) == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()))
-	//	{
-	//		FarmTileMap->SetTile(CheckPos, 0);
-	//		// Farmer->EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
-	//	}
-	//}
+		if (RGB(255, 200, 0) == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()))
+		{
+			CurTileMap->SetTile(CheckPos, 0);
+			EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
+		}
+	}
+	EffectPlayer.SetVolume(0.6f);
 }
 
 void Player::Tool2Start()

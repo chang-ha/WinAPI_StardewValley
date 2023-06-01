@@ -95,15 +95,6 @@ void Farm::Start()
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 
-	// Load Sound
-	if (nullptr == GameEngineSound::FindSound("hoeHit.wav"))
-	{
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Sounds");
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Effect\\hoeHit.wav"));
-	}
-
 	// Create TileMap
 	if (nullptr == FarmTileMap)
 	{
