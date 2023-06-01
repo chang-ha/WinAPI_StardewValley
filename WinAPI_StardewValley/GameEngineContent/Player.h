@@ -1,7 +1,6 @@
 #pragma once
 #include "ContentActor.h"
-#define TOOL1SPEED 0.062f
-#define TOOL2SPEED 0.05f
+
 
 enum class PlayerState
 {
@@ -83,9 +82,6 @@ private:
 	std::string CurState = "";
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
-	bool FPS = false;
-
-	void StateUpdate(float _Delta);
 
 	void IdleStart();
 	void RunStart();
@@ -100,6 +96,7 @@ private:
 	void DirCheck();
 	void ToolDirCheck();
 
+	void StateUpdate(float _Delta);
 	void ChangeState(PlayerState State);
 	void ChangeAnimationState(const std::string& _AnimationName);
 

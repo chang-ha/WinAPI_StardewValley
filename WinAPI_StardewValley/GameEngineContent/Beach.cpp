@@ -32,6 +32,7 @@ void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 	}
+
 	Farmer->SetCollisionTexture("Collision_Beach.bmp");
 	Farmer->SetPos({ GetRenderScale().X * 0.37f, 30});
 	Farmer->SetDir(PlayerDir::Down);

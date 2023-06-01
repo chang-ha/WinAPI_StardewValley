@@ -1,4 +1,7 @@
-﻿#include <GameEngineBase/GameEnginePath.h>
+﻿#define RENDERRATIO 3.0f
+#define CASESPEED 0.05f
+
+#include <GameEngineBase/GameEnginePath.h>
 
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -9,8 +12,6 @@
 
 #include "ShippingBin.h"
 #include "ContentsEnum.h"
-
-#define CASESPEED 0.05f
 
 ShippingBin::ShippingBin()
 {
@@ -34,7 +35,7 @@ void ShippingBin::Start()
 		// Shipping Can Texture
 		GameEngineWindowTexture* Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shipping_Bin.bmp"));
 		BodyRenderer = CreateRenderer(RenderOrder::PlayBelow);
-		BodyRenderer->SetRenderScale(Texture->GetScale() * 3);
+		BodyRenderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 
 		// Open & Close Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Shipping_Bin_Case", FilePath.PlusFilePath("Shipping_Bin_Case.bmp"), 13, 1);
@@ -42,11 +43,11 @@ void ShippingBin::Start()
 		CaseRenderer->CreateAnimation("Shipping_Bin_Case_Idle", "Shipping_Bin_Case", 0, 0);
 		CaseRenderer->CreateAnimation("Shipping_Bin_Case_Open", "Shipping_Bin_Case", 0, 12, CASESPEED, false);
 		CaseRenderer->CreateAnimation("Shipping_Bin_Case_Close", "Shipping_Bin_Case", 12, 0, CASESPEED, false);
-		CaseRenderer->SetScaleRatio(3);
+		CaseRenderer->SetScaleRatio(RENDERRATIO);
 
 		// Collision
 		BodyCollision = CreateCollision(CollisionOrder::Map);
-		BodyCollision->SetCollisionScale(Texture->GetScale() * 3 * 2);
+		BodyCollision->SetCollisionScale(Texture->GetScale() * RENDERRATIO * 2);
 	}
 
 	if (nullptr == GameEngineSound::FindSound("doorCreak.wav"))
@@ -60,9 +61,9 @@ void ShippingBin::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("doorCreakReverse.wav"));
 	}
 	BodyRenderer->SetTexture("Shipping_Bin.bmp");
-	BodyRenderer->SetRenderPos(float4{0, 0.5} * 3);
+	BodyRenderer->SetRenderPos(float4{0, 0.5} *RENDERRATIO);
 	CaseRenderer->ChangeAnimation("Shipping_Bin_Case_Idle");
-	CaseRenderer->SetRenderPos(float4{0, -10} * 3);
+	CaseRenderer->SetRenderPos(float4{0, -10} *RENDERRATIO);
 }
 
 void ShippingBin::Update(float _Delta)

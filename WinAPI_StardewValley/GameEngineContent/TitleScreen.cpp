@@ -209,9 +209,6 @@ void TitleScreen::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
 
-	// Debug Key
-
-
 	// Camera Update
 	if (4.0f < Back->GetLiveTime())
 	{
@@ -263,10 +260,8 @@ void TitleScreen::Update(float _Delta)
 	LeftLeafTime -= _Delta;
 	RightLeafTime -= _Delta;
 
-	{
-		Bird1->AddPos({ -50.0f * _Delta, 0.0f });
-		Bird2->AddPos({ -50.0f * _Delta, 0.0f });
-	}
+	Bird1->AddPos({ -50.0f * _Delta, 0.0f });
+	Bird2->AddPos({ -50.0f * _Delta, 0.0f });
 
 	// Collision Check
 	{
@@ -280,8 +275,8 @@ void TitleScreen::Update(float _Delta)
 		{
 			GameEngineCollision* CheckCollision = _CheckCollision[0];
 			GameEngineActor* Actor = CheckCollision->GetActor();
-
 			PlayOver* TitleButton = dynamic_cast<PlayOver*>(Actor);
+
 			if (TitleButton == nullptr)
 			{
 				MsgBoxAssert("Collision충돌이 잘못되었습니다.");
