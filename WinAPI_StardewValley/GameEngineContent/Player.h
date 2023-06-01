@@ -19,6 +19,8 @@ enum Tile
 	Sand = RGB(255, 200, 0),
 	Stone = RGB(211, 211, 211),
 	Floor = RGB(255, 255, 0),
+	PrevMap = RGB(0, 0, 255),
+	NextMap = RGB(255, 0, 0)
 };
 
 enum PlayerDir
@@ -52,6 +54,8 @@ public:
 	GameEngineRenderer* ShirtRenderer = nullptr;
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* HatRenderer = nullptr;
+
+	GameEngineCollision* BodyCollision = nullptr;
 
 	void SetDir(const PlayerDir _Dir)
 	{

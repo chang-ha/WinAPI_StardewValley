@@ -55,6 +55,9 @@
     <ClInclude Include="ContentUIManager.h">
       <Filter>ContentCore</Filter>
     </ClInclude>
+    <ClInclude Include="ShippingBin.h">
+      <Filter>Level\05. FarmMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="ContentUIManager.cpp">
       <Filter>ContentCore</Filter>
+    </ClCompile>
+    <ClCompile Include="ShippingBin.cpp">
+      <Filter>Level\05. FarmMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

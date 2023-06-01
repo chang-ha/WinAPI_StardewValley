@@ -61,6 +61,7 @@ void TitleScreen::LevelEnd(GameEngineLevel* _NextLevel)
 void TitleScreen::Start()
 {
 	ContentLevel::Start();
+	NextLevel = "FarmHouse";
 	// Texture Load
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Title_background.bmp"))
 	{
@@ -209,10 +210,7 @@ void TitleScreen::Update(float _Delta)
 	ContentLevel::Update(_Delta);
 
 	// Debug Key
-	if (true == GameEngineInput::IsDown('2'))
-	{
-		GameEngineCore::ChangeLevel("FarmHouse");
-	}
+
 
 	// Camera Update
 	if (4.0f < Back->GetLiveTime())
@@ -284,13 +282,13 @@ void TitleScreen::Update(float _Delta)
 			GameEngineActor* Actor = CheckCollision->GetActor();
 
 			PlayOver* TitleButton = dynamic_cast<PlayOver*>(Actor);
-			if (nullptr == TitleButton)
+			if (TitleButton == nullptr)
 			{
 				MsgBoxAssert("Collision충돌이 잘못되었습니다.");
+				return;
 			}
 
-			std::string ButtonName = TitleButton->GetFileName();
-			if ("Title_new01.bmp" == ButtonName)
+			if ("Title_new01.bmp" == TitleButton->GetFileName())
 			{
 				TitleButton->Renderer->SetTexture("Title_new02.bmp");
 				if (true == GameEngineInput::IsDown(VK_LBUTTON))
@@ -298,15 +296,15 @@ void TitleScreen::Update(float _Delta)
 					GameEngineCore::ChangeLevel("FarmHouse");
 				}
 			}
-			else if ("Title_load01.bmp" == ButtonName)
+			else if ("Title_load01.bmp" == TitleButton->GetFileName())
 			{
 				TitleButton->Renderer->SetTexture("Title_load02.bmp");
 			}
-			else if ("Title_coop01.bmp" == ButtonName)
+			else if ("Title_coop01.bmp" == TitleButton->GetFileName())
 			{
 				TitleButton->Renderer->SetTexture("Title_coop02.bmp");
 			}
-			else if ("Title_exit01.bmp" == ButtonName)
+			else if ("Title_exit01.bmp" == TitleButton->GetFileName())
 			{
 				TitleButton->Renderer->SetTexture("Title_exit02.bmp");
 				if (true == GameEngineInput::IsDown(VK_LBUTTON))

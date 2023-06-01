@@ -73,6 +73,8 @@ void BusStation::LevelEnd(GameEngineLevel* _NextLevel)
 
 void BusStation::Start()
 {
+	PrevLevel = "Farm";
+	NextLevel = "PelicanTown";
 	if (false == ResourcesManager::GetInst().IsLoadTexture("BusStation.bmp"))
 	{
 		Back = CreateActor<BackGround>(0);
@@ -90,14 +92,6 @@ void BusStation::Start()
 void BusStation::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-	if (true == GameEngineInput::IsDown('1'))
-	{
-		GameEngineCore::ChangeLevel("Farm");
-	}
-	if (true == GameEngineInput::IsDown('2'))
-	{
-		GameEngineCore::ChangeLevel("PelicanTown");
-	}
 
 	if (true == GameEngineInput::IsDown('P'))
 	{

@@ -74,6 +74,8 @@ void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)
 
 void PelicanTown::Start()
 {
+	PrevLevel = "BusStation";
+	NextLevel = "Beach";
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Town.bmp"))
 	{
 		Back = CreateActor<BackGround>(0);
@@ -99,15 +101,6 @@ void PelicanTown::Start()
 void PelicanTown::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-	if (true == GameEngineInput::IsDown('1'))
-	{
-		GameEngineCore::ChangeLevel("BusStation");
-	}
-	else if (true == GameEngineInput::IsDown('2'))
-	{
-		GameEngineCore::ChangeLevel("Beach");
-	}
-
 
 	if (true == GameEngineInput::IsDown('P'))
 	{

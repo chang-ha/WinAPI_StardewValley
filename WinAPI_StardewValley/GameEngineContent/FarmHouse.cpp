@@ -48,7 +48,7 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	// _PrevLevel == Farm
 	if (nullptr != dynamic_cast<Farm*>(_PrevLevel))
 	{
-		Farmer->SetPos({ GetRenderScale().X * 0.5f, GetRenderScale().Y * 0.5f });
+		Farmer->SetPos({ GetRenderScale().X * 0.410f, GetRenderScale().Y * 0.74f });
 		Farmer->SetDir(PlayerDir::Up);
 	}
 	ContentLevel::LevelStart(_PrevLevel);
@@ -75,6 +75,9 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 
 void FarmHouse::Start()
 {
+	PrevLevel = "TitleScreen";
+	NextLevel = "Farm";
+
 	// Texture
 	if (nullptr == Back)
 	{
@@ -117,14 +120,6 @@ void FarmHouse::Start()
 void FarmHouse::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-	if (true == GameEngineInput::IsDown('1'))
-	{
-		GameEngineCore::ChangeLevel("TitleScreen");
-	}
-	if (true == GameEngineInput::IsDown('2'))
-	{
-		GameEngineCore::ChangeLevel("Farm");
-	}
 
 	if (true == GameEngineInput::IsDown('P'))
 	{

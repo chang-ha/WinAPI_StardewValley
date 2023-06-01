@@ -52,6 +52,7 @@ void Beach::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Beach::Start()
 {
+	PrevLevel = "PelicanTown";
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Beach.bmp"))
 	{
 		Back = CreateActor<BackGround>(0);
@@ -73,15 +74,10 @@ void Beach::Start()
 		FilePath.MoveChild("Resources\\Sounds\\BGM");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("ocean.wav"));
 	}
-	ContentLevel::Start();
 }
 void Beach::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-	if (true == GameEngineInput::IsDown('1'))
-	{
-		GameEngineCore::ChangeLevel("PelicanTown");
-	}
 
 	if (true == GameEngineInput::IsDown('P'))
 	{

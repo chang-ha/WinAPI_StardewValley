@@ -357,6 +357,9 @@ void Player::Start()
 	RightCollision = { 8 * RENDERRATIO, 12 * RENDERRATIO };
 	DownCollision = { 0 , 16 * RENDERRATIO };
 
+	BodyCollision = CreateCollision(CollisionOrder::Player);
+	BodyCollision->SetCollisionScale(float4{ 16,32 }*RENDERRATIO);
+
 	Dir = PlayerDir::Right;
 	ChangeState(PlayerState::Idle);
 }

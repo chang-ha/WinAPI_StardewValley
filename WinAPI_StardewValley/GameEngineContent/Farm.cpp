@@ -7,6 +7,7 @@
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineCore/TileMap.h>
 
 #include "Farm.h"
 #include "BackGround.h"
@@ -14,8 +15,7 @@
 #include "FarmHouse.h"
 #include "BusStation.h"
 #include "ContentsEnum.h"
-
-#include <GameEngineCore/TileMap.h>
+#include "ShippingBin.h"
 
 Farm::Farm()
 {
@@ -79,6 +79,8 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Farm::Start()
 {
+	PrevLevel = "FarmHouse";
+	NextLevel = "BusStation";
 	GameEnginePath FilePath;
 
 	// Load Texture
@@ -107,20 +109,13 @@ void Farm::Start()
 		FarmTileMap = CreateActor<TileMap>();
 		FarmTileMap->CreateTileMap("hoeDirt.bmp", Back->GetScale().iX() / 16, Back->GetScale().iY() / 16, {16 * RENDERRATIO, 16 * RENDERRATIO}, static_cast<int>(RenderOrder::PlayBelow));
 	}
+	ShippingBin* ship = CreateActor<ShippingBin>();
+	ship->SetPos({Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f});
 }
 
 void Farm::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-	if (true == GameEngineInput::IsDown('1'))
-	{
-		GameEngineCore::ChangeLevel("FarmHouse");
-	}
-
-	if (true == GameEngineInput::IsDown('2'))
-	{
-		GameEngineCore::ChangeLevel("BusStation");
-	}
 
 	if (true == GameEngineInput::IsDown('P'))
 	{

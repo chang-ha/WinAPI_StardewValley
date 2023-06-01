@@ -1,6 +1,8 @@
 #define RENDERRATIO 3
 
 #pragma once
+#include <string>
+
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEnginePlatform/GameEngineSound.h>
 
@@ -33,6 +35,16 @@ public:
 	{
 		return MainMouse;
 	}
+
+	std::string GetPrevLevel()
+	{
+		return PrevLevel;
+	}
+
+	std::string GetNextLevel()
+	{
+		return NextLevel;
+	}
 protected:
 	float4 WinScale = {};
 
@@ -48,6 +60,8 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
+	std::string PrevLevel = "";
+	std::string NextLevel = "";
 private:
 };
 

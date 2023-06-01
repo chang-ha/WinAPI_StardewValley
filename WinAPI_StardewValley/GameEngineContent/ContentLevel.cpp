@@ -1,6 +1,7 @@
 ﻿#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
+#include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineCamera.h>
@@ -111,5 +112,15 @@ void ContentLevel::Update(float _Delta)
 		}
 		PrevIndex = CurIndex;
 		CurTile->On();
+	}
+
+	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
+	{
+		GameEngineCore::ChangeLevel(PrevLevel);
+	}
+
+	if (true == GameEngineInput::IsDown('2') && "" != NextLevel)
+	{
+		GameEngineCore::ChangeLevel(NextLevel);
 	}
 }

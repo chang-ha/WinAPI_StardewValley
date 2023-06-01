@@ -1,6 +1,7 @@
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
 
+#include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/TileMap.h>
@@ -62,7 +63,6 @@ void Player::ToolStart()
 
 void Player::Tool2Start()
 {
-
 	ChangeAnimationState("Tool2");
 
 	if (PlayerDir::Down == Dir)
@@ -246,6 +246,16 @@ void Player::RunUpdate(float _DeltaTime)
 			}
 			MovePos.Y = static_cast<float>(static_cast<int>(MovePos.Y));
 		}
+	}
+
+	Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
+	if (Tile::PrevMap == Color)
+	{
+		GameEngineCore::ChangeLevel(PlayLevel->GetPrevLevel());
+	}
+	else if (Tile::NextMap == Color)
+	{
+		GameEngineCore::ChangeLevel(PlayLevel->GetNextLevel());
 	}
 	AddPos(MovePos);
 
