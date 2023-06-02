@@ -84,22 +84,26 @@ private:
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
 
+	// State Start
 	void IdleStart();
 	void RunStart();
 	void ToolStart();
 	void Tool2Start();
 
+	// State Update
 	void IdleUpdate(float _Delta);
 	void RunUpdate(float _Delta);
 	void ToolUpdate(float _Delta);
 	void Tool2Update(float _Delta);
 
-	void DirCheck();
-	void ToolDirCheck();
-
 	void StateUpdate(float _Delta);
 	void ChangeState(PlayerState State);
 	void ChangeAnimationState(const std::string& _AnimationName);
+
+	// DirCheck
+	void DirCheck();
+	void ToolDirCheck();
+
 
 	void LevelStart() override;
 	void Start() override;

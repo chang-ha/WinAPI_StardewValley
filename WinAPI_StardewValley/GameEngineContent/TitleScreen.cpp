@@ -113,8 +113,8 @@ void TitleScreen::Start()
 	Back->Renderer->SetRenderScale(Back->GetScale() * 1.2f);
 	Back->SetRenderScale(Back->GetScale() * 1.2f);
 	Back->SetPos(GetRenderScale().Half());
-
 	GetMainCamera()->SetPos({Back->GetPos().X - WinScale.Half().X, Back->GetRenderScale().Y - WinScale.Y});
+
 	// Title Button
 	{
 		Logo = CreateActor<PlayOver>();

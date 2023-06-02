@@ -10,9 +10,9 @@
 
 #include "ContentLevel.h"
 #include "BackGround.h"
-#include "ContentUIManager.h"
-#include "TitleScreen.h"
 #include "Player.h"
+#include "TitleScreen.h"
+#include "ContentUIManager.h"
 #include "ContentMouse.h"
 #include "ContentsEnum.h"
 #include "ContentInventory.h"

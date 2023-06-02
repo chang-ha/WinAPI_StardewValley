@@ -1,9 +1,9 @@
-﻿#include <GameEngineCore/ResourcesManager.h>
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
+﻿#include <GameEnginePlatform/GameEngineWindowTexture.h>
+
+#include <GameEngineCore/ResourcesManager.h>
 
 #include "ContentsEnum.h"
 #include "PlayOver.h"
-
 
 PlayOver::PlayOver()
 {
