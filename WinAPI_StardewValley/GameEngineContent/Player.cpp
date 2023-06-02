@@ -376,6 +376,7 @@ void Player::Update(float _Delta)
 	{
 		CollisionDebug = !CollisionDebug;
 	}
+
 }
 
 void Player::StateUpdate(float _Delta)

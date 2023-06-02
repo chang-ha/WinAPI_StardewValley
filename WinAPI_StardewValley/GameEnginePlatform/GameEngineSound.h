@@ -12,6 +12,7 @@ class GameEngineSoundPlayer
 public:
 	void SetVolume(float _Volume);
 	void Stop();
+	void SetLoop(int _Count);
 
 	GameEngineSoundPlayer()
 	{
@@ -49,7 +50,7 @@ public:
 		SoundLoad(Path.GetFileName(), _Path);
 	}
 
-	static GameEngineSoundPlayer SoundPlay(const std::string& _Name);
+	static GameEngineSoundPlayer SoundPlay(const std::string& _Name, int _Loop = 0);
 
 	static void SetGlobalVolume(float _Value)
 	{

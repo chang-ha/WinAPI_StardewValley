@@ -22,12 +22,12 @@ public:
 	virtual void Render(float _Delta) {}
 	virtual void Release() {}
 
-	void On()
+	virtual void On()
 	{
 		IsUpdateValue = true;
 	}
 
-	void Off()
+	virtual void Off()
 	{
 		IsUpdateValue = false;
 	}

@@ -105,17 +105,17 @@ public:
 		ColType = _ColType;
 	}
 
-	template <typename EnumType>
-	bool Collision(EnumType _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::Circle, CollisionType _OtherType = CollisionType::Circle)
+	void On() override
 	{
-		return Collision(static_cast<int>(_Order), _Result, _ThisType, _OtherType);
+		GameEngineActorSubObject::On();
+		CollisionRenderValue = true;
 	}
-	
-	bool Collision(int _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::CirCle, CollisionType _OtherType = CollisionType::CirCle);
-	
-	bool CollisionCheck(GameEngineCollision* _Other, CollisionType _ThisType, CollisionType _OtherType);
 
-	float4 GetActorPivotPos();
+	void Off() override
+	{
+		GameEngineActorSubObject::Off();
+		CollisionRenderValue = false;
+	}
 
 	float4 GetActorScale()
 	{
@@ -130,12 +130,25 @@ public:
 		return Data;
 	}
 
+	template <typename EnumType>
+	bool Collision(EnumType _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::Circle, CollisionType _OtherType = CollisionType::Circle)
+	{
+		return Collision(static_cast<int>(_Order), _Result, _ThisType, _OtherType);
+	}
+	
+	bool Collision(int _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::CirCle, CollisionType _OtherType = CollisionType::CirCle);
+	
+	bool CollisionCheck(GameEngineCollision* _Other, CollisionType _ThisType, CollisionType _OtherType);
+
+	float4 GetActorPivotPos();
+
 protected:
 
 private:
 	CollisionType ColType = CollisionType::Rect;
 	float4 CollisionPos;
 	float4 CollisionScale;
+	bool CollisionRenderValue = true;
 
 	void DebugRender();
 };

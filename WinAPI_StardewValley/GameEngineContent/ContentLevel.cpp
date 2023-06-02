@@ -100,8 +100,7 @@ void ContentLevel::Update(float _Delta)
 	if (nullptr != Farmer)
 	{
 		CurIndex = Farmer->TileLimit(UITileMap);
-		float4 CheckPos = UITileMap->IndexToPos(CurIndex.iX(), CurIndex.iY());
-		UITileMap->SetTile(CheckPos, 0);
+		UITileMap->SetTile(UITileMap->IndexToPos(CurIndex.iX(), CurIndex.iY()), 0);
 
 		GameEngineRenderer* PrevTile = UITileMap->GetTile(PrevIndex.iX(), PrevIndex.iY());
 		GameEngineRenderer* CurTile = UITileMap->GetTile(CurIndex.iX(), CurIndex.iY());

@@ -102,7 +102,8 @@ void TileMap::SetTile(int X, int Y, int _Index, float4 _TilePos, bool _IsImageSi
 	{
 		Tiles[Y][X]->SetRenderScale(TileSize);
 	}
-	else {
+	else
+	{
 		Tiles[Y][X]->SetRenderScaleToTexture();
 	}
 }

@@ -51,9 +51,7 @@ void Player::ToolStart()
 		TileMap* CurTileMap = _PlayLevel->GetTileMap();
 		float4 Index = TileLimit(CurTileMap);
 		float4 CheckPos = _PlayLevel->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
-
-		GameEngineRenderer* CirTile = CurTileMap->GetTile(CheckPos.iX(), CheckPos.iY());
-		if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) && nullptr != CurTileMap->GetTile(CheckPos.iX(), CheckPos.iY()))
+		if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()))
 		{
 			CurTileMap->SetTile(CheckPos, 0);
 			EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
