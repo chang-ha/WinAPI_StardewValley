@@ -13,6 +13,7 @@
 #include "BackGround.h"
 #include "Farm.h"
 #include "PelicanTown.h"
+#include "ContentInventory.h"
 
 BusStation::BusStation()
 {
@@ -27,12 +28,7 @@ BusStation::~BusStation()
 
 void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	Farmer = Player::MainPlayer;
-	Farmer->SetPlayLevel(this);
-	if (nullptr == Farmer)
-	{
-		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
-	}
+	ContentLevel::LevelStart(_PrevLevel);
 	Farmer->SetCollisionTexture("Collision_BusStation.bmp");
 
 	// _PrevLevel == Farm
@@ -50,7 +46,6 @@ void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetDir(PlayerDir::Left);
 		GetMainCamera()->SetPos({ Back->GetRenderScale().X - WinScale.X, Back->GetRenderScale().Y - WinScale.Y });
 	}
-	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void BusStation::LevelEnd(GameEngineLevel* _NextLevel)

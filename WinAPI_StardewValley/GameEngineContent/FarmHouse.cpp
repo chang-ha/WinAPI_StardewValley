@@ -16,6 +16,7 @@
 #include "ContentUIManager.h"
 #include "TitleScreen.h"
 #include "Farm.h"
+#include "ContentInventory.h"
 
 FarmHouse::FarmHouse()
 {
@@ -29,12 +30,8 @@ FarmHouse::~FarmHouse()
 
 void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	Farmer = Player::MainPlayer;
-	Farmer->SetPlayLevel(this);
-	if (nullptr == Farmer)
-	{
-		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
-	}
+	ContentLevel::LevelStart(_PrevLevel);
+
 	Farmer->SetCollisionTexture("Collision_farmhouse.bmp");
 	Farmer->SetPos({ GetRenderScale().X * 0.595f, GetRenderScale().Y * 0.65f});
 	Farmer->SetDir(PlayerDir::Right);
@@ -51,7 +48,6 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetPos({ GetRenderScale().X * 0.410f, GetRenderScale().Y * 0.74f });
 		Farmer->SetDir(PlayerDir::Up);
 	}
-	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
@@ -62,6 +58,7 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 	{
 		BGMPlayer.Stop();
 		Farmer->OverOff();
+		FarmerInventory->OverOff();
 	}
 
 	// _NextLevel == Farm
@@ -70,6 +67,7 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 		Farm* NextLevel = dynamic_cast<Farm*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
 		Farmer->OverOn();
+		FarmerInventory->OverOn();
 	}
 }
 
@@ -95,7 +93,9 @@ void FarmHouse::Start()
 
 		// Player
 		Farmer = CreateActor<Player>(1);
+		FarmerInventory = CreateActor<ContentInventory>(2);
 		Player::MainPlayer = Farmer;
+		ContentInventory::MainInventory = FarmerInventory;
 
 		// Detail
 		PlayOver* Over = CreateActor<PlayOver>();
@@ -105,7 +105,6 @@ void FarmHouse::Start()
 		Over->SetRenderScale(Over->GetScale() * RENDERRATIO);
 		Over->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.66f });
 	}
-
 
 	// Sound
 	if (nullptr == GameEngineSound::FindSound("Farm.mp3"))

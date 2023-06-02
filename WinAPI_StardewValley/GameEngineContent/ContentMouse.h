@@ -25,19 +25,21 @@ public:
 
 	void Update(float _Delta) override;
 
-	void Init(const std::string& _FileName);
-
-	float4 GetScale()
+	GameEngineRenderer* GetMouseRenderer()
 	{
-		return Scale;
+		return MouseRenderer;
 	}
 
-	GameEngineRenderer* Renderer = nullptr;
-	GameEngineCollision* MouseCollision = nullptr;
+	GameEngineCollision* GetMouseCollision()
+	{
+		return MouseCollision;
+	}
+
 protected:
 
 private:
 	GameEngineWindowTexture* Texture = nullptr;
-	float4 Scale = {};
+	GameEngineRenderer* MouseRenderer = nullptr;
+	GameEngineCollision* MouseCollision = nullptr;
 };
 

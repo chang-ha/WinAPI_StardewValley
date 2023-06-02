@@ -15,6 +15,7 @@
 #include "Player.h"
 #include "ContentMouse.h"
 #include "ContentsEnum.h"
+#include "ContentInventory.h"
 
 ContentLevel::ContentLevel()
 {
@@ -44,6 +45,14 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		UIManager->Clock->On();
 		UIManager->ClockHand->On();
 		UIManager->Energy->On();
+
+		Farmer = Player::MainPlayer;
+		FarmerInventory = ContentInventory::MainInventory;
+		Farmer->SetPlayLevel(this);
+		if (nullptr == Farmer)
+		{
+			MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
+		}
 	}
 
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Select_Tile.bmp"))
@@ -67,8 +76,11 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 void ContentLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	ContentLevel* NextLevel = dynamic_cast<ContentLevel*>(_NextLevel);
-	NextLevel->UIManager = UIManager;
-	NextLevel->MainMouse = MainMouse;
+	if (nullptr != NextLevel)
+	{
+		NextLevel->UIManager = UIManager;
+		NextLevel->MainMouse = MainMouse;
+	}
 }
 
 void ContentLevel::Start()
@@ -80,10 +92,6 @@ void ContentLevel::Start()
 		ContentUIManager::MainUI = UIManager;
 
 		MainMouse = CreateActor<ContentMouse>(0);
-		MainMouse->Init("Cursor01.bmp");
-		MainMouse->Renderer->SetTexture("Cursor01.bmp");
-		MainMouse->Renderer->SetRenderScale(MainMouse->GetScale() * RENDERRATIO);
-		MainMouse->Renderer->SetRenderPos(MainMouse->GetScale().Half() * RENDERRATIO);
 		MainMouse->OverOn();
 	}
 }

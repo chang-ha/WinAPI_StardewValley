@@ -16,6 +16,7 @@
 #include "BusStation.h"
 #include "ContentsEnum.h"
 #include "ShippingBin.h"
+#include "ContentInventory.h"
 
 Farm::Farm()
 {
@@ -29,13 +30,8 @@ Farm::~Farm()
 
 void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	Farmer = Player::MainPlayer;
-	Farmer->SetPlayLevel(this);
+	ContentLevel::LevelStart(_PrevLevel);
 
-	if (nullptr == Farmer)
-	{
-		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
-	}
 	Farmer->SetCollisionTexture("Collision_Farm.bmp");
 
 	// _PrevLevel == FarmHouse
@@ -54,7 +50,6 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetPos({ Back->GetRenderScale().X - 100 , Back->GetRenderScale().Y * 0.25f });
 	}
 
-	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void Farm::LevelEnd(GameEngineLevel* _NextLevel)

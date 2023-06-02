@@ -293,7 +293,7 @@ void TitleScreen::Update(float _Delta)
 	Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
 
 	std::vector<GameEngineCollision*> _CheckCollision;
-	if (true == MainMouse->MouseCollision->Collision(CollisionOrder::Button, _CheckCollision, CollisionType::Rect, CollisionType::Rect))
+	if (true == MainMouse->GetMouseCollision()->Collision(CollisionOrder::Button, _CheckCollision, CollisionType::Rect, CollisionType::Rect))
 	{
 		GameEngineCollision* CheckCollision = _CheckCollision[0];
 		GameEngineActor* Actor = CheckCollision->GetActor();

@@ -13,6 +13,7 @@
 #include "BackGround.h"
 #include "BusStation.h"
 #include "Beach.h"
+#include "ContentInventory.h"
 
 PelicanTown::PelicanTown()
 {
@@ -26,12 +27,7 @@ PelicanTown::~PelicanTown()
 
 void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	Farmer = Player::MainPlayer;
-	Farmer->SetPlayLevel(this);
-	if (nullptr == Farmer)
-	{
-		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
-	}
+	ContentLevel::LevelStart(_PrevLevel);
 	Farmer->SetCollisionTexture("Collision_Town.bmp");
 
 	// _PrevLevel == BusStation
@@ -50,8 +46,6 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetDir(PlayerDir::Up);
 		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3", 10000);
 	}
-
-	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)

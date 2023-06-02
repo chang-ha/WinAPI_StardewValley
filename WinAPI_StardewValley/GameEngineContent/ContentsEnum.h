@@ -19,6 +19,7 @@ enum class RenderOrder
 	Creature,
 	PlayOver,
 	UI,
+	UIMouse,
 };
 
 enum class CollisionOrder

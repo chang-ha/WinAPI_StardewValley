@@ -11,6 +11,7 @@ class BackGround;
 class Player;
 class ContentUIManager;
 class TileMap;
+class ContentInventory;
 class ContentLevel : public GameEngineLevel
 {
 public:
@@ -49,6 +50,7 @@ protected:
 
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
+	ContentInventory* FarmerInventory = nullptr;
 	ContentMouse* MainMouse = nullptr;
 	TileMap* UITileMap = nullptr;
 	float4 CurIndex = {};

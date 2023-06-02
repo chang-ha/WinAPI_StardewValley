@@ -12,6 +12,7 @@
 #include "Beach.h"
 #include "BackGround.h"
 #include "ContentLevel.h"
+#include "ContentInventory.h"
 
 Beach::Beach()
 {
@@ -26,12 +27,7 @@ Beach::~Beach()
 
 void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	Farmer = Player::MainPlayer;
-	Farmer->SetPlayLevel(this);
-	if (nullptr == Farmer)
-	{
-		MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
-	}
+	ContentLevel::LevelStart(_PrevLevel);
 
 	Farmer->SetCollisionTexture("Collision_Beach.bmp");
 	Farmer->SetPos({ GetRenderScale().X * 0.37f, 30});
@@ -41,7 +37,6 @@ void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 	BGMPlayer = GameEngineSound::SoundPlay("ocean.wav", 10000);
 
 	BGMPlayer.SetVolume(0.5f);
-	ContentLevel::LevelStart(_PrevLevel);
 }
 
 void Beach::LevelEnd(GameEngineLevel* _NextLevel)
