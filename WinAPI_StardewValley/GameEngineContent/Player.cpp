@@ -591,11 +591,11 @@ void Player::Render(float _Delta)
 		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 	}
 
-	{
-		GameEngineRenderer* Ptr = CreateRenderer("Title_LeftTree.bmp", RenderOrder::Play);
-		Ptr->SetRenderPos({ 0, -100 });
-		Ptr->SetRenderScale({ 200, 40 });
-		Ptr->SetTexture("Title_LeftTree.bmp");
-		Ptr->SetText("ㄻ오너ㅏㅣㄻㅇ노ㅓㅏㅣㄻㅇ노ㅓㅏㅣㄻㅇ노ㅓㅏ림ㅇ노러ㅏㅣㅇㅁㄴ로ㅓ마닝", 40, "Sandoll 미생");
-	}
+	//{
+	//	GameEngineRenderer* Ptr = CreateRenderer("Title_LeftTree.bmp", RenderOrder::Play);
+	//	Ptr->SetRenderPos({ 0, -100 });
+	//	Ptr->SetRenderScale({ 200, 40 });
+	//	Ptr->SetTexture("Title_LeftTree.bmp");
+	//	Ptr->SetText("글자", 40, "Sandoll 미생");
+	//}
 }
