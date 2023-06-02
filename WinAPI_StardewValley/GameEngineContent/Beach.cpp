@@ -38,7 +38,7 @@ void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 	Farmer->SetDir(PlayerDir::Down);
 	GetMainCamera()->SetPos({ Farmer->GetPos().X - WinScale.Half().X, 0});
 
-	BGMPlayer = GameEngineSound::SoundPlay("ocean.wav");
+	BGMPlayer = GameEngineSound::SoundPlay("ocean.wav", 10000);
 
 	BGMPlayer.SetVolume(0.5f);
 	ContentLevel::LevelStart(_PrevLevel);

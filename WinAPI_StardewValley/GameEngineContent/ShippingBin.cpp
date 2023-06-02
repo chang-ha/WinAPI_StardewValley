@@ -69,18 +69,16 @@ void ShippingBin::Start()
 void ShippingBin::Update(float _Delta)
 {
 	std::vector<GameEngineCollision*> _CollisionResult;
-	if (true == BodyCollision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	if (true == BodyCollision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && false == IsOpen)
 	{
 		CaseRenderer->ChangeAnimation("Shipping_Bin_Case_Open");
 		IsOpen = true;
-		// EffectPlayer.Stop();
-		// EffectPlayer = GameEngineSound::SoundPlay("doorCreak.wav");
+		EffectPlayer = GameEngineSound::SoundPlay("doorCreak.wav");
 	}
-	else if(true == IsOpen)
+	else if(false == BodyCollision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && true == IsOpen)
 	{
 		CaseRenderer->ChangeAnimation("Shipping_Bin_Case_Close");
 		IsOpen = false;
-		// EffectPlayer.Stop();
-		// EffectPlayer = GameEngineSound::SoundPlay("doorCreakReverse.wav");
+		EffectPlayer = GameEngineSound::SoundPlay("doorCreakReverse.wav");
 	}
 }

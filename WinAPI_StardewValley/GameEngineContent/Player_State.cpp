@@ -147,19 +147,19 @@ void Player::RunUpdate(float _DeltaTime)
 		switch (CurTileColor)
 		{
 		case Tile::Wood:
-			EffectPlayer = GameEngineSound::SoundPlay("woodyStep.wav");
+			EffectPlayer = GameEngineSound::SoundPlay("woodyStep.wav", 10000);
 			break;
 		case Tile::Grass :
-			EffectPlayer = GameEngineSound::SoundPlay("grassyStep.wav");
+			EffectPlayer = GameEngineSound::SoundPlay("grassyStep.wav", 10000);
 			break;
 		case Tile::Sand :
-			EffectPlayer = GameEngineSound::SoundPlay("sandyStep.wav");
+			EffectPlayer = GameEngineSound::SoundPlay("sandyStep.wav", 10000);
 			break;
 		case Tile::Stone:
-			EffectPlayer = GameEngineSound::SoundPlay("stoneStep.wav");
+			EffectPlayer = GameEngineSound::SoundPlay("stoneStep.wav", 10000);
 			break;
 		case Tile::Floor:
-			EffectPlayer = GameEngineSound::SoundPlay("thudStep.wav");
+			EffectPlayer = GameEngineSound::SoundPlay("thudStep.wav", 10000);
 			break;
 		default:
 			break;

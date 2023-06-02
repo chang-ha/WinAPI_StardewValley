@@ -48,7 +48,7 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetPos({ Back->GetRenderScale().X * 0.455f, Back->GetRenderScale().Y - 50});
 		GetMainCamera()->SetPos({ Farmer->GetPos().X - WinScale.Half().X , Back->GetRenderScale().Y - WinScale.Y});
 		Farmer->SetDir(PlayerDir::Up);
-		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3");
+		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3", 10000);
 	}
 
 	ContentLevel::LevelStart(_PrevLevel);

@@ -29,7 +29,7 @@ TitleScreen::~TitleScreen()
 
 void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	BGMPlayer = GameEngineSound::SoundPlay("Title.mp3");
+	BGMPlayer = GameEngineSound::SoundPlay("Title.mp3", 10000);
 
 	// Reset TitleScreen
 	Back->ResetLiveTime();
