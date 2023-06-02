@@ -32,7 +32,7 @@ void ContentMouse::Init(const std::string& _FileName)
 	}
 	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	Scale = Texture->GetScale();
-	MouseCollision->SetCollisionScale(Scale*3);
+	MouseCollision->SetCollisionScale(Scale * RENDERRATIO);
 }
 
 void ContentMouse::Update(float _Delta)

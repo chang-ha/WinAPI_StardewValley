@@ -196,6 +196,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GlobalValue.h" />
     <ClInclude Include="IntroScreen.h">
       <SubType>
       </SubType>

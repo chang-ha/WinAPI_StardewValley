@@ -107,7 +107,7 @@ void Farm::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\hoeDirt.bmp"));
 		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 12, 4);
 		FarmTileMap = CreateActor<TileMap>();
-		FarmTileMap->CreateTileMap("hoeDirt.bmp", Back->GetScale().iX() / 16, Back->GetScale().iY() / 16, {16 * RENDERRATIO, 16 * RENDERRATIO}, static_cast<int>(RenderOrder::PlayBelow));
+		FarmTileMap->CreateTileMap("hoeDirt.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::PlayBelow));
 	}
 	ShippingBin* ship = CreateActor<ShippingBin>();
 	ship->SetPos({Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f});

@@ -60,7 +60,7 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr == UITileMap)
 	{
 		UITileMap = CreateActor<TileMap>();
-		UITileMap->CreateTileMap("Select_Tile.bmp", Back->GetScale().iX() / 16, Back->GetScale().iY() / 16, { 16 * RENDERRATIO, 16 * RENDERRATIO }, static_cast<int>(RenderOrder::PlayBelow));
+		UITileMap->CreateTileMap("Select_Tile.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::PlayBelow));
 	}
 }
 

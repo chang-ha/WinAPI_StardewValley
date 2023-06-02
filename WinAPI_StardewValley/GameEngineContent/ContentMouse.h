@@ -3,6 +3,8 @@
 
 #include <GameEngineCore/GameEngineActor.h>
 
+#include "GlobalValue.h"
+
 class GameEngineWindowTexture;
 class ContentLevel;
 class ContentMouse : public GameEngineActor

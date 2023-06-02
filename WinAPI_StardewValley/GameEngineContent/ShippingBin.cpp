@@ -1,5 +1,4 @@
-﻿#define RENDERRATIO 3.0f
-#define CASESPEED 0.05f
+﻿#define CASESPEED 0.05f
 
 #include <GameEngineBase/GameEnginePath.h>
 
@@ -12,6 +11,7 @@
 
 #include "ShippingBin.h"
 #include "ContentsEnum.h"
+#include "GlobalValue.h"
 
 ShippingBin::ShippingBin()
 {

@@ -1,5 +1,3 @@
-#define RENDERRATIO 3
-
 #pragma once
 #include <string>
 
@@ -7,6 +5,7 @@
 #include <GameEnginePlatform/GameEngineSound.h>
 
 #include "ContentMouse.h"
+#include "GlobalValue.h"
 
 class BackGround;
 class Player;
