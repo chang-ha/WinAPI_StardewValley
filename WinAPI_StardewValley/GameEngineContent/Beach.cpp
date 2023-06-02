@@ -12,7 +12,6 @@
 #include "Beach.h"
 #include "BackGround.h"
 #include "ContentLevel.h"
-#include "ContentInventory.h"
 
 Beach::Beach()
 {

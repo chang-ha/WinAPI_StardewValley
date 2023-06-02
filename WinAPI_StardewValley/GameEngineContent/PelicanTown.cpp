@@ -13,7 +13,7 @@
 #include "BackGround.h"
 #include "BusStation.h"
 #include "Beach.h"
-#include "ContentInventory.h"
+#include "GeneralStore.h"
 
 PelicanTown::PelicanTown()
 {
@@ -46,7 +46,16 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 		Farmer->SetDir(PlayerDir::Up);
 		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3", 10000);
 	}
+
+	// _PrevLevel == GeneralStore
+	if (nullptr != dynamic_cast<GeneralStore*>(_PrevLevel))
+	{
+		Farmer->SetPos({Back->GetRenderScale().X * 0.362f, Back->GetRenderScale().X * 0.475f });
+		GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
+		Farmer->SetDir(PlayerDir::Down);
+	}
 }
+
 
 void PelicanTown::LevelEnd(GameEngineLevel* _NextLevel)
 {
@@ -70,6 +79,7 @@ void PelicanTown::Start()
 {
 	PrevLevel = "BusStation";
 	NextLevel = "Beach";
+	Building = "GeneralStore";
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Town.bmp"))
 	{
 		Back = CreateActor<BackGround>(0);

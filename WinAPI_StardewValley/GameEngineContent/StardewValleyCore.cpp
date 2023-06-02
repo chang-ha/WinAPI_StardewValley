@@ -7,6 +7,7 @@
 #include "BusStation.h"
 #include "Beach.h"
 #include "PelicanTown.h"
+#include "GeneralStore.h"
 
 StardewValleyCore::StardewValleyCore()
 {
@@ -26,6 +27,7 @@ void StardewValleyCore::Start()
 	GameEngineCore::CreateLevel<Farm>("Farm");
 	GameEngineCore::CreateLevel<BusStation>("BusStation");
 	GameEngineCore::CreateLevel<PelicanTown>("PelicanTown");
+	GameEngineCore::CreateLevel<GeneralStore>("GeneralStore");
 	GameEngineCore::CreateLevel<Beach>("Beach");
 	GameEngineCore::ChangeLevel("TitleScreen");
 }

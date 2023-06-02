@@ -74,8 +74,8 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 
 void Farm::Start()
 {
-	PrevLevel = "FarmHouse";
 	NextLevel = "BusStation";
+	Building = "FarmHouse";
 	GameEnginePath FilePath;
 
 	// Load Texture

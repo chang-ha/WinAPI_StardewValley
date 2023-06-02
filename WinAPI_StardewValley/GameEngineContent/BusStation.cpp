@@ -13,7 +13,6 @@
 #include "BackGround.h"
 #include "Farm.h"
 #include "PelicanTown.h"
-#include "ContentInventory.h"
 
 BusStation::BusStation()
 {

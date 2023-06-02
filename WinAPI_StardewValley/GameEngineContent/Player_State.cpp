@@ -247,6 +247,7 @@ void Player::RunUpdate(float _DeltaTime)
 		}
 	}
 
+	// Change Map
 	Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 	if (Tile::PrevMap == Color)
 	{
@@ -255,6 +256,10 @@ void Player::RunUpdate(float _DeltaTime)
 	else if (Tile::NextMap == Color)
 	{
 		GameEngineCore::ChangeLevel(PlayLevel->GetNextLevel());
+	}
+	else if (Tile::Building == Color)
+	{
+		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
 	AddPos(MovePos);
 

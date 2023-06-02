@@ -23,6 +23,7 @@
 #include "ContentUIManager.h"
 
 Player* Player::MainPlayer = nullptr;
+
 Player::Player()
 {
 

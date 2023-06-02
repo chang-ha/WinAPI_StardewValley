@@ -45,6 +45,11 @@ public:
 	{
 		return NextLevel;
 	}
+
+	std::string GetBuildingLevel()
+	{
+		return Building;
+	}
 protected:
 	float4 WinScale = {};
 
@@ -63,6 +68,7 @@ protected:
 
 	std::string PrevLevel = "";
 	std::string NextLevel = "";
+	std::string Building = "";
 private:
 };
 

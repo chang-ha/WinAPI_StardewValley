@@ -19,7 +19,8 @@ enum Tile
 	Stone = RGB(211, 211, 211),
 	Floor = RGB(255, 255, 0),
 	PrevMap = RGB(0, 0, 255),
-	NextMap = RGB(255, 0, 0)
+	NextMap = RGB(255, 0, 0),
+	Building = RGB(0, 255, 255)
 };
 
 enum PlayerDir
