@@ -95,8 +95,10 @@ void TitleScreen::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Sounds\\BGM");
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Title.mp3"));
+		FilePath.MoveChild("Resources\\Sounds\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("BGM\\Title.mp3"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Effect\\select.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Effect\\coin.wav"));
 		GameEngineSound::SetGlobalVolume(0.5f);
 	}
 
@@ -264,50 +266,59 @@ void TitleScreen::Update(float _Delta)
 	Bird2->AddPos({ -50.0f * _Delta, 0.0f });
 
 	// Collision Check
+	New_Button->Renderer->SetTexture("Title_new01.bmp");
+	Load_Button->Renderer->SetTexture("Title_load01.bmp");
+	Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
+	Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
+
+	std::vector<GameEngineCollision*> _CheckCollision;
+	if (true == MainMouse->MouseCollision->Collision(CollisionOrder::Button, _CheckCollision, CollisionType::Rect, CollisionType::Rect))
 	{
-		New_Button->Renderer->SetTexture("Title_new01.bmp");
-		Load_Button->Renderer->SetTexture("Title_load01.bmp");
-		Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
-		Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
+		GameEngineCollision* CheckCollision = _CheckCollision[0];
+		GameEngineActor* Actor = CheckCollision->GetActor();
+		PlayOver* TitleButton = dynamic_cast<PlayOver*>(Actor);
 
-		std::vector<GameEngineCollision*> _CheckCollision;
-		if (true == MainMouse->MouseCollision->Collision(CollisionOrder::Button, _CheckCollision, CollisionType::Rect, CollisionType::Rect))
+		if (TitleButton == nullptr)
 		{
-			GameEngineCollision* CheckCollision = _CheckCollision[0];
-			GameEngineActor* Actor = CheckCollision->GetActor();
-			PlayOver* TitleButton = dynamic_cast<PlayOver*>(Actor);
+			MsgBoxAssert("Collision충돌이 잘못되었습니다.");
+			return;
+		}
 
-			if (TitleButton == nullptr)
-			{
-				MsgBoxAssert("Collision충돌이 잘못되었습니다.");
-				return;
-			}
+		if (false == IsMouseOn)
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("coin.wav");
+			IsMouseOn = true;
+		}
 
-			if ("Title_new01.bmp" == TitleButton->GetFileName())
+		if ("Title_new01.bmp" == TitleButton->GetFileName())
+		{
+			TitleButton->Renderer->SetTexture("Title_new02.bmp");
+			if (true == GameEngineInput::IsDown(VK_LBUTTON))
 			{
-				TitleButton->Renderer->SetTexture("Title_new02.bmp");
-				if (true == GameEngineInput::IsDown(VK_LBUTTON))
-				{
-					GameEngineCore::ChangeLevel("FarmHouse");
-				}
-			}
-			else if ("Title_load01.bmp" == TitleButton->GetFileName())
-			{
-				TitleButton->Renderer->SetTexture("Title_load02.bmp");
-			}
-			else if ("Title_coop01.bmp" == TitleButton->GetFileName())
-			{
-				TitleButton->Renderer->SetTexture("Title_coop02.bmp");
-			}
-			else if ("Title_exit01.bmp" == TitleButton->GetFileName())
-			{
-				TitleButton->Renderer->SetTexture("Title_exit02.bmp");
-				if (true == GameEngineInput::IsDown(VK_LBUTTON))
-				{
-					GameEngineWindow::MainWindow.WindowUpdateOff();
-				}
+				GameEngineCore::ChangeLevel("FarmHouse");
+				EffectPlayer = GameEngineSound::SoundPlay("select.wav");
 			}
 		}
+		else if ("Title_load01.bmp" == TitleButton->GetFileName())
+		{
+			TitleButton->Renderer->SetTexture("Title_load02.bmp");
+		}
+		else if ("Title_coop01.bmp" == TitleButton->GetFileName())
+		{
+			TitleButton->Renderer->SetTexture("Title_coop02.bmp");
+		}
+		else if ("Title_exit01.bmp" == TitleButton->GetFileName())
+		{
+			TitleButton->Renderer->SetTexture("Title_exit02.bmp");
+			if (true == GameEngineInput::IsDown(VK_LBUTTON))
+			{
+				GameEngineWindow::MainWindow.WindowUpdateOff();
+			}
+		}
+	}
+	else
+	{
+		IsMouseOn = false;
 	}
 }
 void TitleScreen::Render(float _Delta)
