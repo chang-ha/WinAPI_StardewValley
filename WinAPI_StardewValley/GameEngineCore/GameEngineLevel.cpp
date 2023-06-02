@@ -263,7 +263,7 @@ void GameEngineLevel::OverCheck(GameEngineLevel* _PrevLevel)
 			Actor->Level = this;
 			for (GameEngineRenderer* Render : Actor->AllRenderer)
 			{
-				if (Render->CameraTypeValue == CameraType::MAIN)
+				if (Render->GetCameraType() == CameraType::MAIN)
 				{
 					Render->MainCameraSetting();
 				}

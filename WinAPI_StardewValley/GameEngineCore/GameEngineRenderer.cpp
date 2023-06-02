@@ -58,9 +58,54 @@ void GameEngineRenderer::SetRenderScaleToTexture()
 	ScaleCheck = false;
 }
 
+void GameEngineRenderer::TextRender(float _DeltaTime)
+{
+	float4 TextPos = GetActor()->GetPos() + RenderPos - Camera->GetPos();
+
+	HDC hdc = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();
+	HFONT hFont, OldFont;
+	LOGFONTA lf;
+	lf.lfHeight = TextScale;
+	lf.lfWidth = 0;
+	lf.lfEscapement = 0;
+	lf.lfOrientation = 0;
+	lf.lfWeight = 0;
+	lf.lfItalic = 0;
+	lf.lfUnderline = 0;
+	lf.lfStrikeOut = 0;
+	lf.lfCharSet = HANGEUL_CHARSET;
+	lf.lfOutPrecision = 0;
+	lf.lfClipPrecision = 0;
+	lf.lfQuality = 0;
+	lf.lfPitchAndFamily = VARIABLE_PITCH | FF_ROMAN;
+	lstrcpy(lf.lfFaceName, Face.c_str());
+	hFont = CreateFontIndirect(&lf);
+	OldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
+
+	SetTextColor(hdc, RGB(255, 0, 0));
+	SetBkMode(hdc, TRANSPARENT);
+
+	RECT Rect;
+	Rect.left = TextPos.iX();
+	Rect.top = TextPos.iY();
+	Rect.right = TextPos.iX() + TextScale * static_cast<int>(Text.size());
+	Rect.bottom = TextPos.iY() + TextScale;
+
+	DrawTextA(hdc, Text.c_str(), static_cast<int>(Text.size()), &Rect, static_cast<UINT>(DT_BOTTOM));
+	SelectObject(hdc, OldFont);
+	DeleteObject(hFont);
+
+	return;
+}
 
 void GameEngineRenderer::Render(float _DeltaTime)
 {
+	if ("" != Text)
+	{
+		TextRender(_DeltaTime);
+		return;
+	}
+
 	if (nullptr != CurAnimation)
 	{
 		if (true == CurAnimation->Loop)

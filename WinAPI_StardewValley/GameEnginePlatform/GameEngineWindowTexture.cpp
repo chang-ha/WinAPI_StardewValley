@@ -87,7 +87,6 @@ void GameEngineWindowTexture::TransCopy(GameEngineWindowTexture* _CopyTexture, c
 	);
 }
 
-
 unsigned int GameEngineWindowTexture::GetColor(unsigned int _DefaultColor, float4 _Pos)
 {
 	if (0 > _Pos.iX())
@@ -111,4 +110,17 @@ unsigned int GameEngineWindowTexture::GetColor(unsigned int _DefaultColor, float
 	}
 
 	return GetPixel(ImageDC, _Pos.iX(), _Pos.iY());
+}
+
+void GameEngineWindowTexture::FillTexture(unsigned int _Color)
+{
+	RECT Rc;
+	Rc.left = 0;
+	Rc.top = 0;
+	Rc.right = GetScale().iX();
+	Rc.bottom = GetScale().iY();
+
+	HBRUSH brh = CreateSolidBrush(_Color);
+	FillRect(ImageDC, &Rc, brh);
+	DeleteObject(brh);
 }

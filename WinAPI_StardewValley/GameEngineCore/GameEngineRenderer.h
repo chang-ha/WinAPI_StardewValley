@@ -62,6 +62,11 @@ public:
 		ScaleRatio = _Ratio;
 	}
 
+	CameraType GetCameraType()
+	{
+		return CameraTypeValue;
+	}
+
 	void SetRenderScaleToTexture();
 
 	void SetOrder(int _Order) override;
@@ -71,11 +76,14 @@ protected:
 
 private:
 	GameEngineCamera* Camera = nullptr;
+	CameraType CameraTypeValue = CameraType::MAIN;
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineSprite* Sprite = nullptr;
 	bool ScaleCheck = false;
 	float ScaleRatio = 1.0f;
+	std::string Text = "";
 
+	void TextRender(float _DeltaTime);
 	float4 RenderPos = {};
 	float4 RenderScale = {};
 
@@ -83,6 +91,7 @@ private:
 	float4 CopyScale = {};
 	void Render(float _DeltaTime);
 
+/////////// Animation
 private:
 	class Animation
 	{
@@ -101,7 +110,6 @@ private:
 public:
 	std::map<std::string, Animation> AllAnimation;
 	Animation* CurAnimation = nullptr;
-	CameraType CameraTypeValue = CameraType::MAIN;
 
 	Animation* FindAnimation(const std::string& _AnimationName);
 
@@ -125,5 +133,18 @@ public:
 	void ChangeAnimation(const std::string& _AnimationName, int _StartFrame = 0, bool _ForceChange = false);
 	void MainCameraSetting();
 	void UICameraSetting();
+
+/////////// TextRender
+	public:
+		void SetText(const std::string& _Text, int _TextScale = 20, const std::string& _Face = "±¼¸²")
+		{
+			Text = _Text;
+			TextScale = _TextScale;
+			Face = _Face;
+		}
+
+private:
+	std::string Face = "";
+	int TextScale = 0;
 };
 

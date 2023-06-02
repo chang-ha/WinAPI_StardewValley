@@ -3,6 +3,7 @@
 #include <map>
 
 #include <GameEngineBase/GameEnginePath.h>
+#include <GameEngineBase/GameEngineMath.h>
 
 class GameEngineSprite;
 class GameEngineWindowTexture;
@@ -25,6 +26,8 @@ public:
 		GameEnginePath LoadPath = _Path;
 		return TextureLoad(LoadPath.GetFileName(), _Path);
 	}	
+
+	GameEngineWindowTexture* TextureCreate(const std::string& _Name, float4 _Scale);
 
 	GameEngineWindowTexture* TextureLoad(const std::string& _Name, const std::string& _Path);
 
