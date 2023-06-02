@@ -1,4 +1,6 @@
-﻿#include <GameEngineBase/GameEngineTime.h>
+﻿#define BUTTONTIME 0.2f;
+
+#include <GameEngineBase/GameEngineTime.h>
 
 #include <GameEnginePlatform/GameEngineInput.h>
 #include <GameEnginePlatform/GameEngineWindow.h>
@@ -30,6 +32,7 @@ TitleScreen::~TitleScreen()
 void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	BGMPlayer = GameEngineSound::SoundPlay("Title.mp3", 10000);
+	BGMPlayer.SetVolume(0.4f);
 
 	// Reset TitleScreen
 	Back->ResetLiveTime();
@@ -98,8 +101,9 @@ void TitleScreen::Start()
 		FilePath.MoveChild("Resources\\Sounds\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("BGM\\Title.mp3"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Effect\\select.wav"));
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Effect\\coin.wav"));
-		GameEngineSound::SetGlobalVolume(0.5f);
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Effect\\Button_Over.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Effect\\Button_On.wav"));
+		GameEngineSound::SetGlobalVolume(0.9f);
 	}
 
 	// BackGround
@@ -219,24 +223,41 @@ void TitleScreen::Update(float _Delta)
 			Speed += {0, -15.0f * _Delta};
 		}
 
+		static float CheckTime = BUTTONTIME;
 		if (0 <= GetMainCamera()->GetPos().iY())
 		{
 			GetMainCamera()->AddPos(Speed * _Delta);
 		}
-		else if (true)
+		else if (false == New_Button->Renderer->IsUpdate() && CheckTime <= 0.0f)
 		{
+			EffectPlayer = GameEngineSound::SoundPlay("Button_On.wav");
 			New_Button->Renderer->On();
-		 	Load_Button->Renderer->On();
-			Coop_Button->Renderer->On();
-			Exit_Button->Renderer->On();
-
 			New_Button->Collision->On();
-			Load_Button->Collision->On();
-			Coop_Button->Collision->On();
-			Exit_Button->Collision->On();
-
 			IsSkip = true;
+			CheckTime = BUTTONTIME;
 		}
+		else if (false == Load_Button->Renderer->IsUpdate() && CheckTime <= 0.0f)
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("Button_On.wav");
+			Load_Button->Renderer->On();
+			Load_Button->Collision->On();
+			CheckTime = BUTTONTIME;
+		}
+		else if (false == Coop_Button->Renderer->IsUpdate() && CheckTime <= 0.0f)
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("Button_On.wav");
+			Coop_Button->Renderer->On();
+			Coop_Button->Collision->On();
+			CheckTime = BUTTONTIME;
+		}
+		else if (false == Exit_Button->Renderer->IsUpdate() && CheckTime <= 0.0f)
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("Button_On.wav");
+			Exit_Button->Renderer->On();
+			Exit_Button->Collision->On();
+			CheckTime = BUTTONTIME;
+		}
+		CheckTime -= _Delta;
 	}
 	
 	// Mouse Click To Skip
@@ -286,7 +307,7 @@ void TitleScreen::Update(float _Delta)
 
 		if (false == IsMouseOn)
 		{
-			EffectPlayer = GameEngineSound::SoundPlay("coin.wav");
+			EffectPlayer = GameEngineSound::SoundPlay("Button_Over.wav");
 			IsMouseOn = true;
 		}
 
