@@ -31,7 +31,7 @@ void ContentUIManager::Start()
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\UI\\");
 
-		float4 WinScale = GameEngineWindow::MainWindow.GetScale();
+		WinScale = GameEngineWindow::MainWindow.GetScale();
 
 		GameEngineWindowTexture* Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
 		Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
@@ -48,5 +48,23 @@ void ContentUIManager::Start()
 		Energy->SetRenderScale(Texture->GetScale() * 3);
 		Energy->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, WinScale.Y - Texture->GetScale().Half().Y * RENDERRATIO });
 
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory.bmp"));
+		Inventory = CreateUIRenderer("UI_Inventory.bmp", RenderOrder::UI);
+		Inventory->SetRenderScaleToTexture();
+		InventoryDownRender();
 	}
+}
+
+void ContentUIManager::Update(float _Delta)
+{
+
+}
+
+void ContentUIManager::InventoryUpRender()
+{
+	Inventory->SetRenderPos({ WinScale.Half().X, 50 });
+}
+void ContentUIManager::InventoryDownRender()
+{
+	Inventory->SetRenderPos({ WinScale.Half().X, WinScale.Y - 50 });
 }

@@ -39,12 +39,14 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		UIManager->Clock->Off();
 		UIManager->ClockHand->Off();
 		UIManager->Energy->Off();
+		UIManager->Inventory->Off();
 	}
 	else
 	{
 		UIManager->Clock->On();
 		UIManager->ClockHand->On();
 		UIManager->Energy->On();
+		UIManager->Inventory->On();
 
 		Farmer = Player::MainPlayer;
 		FarmerInventory = ContentInventory::MainInventory;
@@ -99,7 +101,11 @@ void ContentLevel::Start()
 void ContentLevel::Update(float _Delta)
 {
 	MainMouse->SetPos(GetMainCamera()->GetPos() + GameEngineWindow::MainWindow.GetMousePos());
-	
+	if (nullptr != FarmerInventory)
+	{
+		FarmerInventory->SetPos(GetMainCamera()->GetPos() + WinScale.Half());
+	}
+
 	if (true == GameEngineInput::IsDown(VK_F1))
 	{
 		CollisionDebugRenderSwitch();

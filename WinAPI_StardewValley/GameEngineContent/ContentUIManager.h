@@ -19,13 +19,20 @@ public:
 	ContentUIManager& operator=(const ContentUIManager& _Other) = delete;
 	ContentUIManager& operator=(ContentUIManager&& _Other) noexcept = delete;
 
+	void InventoryUpRender();
+	void InventoryDownRender();
+
 protected:
 	void Start() override;
+	void Update(float _Delta) override;
 
 private:
 	GameEngineRenderer* Clock = nullptr;
 	GameEngineRenderer* ClockHand = nullptr;
 	GameEngineRenderer* Energy = nullptr;
 	// GameEngineRenderer* EnergyBar = nullptr;
+	GameEngineRenderer* Inventory = nullptr;
+
+	float4 WinScale = {};
 };
 

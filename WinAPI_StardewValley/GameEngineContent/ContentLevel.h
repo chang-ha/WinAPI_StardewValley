@@ -30,6 +30,7 @@ public:
 	ContentUIManager* UIManager = nullptr;
 	GameEngineSoundPlayer BGMPlayer;
 	GameEngineSoundPlayer EffectPlayer;
+	float4 WinScale = {};
 
 	ContentMouse* GetMainMouse()
 	{
@@ -51,8 +52,6 @@ public:
 		return Building;
 	}
 protected:
-	float4 WinScale = {};
-
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
 	ContentInventory* FarmerInventory = nullptr;

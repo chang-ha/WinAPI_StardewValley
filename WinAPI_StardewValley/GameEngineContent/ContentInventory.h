@@ -32,6 +32,7 @@ private:
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineRenderer* InventoryRenderer = nullptr;
 	GameEngineRenderer* UIRenderer = nullptr;
+	GameEngineRenderer* Name = nullptr;
 
 	std::vector<GameEngineActor*> AllItem;
 };

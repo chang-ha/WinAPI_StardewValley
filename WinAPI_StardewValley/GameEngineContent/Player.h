@@ -85,16 +85,17 @@ public:
 	float4 TileLimit(TileMap* _CurTile);
 
 	void ChangeState(PlayerState State);
+
 protected:
 
 private:
 	float Speed = 350.0f;
+	bool IsUpdate = true;
 	PlayerState State = PlayerState::Null;
 	int Dir = PlayerDir::Null;
 	std::string CurState = "";
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
-	bool IsUpdate = true;
 
 	// State Start
 	void IdleStart();
