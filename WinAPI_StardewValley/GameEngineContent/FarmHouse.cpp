@@ -17,6 +17,7 @@
 #include "TitleScreen.h"
 #include "Farm.h"
 #include "ContentInventory.h"
+#include "ContentsEnum.h"
 
 FarmHouse::FarmHouse()
 {
@@ -80,7 +81,7 @@ void FarmHouse::Start()
 	if (nullptr == Back)
 	{
 		// BackGround
-		Back = CreateActor<BackGround>(0);														  
+		Back = CreateActor<BackGround>(UpdateOrder::Map);														  
 		Back->Init("farmhouse.bmp", "Collision_farmhouse.bmp");
 		Back->Renderer->SetTexture("farmhouse.bmp");
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
@@ -92,13 +93,13 @@ void FarmHouse::Start()
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
 		// Player
-		Farmer = CreateActor<Player>(1);
-		FarmerInventory = CreateActor<ContentInventory>(2);
+		Farmer = CreateActor<Player>(UpdateOrder::Player);
+		FarmerInventory = CreateActor<ContentInventory>(UpdateOrder::Inventory);
 		Player::MainPlayer = Farmer;
 		ContentInventory::MainInventory = FarmerInventory;
 
 		// Detail
-		PlayOver* Over = CreateActor<PlayOver>();
+		PlayOver* Over = CreateActor<PlayOver>(UpdateOrder::Map);
 		Over->Init("farmhouse_bed.bmp");
 		Over->Renderer->SetTexture("farmhouse_bed.bmp");
 		Over->Renderer->SetRenderScale(Over->GetScale() * RENDERRATIO);

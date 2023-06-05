@@ -12,6 +12,7 @@
 #include "PelicanTown.h"
 #include "BackGround.h"
 #include "BusStation.h"
+#include "ContentsEnum.h"
 #include "Beach.h"
 #include "GeneralStore.h"
 
@@ -82,7 +83,7 @@ void PelicanTown::Start()
 	Building = "GeneralStore";
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Town.bmp"))
 	{
-		Back = CreateActor<BackGround>(0);
+		Back = CreateActor<BackGround>(UpdateOrder::Map);
 		Back->Init("Town.bmp", "Collision_Town.bmp");
 		Back->Renderer->SetTexture("Town.bmp");
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);

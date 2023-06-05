@@ -81,7 +81,7 @@ void Farm::Start()
 	// Load Texture
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Farm.bmp"))
 	{
-		Back = CreateActor<BackGround>(0);
+		Back = CreateActor<BackGround>(UpdateOrder::Map);
 		Back->Init("Farm.bmp", "Collision_Farm.bmp");
 		Back->Renderer->SetTexture("Farm.bmp");
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
@@ -101,10 +101,10 @@ void Farm::Start()
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\hoeDirt.bmp"));
 		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 12, 4);
-		FarmTileMap = CreateActor<TileMap>();
+		FarmTileMap = CreateActor<TileMap>(UpdateOrder::Player);
 		FarmTileMap->CreateTileMap("hoeDirt.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::BackGround));
 	}
-	ShippingBin* ship = CreateActor<ShippingBin>();
+	ShippingBin* ship = CreateActor<ShippingBin>(UpdateOrder::Map);
 	ship->SetPos({Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f});
 }
 

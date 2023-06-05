@@ -2,8 +2,9 @@
 
 enum class UpdateOrder
 {
+	Map,
 	Player,
-	Monster,
+	Inventory,
 };
 
 enum class RenderOrder

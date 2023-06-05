@@ -27,7 +27,7 @@ ContentInventory::~ContentInventory()
 void ContentInventory::Start()
 {
 	InventoryRenderer = CreateRenderer(RenderOrder::UI);
-	// InventoryCollision = CreateCollision(CollisionOrder::UI);
+
 	AllItem.resize(12);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
 	{

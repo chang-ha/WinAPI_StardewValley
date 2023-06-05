@@ -13,6 +13,7 @@
 #include "BackGround.h"
 #include "Farm.h"
 #include "PelicanTown.h"
+#include "ContentsEnum.h"
 
 BusStation::BusStation()
 {
@@ -71,7 +72,7 @@ void BusStation::Start()
 	NextLevel = "PelicanTown";
 	if (false == ResourcesManager::GetInst().IsLoadTexture("BusStation.bmp"))
 	{
-		Back = CreateActor<BackGround>(0);
+		Back = CreateActor<BackGround>(UpdateOrder::Map);
 		Back->Init("BusStation.bmp", "Collision_BusStation.bmp");
 		Back->Renderer->SetTexture("BusStation.bmp");
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);

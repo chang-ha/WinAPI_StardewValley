@@ -12,6 +12,7 @@
 #include "Beach.h"
 #include "BackGround.h"
 #include "ContentLevel.h"
+#include "ContentsEnum.h"
 
 Beach::Beach()
 {
@@ -50,7 +51,7 @@ void Beach::Start()
 	PrevLevel = "PelicanTown";
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Beach.bmp"))
 	{
-		Back = CreateActor<BackGround>(0);
+		Back = CreateActor<BackGround>(UpdateOrder::Map);
 		Back->Init("Beach.bmp", "Collision_Beach.bmp");
 		Back->Renderer->SetTexture("Beach.bmp");
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);

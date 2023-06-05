@@ -107,7 +107,7 @@ void TitleScreen::Start()
 	}
 
 	// BackGround
-	Back = CreateActor<BackGround>(0);
+	Back = CreateActor<BackGround>(UpdateOrder::Map);
 	Back->Init("Title_background.bmp");
 	Back->Renderer->SetTexture("Title_background.bmp");
 	Back->Renderer->SetRenderScale(Back->GetScale() * 1.2f);
@@ -117,35 +117,35 @@ void TitleScreen::Start()
 
 	// Title Button
 	{
-		Logo = CreateActor<PlayOver>();
+		Logo = CreateActor<PlayOver>(UpdateOrder::Map);
 		Logo->Init("Title_Logo.bmp");
 		Logo->Renderer->SetTexture("Title_Logo.bmp");
 		Logo->Renderer->SetRenderScale(Logo->GetScale() * 2.5f);
 		Logo->SetRenderScale(Logo->GetScale() * 2.5f);
 		Logo->SetPos({ Back->GetPos().X, Logo->GetRenderScale().Half().Y + 40});
 
-		New_Button = CreateActor<PlayOver>();
+		New_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		New_Button->Init("Title_new01.bmp");
 		New_Button->Renderer->SetRenderScale(New_Button->GetScale() * RENDERRATIO);
 		New_Button->SetRenderScale(New_Button->GetScale() * RENDERRATIO);
 		New_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.2f, WinScale.Y - New_Button->GetRenderScale().Half().Y - 50 });
 		New_Button->Renderer->Off();
 
-		Load_Button = CreateActor<PlayOver>();
+		Load_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Load_Button->Init("Title_load01.bmp");
 		Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * RENDERRATIO);
 		Load_Button->SetRenderScale(Load_Button->GetScale() * RENDERRATIO);
 		Load_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.4f, WinScale.Y - Load_Button->GetRenderScale().Half().Y - 50 });
 		Load_Button->Renderer->Off();
 
-		Coop_Button = CreateActor<PlayOver>();
+		Coop_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Coop_Button->Init("Title_coop01.bmp");
 		Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() * RENDERRATIO);
 		Coop_Button->SetRenderScale(Coop_Button->GetScale() * RENDERRATIO);
 		Coop_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.6f, WinScale.Y - Coop_Button->GetRenderScale().Half().Y - 50 });
 		Coop_Button->Renderer->Off();
 
-		Exit_Button = CreateActor<PlayOver>();
+		Exit_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Exit_Button->Init("Title_exit01.bmp");
 		Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() * RENDERRATIO);
 		Exit_Button->SetRenderScale(Exit_Button->GetScale() * RENDERRATIO);
@@ -172,12 +172,12 @@ void TitleScreen::Start()
 
 	// Detail
 	{
-		LeftTree = CreateActor<PlayOver>();
-		RightTree = CreateActor<PlayOver>();
-		LeftLeaf = CreateActor<PlayOver>();
-		RightLeaf = CreateActor<PlayOver>();
-		Bird1 = CreateActor<Creature>();
-		Bird2 = CreateActor<Creature>();
+		LeftTree = CreateActor<PlayOver>(UpdateOrder::Map);
+		RightTree = CreateActor<PlayOver>(UpdateOrder::Map);
+		LeftLeaf = CreateActor<PlayOver>(UpdateOrder::Map);
+		RightLeaf = CreateActor<PlayOver>(UpdateOrder::Map);
+		Bird1 = CreateActor<Creature>(UpdateOrder::Player);
+		Bird2 = CreateActor<Creature>(UpdateOrder::Player);
 
 		LeftTree->Init("Title_LeftTree.bmp");
 		LeftTree->Renderer->SetTexture("Title_LeftTree.bmp");

@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "PelicanTown.h"
 #include "BackGround.h"
+#include "ContentsEnum.h"
 
 GeneralStore::GeneralStore()
 {
@@ -47,7 +48,7 @@ void GeneralStore::Start()
 	PrevLevel = "PelicanTown";
 	if (false == ResourcesManager::GetInst().IsLoadTexture("GeneralStore.bmp"))
 	{
-		Back = CreateActor<BackGround>(0);
+		Back = CreateActor<BackGround>(UpdateOrder::Map);
 		Back->Init("GeneralStore.bmp", "Collision_GeneralStore.bmp");
 		Back->Renderer->SetTexture("GeneralStore.bmp");
 		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
