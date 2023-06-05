@@ -43,10 +43,9 @@ void ContentInventory::Start()
 	InventoryRenderer->Off();
 
 	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
-	Name = CreateRenderer("Inventory.bmp", 1000);
-	Name->SetRenderScale({ 200, 200 });
-	Name->SetText("Player", 40, "Sandoll 미생");
-	Name->SetRenderPos({- Texture->GetScale().X * 0.33f, Texture->GetScale().Y * 0.35f});
+	Name = CreateRenderer("Inventory.bmp", RenderOrder::UI);
+	// Name->SetRenderScale({ 100, 40 });
+	// Name->SetRenderPos({- Texture->GetScale().X * 0.33f, Texture->GetScale().Y * 0.35f});
 	Name->Off();
 }
 
@@ -55,7 +54,7 @@ void ContentInventory::Update(float _Delta)
 	float4 MainCameraPos = GetLevel()->GetMainCamera()->GetPos();
 	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 
-	if (true == GameEngineInput::IsDown('I'))
+	if (true == GameEngineInput::IsDown('I') || true == GameEngineInput::IsDown(VK_ESCAPE))
 	{
 		if (true == InventoryRenderer->IsUpdate())
 		{
@@ -72,9 +71,15 @@ void ContentInventory::Update(float _Delta)
 			Player::MainPlayer->ChangeState(PlayerState::Idle);
 			Player::MainPlayer->EffectPlayer.Stop();
 
-
+			// Name->SetText("Player", 40, "Sandoll 미생");
 		}
 	}
 
+	if (true == InventoryRenderer->IsUpdate())
+	{
+		for (int x = 0; x < AllItem.size(); x++)
+		{
 
+		}
+	}
 }

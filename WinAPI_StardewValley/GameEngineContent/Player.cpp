@@ -592,13 +592,4 @@ void Player::Render(float _Delta)
 		PlayerCollision.Pos = WindowActorPos() + DownCollision;
 		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 	}
-
-	//{
-	//	GameEngineRenderer* Ptr = CreateRenderer("Title_LeftTree.bmp", RenderOrder::Play);
-	//	Ptr->SetRenderPos({ 0, -100 });
-	//	Ptr->SetRenderScale({ 200, 40 });
-	//	Ptr->SetTexture("Title_LeftTree.bmp");
-	//	Ptr->SetText("글자", 40, "Sandoll 미생");
-	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
-	//}
 }

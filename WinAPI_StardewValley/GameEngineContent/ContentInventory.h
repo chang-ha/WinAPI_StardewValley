@@ -19,11 +19,6 @@ public:
 	ContentInventory& operator=(const ContentInventory& _Other) = delete;
 	ContentInventory& operator=(ContentInventory&& _Other) noexcept = delete;
 
-	GameEngineRenderer* GetRenderer()
-	{
-		return InventoryRenderer;
-	}
-
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
