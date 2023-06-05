@@ -57,6 +57,7 @@ void TileMap::CreateTileMap(const std::string& _Sprite, int _X, int _Y, float4 _
 	TileX = _X;
 	TileY = _Y;
 	TileSize = _TileSize;
+	Order = _Order;
 
 	Tiles.resize(_Y);
 	for (int y = 0; y < _Y; y++)

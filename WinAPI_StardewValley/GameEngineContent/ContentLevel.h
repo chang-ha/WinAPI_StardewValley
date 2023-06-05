@@ -51,6 +51,7 @@ public:
 	{
 		return Building;
 	}
+
 protected:
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
