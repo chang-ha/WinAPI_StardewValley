@@ -9,8 +9,8 @@
 
 #include "ContentUIManager.h"
 #include "ContentsEnum.h"
+#include "GlobalValue.h"
 
-#define TEMP 3
 ContentUIManager* ContentUIManager::MainUI = nullptr;
 
 ContentUIManager::ContentUIManager()
@@ -35,18 +35,18 @@ void ContentUIManager::Start()
 
 		GameEngineWindowTexture* Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
 		Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
-		Clock->SetRenderScale(Texture->GetScale()* TEMP);
-		Clock->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * TEMP, Texture->GetScale().Half().Y * TEMP });
+		Clock->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+		Clock->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, Texture->GetScale().Half().Y * RENDERRATIO });
 
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand.bmp"));
 		ClockHand = CreateUIRenderer("Clock_hand.bmp", RenderOrder::UI);
-		ClockHand->SetRenderScale(Texture->GetScale()* TEMP);
-		ClockHand->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * TEMP - 135, Texture->GetScale().Half().Y * TEMP + 10});
+		ClockHand->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+		ClockHand->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * RENDERRATIO - 135, Texture->GetScale().Half().Y * RENDERRATIO + 10 });
 
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
 		Energy = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
-		Energy->SetRenderScale(Texture->GetScale()*3);
-		Energy->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * TEMP, WinScale.Y - Texture->GetScale().Half().Y * TEMP });
+		Energy->SetRenderScale(Texture->GetScale() * 3);
+		Energy->SetRenderPos({ WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, WinScale.Y - Texture->GetScale().Half().Y * RENDERRATIO });
 
 	}
 }

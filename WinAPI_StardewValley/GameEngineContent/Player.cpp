@@ -372,12 +372,14 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
-	StateUpdate(_Delta);
-	if (true == GameEngineInput::IsDown('P'))
+	if (true == IsUpdate)
 	{
-		CollisionDebug = !CollisionDebug;
+		StateUpdate(_Delta);
+		if (true == GameEngineInput::IsDown('P'))
+		{
+			CollisionDebug = !CollisionDebug;
+		}
 	}
-
 }
 
 void Player::StateUpdate(float _Delta)
@@ -597,5 +599,6 @@ void Player::Render(float _Delta)
 	//	Ptr->SetRenderScale({ 200, 40 });
 	//	Ptr->SetTexture("Title_LeftTree.bmp");
 	//	Ptr->SetText("글자", 40, "Sandoll 미생");
+	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
 	//}
 }

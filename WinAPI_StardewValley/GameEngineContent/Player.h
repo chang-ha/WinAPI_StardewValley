@@ -72,8 +72,19 @@ public:
 		}
 	}
 
+	void SetIsUpdate(bool _Value)
+	{
+		IsUpdate = _Value;
+	}
+
+	bool GetIsUpdate()
+	{
+		return IsUpdate;
+	}
+
 	float4 TileLimit(TileMap* _CurTile);
 
+	void ChangeState(PlayerState State);
 protected:
 
 private:
@@ -83,6 +94,7 @@ private:
 	std::string CurState = "";
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
+	bool IsUpdate = true;
 
 	// State Start
 	void IdleStart();
@@ -97,7 +109,6 @@ private:
 	void Tool2Update(float _Delta);
 
 	void StateUpdate(float _Delta);
-	void ChangeState(PlayerState State);
 	void ChangeAnimationState(const std::string& _AnimationName);
 
 	// DirCheck

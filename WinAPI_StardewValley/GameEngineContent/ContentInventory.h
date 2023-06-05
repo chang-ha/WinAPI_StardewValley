@@ -1,4 +1,6 @@
 #pragma once
+#include <vector>
+
 #include <GameEngineCore/GameEngineActor.h>
 
 class GameEngineRenderer;
@@ -29,6 +31,8 @@ protected:
 private:
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineRenderer* InventoryRenderer = nullptr;
+	GameEngineRenderer* UIRenderer = nullptr;
 
+	std::vector<GameEngineActor*> AllItem;
 };
 
