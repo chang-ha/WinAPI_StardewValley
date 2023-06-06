@@ -8,6 +8,7 @@
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
 #include "Player.h"
+#include "ContentInventory.h"
 
 ContentItem::ContentItem()
 {
@@ -33,6 +34,7 @@ void ContentItem::Init(const std::string& _FileName, ItemType _Type)
 	Renderer->SetTexture(_FileName);
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	Collision->SetCollisionScale(Texture->GetScale() * RENDERRATIO * 3);
+	ItemName = _FileName;
 	Type = _Type;
 }
 
@@ -52,18 +54,23 @@ void ContentItem::Start()
 
 void ContentItem::Update(float _Delta)
 {
-	float4 Dir = Player::MainPlayer->GetPos() - GetPos();
-	if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && GetLiveTime() >= 2.0f)
+	if (GetLiveTime() >= 2.0f && false == ContentInventory::MainInventory->IsFull())
 	{
-		Dir.Normalize();
-		AddPos(Dir * _Delta * 150.0f * GetLiveTime());
-	}
+		float4 Dir = Player::MainPlayer->GetPos() - GetPos();
+		if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+		{
+			Dir.Normalize();
+			AddPos(Dir * _Delta * 150.0f * GetLiveTime());
+		}
 
-	if (GetPos().iX() == Player::MainPlayer->GetPos().iX() && GetPos().iY() == Player::MainPlayer->GetPos().iY() && GetLiveTime() >= 2.0f)
-	{
-		EffectPlayer = GameEngineSound::SoundPlay("coin.wav");
-		EffectPlayer.SetVolume(0.3f);
-		Death();
+		if (GetPos().iX() == Player::MainPlayer->GetPos().iX() && GetPos().iY() == Player::MainPlayer->GetPos().iY())
+		{
+			ContentInventory::MainInventory->PushItem(this);
+			EffectPlayer = GameEngineSound::SoundPlay("coin.wav");
+			EffectPlayer.SetVolume(0.3f);
+			Death();
+		}
+
 	}
 }
 void ContentItem::LevelStart()

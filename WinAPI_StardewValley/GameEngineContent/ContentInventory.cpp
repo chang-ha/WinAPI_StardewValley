@@ -11,6 +11,7 @@
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
 #include "Player.h"
+#include "ContentItem.h"
 
 ContentInventory* ContentInventory::MainInventory = nullptr;
 
@@ -22,6 +23,14 @@ ContentInventory::ContentInventory()
 ContentInventory::~ContentInventory()
 {
 
+}
+
+void ContentInventory::PushItem(ContentItem* _Item)
+{
+	//if (nullptr == FindItem(_Item->GetItemName()))
+	//{
+
+	//}
 }
 
 void ContentInventory::Start()
@@ -75,11 +84,8 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
-	if (true == InventoryRenderer->IsUpdate())
+	for (int x = 0; x < AllItem.size(); x++)
 	{
-		for (int x = 0; x < AllItem.size(); x++)
-		{
 
-		}
 	}
 }

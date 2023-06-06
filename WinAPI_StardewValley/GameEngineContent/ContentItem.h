@@ -22,6 +22,11 @@ public:
 	ContentItem& operator=(const ContentItem& _Other) = delete;
 	ContentItem& operator=(ContentItem&& _Other) noexcept = delete;
 
+	std::string GetItemName()
+	{
+		return ItemName;
+	}
+
 	void Init(const std::string& _FileName, ItemType _Type);
 
 protected:
@@ -35,6 +40,7 @@ private:
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineCollision* Collision = nullptr;
 	std::vector<GameEngineCollision*> _CollisionResult;
+	std::string ItemName = "";
 	ItemType Type = ItemType::Null;
 };
 

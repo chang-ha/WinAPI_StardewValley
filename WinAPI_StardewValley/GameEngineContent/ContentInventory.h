@@ -4,6 +4,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 
 class GameEngineRenderer;
+class ContentItem;
 class ContentInventory : public GameEngineActor
 {
 public:
@@ -19,6 +20,13 @@ public:
 	ContentInventory& operator=(const ContentInventory& _Other) = delete;
 	ContentInventory& operator=(ContentInventory&& _Other) noexcept = delete;
 
+	bool IsFull()
+	{
+		return Full;
+	}
+
+	void PushItem(ContentItem* _Item);
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -28,7 +36,8 @@ private:
 	GameEngineRenderer* InventoryRenderer = nullptr;
 	GameEngineRenderer* UIRenderer = nullptr;
 	GameEngineRenderer* Name = nullptr;
+	bool Full = false;
 
-	std::vector<GameEngineActor*> AllItem;
+	std::vector<ContentItem*> AllItem;
 };
 
