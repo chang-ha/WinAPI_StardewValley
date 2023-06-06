@@ -65,10 +65,10 @@ void ContentItem::Update(float _Delta)
 
 		if (abs(GetPos().iX() - Player::MainPlayer->GetPos().iX()) < RENDERRATIO && abs(GetPos().iY() - Player::MainPlayer->GetPos().iY()) < RENDERRATIO)
 		{
-			ContentInventory::MainInventory->PushItem(this);
+			// ContentInventory::MainInventory->PushItem(this);
 			EffectPlayer = GameEngineSound::SoundPlay("coin.wav");
 			EffectPlayer.SetVolume(0.2f);
-			Off();
+			Death();
 		}
 	}
 }

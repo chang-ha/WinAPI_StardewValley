@@ -472,29 +472,31 @@ void Player::DirCheck()
 
 void Player::ToolDirCheck()
 {
-	float4 MousePos = PlayLevel->GetMainMouse()->GetPos();
-	if (GetPos().X - MousePos.X > 16 * RENDERRATIO)
+	float4 Index = TileLimit();
+	float4 FarmerIndex = PlayLevel->GetUITileMap()->PosToIndex(GetPos() + DownCollision);
+
+	if (Index.X < FarmerIndex.X)
 	{
 		Dir = PlayerDir::Left;
 	}
-	else if (GetPos().X - MousePos.X < -16 * RENDERRATIO)
+	else if (Index.X > FarmerIndex.X)
 	{
 		Dir = PlayerDir::Right;
 	}
-	else if (GetPos().Y - MousePos.Y > 0)
+	else if (Index.Y < FarmerIndex.Y)
 	{
 		Dir = PlayerDir::Up;
 	}
-	else if (GetPos().Y - MousePos.Y < 0 )
+	else
 	{
 		Dir = PlayerDir::Down;
 	}
 }
 
-float4 Player::TileLimit(TileMap* _CurTile)
+float4 Player::TileLimit()
 {
-	float4 Index = _CurTile->PosToIndex(PlayLevel->GetMainMouse()->GetPos());
-	float4 FarmerIndex = _CurTile->PosToIndex(GetPos() + DownCollision);
+	float4 Index = PlayLevel->GetUITileMap()->PosToIndex(PlayLevel->GetMainMouse()->GetMousePos());
+	float4 FarmerIndex = PlayLevel->GetUITileMap()->PosToIndex(GetPos() + DownCollision);
 
 	if (Index.iX() <= FarmerIndex.iX() - 1)
 	{

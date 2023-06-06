@@ -51,7 +51,7 @@ void Player::ToolStart()
 	if (nullptr != _PlayLevel)
 	{
 		TileMap* CurTileMap = _PlayLevel->GetTileMap();
-		float4 Index = TileLimit(CurTileMap);
+		float4 Index = TileLimit();
 		float4 CheckPos = _PlayLevel->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
 		if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()))
 		{

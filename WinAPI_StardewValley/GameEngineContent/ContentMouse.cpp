@@ -3,6 +3,8 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineLevel.h>
+#include <GameEngineCore/GameEngineCamera.h>
 
 #include "ContentsEnum.h"
 #include "ContentMouse.h"
@@ -18,7 +20,7 @@ ContentMouse::~ContentMouse()
 
 void ContentMouse::Start()
 {
-	MouseRenderer = CreateRenderer(RenderOrder::UIMouse);
+	MouseRenderer = CreateUIRenderer(RenderOrder::UIMouse);
 	MouseCollision = CreateCollision(CollisionOrder::UI);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Cursor01.bmp"))
 	{
@@ -37,4 +39,12 @@ void ContentMouse::Start()
 
 void ContentMouse::Update(float _Delta)
 {
+	SetPos(GameEngineWindow::MainWindow.GetMousePos());
+	MouseCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos());
 }
+
+float4 ContentMouse::GetMousePos()
+{
+	return GetLevel()->GetMainCamera()->GetPos() + GetPos();
+}
+

@@ -100,7 +100,7 @@ void ContentLevel::Start()
 
 void ContentLevel::Update(float _Delta)
 {
-	MainMouse->SetPos(GetMainCamera()->GetPos() + GameEngineWindow::MainWindow.GetMousePos());
+	// MainMouse->SetPos(GetMainCamera()->GetPos() + GameEngineWindow::MainWindow.GetMousePos());
 	if (nullptr != FarmerInventory)
 	{
 		FarmerInventory->SetPos(GetMainCamera()->GetPos() + WinScale.Half());
@@ -113,7 +113,7 @@ void ContentLevel::Update(float _Delta)
 
 	if (nullptr != Farmer)
 	{
-		CurIndex = Farmer->TileLimit(UITileMap);
+		CurIndex = Farmer->TileLimit();
 		UITileMap->SetTile(UITileMap->IndexToPos(CurIndex.iX(), CurIndex.iY()), 0);
 
 		GameEngineRenderer* PrevTile = UITileMap->GetTile(PrevIndex.iX(), PrevIndex.iY());

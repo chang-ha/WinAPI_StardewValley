@@ -82,7 +82,7 @@ public:
 		return IsUpdate;
 	}
 
-	float4 TileLimit(TileMap* _CurTile);
+	float4 TileLimit();
 
 	void ChangeState(PlayerState State);
 

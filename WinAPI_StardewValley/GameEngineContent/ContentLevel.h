@@ -52,6 +52,11 @@ public:
 		return Building;
 	}
 
+	TileMap* GetUITileMap()
+	{
+		return UITileMap;
+	}
+
 protected:
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;

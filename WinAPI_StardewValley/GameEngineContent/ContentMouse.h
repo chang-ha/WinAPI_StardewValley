@@ -25,6 +25,8 @@ public:
 
 	void Update(float _Delta) override;
 
+	float4 GetMousePos();
+
 	GameEngineRenderer* GetMouseRenderer()
 	{
 		return MouseRenderer;
@@ -34,7 +36,6 @@ public:
 	{
 		return MouseCollision;
 	}
-
 protected:
 
 private:
