@@ -42,5 +42,4 @@ void Creature::Init(const std::string& _FileName)
 	}
 	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	Scale = Texture->GetScale();
-	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
 }

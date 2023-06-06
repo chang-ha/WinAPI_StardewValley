@@ -63,6 +63,10 @@ public:
 		ChangeAnimationState(CurState);
 	}
 
+	void SetCollisionTexture(const std::string& _CollisionTexture);
+
+	int GetTileColor(unsigned int _Color, float4 _Pos = float4::ZERO);
+
 	void SetPlayLevel(ContentLevel* _ContentLevel) override
 	{
 		ContentActor::SetPlayLevel(_ContentLevel);
@@ -96,6 +100,8 @@ private:
 	std::string CurState = "";
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
+	GameEngineWindowTexture* CollisionTexture = nullptr;
+
 
 	// State Start
 	void IdleStart();

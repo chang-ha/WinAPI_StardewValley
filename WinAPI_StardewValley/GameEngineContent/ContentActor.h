@@ -18,10 +18,6 @@ public:
 	ContentActor& operator=(const ContentActor& _Other) = delete;
 	ContentActor& operator=(ContentActor&& _Other) noexcept = delete;
 
-	void SetCollisionTexture(const std::string& _CollisionTexture);
-
-	int GetTileColor(unsigned int _Color, float4 _Pos = float4::ZERO);
-
 	virtual void SetPlayLevel(ContentLevel* _ContentLevel)
 	{
 		PlayLevel = _ContentLevel;
@@ -35,6 +31,6 @@ protected:
 	ContentLevel* PlayLevel = nullptr;
 
 private:
-	GameEngineWindowTexture* CollisionTexture = nullptr;
+
 };
 

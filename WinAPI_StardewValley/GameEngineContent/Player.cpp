@@ -3,6 +3,7 @@
 #define TOOL1SPEED 0.062f
 #define TOOL2SPEED 0.05f
 
+#include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
 #include <GameEngineBase/GameEnginePath.h>
 
@@ -600,4 +601,26 @@ void Player::Render(float _Delta)
 		PlayerCollision.Pos = WindowActorPos() + DownCollision;
 		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 	}
+}
+
+
+void Player::SetCollisionTexture(const std::string& _CollisionTexture)
+{
+	CollisionTexture = ResourcesManager::GetInst().FindTexture(_CollisionTexture);
+	if (nullptr == CollisionTexture)
+	{
+		MsgBoxAssert(_CollisionTexture + "는 존재하지 않는 CollisionTexture입니다.");
+	}
+}
+
+int Player::GetTileColor(unsigned int _Color, float4 _Pos /*= float4::ZERO*/)
+{
+	if (nullptr == CollisionTexture)
+	{
+		MsgBoxAssert("CollisionTexture가 세팅되어 있지 않습니다.");
+	}
+	float4 Pos = GetPos();
+	Pos += _Pos;
+	Pos *= 1.0f / RENDERRATIO;
+	return CollisionTexture->GetColor(_Color, Pos);
 }
