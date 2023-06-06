@@ -40,6 +40,14 @@ void ContentItem::Start()
 {
 	Renderer = CreateRenderer(RenderOrder::PlayOver);
 	Collision = CreateCollision(CollisionOrder::Item);
+	if (nullptr == GameEngineSound::FindSound("coin.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("coin.wav"));
+	}
 }
 
 void ContentItem::Update(float _Delta)
@@ -48,11 +56,13 @@ void ContentItem::Update(float _Delta)
 	if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && GetLiveTime() >= 2.0f)
 	{
 		Dir.Normalize();
-		AddPos(Dir * _Delta * 100.0f * GetLiveTime());
+		AddPos(Dir * _Delta * 150.0f * GetLiveTime());
 	}
 
 	if (GetPos().iX() == Player::MainPlayer->GetPos().iX() && GetPos().iY() == Player::MainPlayer->GetPos().iY() && GetLiveTime() >= 2.0f)
 	{
+		EffectPlayer = GameEngineSound::SoundPlay("coin.wav");
+		EffectPlayer.SetVolume(0.3f);
 		Death();
 	}
 }

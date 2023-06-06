@@ -42,7 +42,7 @@ void Tree::Update(float _Delta)
 		for (int x = 0; x < ItemCount; x++)
 		{
 			ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-			Item->Init("Wood.bmp", ItemType::Tool);
+			Item->Init("Wood.bmp", ItemType::Resources);
 			Item->SetPos(GetPos());
 		}
 		Death();

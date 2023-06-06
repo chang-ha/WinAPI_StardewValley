@@ -64,6 +64,7 @@ void ContentUIManager::InventoryUpRender()
 {
 	Inventory->SetRenderPos({ WinScale.Half().X, 50 });
 }
+
 void ContentUIManager::InventoryDownRender()
 {
 	Inventory->SetRenderPos({ WinScale.Half().X, WinScale.Y - 50 });

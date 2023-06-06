@@ -1,14 +1,15 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include "ContentActor.h"
 
 enum class ItemType
 {
 	Null,
 	Tool,
+	Resources,
 };
 
 class GameEngineRenderer;
-class ContentItem : public GameEngineActor
+class ContentItem : public ContentActor
 {
 public:
 	// constructer destructer
