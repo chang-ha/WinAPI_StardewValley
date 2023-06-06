@@ -211,8 +211,13 @@ void Player::RunUpdate(float _DeltaTime)
 					Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 				}
 			}
-			MovePos.X = static_cast<float>(static_cast<int>(MovePos.X));
+			MovePos.X = static_cast<float>(MovePos.iX());
 		}
+
+		// if (true == Collision->Collision(CollisionOrder::Actor, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+		// {
+		// 	return;
+		// }
 	}
 
 	// Player Move(Up, Down)
@@ -248,7 +253,7 @@ void Player::RunUpdate(float _DeltaTime)
 					Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
 				}
 			}
-			MovePos.Y = static_cast<float>(static_cast<int>(MovePos.Y));
+			MovePos.Y = static_cast<float>(MovePos.iY());
 		}
 	}
 
@@ -267,10 +272,7 @@ void Player::RunUpdate(float _DeltaTime)
 		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
 
-	// if (true == Collision->Collision(CollisionOrder::Actor, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
-	// {
-	// 	return;
-	// }
+
 
 	AddPos(MovePos);
 

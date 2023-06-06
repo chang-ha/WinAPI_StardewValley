@@ -32,7 +32,8 @@ protected:
 private:
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
+	GameEngineCollision* Collision = nullptr;
+	std::vector<GameEngineCollision*> _CollisionResult;
 	ItemType Type = ItemType::Null;
-
 };
 
