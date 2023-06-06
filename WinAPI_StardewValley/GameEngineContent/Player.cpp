@@ -360,7 +360,8 @@ void Player::Start()
 
 	// Player Collision
 	Collision = CreateCollision(CollisionOrder::Player);
-	Collision->SetCollisionScale(float4{ 16,32 }*RENDERRATIO);
+	Collision->SetCollisionPos({0, 16});
+	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
 
 	// Debug Collision
 	UpCollision = { 0, 8 * RENDERRATIO };
@@ -385,7 +386,7 @@ void Player::Update(float _Delta)
 		if (true== GameEngineInput::IsDown('K'))
 		{
 			ContentItem* Item = GetLevel()->CreateActor<ContentItem>();
-			Item->Init("Tool1.bmp", ToolType::Tool);
+			Item->Init("Tool1.bmp", ItemType::Tool);
 			Item->SetPos(GetPos());
 		}
 	}

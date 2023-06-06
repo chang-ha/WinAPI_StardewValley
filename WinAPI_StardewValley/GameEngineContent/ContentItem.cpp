@@ -17,7 +17,7 @@ ContentItem::~ContentItem()
 
 }
 
-void ContentItem::Init(const std::string& _FileName, ToolType _Type)
+void ContentItem::Init(const std::string& _FileName, ItemType _Type)
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
-enum class ToolType
+enum class ItemType
 {
 	Null,
 	Tool,
@@ -21,7 +21,7 @@ public:
 	ContentItem& operator=(const ContentItem& _Other) = delete;
 	ContentItem& operator=(ContentItem&& _Other) noexcept = delete;
 
-	void Init(const std::string& _FileName, ToolType _Type);
+	void Init(const std::string& _FileName, ItemType _Type);
 
 protected:
 	void Start() override;
@@ -32,7 +32,7 @@ protected:
 private:
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
-	ToolType Type = ToolType::Null;
+	ItemType Type = ItemType::Null;
 
 };
 

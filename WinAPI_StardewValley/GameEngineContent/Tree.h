@@ -1,7 +1,7 @@
 #pragma once
-#include "ContentActor.h"
+#include "ContentResources.h"
 
-class Tree : public ContentActor
+class Tree : public ContentResources
 {
 public:
 	// constructer destructer
@@ -14,11 +14,15 @@ public:
 	Tree& operator=(const Tree& _Other) = delete;
 	Tree& operator=(Tree&& _Other) noexcept = delete;
 
+	void Init(const std::string& _FileName) override;
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
 private:
-
+	int ItemCount = 6;
+	GameEngineRenderer* UpperPart = nullptr;
+	std::vector<GameEngineCollision*> _CollisionResult;
 };
 

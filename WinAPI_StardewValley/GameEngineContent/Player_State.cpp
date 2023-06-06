@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
 #include <GameEngineCore/TileMap.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Player.h"
 #include "ContentLevel.h"
@@ -169,10 +170,13 @@ void Player::RunUpdate(float _DeltaTime)
 	}
 	PerTime -= _DeltaTime;
 
+
+
 	// Player Move
 	float4 MovePos = float4::ZERO;
 	float4 CheckPos = float4::ZERO;
 	unsigned int Color = 0;
+	std::vector<GameEngineCollision*> _CollisionResult;
 
 	// Player Move(Right, Left)
 	{
@@ -262,6 +266,12 @@ void Player::RunUpdate(float _DeltaTime)
 	{
 		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
+
+	// if (true == Collision->Collision(CollisionOrder::Actor, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	// {
+	// 	return;
+	// }
+
 	AddPos(MovePos);
 
 	// CameraSetting

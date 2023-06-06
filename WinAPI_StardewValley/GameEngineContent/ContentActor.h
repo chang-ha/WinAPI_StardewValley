@@ -29,7 +29,6 @@ public:
 protected:
 	void Start() override;
 	ContentLevel* PlayLevel = nullptr;
-	GameEngineCollision* Collision = nullptr;
 
 private:
 

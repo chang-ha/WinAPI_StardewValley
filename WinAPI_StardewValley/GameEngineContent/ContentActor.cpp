@@ -18,8 +18,7 @@ ContentActor::~ContentActor()
 
 void ContentActor::Start()
 {
-	Collision = CreateCollision(CollisionOrder::Actor);
-	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
+
 }
 
 float4 ContentActor::WindowActorPos()

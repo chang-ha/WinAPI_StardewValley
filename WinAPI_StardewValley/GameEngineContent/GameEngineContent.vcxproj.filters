@@ -73,6 +73,9 @@
     <ClInclude Include="Tree.h">
       <Filter>Level\05. FarmMap</Filter>
     </ClInclude>
+    <ClInclude Include="ContentResources.h">
+      <Filter>Global\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -144,6 +147,9 @@
     <ClCompile Include="Tree.cpp">
       <Filter>Level\05. FarmMap</Filter>
     </ClCompile>
+    <ClCompile Include="ContentResources.cpp">
+      <Filter>Global\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -187,6 +193,9 @@
     </Filter>
     <Filter Include="Level\09. Store">
       <UniqueIdentifier>{10857342-6304-485a-a60f-f1fb7cf01a7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global\Resources">
+      <UniqueIdentifier>{9a5affe9-acf7-4775-b504-cff2e3b25040}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
