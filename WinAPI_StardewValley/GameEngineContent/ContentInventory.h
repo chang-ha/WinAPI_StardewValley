@@ -3,9 +3,8 @@
 
 #include <GameEngineCore/GameEngineActor.h>
 
-#include "ContentItem.h"
-
 class GameEngineRenderer;
+class ContentItem;
 class ContentInventory : public GameEngineActor
 {
 public:
@@ -41,6 +40,6 @@ private:
 	GameEngineRenderer* Name = nullptr;
 	bool Full = false;
 
-	std::vector<ContentItem> AllItem;
+	std::vector<ContentItem*> AllItem;
 };
 
