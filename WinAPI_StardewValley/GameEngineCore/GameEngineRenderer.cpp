@@ -254,14 +254,8 @@ void GameEngineRenderer::CreateAnimationToFrame(
 	Animation.Sprite = Sprite;
 	Animation.StartFrame = _Frame[0];
 	Animation.EndFrame = _Frame[_Frame.size() - 1];
-
-	// 0 - 5 - 5
-	// 역
-
-	// 0, 0
 	Animation.Inters.resize(_Frame.size());
 	Animation.Frames.resize(_Frame.size());
-
 	Animation.Frames = _Frame;
 
 	for (size_t i = 0; i < Animation.Frames.size(); i++)

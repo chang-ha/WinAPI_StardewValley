@@ -1,4 +1,6 @@
-﻿#include <GameEnginePlatform/GameEngineWindow.h>
+﻿#define MAXSIZE 12
+
+#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
 
@@ -27,17 +29,38 @@ ContentInventory::~ContentInventory()
 
 void ContentInventory::PushItem(ContentItem* _Item)
 {
-	//if (nullptr == FindItem(_Item->GetItemName()))
-	//{
+	ContentItem* Find = FindItem(_Item);
+	if (nullptr == Find && AllItem.capacity() > AllItem.size())
+	{
+		AllItem.push_back(_Item);
+		if (AllItem.capacity() == AllItem.size())
+		{
+			Full = true;
+		}
+	}
+	else if (nullptr != Find)
+	{
+		Find->PlusItemCount(_Item->GetItemCount());
+	}
+}
 
-	//}
+ContentItem* ContentInventory::FindItem(ContentItem* _Item)
+{
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		if (AllItem[x]->GetItemName() == _Item->GetItemName())
+		{
+			return  AllItem[x];
+		}
+	}
+	return nullptr;
 }
 
 void ContentInventory::Start()
 {
 	InventoryRenderer = CreateRenderer(RenderOrder::UI);
 
-	AllItem.resize(12);
+	AllItem.reserve(MAXSIZE);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -84,8 +107,4 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
-	for (int x = 0; x < AllItem.size(); x++)
-	{
-
-	}
 }

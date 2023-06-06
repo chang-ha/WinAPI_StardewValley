@@ -54,7 +54,7 @@ void ContentItem::Start()
 
 void ContentItem::Update(float _Delta)
 {
-	if (GetLiveTime() >= 2.0f && false == ContentInventory::MainInventory->IsFull())
+	if (GetLiveTime() >= 1.0f && false == ContentInventory::MainInventory->IsFull())
 	{
 		float4 Dir = Player::MainPlayer->GetPos() - GetPos();
 		if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
@@ -63,14 +63,13 @@ void ContentItem::Update(float _Delta)
 			AddPos(Dir * _Delta * 150.0f * GetLiveTime());
 		}
 
-		if (GetPos().iX() == Player::MainPlayer->GetPos().iX() && GetPos().iY() == Player::MainPlayer->GetPos().iY())
+		if (abs(GetPos().iX() - Player::MainPlayer->GetPos().iX()) < RENDERRATIO && abs(GetPos().iY() - Player::MainPlayer->GetPos().iY()) < RENDERRATIO)
 		{
 			ContentInventory::MainInventory->PushItem(this);
 			EffectPlayer = GameEngineSound::SoundPlay("coin.wav");
-			EffectPlayer.SetVolume(0.3f);
-			Death();
+			EffectPlayer.SetVolume(0.2f);
+			Off();
 		}
-
 	}
 }
 void ContentItem::LevelStart()

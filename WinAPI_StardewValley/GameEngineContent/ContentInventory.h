@@ -3,8 +3,9 @@
 
 #include <GameEngineCore/GameEngineActor.h>
 
+#include "ContentItem.h"
+
 class GameEngineRenderer;
-class ContentItem;
 class ContentInventory : public GameEngineActor
 {
 public:
@@ -27,6 +28,8 @@ public:
 
 	void PushItem(ContentItem* _Item);
 
+	ContentItem* FindItem(ContentItem* _Item);
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -38,6 +41,6 @@ private:
 	GameEngineRenderer* Name = nullptr;
 	bool Full = false;
 
-	std::vector<ContentItem*> AllItem;
+	std::vector<ContentItem> AllItem;
 };
 
