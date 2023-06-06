@@ -28,7 +28,7 @@ void GeneralStore::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<PelicanTown*>(_PrevLevel))
 	{
 		Farmer->SetPos({Back->GetRenderScale().X * 0.155f, Back->GetRenderScale().Y * 0.885f});
-		GetMainCamera()->SetPos({0, Back->GetRenderScale().Y - WinScale.Y});
+		GetMainCamera()->SetPos({0, Back->GetRenderScale().Y - GlobalValue::WinScale.Y});
 		Farmer->SetDir(PlayerDir::Up);
 	}
 }

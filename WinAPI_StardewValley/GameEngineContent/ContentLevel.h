@@ -30,7 +30,6 @@ public:
 	ContentUIManager* UIManager = nullptr;
 	GameEngineSoundPlayer BGMPlayer;
 	GameEngineSoundPlayer EffectPlayer;
-	float4 WinScale = {};
 
 	ContentMouse* GetMainMouse()
 	{

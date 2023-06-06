@@ -58,7 +58,7 @@ ContentItem* ContentInventory::FindItem(ContentItem* _Item)
 
 void ContentInventory::Start()
 {
-	InventoryRenderer = CreateRenderer(RenderOrder::UI);
+	InventoryRenderer = CreateUIRenderer(RenderOrder::UI);
 
 	AllItem.reserve(MAXSIZE);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
@@ -71,11 +71,13 @@ void ContentInventory::Start()
 	}
 	Texture = ResourcesManager::GetInst().FindTexture("Inventory.bmp");
 	InventoryRenderer->SetTexture("Inventory.bmp");
+	InventoryRenderer->SetRenderPos(GlobalValue::WinScale.Half());
 	InventoryRenderer->SetRenderScaleToTexture();
 	InventoryRenderer->Off();
 
+	// Inventory Texture
 	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
-	Name = CreateRenderer("Inventory.bmp", RenderOrder::UI);
+	Name = CreateUIRenderer("Inventory.bmp", RenderOrder::UI);
 	// Name->SetRenderScale({ 100, 40 });
 	// Name->SetRenderPos({- Texture->GetScale().X * 0.33f, Texture->GetScale().Y * 0.35f});
 	Name->Off();
@@ -83,9 +85,6 @@ void ContentInventory::Start()
 
 void ContentInventory::Update(float _Delta)
 {
-	float4 MainCameraPos = GetLevel()->GetMainCamera()->GetPos();
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
-
 	if (true == GameEngineInput::IsDown('I') || true == GameEngineInput::IsDown(VK_ESCAPE))
 	{
 		if (true == InventoryRenderer->IsUpdate())

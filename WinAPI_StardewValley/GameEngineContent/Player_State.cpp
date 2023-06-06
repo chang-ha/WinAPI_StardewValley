@@ -47,12 +47,12 @@ void Player::ToolStart()
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
 
-	Farm* _PlayLevel = dynamic_cast<Farm*>(PlayLevel);
-	if (nullptr != _PlayLevel)
+	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
+	if (nullptr != _Farm)
 	{
-		TileMap* CurTileMap = _PlayLevel->GetTileMap();
+		TileMap* CurTileMap = _Farm->GetTileMap();
 		float4 Index = TileLimit();
-		float4 CheckPos = _PlayLevel->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
+		float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
 		if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()))
 		{
 			CurTileMap->SetTile(CheckPos, 0);
@@ -278,10 +278,9 @@ void Player::RunUpdate(float _DeltaTime)
 
 	// CameraSetting
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
-	float4 WinScale = GameEngineWindow::MainWindow.GetScale();
 	float4 BackScale = PlayLevel->GetRenderScale();
 
-	if ((PlayerDir::Left == (Dir & PlayerDir::Left)) && CameraPos.X > 0 && GetPos().X <= CameraPos.X + WinScale.Half().X)
+	if ((PlayerDir::Left == (Dir & PlayerDir::Left)) && CameraPos.X > 0 && GetPos().X <= CameraPos.X + GlobalValue::WinScale.Half().X)
 	{
 		GetLevel()->GetMainCamera()->AddPos({ MovePos.X, 0 });
 		CameraPos = GetLevel()->GetMainCamera()->GetPos();
@@ -291,18 +290,18 @@ void Player::RunUpdate(float _DeltaTime)
 			GetLevel()->GetMainCamera()->SetPos(CameraPos);
 		}
 	}
-	else if ((PlayerDir::Right == (Dir & PlayerDir::Right)) && BackScale.X - WinScale.X > CameraPos.X && GetPos().X >= CameraPos.X + WinScale.Half().X)
+	else if ((PlayerDir::Right == (Dir & PlayerDir::Right)) && BackScale.X - GlobalValue::WinScale.X > CameraPos.X && GetPos().X >= CameraPos.X + GlobalValue::WinScale.Half().X)
 	{
 		GetLevel()->GetMainCamera()->AddPos({ MovePos.X,0 });
 		CameraPos = GetLevel()->GetMainCamera()->GetPos();
-		if (BackScale.X - WinScale.X < CameraPos.X)
+		if (BackScale.X - GlobalValue::WinScale.X < CameraPos.X)
 		{
-			CameraPos.X = BackScale.X - WinScale.X;
+			CameraPos.X = BackScale.X - GlobalValue::WinScale.X;
 			GetLevel()->GetMainCamera()->SetPos(CameraPos);
 		}
 	}
 
-	if ((PlayerDir::Up == (Dir & PlayerDir::Up)) && CameraPos.Y > 0 && GetPos().Y < CameraPos.Y + WinScale.Half().Y)
+	if ((PlayerDir::Up == (Dir & PlayerDir::Up)) && CameraPos.Y > 0 && GetPos().Y < CameraPos.Y + GlobalValue::WinScale.Half().Y)
 	{
 		GetLevel()->GetMainCamera()->AddPos({ 0, MovePos.Y });
 		CameraPos = GetLevel()->GetMainCamera()->GetPos();
@@ -312,13 +311,13 @@ void Player::RunUpdate(float _DeltaTime)
 			GetLevel()->GetMainCamera()->SetPos(CameraPos);
 		}
 	}
-	else if ((PlayerDir::Down == (Dir & PlayerDir::Down)) && BackScale.Y - WinScale.Y > CameraPos.Y && GetPos().Y >= CameraPos.Y + WinScale.Half().Y)
+	else if ((PlayerDir::Down == (Dir & PlayerDir::Down)) && BackScale.Y - GlobalValue::WinScale.Y > CameraPos.Y && GetPos().Y >= CameraPos.Y + GlobalValue::WinScale.Half().Y)
 	{
 		GetLevel()->GetMainCamera()->AddPos({ 0, MovePos.Y });
 		CameraPos = GetLevel()->GetMainCamera()->GetPos();
-		if (BackScale.Y - WinScale.Y <= CameraPos.Y)
+		if (BackScale.Y - GlobalValue::WinScale.Y <= CameraPos.Y)
 		{
-			CameraPos.Y = BackScale.Y - WinScale.Y;
+			CameraPos.Y = BackScale.Y - GlobalValue::WinScale.Y;
 			GetLevel()->GetMainCamera()->SetPos(CameraPos);
 		}
 	}

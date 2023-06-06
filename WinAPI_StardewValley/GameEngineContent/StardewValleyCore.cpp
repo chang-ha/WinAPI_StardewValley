@@ -8,6 +8,7 @@
 #include "Beach.h"
 #include "PelicanTown.h"
 #include "GeneralStore.h"
+#include "GlobalValue.h"
 
 StardewValleyCore::StardewValleyCore()
 {
@@ -21,6 +22,7 @@ StardewValleyCore::~StardewValleyCore()
 void StardewValleyCore::Start()
 {
 	GameEngineWindow::MainWindow.SetPosAndScale({ 0, 0 }, { 1600, 900 });
+	GlobalValue::Init();
 
 	GameEngineCore::CreateLevel<TitleScreen>("TitleScreen");
 	GameEngineCore::CreateLevel<FarmHouse>("FarmHouse");

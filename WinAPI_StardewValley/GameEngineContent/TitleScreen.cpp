@@ -36,7 +36,7 @@ void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 
 	// Reset TitleScreen
 	Back->ResetLiveTime();
-	GetMainCamera()->SetPos({ Back->GetPos().X - WinScale.Half().X, Back->GetRenderScale().Y - WinScale.Y });
+	GetMainCamera()->SetPos({ Back->GetPos().X - GlobalValue::WinScale.Half().X, Back->GetRenderScale().Y - GlobalValue::WinScale.Y });
 	IsSkip = false;
 	Speed = {};
 
@@ -50,8 +50,8 @@ void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 	Coop_Button->Collision->Off();
 	Exit_Button->Collision->Off();
 
-	Bird1->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.80f, GetMainCamera()->GetPos().Y + WinScale.Y * 0.75f });
-	Bird2->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.80f - 100, GetMainCamera()->GetPos().Y + WinScale.Y * 0.75f - 50});
+	Bird1->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.80f, GetMainCamera()->GetPos().Y + GlobalValue::WinScale.Y * 0.75f });
+	Bird2->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.80f - 100, GetMainCamera()->GetPos().Y + GlobalValue::WinScale.Y * 0.75f - 50});
 	ContentLevel::LevelStart(_PrevLevel);
 }
 
@@ -113,7 +113,7 @@ void TitleScreen::Start()
 	Back->Renderer->SetRenderScale(Back->GetScale() * 1.2f);
 	Back->SetRenderScale(Back->GetScale() * 1.2f);
 	Back->SetPos(GetRenderScale().Half());
-	GetMainCamera()->SetPos({Back->GetPos().X - WinScale.Half().X, Back->GetRenderScale().Y - WinScale.Y});
+	GetMainCamera()->SetPos({Back->GetPos().X - GlobalValue::WinScale.Half().X, Back->GetRenderScale().Y - GlobalValue::WinScale.Y});
 
 	// Title Button
 	{
@@ -128,28 +128,28 @@ void TitleScreen::Start()
 		New_Button->Init("Title_new01.bmp");
 		New_Button->Renderer->SetRenderScale(New_Button->GetScale() * RENDERRATIO);
 		New_Button->SetRenderScale(New_Button->GetScale() * RENDERRATIO);
-		New_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.2f, WinScale.Y - New_Button->GetRenderScale().Half().Y - 50 });
+		New_Button->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.2f, GlobalValue::WinScale.Y - New_Button->GetRenderScale().Half().Y - 50 });
 		New_Button->Renderer->Off();
 
 		Load_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Load_Button->Init("Title_load01.bmp");
 		Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * RENDERRATIO);
 		Load_Button->SetRenderScale(Load_Button->GetScale() * RENDERRATIO);
-		Load_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.4f, WinScale.Y - Load_Button->GetRenderScale().Half().Y - 50 });
+		Load_Button->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.4f, GlobalValue::WinScale.Y - Load_Button->GetRenderScale().Half().Y - 50 });
 		Load_Button->Renderer->Off();
 
 		Coop_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Coop_Button->Init("Title_coop01.bmp");
 		Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() * RENDERRATIO);
 		Coop_Button->SetRenderScale(Coop_Button->GetScale() * RENDERRATIO);
-		Coop_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.6f, WinScale.Y - Coop_Button->GetRenderScale().Half().Y - 50 });
+		Coop_Button->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.6f, GlobalValue::WinScale.Y - Coop_Button->GetRenderScale().Half().Y - 50 });
 		Coop_Button->Renderer->Off();
 
 		Exit_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Exit_Button->Init("Title_exit01.bmp");
 		Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() * RENDERRATIO);
 		Exit_Button->SetRenderScale(Exit_Button->GetScale() * RENDERRATIO);
-		Exit_Button->SetPos({ GetMainCamera()->GetPos().X + WinScale.X * 0.8f, WinScale.Y - Exit_Button->GetRenderScale().Half().Y - 50 });
+		Exit_Button->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.8f, GlobalValue::WinScale.Y - Exit_Button->GetRenderScale().Half().Y - 50 });
 		Exit_Button->Renderer->Off();
 
 		// Create Button Collision
@@ -189,7 +189,7 @@ void TitleScreen::Start()
 		RightTree->Renderer->SetTexture("Title_RightTree.bmp");
 		RightTree->Renderer->SetRenderScale(RightTree->GetScale() * RENDERRATIO);
 		RightTree->SetRenderScale(RightTree->GetScale() * RENDERRATIO);
-		RightTree->SetPos({ GetMainCamera()->GetPos().X + WinScale.X - RightTree->GetRenderScale().Half().X, Back->GetRenderScale().Y - RightTree->GetRenderScale().Half().Y });
+		RightTree->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X - RightTree->GetRenderScale().Half().X, Back->GetRenderScale().Y - RightTree->GetRenderScale().Half().Y });
 
 		LeftLeaf->Renderer->SetScaleRatio(2.5f);
 		LeftLeaf->Renderer->CreateAnimation("LeftLeaf_Move", "Title_LeftLeaf", 0, 4, 0.2f, false);
@@ -263,7 +263,7 @@ void TitleScreen::Update(float _Delta)
 	// Mouse Click To Skip
 	if (4.0f < Back->GetLiveTime() && true == GameEngineInput::IsDown(VK_LBUTTON) && false == IsSkip)
 	{
-		GetMainCamera()->SetPos({ Back->GetPos().X - WinScale.Half().X, 0 });
+		GetMainCamera()->SetPos({ Back->GetPos().X - GlobalValue::WinScale.Half().X, 0 });
 	} 
 	
 	// Detail Update

@@ -32,7 +32,7 @@ void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 	Farmer->SetCollisionTexture("Collision_Beach.bmp");
 	Farmer->SetPos({ GetRenderScale().X * 0.37f, 30});
 	Farmer->SetDir(PlayerDir::Down);
-	GetMainCamera()->SetPos({ Farmer->GetPos().X - WinScale.Half().X, 0});
+	GetMainCamera()->SetPos({ Farmer->GetPos().X - GlobalValue::WinScale.Half().X, 0});
 
 	BGMPlayer = GameEngineSound::SoundPlay("ocean.wav", 10000);
 

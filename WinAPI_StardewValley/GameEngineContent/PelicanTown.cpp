@@ -35,7 +35,7 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<BusStation*>(_PrevLevel))
 	{
 		Farmer->SetPos({ 50, Back->GetRenderScale().Y * 0.5f });
-		GetMainCamera()->SetPos({ 0, Back->GetRenderScale().Y * 0.5f - WinScale.Half().Y});
+		GetMainCamera()->SetPos({ 0, Back->GetRenderScale().Y * 0.5f - GlobalValue::WinScale.Half().Y});
 		Farmer->SetDir(PlayerDir::Right);
 	}
 
@@ -43,7 +43,7 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<Beach*>(_PrevLevel))
 	{
 		Farmer->SetPos({ Back->GetRenderScale().X * 0.455f, Back->GetRenderScale().Y - 50});
-		GetMainCamera()->SetPos({ Farmer->GetPos().X - WinScale.Half().X , Back->GetRenderScale().Y - WinScale.Y});
+		GetMainCamera()->SetPos({ Farmer->GetPos().X - GlobalValue::WinScale.Half().X , Back->GetRenderScale().Y - GlobalValue::WinScale.Y});
 		Farmer->SetDir(PlayerDir::Up);
 		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3", 10000);
 	}
@@ -52,7 +52,7 @@ void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<GeneralStore*>(_PrevLevel))
 	{
 		Farmer->SetPos({Back->GetRenderScale().X * 0.362f, Back->GetRenderScale().X * 0.475f });
-		GetMainCamera()->SetPos(Farmer->GetPos() - WinScale.Half());
+		GetMainCamera()->SetPos(Farmer->GetPos() - GlobalValue::WinScale.Half());
 		Farmer->SetDir(PlayerDir::Down);
 	}
 }

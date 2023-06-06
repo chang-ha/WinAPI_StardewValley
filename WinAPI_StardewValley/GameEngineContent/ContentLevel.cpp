@@ -19,7 +19,6 @@
 
 ContentLevel::ContentLevel()
 {
-	WinScale = GameEngineWindow::MainWindow.GetScale();
 }
 
 ContentLevel::~ContentLevel()
@@ -100,10 +99,9 @@ void ContentLevel::Start()
 
 void ContentLevel::Update(float _Delta)
 {
-	// MainMouse->SetPos(GetMainCamera()->GetPos() + GameEngineWindow::MainWindow.GetMousePos());
 	if (nullptr != FarmerInventory)
 	{
-		FarmerInventory->SetPos(GetMainCamera()->GetPos() + WinScale.Half());
+		// FarmerInventory->SetPos(GetMainCamera()->GetPos() + WinScale.Half());
 	}
 
 	if (true == GameEngineInput::IsDown(VK_F1))

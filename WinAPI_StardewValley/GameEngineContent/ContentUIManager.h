@@ -32,7 +32,5 @@ private:
 	GameEngineRenderer* Energy = nullptr;
 	// GameEngineRenderer* EnergyBar = nullptr;
 	GameEngineRenderer* Inventory = nullptr;
-
-	float4 WinScale = {};
 };
 
