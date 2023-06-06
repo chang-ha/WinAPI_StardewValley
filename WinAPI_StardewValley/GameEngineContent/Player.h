@@ -55,17 +55,13 @@ public:
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* HatRenderer = nullptr;
 
-	GameEngineCollision* BodyCollision = nullptr;
+	GameEngineCollision* Collision = nullptr;
 
 	void SetDir(const PlayerDir _Dir)
 	{
 		Dir = _Dir;
 		ChangeAnimationState(CurState);
 	}
-
-	void SetCollisionTexture(const std::string& _CollisionTexture);
-
-	int GetTileColor(unsigned int _Color, float4 _Pos = float4::ZERO);
 
 	void SetPlayLevel(ContentLevel* _ContentLevel) override
 	{
@@ -90,6 +86,9 @@ public:
 
 	void ChangeState(PlayerState State);
 
+	void SetCollisionTexture(const std::string& _CollisionTexture);
+
+	int GetTileColor(unsigned int _Color, float4 _Pos = float4::ZERO);
 protected:
 
 private:
@@ -121,7 +120,6 @@ private:
 	// DirCheck
 	void DirCheck();
 	void ToolDirCheck();
-
 
 	void LevelStart() override;
 	void Start() override;

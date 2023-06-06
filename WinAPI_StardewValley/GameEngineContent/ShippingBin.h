@@ -18,7 +18,7 @@ public:
 
 	GameEngineRenderer* BodyRenderer = nullptr;
 	GameEngineRenderer* CaseRenderer = nullptr;
-	GameEngineCollision* BodyCollision = nullptr;
+	GameEngineCollision* Collision = nullptr;
 protected:
 
 private:

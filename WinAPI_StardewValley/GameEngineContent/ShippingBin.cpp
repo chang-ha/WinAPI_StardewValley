@@ -46,8 +46,8 @@ void ShippingBin::Start()
 		CaseRenderer->SetScaleRatio(RENDERRATIO);
 
 		// Collision
-		BodyCollision = CreateCollision(CollisionOrder::Map);
-		BodyCollision->SetCollisionScale(Texture->GetScale() * RENDERRATIO * 2);
+		Collision = CreateCollision(CollisionOrder::Map);
+		Collision->SetCollisionScale(Texture->GetScale() * RENDERRATIO * 2);
 	}
 
 	if (nullptr == GameEngineSound::FindSound("doorCreak.wav"))
@@ -69,13 +69,13 @@ void ShippingBin::Start()
 void ShippingBin::Update(float _Delta)
 {
 	std::vector<GameEngineCollision*> _CollisionResult;
-	if (true == BodyCollision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && false == IsOpen)
+	if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && false == IsOpen)
 	{
 		CaseRenderer->ChangeAnimation("Shipping_Bin_Case_Open");
 		IsOpen = true;
 		EffectPlayer = GameEngineSound::SoundPlay("doorCreak.wav");
 	}
-	else if(false == BodyCollision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && true == IsOpen)
+	else if(false == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && true == IsOpen)
 	{
 		CaseRenderer->ChangeAnimation("Shipping_Bin_Case_Close");
 		IsOpen = false;

@@ -1,6 +1,6 @@
 ﻿#define RUNSPEED1 0.08f
 #define RUNSPEED2 0.1f
-#define TOOL1SPEED 0.062f
+#define TOOL1SPEED 0.08f
 #define TOOL2SPEED 0.05f
 
 #include <GameEngineBase/GameEngineDebug.h>
@@ -28,7 +28,7 @@ Player* Player::MainPlayer = nullptr;
 
 Player::Player()
 {
-
+	
 }
 
 Player::~Player()
@@ -359,8 +359,8 @@ void Player::Start()
 	//}
 
 	// Player Collision
-	BodyCollision = CreateCollision(CollisionOrder::Player);
-	BodyCollision->SetCollisionScale(float4{ 16,32 }*RENDERRATIO);
+	Collision = CreateCollision(CollisionOrder::Player);
+	Collision->SetCollisionScale(float4{ 16,32 }*RENDERRATIO);
 
 	// Debug Collision
 	UpCollision = { 0, 8 * RENDERRATIO };
@@ -385,7 +385,7 @@ void Player::Update(float _Delta)
 		if (true== GameEngineInput::IsDown('K'))
 		{
 			ContentItem* Item = GetLevel()->CreateActor<ContentItem>();
-			Item->Init("Tool1.bmp");
+			Item->Init("Tool1.bmp", ToolType::Tool);
 			Item->SetPos(GetPos());
 		}
 	}
@@ -580,6 +580,27 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	HairRenderer->ChangeAnimation(AnimationName);
 }
 
+void Player::SetCollisionTexture(const std::string& _CollisionTexture)
+{
+	CollisionTexture = ResourcesManager::GetInst().FindTexture(_CollisionTexture);
+	if (nullptr == CollisionTexture)
+	{
+		MsgBoxAssert(_CollisionTexture + "는 존재하지 않는 CollisionTexture입니다.");
+	}
+}
+
+int Player::GetTileColor(unsigned int _Color, float4 _Pos /*= float4::ZERO*/)
+{
+	if (nullptr == CollisionTexture)
+	{
+		MsgBoxAssert("CollisionTexture가 세팅되어 있지 않습니다.");
+	}
+	float4 Pos = GetPos();
+	Pos += _Pos;
+	Pos *= 1.0f / RENDERRATIO;
+	return CollisionTexture->GetColor(_Color, Pos);
+}
+
 void Player::Render(float _Delta)
 {
 	if (true == CollisionDebug)
@@ -601,26 +622,4 @@ void Player::Render(float _Delta)
 		PlayerCollision.Pos = WindowActorPos() + DownCollision;
 		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 	}
-}
-
-
-void Player::SetCollisionTexture(const std::string& _CollisionTexture)
-{
-	CollisionTexture = ResourcesManager::GetInst().FindTexture(_CollisionTexture);
-	if (nullptr == CollisionTexture)
-	{
-		MsgBoxAssert(_CollisionTexture + "는 존재하지 않는 CollisionTexture입니다.");
-	}
-}
-
-int Player::GetTileColor(unsigned int _Color, float4 _Pos /*= float4::ZERO*/)
-{
-	if (nullptr == CollisionTexture)
-	{
-		MsgBoxAssert("CollisionTexture가 세팅되어 있지 않습니다.");
-	}
-	float4 Pos = GetPos();
-	Pos += _Pos;
-	Pos *= 1.0f / RENDERRATIO;
-	return CollisionTexture->GetColor(_Color, Pos);
 }

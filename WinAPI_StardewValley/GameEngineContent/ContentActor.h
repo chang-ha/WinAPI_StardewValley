@@ -3,7 +3,6 @@
 
 #include <GameEngineCore/GameEngineActor.h>
 
-class GameEngineWindowTexture;
 class ContentLevel;
 class ContentActor : public GameEngineActor
 {
@@ -28,7 +27,9 @@ public:
 	GameEngineSoundPlayer EffectPlayer;
 
 protected:
+	void Start() override;
 	ContentLevel* PlayLevel = nullptr;
+	GameEngineCollision* Collision = nullptr;
 
 private:
 

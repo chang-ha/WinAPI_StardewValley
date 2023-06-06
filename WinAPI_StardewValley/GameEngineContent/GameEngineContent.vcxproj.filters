@@ -70,6 +70,9 @@
     <ClInclude Include="PlayOver.h">
       <Filter>Global\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>Level\05. FarmMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -137,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="PlayOver.cpp">
       <Filter>Global\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Level\05. FarmMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

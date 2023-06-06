@@ -1,6 +1,12 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+enum class ToolType
+{
+	Null,
+	Tool,
+};
+
 class GameEngineRenderer;
 class ContentItem : public GameEngineActor
 {
@@ -15,7 +21,7 @@ public:
 	ContentItem& operator=(const ContentItem& _Other) = delete;
 	ContentItem& operator=(ContentItem&& _Other) noexcept = delete;
 
-	void Init(const std::string& _FileName);
+	void Init(const std::string& _FileName, ToolType _Type);
 
 protected:
 	void Start() override;
@@ -26,6 +32,7 @@ protected:
 private:
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
+	ToolType Type = ToolType::Null;
 
 };
 
