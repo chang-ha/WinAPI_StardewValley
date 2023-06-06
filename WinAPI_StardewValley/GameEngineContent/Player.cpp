@@ -21,6 +21,7 @@
 #include "ContentLevel.h"
 #include "ContentsEnum.h"
 #include "ContentUIManager.h"
+#include "ContentItem.h"
 
 Player* Player::MainPlayer = nullptr;
 
@@ -378,6 +379,13 @@ void Player::Update(float _Delta)
 		if (true == GameEngineInput::IsDown('P'))
 		{
 			CollisionDebug = !CollisionDebug;
+		}
+
+		if (true== GameEngineInput::IsDown('K'))
+		{
+			ContentItem* Item = GetLevel()->CreateActor<ContentItem>();
+			Item->Init("Tool1.bmp");
+			Item->SetPos(GetPos());
 		}
 	}
 }

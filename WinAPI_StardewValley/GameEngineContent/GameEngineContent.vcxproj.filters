@@ -49,9 +49,6 @@
     <ClInclude Include="ContentMouse.h">
       <Filter>Global\UI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayOver.h">
-      <Filter>Global\UI</Filter>
-    </ClInclude>
     <ClInclude Include="BackGround.h">
       <Filter>Global\Actor</Filter>
     </ClInclude>
@@ -66,6 +63,12 @@
     </ClInclude>
     <ClInclude Include="GeneralStore.h">
       <Filter>Level\09. Store</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentItem.h">
+      <Filter>ContentCore</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayOver.h">
+      <Filter>Global\Actor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -111,9 +114,6 @@
     <ClCompile Include="ContentMouse.cpp">
       <Filter>Global\UI</Filter>
     </ClCompile>
-    <ClCompile Include="PlayOver.cpp">
-      <Filter>Global\UI</Filter>
-    </ClCompile>
     <ClCompile Include="BackGround.cpp">
       <Filter>Global\Actor</Filter>
     </ClCompile>
@@ -131,6 +131,12 @@
     </ClCompile>
     <ClCompile Include="GeneralStore.cpp">
       <Filter>Level\09. Store</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentItem.cpp">
+      <Filter>ContentCore</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayOver.cpp">
+      <Filter>Global\Actor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

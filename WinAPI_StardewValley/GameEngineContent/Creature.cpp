@@ -2,9 +2,11 @@
 
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Creature.h"
 #include "ContentsEnum.h"
+#include "GlobalValue.h"
 
 Creature::Creature()
 {
@@ -19,6 +21,7 @@ Creature::~Creature()
 void Creature::Start()
 {
 	Renderer = CreateRenderer(RenderOrder::Creature);
+	Collision = CreateCollision(RenderOrder::Creature);
 }
 
 
@@ -39,4 +42,5 @@ void Creature::Init(const std::string& _FileName)
 	}
 	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	Scale = Texture->GetScale();
+	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
 }

@@ -8,6 +8,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/TileMap.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "Farm.h"
 #include "BackGround.h"
@@ -17,6 +18,7 @@
 #include "ContentsEnum.h"
 #include "ShippingBin.h"
 #include "ContentInventory.h"
+#include "Creature.h"
 
 Farm::Farm()
 {
@@ -106,6 +108,13 @@ void Farm::Start()
 	}
 	ShippingBin* ship = CreateActor<ShippingBin>(UpdateOrder::Map);
 	ship->SetPos({Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f});
+
+	Creature* Tree = CreateActor<Creature>(UpdateOrder::Player);
+	Tree->Init("Tree.bmp");
+	Tree->Renderer->SetTexture("Tree.bmp");
+	Tree->Renderer->SetRenderScale(Tree->GetScale()*RENDERRATIO);
+	Tree->SetPos(FarmTileMap->IndexToPos(55, 20) + TILESIZE.Half() * RENDERRATIO);
+	// Tree->Collision->SetCollisionPos();
 }
 
 void Farm::Update(float _Delta)

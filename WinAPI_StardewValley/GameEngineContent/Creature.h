@@ -2,6 +2,7 @@
 #include <GameEngineCore/GameEngineActor.h>
 
 class GameEngineWindowTexture;
+class GameEngineCollision;
 class Creature : public GameEngineActor
 {
 public:
@@ -23,11 +24,11 @@ public:
 	}
 
 	GameEngineRenderer* Renderer = nullptr;
+	GameEngineCollision* Collision = nullptr;
 protected:
 
 private:
 	GameEngineWindowTexture* Texture = nullptr;
-
 	std::string FileName = "";
 	float4 Scale = float4::ZERO;
 
