@@ -36,7 +36,7 @@ void Tree::Update(float _Delta)
 		UpperPart->SetOrder(static_cast<int>(RenderOrder::PlayOver));
 	}
 
-	if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	if (true == Collision->CollisionCheck(Player::MainPlayer->GetBodyCollision(), CollisionType::Rect, CollisionType::Rect))
 	{
 		GameEngineLevel* CurLevel = GetLevel();
 		for (int x = 0; x < ItemCount; x++)

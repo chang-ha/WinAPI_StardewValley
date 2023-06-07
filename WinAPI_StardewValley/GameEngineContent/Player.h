@@ -55,7 +55,7 @@ public:
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* HatRenderer = nullptr;
 
-	GameEngineCollision* Collision = nullptr;
+	GameEngineCollision* BodyCollision = nullptr;
 
 	void SetDir(const PlayerDir _Dir)
 	{
@@ -80,6 +80,11 @@ public:
 	bool GetIsUpdate()
 	{
 		return IsUpdate;
+	}
+
+	GameEngineCollision* GetBodyCollision()
+	{
+		return BodyCollision;
 	}
 
 	float4 TileLimit();

@@ -58,7 +58,7 @@ void ContentItem::Update(float _Delta)
 	if (GetLiveTime() >= 1.0f && false == ContentInventory::MainInventory->IsFull(this))
 	{
 		float4 Dir = Player::MainPlayer->GetPos() - GetPos();
-		if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+		if (true == Collision->CollisionCheck(Player::MainPlayer->GetBodyCollision(), CollisionType::Rect, CollisionType::Rect))
 		{
 			Dir.Normalize();
 			AddPos(Dir * _Delta * 150.0f * GetLiveTime());
