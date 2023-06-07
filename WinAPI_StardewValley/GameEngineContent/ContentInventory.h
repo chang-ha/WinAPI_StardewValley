@@ -27,7 +27,9 @@ public:
 
 	void PushItem(ContentItem* _Item);
 
-	ContentItem* FindItem(ContentItem* _Item);
+	ContentItem* FindItem(const ContentItem* _Item, int _ResultIndex);
+
+	int BlankSpace();
 
 protected:
 	void Start() override;
@@ -40,5 +42,8 @@ private:
 	bool Full = false;
 
 	std::vector<ContentItem*> AllItem;
+	std::vector<GameEngineRenderer*> ItemRenderer;
+
+	// std::vector<GameEngineRenderer*> ItemCountRenderer;
 };
 

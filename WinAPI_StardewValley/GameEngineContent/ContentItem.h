@@ -24,7 +24,7 @@ public:
 	// ContentItem& operator=(const ContentItem& _Other) = delete;
 	// ContentItem& operator=(ContentItem&& _Other) noexcept = delete;
 
-	std::string GetItemName()
+	std::string GetItemName() const
 	{
 		return ItemName;
 	}

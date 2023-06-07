@@ -37,16 +37,27 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		MsgBoxAssert("인벤토리에 남은 공간이 없습니다.");
 		return;
 	}
-
-	ContentItem* Find = FindItem(_Item);
-	if (nullptr == Find && AllItem.capacity() > AllItem.size())
+	int Index = 0;
+	ContentItem* Find = FindItem(_Item, Index);
+	if (nullptr == Find)
 	{
+		int PushIndex = BlankSpace();
+
+		// Item Off
 		_Item->Off();
 		_Item->Collision->Off();
 		_Item->Renderer->Off();
 
-		AllItem.push_back(_Item);
-		if (AllItem.capacity() == AllItem.size())
+		// Inventory Item Renderer
+		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::UI);
+		_ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
+		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
+		_ItemRenderer->SetRenderPos({GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.245f * 1});
+		_ItemRenderer->Off();
+
+		AllItem[PushIndex] = _Item;
+		ItemRenderer[PushIndex] = _ItemRenderer;
+		if (PushIndex + 1 == AllItem.size())
 		{
 			Full = true;
 		}
@@ -59,23 +70,43 @@ void ContentInventory::PushItem(ContentItem* _Item)
 
 }
 
-ContentItem* ContentInventory::FindItem(ContentItem* _Item)
+ContentItem* ContentInventory::FindItem(const ContentItem* _Item, int _ResultIndex)
 {
 	for (int x = 0; x < AllItem.size(); x++)
 	{
+		if (nullptr == AllItem[x])
+		{
+			continue;
+		}
+
 		if (AllItem[x]->GetItemName() == _Item->GetItemName())
 		{
+			_ResultIndex = x;
 			return  AllItem[x];
 		}
 	}
+	_ResultIndex = -1;
 	return nullptr;
+}
+
+int ContentInventory::BlankSpace()
+{
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		if (nullptr == AllItem[x])
+		{
+			return x;
+		}
+	}
+	return 0;
 }
 
 void ContentInventory::Start()
 {
 	InventoryRenderer = CreateUIRenderer(RenderOrder::UI);
 
-	AllItem.reserve(MAXSIZE);
+	AllItem.resize(MAXSIZE);
+	ItemRenderer.resize(MAXSIZE);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -97,23 +128,57 @@ void ContentInventory::Start()
 	// NameText->SetRenderPos({- Texture->GetScale().X * 0.33f, Texture->GetScale().Y * 0.35f});
 	// NameText->SetText("Player", 40, "Sandoll 미생");
 	// NameText->Off();
+
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		AllItem[x] = nullptr;
+	}
+
+	for (int x = 0; x < ItemRenderer.size(); x++)
+	{
+		ItemRenderer[x] = nullptr;
+	}
 }
 
 void ContentInventory::Update(float _Delta)
 {
+	if (true == InventoryRenderer->IsUpdate())
+	{
+		// NameText->Off();
+
+		for (int x = 0; x < AllItem.size(); x++)
+		{
+			if (nullptr == AllItem[x])
+			{
+				continue;
+			}
+			ItemRenderer[x]->On();
+		}
+	}
+	else
+	{
+		// NameText->On();
+
+		for (int x = 0; x < AllItem.size(); x++)
+		{
+			if (nullptr == AllItem[x])
+			{
+				continue;
+			}
+			ItemRenderer[x]->Off();
+		}
+	}
+
 	if (true == GameEngineInput::IsDown('I') || true == GameEngineInput::IsDown(VK_ESCAPE))
 	{
 		if (true == InventoryRenderer->IsUpdate())
 		{
 			InventoryRenderer->Off();
-			// NameText->Off();
 			Player::MainPlayer->SetIsUpdate(true);
 		}
 		else
 		{
 			InventoryRenderer->On();
-			// NameText->On();
-
 			Player::MainPlayer->SetIsUpdate(false);
 			Player::MainPlayer->ChangeState(PlayerState::Idle);
 			Player::MainPlayer->EffectPlayer.Stop();

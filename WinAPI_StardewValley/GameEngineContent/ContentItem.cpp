@@ -29,6 +29,7 @@ void ContentItem::Init(const std::string& _FileName, ItemType _Type)
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Item\\");
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Inventory_" +_FileName));
 	}
 	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	Renderer->SetTexture(_FileName);
