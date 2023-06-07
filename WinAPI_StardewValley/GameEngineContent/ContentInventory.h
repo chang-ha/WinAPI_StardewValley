@@ -36,8 +36,7 @@ protected:
 private:
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineRenderer* InventoryRenderer = nullptr;
-	GameEngineRenderer* UIRenderer = nullptr;
-	GameEngineRenderer* Name = nullptr;
+	GameEngineRenderer* NameText = nullptr;
 	bool Full = false;
 
 	std::vector<ContentItem*> AllItem;

@@ -1,5 +1,7 @@
 ﻿#define MAXSIZE 12
 
+#include <GameEngineBase/GameEngineDebug.h>
+
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -8,6 +10,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "ContentInventory.h"
 #include "ContentsEnum.h"
@@ -29,30 +32,40 @@ ContentInventory::~ContentInventory()
 
 void ContentInventory::PushItem(ContentItem* _Item)
 {
-	//ContentItem* Find = FindItem(_Item);
-	//if (nullptr == Find && AllItem.capacity() > AllItem.size())
-	//{
-	//	AllItem.push_back(_Item);
-	//	if (AllItem.capacity() == AllItem.size())
-	//	{
-	//		Full = true;
-	//	}
-	//}
-	//else if (nullptr != Find)
-	//{
-	//	Find->PlusItemCount(_Item->GetItemCount());
-	//}
+	if (true == Full)
+	{
+		MsgBoxAssert("인벤토리에 남은 공간이 없습니다.");
+		return;
+	}
+
+	ContentItem* Find = FindItem(_Item);
+	if (nullptr == Find && AllItem.capacity() > AllItem.size())
+	{
+		AllItem.push_back(_Item);
+		if (AllItem.capacity() == AllItem.size())
+		{
+			Full = true;
+		}
+	}
+	else if (nullptr != Find)
+	{
+		Find->PlusItemCount(_Item->GetItemCount());
+	}
+
+	_Item->Off();
+	_Item->Collision->Off();
+	_Item->Renderer->Off();
 }
 
 ContentItem* ContentInventory::FindItem(ContentItem* _Item)
 {
-	// for (int x = 0; x < AllItem.size(); x++)
-	// {
-	// 	if (AllItem[x]->GetItemName() == _Item->GetItemName())
-	// 	{
-	// 		return  AllItem[x];
-	// 	}
-	// }
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		if (AllItem[x]->GetItemName() == _Item->GetItemName())
+		{
+			return  AllItem[x];
+		}
+	}
 	return nullptr;
 }
 
@@ -77,11 +90,11 @@ void ContentInventory::Start()
 
 	// Inventory Text
 	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
-	// Name = CreateUIRenderer("Inventory.bmp", RenderOrder::UI);
-	// Name->SetRenderScale({ 100, 40 });
-	// Name->SetRenderPos({- Texture->GetScale().X * 0.33f, Texture->GetScale().Y * 0.35f});
-	// Name->SetText("Player", 40, "Sandoll 미생");
-	// Name->Off();
+	// NameText = CreateUIRenderer("Inventory.bmp", RenderOrder::UI);
+	// NameText->SetRenderScale({ 100, 40 });
+	// NameText->SetRenderPos({- Texture->GetScale().X * 0.33f, Texture->GetScale().Y * 0.35f});
+	// NameText->SetText("Player", 40, "Sandoll 미생");
+	// NameText->Off();
 }
 
 void ContentInventory::Update(float _Delta)
@@ -91,13 +104,13 @@ void ContentInventory::Update(float _Delta)
 		if (true == InventoryRenderer->IsUpdate())
 		{
 			InventoryRenderer->Off();
-			// Name->Off();
+			// NameText->Off();
 			Player::MainPlayer->SetIsUpdate(true);
 		}
 		else
 		{
 			InventoryRenderer->On();
-			// Name->On();
+			// NameText->On();
 
 			Player::MainPlayer->SetIsUpdate(false);
 			Player::MainPlayer->ChangeState(PlayerState::Idle);
