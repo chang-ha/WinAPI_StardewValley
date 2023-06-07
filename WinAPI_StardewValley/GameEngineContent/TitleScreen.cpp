@@ -50,6 +50,9 @@ void TitleScreen::LevelStart(GameEngineLevel* _PrevLevel)
 	Coop_Button->Collision->Off();
 	Exit_Button->Collision->Off();
 
+	LeftLeaf->Renderer->Off();
+	RightLeaf->Renderer->Off();
+
 	Bird1->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.80f, GetMainCamera()->GetPos().Y + GlobalValue::WinScale.Y * 0.75f });
 	Bird2->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.80f - 100, GetMainCamera()->GetPos().Y + GlobalValue::WinScale.Y * 0.75f - 50});
 	ContentLevel::LevelStart(_PrevLevel);
@@ -194,12 +197,14 @@ void TitleScreen::Start()
 		LeftLeaf->Renderer->SetScaleRatio(2.5f);
 		LeftLeaf->Renderer->CreateAnimation("LeftLeaf_Move", "Title_LeftLeaf", 0, 4, 0.2f, false);
 		LeftLeaf->Renderer->ChangeAnimation("LeftLeaf_Move");
-		LeftLeaf->SetPos(Logo->GetPos() - Logo->GetRenderScale().Half() + float4{69,59});
+		LeftLeaf->SetPos(Logo->GetPos() - Logo->GetRenderScale().Half() + float4{68,62.5f});
+		LeftLeaf->Renderer->Off();
 
 		RightLeaf->Renderer->SetScaleRatio(2.5f);
 		RightLeaf->Renderer->CreateAnimation("RightLeaf_Move", "Title_RightLeaf", 0, 4, 0.2f, false);
 		RightLeaf->Renderer->ChangeAnimation("RightLeaf_Move");
-		RightLeaf->SetPos(Logo->GetPos() + Logo->GetRenderScale().Half() + float4{-150, -175});
+		RightLeaf->SetPos(Logo->GetPos() + Logo->GetRenderScale().Half() + float4{-150, -173.5f});
+		RightLeaf->Renderer->Off();
 
 		Bird1->Renderer->SetScaleRatio(RENDERRATIO);
 		Bird1->Renderer->CreateAnimation("Bird_Idle","Title_Bird");
@@ -214,6 +219,9 @@ void TitleScreen::Start()
 void TitleScreen::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
+
+	static float LeftLeafTime = 3.0f;
+	static float RightLeafTime = 5.0f;
 
 	// Camera Update
 	if (4.0f < Back->GetLiveTime())
@@ -255,6 +263,12 @@ void TitleScreen::Update(float _Delta)
 			EffectPlayer = GameEngineSound::SoundPlay("Button_On.wav");
 			Exit_Button->Renderer->On();
 			Exit_Button->Collision->On();
+
+			LeftLeaf->Renderer->On();
+			RightLeaf->Renderer->On();
+			LeftLeafTime = 3.0f;
+			RightLeafTime = 5.0f;
+
 			CheckTime = BUTTONTIME;
 		}
 		CheckTime -= _Delta;
@@ -267,8 +281,6 @@ void TitleScreen::Update(float _Delta)
 	} 
 	
 	// Detail Update
-	static float LeftLeafTime = 3.0f;
-	static float RightLeafTime = 5.0f;
 	if (0.0f >= LeftLeafTime)
 	{
 		LeftLeaf->Renderer->ChangeAnimation("LeftLeaf_Move", 0, true);

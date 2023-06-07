@@ -42,7 +42,6 @@ private:
 
 	std::vector<ContentItem*> AllItem;
 	std::vector<GameEngineRenderer*> ItemRenderer;
-
-	// std::vector<GameEngineRenderer*> ItemCountRenderer;
+	std::vector<GameEngineRenderer*> ItemCountRenderer;
 };
 

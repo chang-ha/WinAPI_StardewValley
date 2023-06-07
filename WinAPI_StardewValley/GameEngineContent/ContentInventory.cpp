@@ -43,22 +43,27 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_Item->Off();
 		_Item->Collision->Off();
 		_Item->Renderer->Off();
-
-		// Inventory Item Renderer
+		
+		// Inventory Item & ItemCount Renderer
 		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::UI);
 		_ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
 		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
+		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::UI);
+		_ItemCountRenderer->SetText(std::to_string(_Item->GetItemCount()), 20, "Sandoll 미생");
 		if (true == InventoryRenderer->IsUpdate())
 		{
 			_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.245f });
+			_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.255f });
 		}
 		else
 		{
 			_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.945f });
+			_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.955f });
 		}
 
 		AllItem[PushIndex] = _Item;
 		ItemRenderer[PushIndex] = _ItemRenderer;
+		ItemCountRenderer[PushIndex] = _ItemCountRenderer;
 	}
 	else if (nullptr != Find)
 	{
@@ -124,6 +129,7 @@ void ContentInventory::SetPostoUIInventory()
 			continue;
 		}
 		ItemRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * 0.945f });
+		ItemCountRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * 0.955f });
 	}
 }
 
@@ -136,6 +142,7 @@ void ContentInventory::SetPostoMainInventory()
 			continue;
 		}
 		ItemRenderer[x]->SetRenderPos({GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * 0.245f});
+		ItemCountRenderer[x]->SetRenderPos({GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * 0.255f});
 	}
 }
 
@@ -145,6 +152,7 @@ void ContentInventory::Start()
 
 	AllItem.resize(MAXSIZE);
 	ItemRenderer.resize(MAXSIZE);
+	ItemCountRenderer.resize(MAXSIZE);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -161,27 +169,38 @@ void ContentInventory::Start()
 
 	// Inventory Text
 	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
-	// NameText = CreateUIRenderer("Inventory.bmp", RenderOrder::UI);
-	// NameText->SetRenderScale({ 100, 40 });
-	// NameText->SetRenderPos({- Texture->GetScale().X * 0.33f, Texture->GetScale().Y * 0.35f});
-	// NameText->SetText("Player", 40, "Sandoll 미생");
-	// NameText->Off();
+	NameText = CreateUIRenderer(RenderOrder::UI);
+	NameText->SetText("Player", 40, "Sandoll 미생");
+	NameText->SetRenderScale({ 100, 40 });
+	NameText->SetRenderPos({GlobalValue::WinScale.X * 0.325f, GlobalValue::WinScale.Y * 0.72f});
+	NameText->Off();
 
 	for (int x = 0; x < AllItem.size(); x++)
 	{
 		AllItem[x] = nullptr;
 		ItemRenderer[x] = nullptr;
+		ItemCountRenderer[x] = nullptr;
 	}
 }
 
 void ContentInventory::Update(float _Delta)
 {
+	for (int x = 0; x < ItemRenderer.size(); x++)
+	{
+		if (nullptr == ItemRenderer[x])
+		{
+			continue;
+		}
+		ItemCountRenderer[x]->SetText(std::to_string(AllItem[x]->GetItemCount()));
+	}
+
 	if (true == GameEngineInput::IsDown('I') || true == GameEngineInput::IsDown(VK_ESCAPE))
 	{
 		if (true == InventoryRenderer->IsUpdate())
 		{
 			// Inventory Off
 			InventoryRenderer->Off();
+			NameText->Off();
 			ContentUIManager::MainUI->Inventory->On();
 			SetPostoUIInventory();
 
@@ -191,6 +210,7 @@ void ContentInventory::Update(float _Delta)
 		{
 			// Inventory On
 			InventoryRenderer->On();
+			NameText->On();
 			ContentUIManager::MainUI->Inventory->Off();
 			SetPostoMainInventory();
 
