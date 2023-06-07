@@ -41,6 +41,10 @@ void ContentInventory::PushItem(ContentItem* _Item)
 	ContentItem* Find = FindItem(_Item);
 	if (nullptr == Find && AllItem.capacity() > AllItem.size())
 	{
+		_Item->Off();
+		_Item->Collision->Off();
+		_Item->Renderer->Off();
+
 		AllItem.push_back(_Item);
 		if (AllItem.capacity() == AllItem.size())
 		{
@@ -50,11 +54,9 @@ void ContentInventory::PushItem(ContentItem* _Item)
 	else if (nullptr != Find)
 	{
 		Find->PlusItemCount(_Item->GetItemCount());
+		_Item->Death();
 	}
 
-	_Item->Off();
-	_Item->Collision->Off();
-	_Item->Renderer->Off();
 }
 
 ContentItem* ContentInventory::FindItem(ContentItem* _Item)
