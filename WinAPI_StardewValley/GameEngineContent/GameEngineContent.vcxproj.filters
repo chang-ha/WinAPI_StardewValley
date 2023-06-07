@@ -150,7 +150,9 @@
     <ClCompile Include="ContentResources.cpp">
       <Filter>Global\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="GlobalValue.cpp" />
+    <ClCompile Include="GlobalValue.cpp">
+      <Filter>Global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">

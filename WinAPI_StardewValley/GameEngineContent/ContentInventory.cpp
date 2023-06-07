@@ -75,12 +75,13 @@ void ContentInventory::Start()
 	InventoryRenderer->SetRenderScaleToTexture();
 	InventoryRenderer->Off();
 
-	// Inventory Texture
+	// Inventory Text
 	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
-	Name = CreateUIRenderer("Inventory.bmp", RenderOrder::UI);
+	// Name = CreateUIRenderer("Inventory.bmp", RenderOrder::UI);
 	// Name->SetRenderScale({ 100, 40 });
 	// Name->SetRenderPos({- Texture->GetScale().X * 0.33f, Texture->GetScale().Y * 0.35f});
-	Name->Off();
+	// Name->SetText("Player", 40, "Sandoll 미생");
+	// Name->Off();
 }
 
 void ContentInventory::Update(float _Delta)
@@ -90,19 +91,17 @@ void ContentInventory::Update(float _Delta)
 		if (true == InventoryRenderer->IsUpdate())
 		{
 			InventoryRenderer->Off();
-			Name->Off();
+			// Name->Off();
 			Player::MainPlayer->SetIsUpdate(true);
 		}
 		else
 		{
 			InventoryRenderer->On();
-			Name->On();
+			// Name->On();
 
 			Player::MainPlayer->SetIsUpdate(false);
 			Player::MainPlayer->ChangeState(PlayerState::Idle);
 			Player::MainPlayer->EffectPlayer.Stop();
-
-			// Name->SetText("Player", 40, "Sandoll 미생");
 		}
 	}
 
