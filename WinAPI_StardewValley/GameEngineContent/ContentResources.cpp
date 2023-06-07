@@ -29,6 +29,6 @@ void ContentResources::Init(const std::string& _FileName)
 	Renderer = CreateRenderer(_FileName, RenderOrder::BackGround);
 	Renderer->SetTexture(_FileName);
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-	Collision = CreateCollision(CollisionOrder::Actor);
+	Collision = CreateCollision(CollisionOrder::Resources);
 	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
 }
