@@ -122,7 +122,11 @@ void ContentLevel::Update(float _Delta)
 			PrevTile->Off();
 		}
 		PrevIndex = CurIndex;
-		CurTile->On();
+
+		if (nullptr != CurTile)
+		{
+			CurTile->On();
+		}
 	}
 
 	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)

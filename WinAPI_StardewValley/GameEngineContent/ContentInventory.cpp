@@ -1,7 +1,5 @@
 ﻿#define MAXSIZE 12
 
-#include <GameEngineBase/GameEngineDebug.h>
-
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
