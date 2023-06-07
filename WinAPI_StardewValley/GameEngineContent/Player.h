@@ -48,15 +48,6 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
-	GameEngineRenderer* BodyRenderer = nullptr;
-	GameEngineRenderer* ArmRenderer = nullptr;
-	GameEngineRenderer* HairRenderer = nullptr;
-	GameEngineRenderer* ShirtRenderer = nullptr;
-	GameEngineRenderer* PantsRenderer = nullptr;
-	GameEngineRenderer* HatRenderer = nullptr;
-
-	GameEngineCollision* BodyCollision = nullptr;
-	GameEngineCollision* ToolCollision = nullptr;
 
 	void SetDir(const PlayerDir _Dir)
 	{
@@ -95,6 +86,16 @@ public:
 	void SetCollisionTexture(const std::string& _CollisionTexture);
 
 	int GetTileColor(unsigned int _Color, float4 _Pos = float4::ZERO);
+
+	GameEngineRenderer* BodyRenderer = nullptr;
+	GameEngineRenderer* ArmRenderer = nullptr;
+	GameEngineRenderer* HairRenderer = nullptr;
+	GameEngineRenderer* ShirtRenderer = nullptr;
+	GameEngineRenderer* PantsRenderer = nullptr;
+	GameEngineRenderer* HatRenderer = nullptr;
+
+	GameEngineCollision* BodyCollision = nullptr;
+	GameEngineCollision* ToolCollision = nullptr;
 protected:
 
 private:
@@ -106,6 +107,7 @@ private:
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
 	GameEngineWindowTexture* CollisionTexture = nullptr;
+	std::vector<GameEngineCollision*> CollisionResult;
 
 
 	// State Start

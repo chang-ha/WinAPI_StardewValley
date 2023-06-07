@@ -58,7 +58,7 @@ void Player::ToolStart()
 		TileMap* CurTileMap = _Farm->GetTileMap();
 		float4 Index = TileLimit();
 		float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
-		if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()))
+		if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) && false == ToolCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect))
 		{
 			CurTileMap->SetTile(CheckPos, 0);
 			EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
