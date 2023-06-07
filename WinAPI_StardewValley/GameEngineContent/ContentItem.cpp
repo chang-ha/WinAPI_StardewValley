@@ -55,7 +55,7 @@ void ContentItem::Start()
 
 void ContentItem::Update(float _Delta)
 {
-	if (GetLiveTime() >= 1.0f && false == ContentInventory::MainInventory->IsFull())
+	if (GetLiveTime() >= 1.0f && false == ContentInventory::MainInventory->IsFull(this))
 	{
 		float4 Dir = Player::MainPlayer->GetPos() - GetPos();
 		if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect))

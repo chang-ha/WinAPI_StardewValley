@@ -32,11 +32,6 @@ ContentInventory::~ContentInventory()
 
 void ContentInventory::PushItem(ContentItem* _Item)
 {
-	if (true == Full)
-	{
-		MsgBoxAssert("인벤토리에 남은 공간이 없습니다.");
-		return;
-	}
 	int Index = 0;
 	ContentItem* Find = FindItem(_Item, Index);
 	if (nullptr == Find)
@@ -57,10 +52,6 @@ void ContentInventory::PushItem(ContentItem* _Item)
 
 		AllItem[PushIndex] = _Item;
 		ItemRenderer[PushIndex] = _ItemRenderer;
-		if (PushIndex + 1 == AllItem.size())
-		{
-			Full = true;
-		}
 	}
 	else if (nullptr != Find)
 	{
@@ -68,6 +59,21 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_Item->Death();
 	}
 
+}
+bool ContentInventory::IsFull(const ContentItem* _Item)
+{
+	int Index = BlankSpace();
+
+	if (-1 == Index)
+	{
+		if (nullptr != FindItem(_Item, Index))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	return false;
 }
 
 ContentItem* ContentInventory::FindItem(const ContentItem* _Item, int _ResultIndex)
@@ -98,7 +104,7 @@ int ContentInventory::BlankSpace()
 			return x;
 		}
 	}
-	return 0;
+	return -1;
 }
 
 void ContentInventory::Start()

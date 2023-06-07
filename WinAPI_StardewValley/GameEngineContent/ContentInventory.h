@@ -20,10 +20,7 @@ public:
 	ContentInventory& operator=(const ContentInventory& _Other) = delete;
 	ContentInventory& operator=(ContentInventory&& _Other) noexcept = delete;
 
-	bool IsFull()
-	{
-		return Full;
-	}
+	bool IsFull(const ContentItem* _Item);
 
 	void PushItem(ContentItem* _Item);
 
@@ -39,7 +36,6 @@ private:
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineRenderer* InventoryRenderer = nullptr;
 	GameEngineRenderer* NameText = nullptr;
-	bool Full = false;
 
 	std::vector<ContentItem*> AllItem;
 	std::vector<GameEngineRenderer*> ItemRenderer;
