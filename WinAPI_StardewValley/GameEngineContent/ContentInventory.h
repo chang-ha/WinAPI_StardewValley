@@ -28,20 +28,22 @@ public:
 
 	int BlankSpace();
 
-	void SetPostoUIInventory();
+	void SetPosInventoryItem();
 
-	void SetPostoMainInventory();
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
 private:
-	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineRenderer* InventoryRenderer = nullptr;
 	GameEngineRenderer* NameText = nullptr;
+	GameEngineRenderer* CurIndexRenderer = nullptr;
+	int CurIndex = 0;
+	float PosSettingValue = 0.0f;
 
 	std::vector<ContentItem*> AllItem;
 	std::vector<GameEngineRenderer*> ItemRenderer;
+	std::vector<GameEngineCollision*> ItemCollision;
 	std::vector<GameEngineRenderer*> ItemCountRenderer;
 };
 

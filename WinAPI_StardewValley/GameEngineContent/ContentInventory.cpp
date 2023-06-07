@@ -48,21 +48,19 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::UI);
 		_ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
 		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
+
+		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Item);
+		_ItemCollision->SetCollisionScale(_Item->Texture->GetScale() * RENDERRATIO);
+
 		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::UI);
 		_ItemCountRenderer->SetText(std::to_string(_Item->GetItemCount()), 20, "Sandoll 미생");
-		if (true == InventoryRenderer->IsUpdate())
-		{
-			_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.245f });
-			_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.255f });
-		}
-		else
-		{
-			_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.945f });
-			_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.955f });
-		}
+		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
+		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
 		AllItem[PushIndex] = _Item;
 		ItemRenderer[PushIndex] = _ItemRenderer;
+		ItemCollision[PushIndex] = _ItemCollision;
 		ItemCountRenderer[PushIndex] = _ItemCountRenderer;
 	}
 	else if (nullptr != Find)
@@ -120,7 +118,7 @@ int ContentInventory::BlankSpace()
 	return -1;
 }
 
-void ContentInventory::SetPostoUIInventory()
+void ContentInventory::SetPosInventoryItem()
 {
 	for (int x = 0; x < ItemRenderer.size(); x++)
 	{
@@ -128,44 +126,43 @@ void ContentInventory::SetPostoUIInventory()
 		{
 			continue;
 		}
-		ItemRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * 0.945f });
-		ItemCountRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * 0.955f });
-	}
-}
-
-void ContentInventory::SetPostoMainInventory()
-{
-	for (int x = 0; x < ItemRenderer.size(); x++)
-	{
-		if (nullptr == ItemRenderer[x])
-		{
-			continue;
-		}
-		ItemRenderer[x]->SetRenderPos({GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * 0.245f});
-		ItemCountRenderer[x]->SetRenderPos({GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * 0.255f});
+		ItemRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+		ItemCollision[x]->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue )});
+		ItemCountRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
 	}
 }
 
 void ContentInventory::Start()
 {
-	InventoryRenderer = CreateUIRenderer(RenderOrder::UI);
-
+	// Resize Vector
 	AllItem.resize(MAXSIZE);
 	ItemRenderer.resize(MAXSIZE);
+	ItemCollision.resize(MAXSIZE);
 	ItemCountRenderer.resize(MAXSIZE);
+
+	// Texture Load
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\UI\\");
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Inventory.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Inventory.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory_Select.bmp"));
 	}
-	Texture = ResourcesManager::GetInst().FindTexture("Inventory.bmp");
+
+	// Create Renderer
+	InventoryRenderer = CreateUIRenderer(RenderOrder::UI);
+	CurIndexRenderer = CreateUIRenderer(RenderOrder::UIMouse);
+
+	// Renderer Setting
 	InventoryRenderer->SetTexture("Inventory.bmp");
 	InventoryRenderer->SetRenderPos(GlobalValue::WinScale.Half());
 	InventoryRenderer->SetRenderScaleToTexture();
 	InventoryRenderer->Off();
+
+	CurIndexRenderer->SetTexture("UI_Inventory_Select.bmp");;
+	CurIndexRenderer->SetRenderScaleToTexture();
 
 	// Inventory Text
 	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
@@ -179,21 +176,37 @@ void ContentInventory::Start()
 	{
 		AllItem[x] = nullptr;
 		ItemRenderer[x] = nullptr;
+		ItemCollision[x] = nullptr;
 		ItemCountRenderer[x] = nullptr;
 	}
 }
 
 void ContentInventory::Update(float _Delta)
 {
-	for (int x = 0; x < ItemRenderer.size(); x++)
+	// CurIndexRenderer
+	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+
+	// CollisionPos Update
+	for (int x = 0; x < ItemCollision.size(); x++)
 	{
-		if (nullptr == ItemRenderer[x])
+		if (nullptr == ItemCollision[x])
+		{
+			continue;
+		}
+		ItemCollision[x]->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+	}
+
+	// ItemCountRenderer Update
+	for (int x = 0; x < ItemCountRenderer.size(); x++)
+	{
+		if (nullptr == ItemCountRenderer[x])
 		{
 			continue;
 		}
 		ItemCountRenderer[x]->SetText(std::to_string(AllItem[x]->GetItemCount()));
 	}
 
+	// Inventory On/Off
 	if (true == GameEngineInput::IsDown('I') || true == GameEngineInput::IsDown(VK_ESCAPE))
 	{
 		if (true == InventoryRenderer->IsUpdate())
@@ -202,7 +215,8 @@ void ContentInventory::Update(float _Delta)
 			InventoryRenderer->Off();
 			NameText->Off();
 			ContentUIManager::MainUI->Inventory->On();
-			SetPostoUIInventory();
+			PosSettingValue = 0.0f;
+			SetPosInventoryItem();
 
 			Player::MainPlayer->SetIsUpdate(true);
 		}
@@ -212,12 +226,12 @@ void ContentInventory::Update(float _Delta)
 			InventoryRenderer->On();
 			NameText->On();
 			ContentUIManager::MainUI->Inventory->Off();
-			SetPostoMainInventory();
+			PosSettingValue = 0.702f;
+			SetPosInventoryItem();
 
 			Player::MainPlayer->SetIsUpdate(false);
 			Player::MainPlayer->ChangeState(PlayerState::Idle);
 			Player::MainPlayer->EffectPlayer.Stop();
 		}
 	}
-
 }
