@@ -56,6 +56,7 @@ public:
 	GameEngineRenderer* HatRenderer = nullptr;
 
 	GameEngineCollision* BodyCollision = nullptr;
+	GameEngineCollision* ToolCollision = nullptr;
 
 	void SetDir(const PlayerDir _Dir)
 	{

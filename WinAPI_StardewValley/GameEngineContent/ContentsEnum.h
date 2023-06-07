@@ -27,6 +27,7 @@ enum class CollisionOrder
 {
 	Map,
 	Player,
+	Tool,
 	Resources,
 	Item,
 	Button,

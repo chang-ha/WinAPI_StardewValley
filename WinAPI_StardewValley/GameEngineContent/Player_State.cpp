@@ -30,6 +30,11 @@ void Player::ToolStart()
 {
 	if (true)
 	{
+		ToolCollision = CreateCollision(CollisionOrder::Tool);
+		float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
+		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO);
+		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
+
 		ChangeAnimationState("Tool1");
 	}
 	else if (true)
@@ -171,7 +176,6 @@ void Player::RunUpdate(float _DeltaTime)
 	PerTime -= _DeltaTime;
 
 
-
 	// Player Move
 	float4 MovePos = float4::ZERO;
 	float4 CheckPos = float4::ZERO;
@@ -271,10 +275,8 @@ void Player::RunUpdate(float _DeltaTime)
 	{
 		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
-
-
-
 	AddPos(MovePos);
+
 
 	// CameraSetting
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
@@ -329,6 +331,7 @@ void Player::ToolUpdate(float _DeltaTime)
 	{
 		ChangeState(PlayerState::Idle);
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
+		ToolCollision->Death();
 	}
 }
 
