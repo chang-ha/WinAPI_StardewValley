@@ -3,9 +3,11 @@
 
 class GameEngineRenderer;
 class ContentLevel;
+class ContentInventory;
 class ContentUIManager : public GameEngineActor
 {
 	friend ContentLevel;
+	friend ContentInventory;
 public:
 	static ContentUIManager* MainUI;
 

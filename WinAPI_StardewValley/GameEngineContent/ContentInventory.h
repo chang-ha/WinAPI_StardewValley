@@ -28,6 +28,9 @@ public:
 
 	int BlankSpace();
 
+	void SetPostoUIInventory();
+
+	void SetPostoMainInventory();
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

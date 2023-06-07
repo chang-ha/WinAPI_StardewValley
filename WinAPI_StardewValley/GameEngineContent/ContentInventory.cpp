@@ -17,6 +17,7 @@
 #include "GlobalValue.h"
 #include "Player.h"
 #include "ContentItem.h"
+#include "ContentUIManager.h"
 
 ContentInventory* ContentInventory::MainInventory = nullptr;
 
@@ -47,8 +48,14 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::UI);
 		_ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
 		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
-		_ItemRenderer->SetRenderPos({GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.245f * 1});
-		_ItemRenderer->Off();
+		if (true == InventoryRenderer->IsUpdate())
+		{
+			_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.245f });
+		}
+		else
+		{
+			_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * 0.945f });
+		}
 
 		AllItem[PushIndex] = _Item;
 		ItemRenderer[PushIndex] = _ItemRenderer;
@@ -60,6 +67,7 @@ void ContentInventory::PushItem(ContentItem* _Item)
 	}
 
 }
+	
 bool ContentInventory::IsFull(const ContentItem* _Item)
 {
 	int Index = BlankSpace();
@@ -107,6 +115,30 @@ int ContentInventory::BlankSpace()
 	return -1;
 }
 
+void ContentInventory::SetPostoUIInventory()
+{
+	for (int x = 0; x < ItemRenderer.size(); x++)
+	{
+		if (nullptr == ItemRenderer[x])
+		{
+			continue;
+		}
+		ItemRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * 0.945f });
+	}
+}
+
+void ContentInventory::SetPostoMainInventory()
+{
+	for (int x = 0; x < ItemRenderer.size(); x++)
+	{
+		if (nullptr == ItemRenderer[x])
+		{
+			continue;
+		}
+		ItemRenderer[x]->SetRenderPos({GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * 0.245f});
+	}
+}
+
 void ContentInventory::Start()
 {
 	InventoryRenderer = CreateUIRenderer(RenderOrder::UI);
@@ -144,43 +176,24 @@ void ContentInventory::Start()
 
 void ContentInventory::Update(float _Delta)
 {
-	if (true == InventoryRenderer->IsUpdate())
-	{
-		// NameText->Off();
-
-		for (int x = 0; x < AllItem.size(); x++)
-		{
-			if (nullptr == AllItem[x])
-			{
-				continue;
-			}
-			ItemRenderer[x]->On();
-		}
-	}
-	else
-	{
-		// NameText->On();
-
-		for (int x = 0; x < AllItem.size(); x++)
-		{
-			if (nullptr == AllItem[x])
-			{
-				continue;
-			}
-			ItemRenderer[x]->Off();
-		}
-	}
-
 	if (true == GameEngineInput::IsDown('I') || true == GameEngineInput::IsDown(VK_ESCAPE))
 	{
 		if (true == InventoryRenderer->IsUpdate())
 		{
+			// Inventory Off
 			InventoryRenderer->Off();
+			ContentUIManager::MainUI->Inventory->On();
+			SetPostoUIInventory();
+
 			Player::MainPlayer->SetIsUpdate(true);
 		}
 		else
 		{
+			// Inventory On
 			InventoryRenderer->On();
+			ContentUIManager::MainUI->Inventory->Off();
+			SetPostoMainInventory();
+
 			Player::MainPlayer->SetIsUpdate(false);
 			Player::MainPlayer->ChangeState(PlayerState::Idle);
 			Player::MainPlayer->EffectPlayer.Stop();
