@@ -43,7 +43,7 @@ void Tree::Update(float _Delta)
 		{
 			ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 			Item->Init("Wood.bmp", ItemType::Resources);
-			Item->SetPos(GetPos() + float4{x * RENDERRATIO * 4, 0});
+			Item->SetPos(GetPos() + float4{x * RENDERRATIO * 8, 0});
 		}
 
 		ContentItem* Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);

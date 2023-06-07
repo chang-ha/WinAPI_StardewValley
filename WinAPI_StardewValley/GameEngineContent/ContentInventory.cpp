@@ -132,10 +132,6 @@ void ContentInventory::Start()
 	for (int x = 0; x < AllItem.size(); x++)
 	{
 		AllItem[x] = nullptr;
-	}
-
-	for (int x = 0; x < ItemRenderer.size(); x++)
-	{
 		ItemRenderer[x] = nullptr;
 	}
 }

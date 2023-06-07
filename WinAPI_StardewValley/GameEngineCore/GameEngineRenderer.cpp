@@ -252,12 +252,10 @@ void GameEngineRenderer::CreateAnimationToFrame(
 	GameEngineRenderer::Animation& Animation = AllAnimation[UpperName];
 
 	Animation.Sprite = Sprite;
-	Animation.StartFrame = _Frame[0];
-	Animation.EndFrame = _Frame[_Frame.size() - 1];
-	Animation.Inters.resize(_Frame.size());
-	Animation.Frames.resize(_Frame.size());
+	Animation.StartFrame = 0;
+	Animation.EndFrame = _Frame.size() - 1;
+	Animation.Inters.resize(_Frame.size() + 1);
 	Animation.Frames = _Frame;
-
 	for (size_t i = 0; i < Animation.Frames.size(); i++)
 	{
 		Animation.Inters[i] = _Inter;
