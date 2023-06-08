@@ -136,6 +136,7 @@ void Player::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("stoneStep.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("thudStep.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("hoeHit.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("wateringcan.wav"));
 	}
 
 	// Player Renderer 
@@ -396,7 +397,7 @@ void Player::StateUpdate(float _Delta)
 	case PlayerState::Tool:
 		return ToolUpdate(_Delta);
 	case PlayerState::Tool2:
-		return ToolUpdate(_Delta);
+		return Tool2Update(_Delta);
 	default:
 		break;
 	}

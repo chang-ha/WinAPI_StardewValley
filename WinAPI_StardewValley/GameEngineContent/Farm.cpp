@@ -103,7 +103,7 @@ void Farm::Start()
 		FilePath.MoveChild("Resources\\Textures\\");
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\hoeDirt.bmp"));
-		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 12, 4);
+		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 8, 4);
 		FarmTileMap = CreateActor<TileMap>(UpdateOrder::Player);
 		FarmTileMap->CreateTileMap("hoeDirt.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::BackGround));
 	}

@@ -53,7 +53,8 @@ void Player::ToolStart()
 			TileMap* CurTileMap = _Farm->GetTileMap();
 			float4 Index = TileLimit();
 			float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
-			if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) && false == ToolCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect))
+			if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) && false == ToolCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect)
+				&& nullptr == CurTileMap->GetTile(Index.iX(), Index.iY()))
 			{
 				CurTileMap->SetTile(CheckPos, 0);
 				EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
@@ -63,11 +64,10 @@ void Player::ToolStart()
 	}
 	break;
 	case ItemType::PickAxe:
+		// Tool PickAxe
 		ToolCollision = CreateCollision(CollisionOrder::PickAxe);
 		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
 		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
-		break;
-	case ItemType::Resources:
 		break;
 	}
 
@@ -76,13 +76,25 @@ void Player::ToolStart()
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
-
 	EffectPlayer.SetVolume(0.6f);
 }
 
 void Player::Tool2Start()
 {
 	ChangeAnimationState("Tool2");
+
+	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
+	if (nullptr != _Farm)
+	{
+		TileMap* CurTileMap = _Farm->GetTileMap();
+		float4 Index = TileLimit();
+		float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
+		if (nullptr != CurTileMap->GetTile(Index.iX(), Index.iY()))
+		{
+			CurTileMap->SetTile(CheckPos, 4);
+			EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
+		}
+	}
 
 	if (PlayerDir::Down == Dir)
 	{

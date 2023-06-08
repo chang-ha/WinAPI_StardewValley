@@ -61,15 +61,14 @@ void ContentItem::Update(float _Delta)
 		if (true == Collision->CollisionCheck(Player::MainPlayer->GetBodyCollision(), CollisionType::Rect, CollisionType::Rect))
 		{
 			Dir.Normalize();
-			AddPos(Dir * _Delta * 150.0f * GetLiveTime());
+			AddPos(Dir * _Delta * 200.0f);
 		}
 
-		if (abs(GetPos().iX() - Player::MainPlayer->GetPos().iX()) < RENDERRATIO && abs(GetPos().iY() - Player::MainPlayer->GetPos().iY()) < RENDERRATIO)
+		if (abs(GetPos().iX() - Player::MainPlayer->GetPos().iX()) < 2 * RENDERRATIO && abs(GetPos().iY() - Player::MainPlayer->GetPos().iY()) < 2 * RENDERRATIO)
 		{
 			ContentInventory::MainInventory->PushItem(this);
 			EffectPlayer = GameEngineSound::SoundPlay("coin.wav");
 			EffectPlayer.SetVolume(0.2f);
-			// Death();
 		}
 	}
 }

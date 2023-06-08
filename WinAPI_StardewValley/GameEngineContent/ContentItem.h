@@ -22,10 +22,10 @@ public:
 	~ContentItem();
 
 	// delete function
-	// ContentItem(const ContentItem& _Ohter) = delete;
-	// ContentItem(ContentItem&& _Ohter) noexcept = delete;
-	// ContentItem& operator=(const ContentItem& _Other) = delete;
-	// ContentItem& operator=(ContentItem&& _Other) noexcept = delete;
+	ContentItem(const ContentItem& _Ohter) = delete;
+	ContentItem(ContentItem&& _Ohter) noexcept = delete;
+	ContentItem& operator=(const ContentItem& _Other) = delete;
+	ContentItem& operator=(ContentItem&& _Other) noexcept = delete;
 
 	std::string GetItemName() const
 	{
