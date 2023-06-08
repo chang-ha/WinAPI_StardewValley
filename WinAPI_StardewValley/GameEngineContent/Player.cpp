@@ -382,13 +382,6 @@ void Player::Update(float _Delta)
 		{
 			CollisionDebug = !CollisionDebug;
 		}
-
-		if (true== GameEngineInput::IsDown('K'))
-		{
-			ContentItem* Item = GetLevel()->CreateActor<ContentItem>();
-			Item->Init("Tool1.bmp", ItemType::Tool);
-			Item->SetPos(GetPos());
-		}
 	}
 }
 

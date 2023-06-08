@@ -28,7 +28,7 @@ void Player::RunStart()
 
 void Player::ToolStart()
 {
-	std::vector<GameEngineCollision*> CollisionResult;
+
 
 	if (true)
 	{
@@ -66,6 +66,7 @@ void Player::ToolStart()
 		{
 			CurTileMap->SetTile(CheckPos, 0);
 			EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
+			CollisionResult.clear();
 		}
 	}
 	EffectPlayer.SetVolume(0.6f);
@@ -103,6 +104,12 @@ void Player::IdleUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
+		if (true == PlayLevel->GetMainMouse()->GetMouseCollision()->Collision(CollisionOrder::Item, CollisionResult, CollisionType::Rect, CollisionType::Rect))
+		{
+			CollisionResult.clear();
+			return;
+		}
+
 		ToolDirCheck();
 		ChangeState(PlayerState::Tool);
 		return;
@@ -184,7 +191,6 @@ void Player::RunUpdate(float _DeltaTime)
 	float4 MovePos = float4::ZERO;
 	float4 CheckPos = float4::ZERO;
 	unsigned int Color = 0;
-	std::vector<GameEngineCollision*> _CollisionResult;
 
 	// Player Move(Right, Left)
 	{

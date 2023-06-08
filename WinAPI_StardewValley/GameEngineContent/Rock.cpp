@@ -34,8 +34,7 @@ void Rock::Start()
 }
 void Rock::Update(float _Delta)
 {
-	static float PerTime = 1.0f;
-	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect)/* && 0.0f > PerTime*/)
+	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
 		EffectPlayer = GameEngineSound::SoundPlay("rock.wav");
 
@@ -48,5 +47,4 @@ void Rock::Update(float _Delta)
 		}
 		Death();
 	}
-	PerTime -= _Delta;
 }

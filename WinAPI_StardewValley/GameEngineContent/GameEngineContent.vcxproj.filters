@@ -70,14 +70,14 @@
     <ClInclude Include="PlayOver.h">
       <Filter>Global\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Tree.h">
-      <Filter>Level\05. FarmMap</Filter>
-    </ClInclude>
     <ClInclude Include="ContentResources.h">
       <Filter>Global\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Rock.h">
-      <Filter>Level\05. FarmMap</Filter>
+      <Filter>Level\05. FarmMap\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>Level\05. FarmMap\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -147,9 +147,6 @@
     <ClCompile Include="PlayOver.cpp">
       <Filter>Global\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>Level\05. FarmMap</Filter>
-    </ClCompile>
     <ClCompile Include="ContentResources.cpp">
       <Filter>Global\Resources</Filter>
     </ClCompile>
@@ -157,7 +154,10 @@
       <Filter>Global</Filter>
     </ClCompile>
     <ClCompile Include="Rock.cpp">
-      <Filter>Level\05. FarmMap</Filter>
+      <Filter>Level\05. FarmMap\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Level\05. FarmMap\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +205,9 @@
     </Filter>
     <Filter Include="Global\Resources">
       <UniqueIdentifier>{9a5affe9-acf7-4775-b504-cff2e3b25040}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\05. FarmMap\Resources">
+      <UniqueIdentifier>{1b52eb4c-e5ad-4328-b8cb-45b8689bf9d2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
