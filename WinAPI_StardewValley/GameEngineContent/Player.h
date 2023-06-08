@@ -107,7 +107,6 @@ private:
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
 	GameEngineWindowTexture* CollisionTexture = nullptr;
-	std::vector<GameEngineCollision*> CollisionResult;
 
 
 	// State Start

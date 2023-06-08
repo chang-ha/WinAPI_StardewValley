@@ -21,6 +21,32 @@ Tree::~Tree()
 
 }
 
+void Tree::Init(const std::string& _FileName)
+{
+	ContentResources::Init(_FileName);
+	if (false == ResourcesManager::GetInst().IsLoadTexture("UpperPart_" + _FileName))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Textures\\Resources\\");
+		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UpperPart_" + _FileName));
+	}
+
+	if (nullptr == GameEngineSound::FindSound("axchop.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("axchop.wav"));
+	}
+	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::PlayOver);
+	UpperPart->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+	UpperPart->SetRenderPos({ 0, -36 * RENDERRATIO });
+}
+
+
 void Tree::Start()
 {
 }
@@ -37,7 +63,7 @@ void Tree::Update(float _Delta)
 	}
 
 	static float PerTime = 1.0f;
-	if (true == Collision->Collision(CollisionOrder::Tool, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && 0.0f > PerTime)
+	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && 0.0f > PerTime)
 	{
 		EffectPlayer = GameEngineSound::SoundPlay("axchop.wav");
 		PerTime = 1.0f;
@@ -68,10 +94,6 @@ void Tree::Update(float _Delta)
 
 		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 		Test->Init("Tool4.bmp", ItemType::Resources);
-		Test->SetPos(GetPos());
-
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Rock.bmp", ItemType::Resources);
 		Test->SetPos(GetPos());
 
 		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
@@ -106,29 +128,4 @@ void Tree::Update(float _Delta)
 	}
 
 	PerTime -= _Delta;
-}
-
-void Tree::Init(const std::string& _FileName)
-{
-	ContentResources::Init(_FileName);
-	if (false == ResourcesManager::GetInst().IsLoadTexture("UpperPart_" + _FileName))
-	{
-		GameEnginePath FilePath;
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\Resources\\");
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UpperPart_" + _FileName));
-	}
-
-	if (nullptr == GameEngineSound::FindSound("axchop.wav"))
-	{
-		GameEnginePath FilePath;
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("axchop.wav"));
-	}
-	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::PlayOver);
-	UpperPart->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-	UpperPart->SetRenderPos({0, -36 * RENDERRATIO});
 }

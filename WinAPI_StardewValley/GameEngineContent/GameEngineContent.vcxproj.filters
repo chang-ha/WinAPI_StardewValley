@@ -76,6 +76,9 @@
     <ClInclude Include="ContentResources.h">
       <Filter>Global\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>Level\05. FarmMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -152,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="GlobalValue.cpp">
       <Filter>Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>Level\05. FarmMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

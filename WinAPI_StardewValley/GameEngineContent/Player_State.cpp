@@ -28,11 +28,14 @@ void Player::RunStart()
 
 void Player::ToolStart()
 {
+	std::vector<GameEngineCollision*> CollisionResult;
+
 	if (true)
 	{
-		ToolCollision = CreateCollision(CollisionOrder::Tool);
+		// Tool Axe
+		ToolCollision = CreateCollision(CollisionOrder::Axe);
 		float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
-		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO);
+		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
 		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
 
 		ChangeAnimationState("Tool1");
@@ -52,6 +55,7 @@ void Player::ToolStart()
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
 
+	// Tool Hoe
 	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 	if (nullptr != _Farm)
 	{

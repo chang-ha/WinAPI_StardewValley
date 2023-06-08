@@ -19,6 +19,7 @@
 #include "ShippingBin.h"
 #include "ContentInventory.h"
 #include "Tree.h"
+#include "Rock.h"
 
 Farm::Farm()
 {
@@ -112,6 +113,14 @@ void Farm::Start()
 	Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 	FarmTree->Init("Tree.bmp");
 	FarmTree->SetPos(FarmTileMap->IndexToPos(60, 20) + TILESIZE.Half() * RENDERRATIO);
+
+	Rock* FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+	FarmRock->Init("Rock_Small01.bmp");
+	FarmRock->SetPos(FarmTileMap->IndexToPos(65, 20) + TILESIZE.Half() * RENDERRATIO);
+
+	FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+	FarmRock->Init("Rock_Small02.bmp");
+	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20) + TILESIZE.Half() * RENDERRATIO);
 }
 
 void Farm::Update(float _Delta)

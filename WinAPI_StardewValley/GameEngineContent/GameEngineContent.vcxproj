@@ -229,6 +229,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Rock.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ShippingBin.h">
       <SubType>
       </SubType>
@@ -322,6 +326,10 @@
     </ClCompile>
     <ClCompile Include="Player_State.cpp" />
     <ClCompile Include="PlayOver.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
       <SubType>
       </SubType>
     </ClCompile>
