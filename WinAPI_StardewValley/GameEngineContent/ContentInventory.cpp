@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -138,6 +139,14 @@ void ContentInventory::Start()
 	ItemCollision.resize(MAXSIZE);
 	ItemCountRenderer.resize(MAXSIZE);
 
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		AllItem[x] = nullptr;
+		ItemRenderer[x] = nullptr;
+		ItemCollision[x] = nullptr;
+		ItemCountRenderer[x] = nullptr;
+	}
+
 	// Texture Load
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
 	{
@@ -147,6 +156,16 @@ void ContentInventory::Start()
 		FilePath.MoveChild("Resources\\Textures\\UI\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Inventory.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory_Select.bmp"));
+	}
+
+	// Sound Load
+	if (nullptr == GameEngineSound::FindSound("toolSwap.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("toolSwap.wav"));
 	}
 
 	// Create Renderer
@@ -170,13 +189,6 @@ void ContentInventory::Start()
 	NameText->SetRenderPos({GlobalValue::WinScale.X * 0.325f, GlobalValue::WinScale.Y * 0.72f});
 	NameText->Off();
 
-	for (int x = 0; x < AllItem.size(); x++)
-	{
-		AllItem[x] = nullptr;
-		ItemRenderer[x] = nullptr;
-		ItemCollision[x] = nullptr;
-		ItemCountRenderer[x] = nullptr;
-	}
 
 	// Default Item
 	GameEngineLevel* CurLevel = GetLevel();
@@ -199,8 +211,10 @@ void ContentInventory::Start()
 
 void ContentInventory::Update(float _Delta)
 {
+	// Change CurIndex
 	if (true == GameEngineInput::IsDown('Q'))
 	{
+		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
 		--CurIndex;
 		if (-1 == CurIndex)
 		{
@@ -209,6 +223,7 @@ void ContentInventory::Update(float _Delta)
 	}
 	else if (true == GameEngineInput::IsDown('E'))
 	{
+		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
 		++CurIndex;
 		if (12 == CurIndex)
 		{

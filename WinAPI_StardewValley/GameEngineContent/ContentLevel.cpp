@@ -99,11 +99,6 @@ void ContentLevel::Start()
 
 void ContentLevel::Update(float _Delta)
 {
-	if (nullptr != FarmerInventory)
-	{
-		// FarmerInventory->SetPos(GetMainCamera()->GetPos() + WinScale.Half());
-	}
-
 	if (true == GameEngineInput::IsDown(VK_F1))
 	{
 		CollisionDebugRenderSwitch();
@@ -129,13 +124,13 @@ void ContentLevel::Update(float _Delta)
 		}
 	}
 
-	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
-	{
-		GameEngineCore::ChangeLevel(PrevLevel);
-	}
+	//if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
+	//{
+	//	GameEngineCore::ChangeLevel(PrevLevel);
+	//}
 
-	if (true == GameEngineInput::IsDown('2') && "" != NextLevel)
-	{
-		GameEngineCore::ChangeLevel(NextLevel);
-	}
+	//if (true == GameEngineInput::IsDown('2') && "" != NextLevel)
+	//{
+	//	GameEngineCore::ChangeLevel(NextLevel);
+	//}
 }
