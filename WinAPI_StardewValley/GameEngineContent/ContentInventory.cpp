@@ -199,7 +199,7 @@ void ContentInventory::Start()
 
 void ContentInventory::Update(float _Delta)
 {
-	if (true == GameEngineInput::IsDown(VK_LEFT))
+	if (true == GameEngineInput::IsDown('Q'))
 	{
 		--CurIndex;
 		if (-1 == CurIndex)
@@ -207,7 +207,7 @@ void ContentInventory::Update(float _Delta)
 			CurIndex = 11;
 		}
 	}
-	else if (true == GameEngineInput::IsDown(VK_RIGHT))
+	else if (true == GameEngineInput::IsDown('E'))
 	{
 		++CurIndex;
 		if (12 == CurIndex)
