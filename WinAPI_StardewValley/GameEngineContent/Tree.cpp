@@ -53,13 +53,13 @@ void Tree::Start()
 
 void Tree::Update(float _Delta)
 {
-	if (Player::MainPlayer->GetPos().Y > GetPos().Y)
-	{
-		UpperPart->SetOrder(static_cast<int>(RenderOrder::BackGround));
-	}
-	else
+	if (Player::MainPlayer->GetPos().Y < GetPos().Y && UpperPart->GetOrder() < Player::MainPlayer->GetOrder())
 	{
 		UpperPart->SetOrder(static_cast<int>(RenderOrder::PlayOver));
+	}
+	else if (Player::MainPlayer->GetPos().Y > GetPos().Y && UpperPart->GetOrder() > Player::MainPlayer->GetOrder())
+	{
+		UpperPart->SetOrder(static_cast<int>(RenderOrder::BackGround));
 	}
 
 	static float PerTime = 1.0f;

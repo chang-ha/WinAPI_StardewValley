@@ -28,8 +28,6 @@ void Player::RunStart()
 
 void Player::ToolStart()
 {
-
-
 	if (true)
 	{
 		// Tool Axe
@@ -228,10 +226,11 @@ void Player::RunUpdate(float _DeltaTime)
 			MovePos.X = static_cast<float>(MovePos.iX());
 		}
 
-		// if (true == Collision->Collision(CollisionOrder::Actor, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
-		// {
-		// 	return;
-		// }
+		// ActorCollision
+		if (true == BodyCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect))
+		{
+			int a = 0;
+		}
 	}
 
 	// Player Move(Up, Down)
@@ -285,6 +284,7 @@ void Player::RunUpdate(float _DeltaTime)
 	{
 		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
+
 	AddPos(MovePos);
 
 
