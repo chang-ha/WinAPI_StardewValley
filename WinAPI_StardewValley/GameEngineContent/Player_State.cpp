@@ -8,11 +8,13 @@
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "Player.h"
+#include "ContentsEnum.h"
 #include "ContentLevel.h"
 #include "ContentActor.h"
-#include "ContentsEnum.h"
-#include "Farm.h"
 #include "ContentUIManager.h"
+#include "Farm.h"
+#include "ContentItem.h"
+#include "ContentInventory.h"
 
 void Player::IdleStart()
 {
@@ -97,6 +99,12 @@ void Player::IdleUpdate(float _DeltaTime)
 	{
 		DirCheck();
 		ChangeState(PlayerState::Run);
+		return;
+	}
+
+	ContentItem* CurItem = ContentInventory::MainInventory->GetCurItem();
+	if (nullptr == CurItem)
+	{
 		return;
 	}
 

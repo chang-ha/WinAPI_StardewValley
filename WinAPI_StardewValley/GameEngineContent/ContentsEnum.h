@@ -31,6 +31,7 @@ enum class CollisionOrder
 	Axe,
 	PickAxe,
 	Hoe,
+	WateringCan,
 	Resources,
 	Item,
 	Button,

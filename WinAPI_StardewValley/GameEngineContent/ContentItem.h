@@ -1,10 +1,13 @@
 #pragma once
 #include "ContentActor.h"
 
-enum class ItemType
+enum ItemType
 {
-	Null,
-	Tool,
+	NotItem,
+	Axe,
+	PickAxe,
+	Hoe,
+	WateringCan,
 	Resources,
 };
 
@@ -59,6 +62,6 @@ private:
 	std::vector<GameEngineCollision*> _CollisionResult;
 	std::string ItemName = "";
 	int ItemCount = 1;
-	ItemType Type = ItemType::Null;
+	ItemType Type = ItemType::NotItem;
 };
 
