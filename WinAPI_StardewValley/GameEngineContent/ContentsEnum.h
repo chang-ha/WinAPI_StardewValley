@@ -32,5 +32,6 @@ enum class CollisionOrder
 	Item,
 	Button,
 	UI,
+	Inventory_Item,
 	UIMouse,
 };

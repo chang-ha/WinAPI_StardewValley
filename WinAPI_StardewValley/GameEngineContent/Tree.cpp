@@ -53,6 +53,8 @@ void Tree::Start()
 
 void Tree::Update(float _Delta)
 {
+	Hitten();
+
 	if (Player::MainPlayer->GetPos().Y < GetPos().Y && UpperPart->GetOrder() < Player::MainPlayer->GetOrder())
 	{
 		UpperPart->SetOrder(static_cast<int>(RenderOrder::PlayOver));
@@ -65,6 +67,7 @@ void Tree::Update(float _Delta)
 	static float PerTime = 1.0f;
 	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && 0.0f > PerTime)
 	{
+		IsHitten = true;
 		EffectPlayer = GameEngineSound::SoundPlay("axchop.wav");
 		PerTime = 1.0f;
 		if (--Hp > 0)

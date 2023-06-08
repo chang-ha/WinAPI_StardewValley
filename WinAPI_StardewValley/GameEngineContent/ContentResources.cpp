@@ -32,3 +32,33 @@ void ContentResources::Init(const std::string& _FileName)
 	Collision = CreateCollision(CollisionOrder::Resources);
 	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
 }
+
+void ContentResources::Hitten()
+{
+	if (true == IsHitten)
+	{
+		switch (HittenStep)
+		{
+		case 0:
+			++HittenStep;
+			AddPos({-2, -2});
+			break;
+		case 1:
+			++HittenStep;
+			AddPos({ +2, -2 });
+			break;
+		case 2:
+			++HittenStep;
+			AddPos({ +2, +2 });
+			break;
+		case 3:
+			AddPos({ -2, +2 });
+			HittenStep = 0;
+			IsHitten = false;
+			break;
+		default:
+			break;
+		}
+	}
+}
+

@@ -24,10 +24,14 @@ public:
 
 	virtual void Init(const std::string& _FileName);
 
+	void Hitten();
+
 	GameEngineRenderer* Renderer = nullptr;
 protected:
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineCollision* Collision = nullptr;
+	bool IsHitten = false;
+	int HittenStep = 0;
 
 private:
 };

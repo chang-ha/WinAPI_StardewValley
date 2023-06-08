@@ -47,7 +47,7 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
 		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
 
-		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Item);
+		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Inventory_Item);
 		_ItemCollision->SetCollisionScale(_Item->Texture->GetScale() * RENDERRATIO);
 
 		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::UI);
