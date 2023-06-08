@@ -24,7 +24,6 @@ public:
 	}
 
 	GameEngineRenderer* Renderer = nullptr;
-	GameEngineCollision* Collision = nullptr;
 protected:
 
 private:

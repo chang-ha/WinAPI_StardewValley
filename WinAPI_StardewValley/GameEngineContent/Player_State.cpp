@@ -124,16 +124,22 @@ void Player::IdleUpdate(float _DeltaTime)
 			return;
 		}
 
-		if (ItemType::WateringCan == CurItem->GetItemType())
+		if (ItemType::Resources == CurItem->GetItemType())
+		{
+			return;
+		}
+		else if (ItemType::WateringCan == CurItem->GetItemType())
 		{
 			ToolDirCheck();
 			ChangeState(PlayerState::Tool2);
 			return;
 		}
-
-		ToolDirCheck();
-		ChangeState(PlayerState::Tool);
-		return;
+		else
+		{
+			ToolDirCheck();
+			ChangeState(PlayerState::Tool);
+			return;
+		}
 	}
 }
 

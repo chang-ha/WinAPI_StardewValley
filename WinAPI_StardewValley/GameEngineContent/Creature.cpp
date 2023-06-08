@@ -21,7 +21,6 @@ Creature::~Creature()
 void Creature::Start()
 {
 	Renderer = CreateRenderer(RenderOrder::Creature);
-	Collision = CreateCollision(RenderOrder::Creature);
 }
 
 
