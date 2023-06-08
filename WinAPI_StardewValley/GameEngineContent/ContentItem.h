@@ -47,6 +47,11 @@ public:
 		return ItemCount;
 	}
 
+	ItemType GetItemType()
+	{
+		return Type;
+	}
+
 	void Init(const std::string& _FileName, ItemType _Type);
 
 protected:

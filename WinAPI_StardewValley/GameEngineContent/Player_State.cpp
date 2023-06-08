@@ -30,23 +30,45 @@ void Player::RunStart()
 
 void Player::ToolStart()
 {
-	if (true)
+	float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
+	ChangeAnimationState("Tool1");
+
+	switch (CurItem->GetItemType())
 	{
+	case ItemType::Axe:
 		// Tool Axe
 		ToolCollision = CreateCollision(CollisionOrder::Axe);
-		float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
 		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
 		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
-
-		ChangeAnimationState("Tool1");
-	}
-	else if (true)
+		break;
+	case ItemType::Hoe:
+		// Tool Hoe
 	{
-		//ChangeAnimationState("Tool2");
+		ToolCollision = CreateCollision(CollisionOrder::Hoe);
+		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
+		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
+		Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
+		if (nullptr != _Farm)
+		{
+			TileMap* CurTileMap = _Farm->GetTileMap();
+			float4 Index = TileLimit();
+			float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
+			if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) && false == ToolCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect))
+			{
+				CurTileMap->SetTile(CheckPos, 0);
+				EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
+				CollisionResult.clear();
+			}
+		}
 	}
-	else if (true)
-	{
-		//ChangeAnimationState("Tool3");
+	break;
+	case ItemType::PickAxe:
+		ToolCollision = CreateCollision(CollisionOrder::PickAxe);
+		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
+		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
+		break;
+	case ItemType::Resources:
+		break;
 	}
 
 	if (PlayerDir::Up == Dir)
@@ -55,20 +77,6 @@ void Player::ToolStart()
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 	}
 
-	// Tool Hoe
-	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
-	if (nullptr != _Farm)
-	{
-		TileMap* CurTileMap = _Farm->GetTileMap();
-		float4 Index = TileLimit();
-		float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
-		if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) && false == ToolCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect))
-		{
-			CurTileMap->SetTile(CheckPos, 0);
-			EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
-			CollisionResult.clear();
-		}
-	}
 	EffectPlayer.SetVolume(0.6f);
 }
 
@@ -102,7 +110,7 @@ void Player::IdleUpdate(float _DeltaTime)
 		return;
 	}
 
-	ContentItem* CurItem = ContentInventory::MainInventory->GetCurItem();
+	CurItem = ContentInventory::MainInventory->GetCurItem();
 	if (nullptr == CurItem)
 	{
 		return;
@@ -116,15 +124,15 @@ void Player::IdleUpdate(float _DeltaTime)
 			return;
 		}
 
+		if (ItemType::WateringCan == CurItem->GetItemType())
+		{
+			ToolDirCheck();
+			ChangeState(PlayerState::Tool2);
+			return;
+		}
+
 		ToolDirCheck();
 		ChangeState(PlayerState::Tool);
-		return;
-	}
-
-	if (true == GameEngineInput::IsDown(VK_RBUTTON))
-	{
-		ToolDirCheck();
-		ChangeState(PlayerState::Tool2);
 		return;
 	}
 }

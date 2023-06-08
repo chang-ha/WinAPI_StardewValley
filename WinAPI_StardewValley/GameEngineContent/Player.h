@@ -4,11 +4,11 @@
 
 enum class PlayerState
 {
+	Null, // StartValue
 	Idle,
 	Run,
 	Tool,
 	Tool2,
-	Null, // StartValue
 };
 
 enum Tile
@@ -25,14 +25,15 @@ enum Tile
 
 enum PlayerDir
 {
+	Null = 0b0000, // StartValue
 	Up = 0b0001,
 	Down = 0b0010,
 	Right = 0b0100,
 	Left = 0b1000,
-	Null = 0b0000, // StartValue
 };
 
 class TileMap;
+class ContentItem;
 class Player : public ContentActor
 {
 public:
@@ -108,7 +109,7 @@ private:
 	int CurTileColor = 0;
 	GameEngineWindowTexture* CollisionTexture = nullptr;
 	std::vector<GameEngineCollision*> CollisionResult;
-
+	ContentItem* CurItem = nullptr;
 
 	// State Start
 	void IdleStart();

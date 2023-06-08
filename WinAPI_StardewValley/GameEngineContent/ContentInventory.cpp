@@ -181,19 +181,19 @@ void ContentInventory::Start()
 	// Default Item
 	GameEngineLevel* CurLevel = GetLevel();
 	ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("axe.bmp", ItemType::Resources);
+	Item->Init("axe.bmp", ItemType::Axe);
 	PushItem(Item);
 
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("hoe.bmp", ItemType::Resources);
+	Item->Init("hoe.bmp", ItemType::Hoe);
 	PushItem(Item);
 
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("pickaxe.bmp", ItemType::Resources);
+	Item->Init("pickaxe.bmp", ItemType::PickAxe);
 	PushItem(Item);
 
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("wateringcan.bmp", ItemType::Resources);
+	Item->Init("wateringcan.bmp", ItemType::WateringCan);
 	PushItem(Item);
 }
 
