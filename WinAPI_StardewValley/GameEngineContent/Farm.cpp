@@ -40,7 +40,7 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 	// _PrevLevel == FarmHouse
 	if (nullptr != dynamic_cast<FarmHouse*>(_PrevLevel))
 	{
-		Farmer->SetPos({ Back->GetRenderScale().X * 0.8055f, Back->GetRenderScale().Y * 0.225f});
+		Farmer->SetPos({ Back->GetRenderScale().X * 0.8055f, Back->GetRenderScale().Y * 0.225f });
 		Farmer->SetDir(PlayerDir::Down);
 		GetMainCamera()->SetPos(Farmer->GetPos() - GlobalValue::WinScale.Half());
 	}
@@ -49,7 +49,7 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<BusStation*>(_PrevLevel))
 	{
 		Farmer->SetDir(PlayerDir::Left);
-		GetMainCamera()->SetPos({Back->GetRenderScale().X - GlobalValue::WinScale.X, Back->GetRenderScale().Y * 0.36f - GlobalValue::WinScale.Y});
+		GetMainCamera()->SetPos({ Back->GetRenderScale().X - GlobalValue::WinScale.X, Back->GetRenderScale().Y * 0.36f - GlobalValue::WinScale.Y });
 		Farmer->SetPos({ Back->GetRenderScale().X - 100 , Back->GetRenderScale().Y * 0.25f });
 	}
 
@@ -108,7 +108,7 @@ void Farm::Start()
 		FarmTileMap->CreateTileMap("hoeDirt.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::BackGround));
 	}
 	ShippingBin* ship = CreateActor<ShippingBin>(UpdateOrder::Map);
-	ship->SetPos({Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f});
+	ship->SetPos({ Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f });
 
 	Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 	FarmTree->Init("Tree.bmp");
@@ -131,4 +131,22 @@ void Farm::Update(float _Delta)
 	{
 		Back->SwitchRender();
 	}
+}
+
+void Farm::TileSetting(int _X, int _Y, bool IsWatering)
+{
+	GameEngineRenderer* CurTile = FarmTileMap->GetTile(_X, _Y);
+	if (nullptr == CurTile)
+	{
+		return;
+	}
+
+	int TileImage[2][2][2][2] = { 0, 25, 27, 26, 8, 1, 3, 2, 24, 17, 19, 18, 16, 9, 11, 10 };
+	int W = nullptr == FarmTileMap->GetTile(_X, _Y - 1) ? 0 : 1;
+	int X = nullptr == FarmTileMap->GetTile(_X, _Y + 1) ? 0 : 1;
+	int Y = nullptr == FarmTileMap->GetTile(_X - 1, _Y) ? 0 : 1;
+	int Z = nullptr == FarmTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
+	int Plus = false == IsWatering ? 0 : 4;
+
+	FarmTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z] + Plus);
 }

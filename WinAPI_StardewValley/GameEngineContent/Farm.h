@@ -21,6 +21,8 @@ public:
 		return FarmTileMap;
 	}
 
+	void TileSetting(int _X, int _Y, bool IsWatering = false);
+
 protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;

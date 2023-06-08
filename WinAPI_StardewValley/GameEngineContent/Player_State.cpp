@@ -51,12 +51,19 @@ void Player::ToolStart()
 		if (nullptr != _Farm)
 		{
 			TileMap* CurTileMap = _Farm->GetTileMap();
-			float4 Index = TileLimit();
-			float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
-			if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) && false == ToolCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect)
-				&& nullptr == CurTileMap->GetTile(Index.iX(), Index.iY()))
+			int Index_X = TileLimit().iX();
+			int Index_Y = TileLimit().iY();
+			float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index_X, Index_Y);
+			if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) 
+				&& false == ToolCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect)
+				&& nullptr == CurTileMap->GetTile(Index_X, Index_Y))
 			{
-				CurTileMap->SetTile(CheckPos, 0);
+				CurTileMap->SetTile(Index_X, Index_Y, 0);
+				_Farm->TileSetting(Index_X, Index_Y);
+				_Farm->TileSetting(Index_X, Index_Y - 1);
+				_Farm->TileSetting(Index_X, Index_Y + 1);
+				_Farm->TileSetting(Index_X - 1, Index_Y);
+				_Farm->TileSetting(Index_X + 1, Index_Y);
 				EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
 				CollisionResult.clear();
 			}
@@ -91,7 +98,8 @@ void Player::Tool2Start()
 		float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
 		if (nullptr != CurTileMap->GetTile(Index.iX(), Index.iY()))
 		{
-			CurTileMap->SetTile(CheckPos, 4);
+			CurTileMap->SetTile(Index.iX(), Index.iY(), 31);
+			_Farm->TileSetting(Index.iX(), Index.iY(), true);
 			EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
 		}
 	}
