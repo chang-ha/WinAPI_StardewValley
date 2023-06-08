@@ -201,7 +201,7 @@ void ContentInventory::Update(float _Delta)
 		{
 			continue;
 		}
-		ItemCountRenderer[x]->SetText(std::to_string(AllItem[x]->GetItemCount()));
+		ItemCountRenderer[x]->SetText(std::to_string(AllItem[x]->GetItemCount()), 20, "Sandoll 미생");
 	}
 
 	// Inventory On/Off
