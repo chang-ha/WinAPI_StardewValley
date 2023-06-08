@@ -84,22 +84,6 @@ void Tree::Update(float _Delta)
 		}
 
 		ContentItem* Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Tool1.bmp", ItemType::Resources);
-		Test->SetPos(GetPos());
-
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Tool2.bmp", ItemType::Resources);
-		Test->SetPos(GetPos());
-
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Tool3.bmp", ItemType::Resources);
-		Test->SetPos(GetPos());
-
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Tool4.bmp", ItemType::Resources);
-		Test->SetPos(GetPos());
-
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 		Test->Init("Seed1.bmp", ItemType::Resources);
 		Test->SetPos(GetPos());
 

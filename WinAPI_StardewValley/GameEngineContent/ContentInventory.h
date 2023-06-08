@@ -30,6 +30,11 @@ public:
 
 	void SetPosInventoryItem();
 
+	ContentItem* GetCurItem()
+	{
+		return AllItem[CurIndex];
+	}
+
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

@@ -20,6 +20,7 @@ enum class RenderOrder
 	Creature,
 	PlayOver,
 	UI,
+	Inventory_Item,
 	UIMouse,
 };
 
@@ -28,6 +29,8 @@ enum class CollisionOrder
 	Map,
 	Player,
 	Axe,
+	PickAxe,
+	Hoe,
 	Resources,
 	Item,
 	Button,

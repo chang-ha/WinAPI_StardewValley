@@ -43,14 +43,14 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_Item->Renderer->Off();
 		
 		// Inventory Item & ItemCount Renderer
-		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::UI);
+		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
 		_ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
 		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
 
 		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Inventory_Item);
 		_ItemCollision->SetCollisionScale(_Item->Texture->GetScale() * RENDERRATIO);
 
-		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::UI);
+		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
 		_ItemCountRenderer->SetText(std::to_string(_Item->GetItemCount()), 20, "Sandoll 미생");
 		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
@@ -177,10 +177,45 @@ void ContentInventory::Start()
 		ItemCollision[x] = nullptr;
 		ItemCountRenderer[x] = nullptr;
 	}
+
+	// Default Item
+	GameEngineLevel* CurLevel = GetLevel();
+	ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("axe.bmp", ItemType::Resources);
+	PushItem(Item);
+
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("hoe.bmp", ItemType::Resources);
+	PushItem(Item);
+
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("pickaxe.bmp", ItemType::Resources);
+	PushItem(Item);
+
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("wateringcan.bmp", ItemType::Resources);
+	PushItem(Item);
 }
 
 void ContentInventory::Update(float _Delta)
 {
+	if (true == GameEngineInput::IsDown(VK_LEFT))
+	{
+		--CurIndex;
+		if (-1 == CurIndex)
+		{
+			CurIndex = 11;
+		}
+	}
+	else if (true == GameEngineInput::IsDown(VK_RIGHT))
+	{
+		++CurIndex;
+		if (12 == CurIndex)
+		{
+			CurIndex = 0;
+		}
+	}
+
 	// CurIndexRenderer
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
@@ -201,6 +236,7 @@ void ContentInventory::Update(float _Delta)
 		{
 			continue;
 		}
+
 		ItemCountRenderer[x]->SetText(std::to_string(AllItem[x]->GetItemCount()), 20, "Sandoll 미생");
 	}
 
