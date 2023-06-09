@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "ContentItem.h"
 #include "ContentUIManager.h"
+#include "ContentMouse.h"
 
 ContentInventory* ContentInventory::MainInventory = nullptr;
 
@@ -32,8 +33,7 @@ ContentInventory::~ContentInventory()
 
 void ContentInventory::PushItem(ContentItem* _Item)
 {
-	int Index = 0;
-	ContentItem* Find = FindItem(_Item, Index);
+	ContentItem* Find = FindItem(_Item);
 	if (nullptr == Find)
 	{
 		int PushIndex = BlankSpace();
@@ -68,6 +68,25 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_Item->Death();
 	}
 
+}
+
+void ContentInventory::PopItem(ContentItem* _Item)
+{
+	int ItemIndex = 0;
+	ContentItem* Find = FindItem(_Item, ItemIndex);
+	if (nullptr == Find)
+	{
+		return;
+	}
+
+	AllItem[ItemIndex]->Death();
+	ItemRenderer[ItemIndex]->Death();
+	ItemCollision[ItemIndex]->Death();
+	ItemCountRenderer[ItemIndex]->Death();
+	AllItem[ItemIndex] = nullptr;
+	ItemRenderer[ItemIndex] = nullptr;
+	ItemCollision[ItemIndex] = nullptr;
+	ItemCountRenderer[ItemIndex] = nullptr;
 }
 	
 bool ContentInventory::IsFull(const ContentItem* _Item)
@@ -231,6 +250,17 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
+	std::vector<GameEngineCollision*> _CollisionResult;
+	if (true == ContentMouse::MainMouse->GetMouseCollision()->Collision(CollisionOrder::Inventory_Item, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineActor* _ColActotr = _CollisionResult[0]->GetActor();
+		ContentItem* _ColItem = dynamic_cast<ContentItem*>(_ColActotr);
+		if (nullptr == _ColItem)
+		{
+			return;
+		}
+		PopItem(_ColItem);
+	}
 	// CurIndexRenderer
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 

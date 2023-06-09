@@ -80,7 +80,6 @@ void ContentLevel::LevelEnd(GameEngineLevel* _NextLevel)
 	if (nullptr != NextLevel)
 	{
 		NextLevel->UIManager = UIManager;
-		NextLevel->MainMouse = MainMouse;
 	}
 }
 
@@ -92,8 +91,8 @@ void ContentLevel::Start()
 		UIManager->OverOn();
 		ContentUIManager::MainUI = UIManager;
 
-		MainMouse = CreateActor<ContentMouse>(0);
-		MainMouse->OverOn();
+		CreateActor<ContentMouse>(0);
+		ContentMouse::MainMouse->OverOn();
 	}
 }
 

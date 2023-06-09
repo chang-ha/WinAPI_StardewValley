@@ -143,7 +143,7 @@ void Player::IdleUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		if (true == PlayLevel->GetMainMouse()->GetMouseCollision()->Collision(CollisionOrder::Inventory_Item, CollisionResult, CollisionType::Rect, CollisionType::Rect))
+		if (true == ContentMouse::MainMouse->GetMouseCollision()->Collision(CollisionOrder::Inventory_Item, CollisionResult, CollisionType::Rect, CollisionType::Rect))
 		{
 			CollisionResult.clear();
 			return;
@@ -166,6 +166,8 @@ void Player::IdleUpdate(float _DeltaTime)
 			return;
 		}
 	}
+
+
 }
 
 

@@ -31,11 +31,6 @@ public:
 	GameEngineSoundPlayer BGMPlayer;
 	GameEngineSoundPlayer EffectPlayer;
 
-	ContentMouse* GetMainMouse()
-	{
-		return MainMouse;
-	}
-
 	std::string GetPrevLevel()
 	{
 		return PrevLevel;
@@ -55,12 +50,11 @@ public:
 	{
 		return UITileMap;
 	}
-
+	
 protected:
 	BackGround* Back = nullptr;
 	Player* Farmer = nullptr;
 	ContentInventory* FarmerInventory = nullptr;
-	ContentMouse* MainMouse = nullptr;
 	TileMap* UITileMap = nullptr;
 	float4 CurIndex = {};
 	float4 PrevIndex = {};

@@ -11,6 +11,7 @@ class ContentMouse : public GameEngineActor
 {
 	friend ContentLevel;
 public:
+	static ContentMouse* MainMouse;
 	// constructer destructer
 	ContentMouse();
 	~ContentMouse();

@@ -9,8 +9,11 @@
 #include "ContentsEnum.h"
 #include "ContentMouse.h"
 
+ContentMouse* ContentMouse::MainMouse = nullptr;
+
 ContentMouse::ContentMouse()
 {
+	MainMouse = this;
 }
 
 ContentMouse::~ContentMouse()

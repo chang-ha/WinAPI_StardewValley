@@ -489,7 +489,7 @@ void Player::ToolDirCheck()
 
 float4 Player::TileLimit()
 {
-	float4 Index = PlayLevel->GetUITileMap()->PosToIndex(PlayLevel->GetMainMouse()->GetMousePos());
+	float4 Index = PlayLevel->GetUITileMap()->PosToIndex(ContentMouse::MainMouse->GetMousePos());
 	float4 FarmerIndex = PlayLevel->GetUITileMap()->PosToIndex(GetPos() + DownCollision);
 
 	if (Index.iX() <= FarmerIndex.iX() - 1)
