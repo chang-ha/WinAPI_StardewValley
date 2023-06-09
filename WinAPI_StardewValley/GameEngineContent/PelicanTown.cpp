@@ -29,31 +29,31 @@ PelicanTown::~PelicanTown()
 void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
-	Farmer->SetCollisionTexture("Collision_Town.bmp");
+	Player::MainPlayer->SetCollisionTexture("Collision_Town.bmp");
 
 	// _PrevLevel == BusStation
 	if (nullptr != dynamic_cast<BusStation*>(_PrevLevel))
 	{
-		Farmer->SetPos({ 50, Back->GetRenderScale().Y * 0.5f });
+		Player::MainPlayer->SetPos({ 50, Back->GetRenderScale().Y * 0.5f });
 		GetMainCamera()->SetPos({ 0, Back->GetRenderScale().Y * 0.5f - GlobalValue::WinScale.Half().Y});
-		Farmer->SetDir(PlayerDir::Right);
+		Player::MainPlayer->SetDir(PlayerDir::Right);
 	}
 
 	// _PrevLevel == Beach
 	if (nullptr != dynamic_cast<Beach*>(_PrevLevel))
 	{
-		Farmer->SetPos({ Back->GetRenderScale().X * 0.455f, Back->GetRenderScale().Y - 50});
-		GetMainCamera()->SetPos({ Farmer->GetPos().X - GlobalValue::WinScale.Half().X , Back->GetRenderScale().Y - GlobalValue::WinScale.Y});
-		Farmer->SetDir(PlayerDir::Up);
+		Player::MainPlayer->SetPos({ Back->GetRenderScale().X * 0.455f, Back->GetRenderScale().Y - 50});
+		GetMainCamera()->SetPos({ Player::MainPlayer->GetPos().X - GlobalValue::WinScale.Half().X , Back->GetRenderScale().Y - GlobalValue::WinScale.Y});
+		Player::MainPlayer->SetDir(PlayerDir::Up);
 		BGMPlayer = GameEngineSound::SoundPlay("Town.mp3", 10000);
 	}
 
 	// _PrevLevel == GeneralStore
 	if (nullptr != dynamic_cast<GeneralStore*>(_PrevLevel))
 	{
-		Farmer->SetPos({Back->GetRenderScale().X * 0.362f, Back->GetRenderScale().X * 0.475f });
-		GetMainCamera()->SetPos(Farmer->GetPos() - GlobalValue::WinScale.Half());
-		Farmer->SetDir(PlayerDir::Down);
+		Player::MainPlayer->SetPos({Back->GetRenderScale().X * 0.362f, Back->GetRenderScale().X * 0.475f });
+		GetMainCamera()->SetPos(Player::MainPlayer->GetPos() - GlobalValue::WinScale.Half());
+		Player::MainPlayer->SetDir(PlayerDir::Down);
 	}
 }
 

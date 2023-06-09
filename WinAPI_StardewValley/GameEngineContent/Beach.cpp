@@ -29,10 +29,10 @@ void Beach::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
 
-	Farmer->SetCollisionTexture("Collision_Beach.bmp");
-	Farmer->SetPos({ GetRenderScale().X * 0.37f, 30});
-	Farmer->SetDir(PlayerDir::Down);
-	GetMainCamera()->SetPos({ Farmer->GetPos().X - GlobalValue::WinScale.Half().X, 0});
+	Player::MainPlayer->SetCollisionTexture("Collision_Beach.bmp");
+	Player::MainPlayer->SetPos({ GetRenderScale().X * 0.37f, 30});
+	Player::MainPlayer->SetDir(PlayerDir::Down);
+	GetMainCamera()->SetPos({ Player::MainPlayer->GetPos().X - GlobalValue::WinScale.Half().X, 0});
 
 	BGMPlayer = GameEngineSound::SoundPlay("ocean.wav", 10000);
 

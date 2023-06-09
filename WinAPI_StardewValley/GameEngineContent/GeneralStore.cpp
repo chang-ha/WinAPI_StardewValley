@@ -22,14 +22,14 @@ GeneralStore::~GeneralStore()
 void GeneralStore::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
-	Farmer->SetCollisionTexture("Collision_GeneralStore.bmp");
+	Player::MainPlayer->SetCollisionTexture("Collision_GeneralStore.bmp");
 
 	// _PrevLevel == PelicanTown
 	if (nullptr != dynamic_cast<PelicanTown*>(_PrevLevel))
 	{
-		Farmer->SetPos({Back->GetRenderScale().X * 0.155f, Back->GetRenderScale().Y * 0.885f});
+		Player::MainPlayer->SetPos({Back->GetRenderScale().X * 0.155f, Back->GetRenderScale().Y * 0.885f});
 		GetMainCamera()->SetPos({0, Back->GetRenderScale().Y - GlobalValue::WinScale.Y});
-		Farmer->SetDir(PlayerDir::Up);
+		Player::MainPlayer->SetDir(PlayerDir::Up);
 	}
 }
 

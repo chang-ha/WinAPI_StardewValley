@@ -29,21 +29,21 @@ BusStation::~BusStation()
 void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
-	Farmer->SetCollisionTexture("Collision_BusStation.bmp");
+	Player::MainPlayer->SetCollisionTexture("Collision_BusStation.bmp");
 
 	// _PrevLevel == Farm
 	if (nullptr != dynamic_cast<Farm*>(_PrevLevel))
 	{
-		Farmer->SetPos({ 50, Back->GetRenderScale().Y * 0.78f});
-		Farmer->SetDir(PlayerDir::Right);
+		Player::MainPlayer->SetPos({ 50, Back->GetRenderScale().Y * 0.78f});
+		Player::MainPlayer->SetDir(PlayerDir::Right);
 		GetMainCamera()->SetPos({ 0, Back->GetRenderScale().Y - GlobalValue::WinScale.Y});
 	}
 
 	if (nullptr != dynamic_cast<PelicanTown*>(_PrevLevel))
 	{
 		// BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3");
-		Farmer->SetPos({ Back->GetRenderScale().X - 50, Back->GetRenderScale().Y * 0.78f });
-		Farmer->SetDir(PlayerDir::Left);
+		Player::MainPlayer->SetPos({ Back->GetRenderScale().X - 50, Back->GetRenderScale().Y * 0.78f });
+		Player::MainPlayer->SetDir(PlayerDir::Left);
 		GetMainCamera()->SetPos({ Back->GetRenderScale().X - GlobalValue::WinScale.X, Back->GetRenderScale().Y - GlobalValue::WinScale.Y });
 	}
 }

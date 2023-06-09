@@ -47,12 +47,16 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		UIManager->Energy->On();
 		UIManager->Inventory->On();
 
-		Farmer = Player::MainPlayer;
-		FarmerInventory = ContentInventory::MainInventory;
-		Farmer->SetPlayLevel(this);
-		if (nullptr == Farmer)
+		Player::MainPlayer->SetPlayLevel(this);
+		if (nullptr == Player::MainPlayer)
 		{
 			MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
+		}
+
+		if (nullptr == UITileMap)
+		{
+			UITileMap = CreateActor<TileMap>();
+			UITileMap->CreateTileMap("Select_Tile.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::PlayBelow));
 		}
 	}
 
@@ -65,12 +69,6 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\Select_Tile.bmp"));
 		ResourcesManager::GetInst().CreateSpriteSheet("Select_Tile.bmp", 1, 1);
-	}
-
-	if (nullptr == UITileMap)
-	{
-		UITileMap = CreateActor<TileMap>();
-		UITileMap->CreateTileMap("Select_Tile.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::PlayBelow));
 	}
 }
 
@@ -91,7 +89,7 @@ void ContentLevel::Start()
 		UIManager->OverOn();
 		ContentUIManager::MainUI = UIManager;
 
-		CreateActor<ContentMouse>(0);
+		ContentMouse::MainMouse = CreateActor<ContentMouse>(0);
 		ContentMouse::MainMouse->OverOn();
 	}
 }
@@ -103,9 +101,19 @@ void ContentLevel::Update(float _Delta)
 		CollisionDebugRenderSwitch();
 	}
 
-	if (nullptr != Farmer)
+	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
 	{
-		CurIndex = Farmer->TileLimit();
+		GameEngineCore::ChangeLevel(PrevLevel);
+	}
+
+	if (true == GameEngineInput::IsDown('2') && "" != NextLevel)
+	{
+		GameEngineCore::ChangeLevel(NextLevel);
+	}
+
+	if (nullptr != UITileMap)
+	{
+		CurIndex = Player::MainPlayer->TileLimit();
 		UITileMap->SetTile(UITileMap->IndexToPos(CurIndex.iX(), CurIndex.iY()), 0);
 
 		GameEngineRenderer* PrevTile = UITileMap->GetTile(PrevIndex.iX(), PrevIndex.iY());
@@ -121,15 +129,5 @@ void ContentLevel::Update(float _Delta)
 		{
 			CurTile->On();
 		}
-	}
-
-	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
-	{
-		GameEngineCore::ChangeLevel(PrevLevel);
-	}
-
-	if (true == GameEngineInput::IsDown('2') && "" != NextLevel)
-	{
-		GameEngineCore::ChangeLevel(NextLevel);
 	}
 }

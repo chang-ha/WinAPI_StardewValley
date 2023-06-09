@@ -8,10 +8,8 @@
 #include "GlobalValue.h"
 
 class BackGround;
-class Player;
 class ContentUIManager;
 class TileMap;
-class ContentInventory;
 class ContentLevel : public GameEngineLevel
 {
 public:
@@ -53,8 +51,6 @@ public:
 	
 protected:
 	BackGround* Back = nullptr;
-	Player* Farmer = nullptr;
-	ContentInventory* FarmerInventory = nullptr;
 	TileMap* UITileMap = nullptr;
 	float4 CurIndex = {};
 	float4 PrevIndex = {};

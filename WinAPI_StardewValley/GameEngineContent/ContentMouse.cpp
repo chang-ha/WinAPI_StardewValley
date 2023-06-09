@@ -13,7 +13,6 @@ ContentMouse* ContentMouse::MainMouse = nullptr;
 
 ContentMouse::ContentMouse()
 {
-	MainMouse = this;
 }
 
 ContentMouse::~ContentMouse()

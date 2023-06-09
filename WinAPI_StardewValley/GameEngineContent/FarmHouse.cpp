@@ -33,9 +33,9 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
 
-	Farmer->SetCollisionTexture("Collision_farmhouse.bmp");
-	Farmer->SetPos({ GetRenderScale().X * 0.595f, GetRenderScale().Y * 0.65f});
-	Farmer->SetDir(PlayerDir::Right);
+	Player::MainPlayer->SetCollisionTexture("Collision_farmhouse.bmp");
+	Player::MainPlayer->SetPos({ GetRenderScale().X * 0.595f, GetRenderScale().Y * 0.65f});
+	Player::MainPlayer->SetDir(PlayerDir::Right);
 
 	// _PrevLevel == TitleScreen
 	if (nullptr != dynamic_cast<TitleScreen*>(_PrevLevel))
@@ -46,8 +46,8 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	// _PrevLevel == Farm
 	if (nullptr != dynamic_cast<Farm*>(_PrevLevel))
 	{
-		Farmer->SetPos({ GetRenderScale().X * 0.410f, GetRenderScale().Y * 0.74f });
-		Farmer->SetDir(PlayerDir::Up);
+		Player::MainPlayer->SetPos({ GetRenderScale().X * 0.410f, GetRenderScale().Y * 0.74f });
+		Player::MainPlayer->SetDir(PlayerDir::Up);
 	}
 }
 
@@ -58,8 +58,8 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 	if (nullptr != dynamic_cast<TitleScreen*>(_NextLevel))
 	{
 		BGMPlayer.Stop();
-		Farmer->OverOff();
-		FarmerInventory->OverOff();
+		Player::MainPlayer->OverOff();
+		ContentInventory::MainInventory->OverOff();
 	}
 
 	// _NextLevel == Farm
@@ -67,8 +67,8 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 	{
 		Farm* NextLevel = dynamic_cast<Farm*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
-		Farmer->OverOn();
-		FarmerInventory->OverOn();
+		Player::MainPlayer->OverOn();
+		ContentInventory::MainInventory->OverOn();
 	}
 }
 
@@ -93,10 +93,8 @@ void FarmHouse::Start()
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
 		// Player
-		Farmer = CreateActor<Player>(UpdateOrder::Player);
-		FarmerInventory = CreateActor<ContentInventory>(UpdateOrder::Inventory);
-		Player::MainPlayer = Farmer;
-		ContentInventory::MainInventory = FarmerInventory;
+		Player::MainPlayer = CreateActor<Player>(UpdateOrder::Player);
+		ContentInventory::MainInventory = CreateActor<ContentInventory>(UpdateOrder::Inventory);
 
 		// Detail
 		PlayOver* Over = CreateActor<PlayOver>(UpdateOrder::Map);

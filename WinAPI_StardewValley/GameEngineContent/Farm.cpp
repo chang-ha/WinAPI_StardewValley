@@ -35,22 +35,22 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
 
-	Farmer->SetCollisionTexture("Collision_Farm.bmp");
+	Player::MainPlayer->SetCollisionTexture("Collision_Farm.bmp");
 
 	// _PrevLevel == FarmHouse
 	if (nullptr != dynamic_cast<FarmHouse*>(_PrevLevel))
 	{
-		Farmer->SetPos({ Back->GetRenderScale().X * 0.8055f, Back->GetRenderScale().Y * 0.225f });
-		Farmer->SetDir(PlayerDir::Down);
-		GetMainCamera()->SetPos(Farmer->GetPos() - GlobalValue::WinScale.Half());
+		Player::MainPlayer->SetPos({ Back->GetRenderScale().X * 0.8055f, Back->GetRenderScale().Y * 0.225f });
+		Player::MainPlayer->SetDir(PlayerDir::Down);
+		GetMainCamera()->SetPos(Player::MainPlayer->GetPos() - GlobalValue::WinScale.Half());
 	}
 
 	// _PrveLevel == BusStation
 	if (nullptr != dynamic_cast<BusStation*>(_PrevLevel))
 	{
-		Farmer->SetDir(PlayerDir::Left);
+		Player::MainPlayer->SetDir(PlayerDir::Left);
 		GetMainCamera()->SetPos({ Back->GetRenderScale().X - GlobalValue::WinScale.X, Back->GetRenderScale().Y * 0.36f - GlobalValue::WinScale.Y });
-		Farmer->SetPos({ Back->GetRenderScale().X - 100 , Back->GetRenderScale().Y * 0.25f });
+		Player::MainPlayer->SetPos({ Back->GetRenderScale().X - 100 , Back->GetRenderScale().Y * 0.25f });
 	}
 
 }
