@@ -124,13 +124,13 @@ void ContentLevel::Update(float _Delta)
 		}
 	}
 
-	//if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
-	//{
-	//	GameEngineCore::ChangeLevel(PrevLevel);
-	//}
+	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
+	{
+		GameEngineCore::ChangeLevel(PrevLevel);
+	}
 
-	//if (true == GameEngineInput::IsDown('2') && "" != NextLevel)
-	//{
-	//	GameEngineCore::ChangeLevel(NextLevel);
-	//}
+	if (true == GameEngineInput::IsDown('2') && "" != NextLevel)
+	{
+		GameEngineCore::ChangeLevel(NextLevel);
+	}
 }

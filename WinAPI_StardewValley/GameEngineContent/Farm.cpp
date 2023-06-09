@@ -103,9 +103,14 @@ void Farm::Start()
 		FilePath.MoveChild("Resources\\Textures\\");
 
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\hoeDirt.bmp"));
-		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 8, 4);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\waterDirt.bmp"));
+		ResourcesManager::GetInst().CreateSpriteSheet("hoeDirt.bmp", 4, 4);
+		ResourcesManager::GetInst().CreateSpriteSheet("waterDirt.bmp", 4, 4);
 		FarmTileMap = CreateActor<TileMap>(UpdateOrder::Player);
 		FarmTileMap->CreateTileMap("hoeDirt.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::BackGround));
+
+		FarmWateringTileMap = CreateActor<TileMap>(UpdateOrder::Player);
+		FarmWateringTileMap->CreateTileMap("waterDirt.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::BackGround));
 	}
 	ShippingBin* ship = CreateActor<ShippingBin>(UpdateOrder::Map);
 	ship->SetPos({ Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f });
@@ -135,18 +140,36 @@ void Farm::Update(float _Delta)
 
 void Farm::TileSetting(int _X, int _Y, bool IsWatering)
 {
-	GameEngineRenderer* CurTile = FarmTileMap->GetTile(_X, _Y);
-	if (nullptr == CurTile)
+	int TileImage[2][2][2][2] = { 0, 13, 15, 14, 4, 1, 3, 2, 12, 9, 11, 10, 8, 5, 7, 6 };
+
+	switch (IsWatering)
 	{
-		return;
+	case false:
+	{
+		GameEngineRenderer* CurTile = FarmTileMap->GetTile(_X, _Y);
+		if (nullptr == CurTile)
+		{
+			return;
+		}
+
+		int W = nullptr == FarmTileMap->GetTile(_X, _Y - 1) ? 0 : 1;
+		int X = nullptr == FarmTileMap->GetTile(_X, _Y + 1) ? 0 : 1;
+		int Y = nullptr == FarmTileMap->GetTile(_X - 1, _Y) ? 0 : 1;
+		int Z = nullptr == FarmTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
+		FarmTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
 	}
-
-	int TileImage[2][2][2][2] = { 0, 25, 27, 26, 8, 1, 3, 2, 24, 17, 19, 18, 16, 9, 11, 10 };
-	int W = nullptr == FarmTileMap->GetTile(_X, _Y - 1) ? 0 : 1;
-	int X = nullptr == FarmTileMap->GetTile(_X, _Y + 1) ? 0 : 1;
-	int Y = nullptr == FarmTileMap->GetTile(_X - 1, _Y) ? 0 : 1;
-	int Z = nullptr == FarmTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
-	int Plus = false == IsWatering ? 0 : 4;
-
-	FarmTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z] + Plus);
+	case true:
+	{
+		GameEngineRenderer* CurTile = FarmWateringTileMap->GetTile(_X, _Y);
+		if (nullptr == CurTile)
+		{
+			return;
+		}
+		int W = nullptr == FarmWateringTileMap->GetTile(_X, _Y - 1) ? 0 : 1;
+		int X = nullptr == FarmWateringTileMap->GetTile(_X, _Y + 1) ? 0 : 1;
+		int Y = nullptr == FarmWateringTileMap->GetTile(_X - 1, _Y) ? 0 : 1;
+		int Z = nullptr == FarmWateringTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
+		FarmWateringTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
+	}
+	}
 }

@@ -21,6 +21,11 @@ public:
 		return FarmTileMap;
 	}
 
+	TileMap* GetWateringTileMap()
+	{
+		return FarmWateringTileMap;
+	}
+
 	void TileSetting(int _X, int _Y, bool IsWatering = false);
 
 protected:
@@ -32,5 +37,6 @@ private:
 	void Update(float _Delta) override;
 
 	TileMap* FarmTileMap = nullptr;
+	TileMap* FarmWateringTileMap = nullptr;
 };
 

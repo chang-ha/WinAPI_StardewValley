@@ -94,12 +94,17 @@ void Player::Tool2Start()
 	if (nullptr != _Farm)
 	{
 		TileMap* CurTileMap = _Farm->GetTileMap();
-		float4 Index = TileLimit();
-		float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index.iX(), Index.iY());
-		if (nullptr != CurTileMap->GetTile(Index.iX(), Index.iY()))
+		TileMap* WaterTileMap = _Farm->GetWateringTileMap();
+		int Index_X = TileLimit().iX();
+		int Index_Y = TileLimit().iY();
+		if (nullptr != CurTileMap->GetTile(Index_X, Index_Y))
 		{
-			CurTileMap->SetTile(Index.iX(), Index.iY(), 31);
-			_Farm->TileSetting(Index.iX(), Index.iY(), true);
+			WaterTileMap->SetTile(Index_X, Index_Y, 0);
+			_Farm->TileSetting(Index_X, Index_Y, true);
+			_Farm->TileSetting(Index_X, Index_Y - 1, true);
+			_Farm->TileSetting(Index_X, Index_Y + 1, true);
+			_Farm->TileSetting(Index_X - 1, Index_Y, true);
+			_Farm->TileSetting(Index_X + 1, Index_Y, true);
 			EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
 		}
 	}
