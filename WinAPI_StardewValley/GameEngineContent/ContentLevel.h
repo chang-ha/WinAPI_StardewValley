@@ -8,7 +8,6 @@
 #include "GlobalValue.h"
 
 class BackGround;
-class ContentUIManager;
 class TileMap;
 class ContentLevel : public GameEngineLevel
 {
@@ -25,7 +24,6 @@ public:
 
 	float4 GetRenderScale();
 
-	ContentUIManager* UIManager = nullptr;
 	GameEngineSoundPlayer BGMPlayer;
 	GameEngineSoundPlayer EffectPlayer;
 

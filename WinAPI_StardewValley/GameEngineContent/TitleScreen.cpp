@@ -299,17 +299,11 @@ void TitleScreen::Update(float _Delta)
 	Bird2->AddPos({ -50.0f * _Delta, 0.0f });
 
 	// Collision Check
-	New_Button->Renderer->SetTexture("Title_new01.bmp");
-	Load_Button->Renderer->SetTexture("Title_load01.bmp");
-	Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
-	Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
-
-	std::vector<GameEngineCollision*> _CheckCollision;
-	if (true == ContentMouse::MainMouse->GetMouseCollision()->Collision(CollisionOrder::Button, _CheckCollision, CollisionType::Rect, CollisionType::Rect))
+	std::vector<GameEngineCollision*> _CollisionResult;
+	if (true == ContentMouse::MainMouse->GetMouseCollision()->Collision(CollisionOrder::Button, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
-		GameEngineCollision* CheckCollision = _CheckCollision[0];
-		GameEngineActor* Actor = CheckCollision->GetActor();
-		PlayOver* TitleButton = dynamic_cast<PlayOver*>(Actor);
+		GameEngineCollision* CheckCollision = _CollisionResult[0];
+		PlayOver* TitleButton = dynamic_cast<PlayOver*>(CheckCollision->GetActor());
 
 		if (TitleButton == nullptr)
 		{
@@ -352,6 +346,10 @@ void TitleScreen::Update(float _Delta)
 	else
 	{
 		IsMouseOn = false;
+		New_Button->Renderer->SetTexture("Title_new01.bmp");
+		Load_Button->Renderer->SetTexture("Title_load01.bmp");
+		Coop_Button->Renderer->SetTexture("Title_coop01.bmp");
+		Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
 	}
 }
 void TitleScreen::Render(float _Delta)

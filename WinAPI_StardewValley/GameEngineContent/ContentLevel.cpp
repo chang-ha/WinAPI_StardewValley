@@ -15,7 +15,6 @@
 #include "ContentUIManager.h"
 #include "ContentMouse.h"
 #include "ContentsEnum.h"
-#include "ContentInventory.h"
 
 ContentLevel::ContentLevel()
 {
@@ -35,17 +34,17 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	if (nullptr != dynamic_cast<TitleScreen*>(this))
 	{
-		UIManager->Clock->Off();
-		UIManager->ClockHand->Off();
-		UIManager->Energy->Off();
-		UIManager->Inventory->Off();
+		ContentUIManager::MainUI->Clock->Off();
+		ContentUIManager::MainUI->ClockHand->Off();
+		ContentUIManager::MainUI->Energy->Off();
+		ContentUIManager::MainUI->Inventory->Off();
 	}
 	else
 	{
-		UIManager->Clock->On();
-		UIManager->ClockHand->On();
-		UIManager->Energy->On();
-		UIManager->Inventory->On();
+		ContentUIManager::MainUI->Clock->On();
+		ContentUIManager::MainUI->ClockHand->On();
+		ContentUIManager::MainUI->Energy->On();
+		ContentUIManager::MainUI->Inventory->On();
 
 		Player::MainPlayer->SetPlayLevel(this);
 		if (nullptr == Player::MainPlayer)
@@ -75,20 +74,18 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 void ContentLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	ContentLevel* NextLevel = dynamic_cast<ContentLevel*>(_NextLevel);
-	if (nullptr != NextLevel)
-	{
-		NextLevel->UIManager = UIManager;
-	}
 }
 
 void ContentLevel::Start()
 {
-	if (nullptr == UIManager)
+	if (nullptr == ContentUIManager::MainUI)
 	{
-		UIManager = CreateActor<ContentUIManager>(0);
-		UIManager->OverOn();
-		ContentUIManager::MainUI = UIManager;
+		ContentUIManager::MainUI = CreateActor<ContentUIManager>(0);
+		ContentUIManager::MainUI->OverOn();
+	}
 
+	if (nullptr == ContentMouse::MainMouse)
+	{
 		ContentMouse::MainMouse = CreateActor<ContentMouse>(0);
 		ContentMouse::MainMouse->OverOn();
 	}

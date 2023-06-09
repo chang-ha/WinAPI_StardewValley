@@ -51,7 +51,7 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_ItemCollision->SetCollisionScale(_Item->Texture->GetScale() * RENDERRATIO);
 
 		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
-		_ItemCountRenderer->SetText(std::to_string(_Item->GetItemCount()), 20, "Sandoll 미생");
+		_ItemCountRenderer->SetText(" ");
 		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
 		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
@@ -270,6 +270,10 @@ void ContentInventory::Update(float _Delta)
 			continue;
 		}
 
+		if (1 == AllItem[x]->GetItemCount())
+		{
+			continue;
+		}
 		ItemCountRenderer[x]->SetText(std::to_string(AllItem[x]->GetItemCount()), 20, "Sandoll 미생");
 	}
 
