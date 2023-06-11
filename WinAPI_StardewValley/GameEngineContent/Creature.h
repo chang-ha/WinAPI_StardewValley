@@ -18,18 +18,11 @@ public:
 
 	void Init(const std::string& _FileName);
 
-	float4 GetScale()
-	{
-		return Scale;
-	}
-
 	GameEngineRenderer* Renderer = nullptr;
 protected:
 
 private:
 	GameEngineWindowTexture* Texture = nullptr;
-	std::string FileName = "";
-	float4 Scale = float4::ZERO;
 
 	void Start() override;
 	void Update(float _Delta) override;

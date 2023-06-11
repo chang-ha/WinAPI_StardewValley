@@ -173,6 +173,7 @@ void Player::IdleUpdate(float _DeltaTime)
 
 void Player::RunUpdate(float _DeltaTime)
 {
+	// Change To Idle
 	if (true == GameEngineInput::IsFree('A')
 		&& true == GameEngineInput::IsFree('W')
 		&& true == GameEngineInput::IsFree('S')
@@ -204,7 +205,7 @@ void Player::RunUpdate(float _DeltaTime)
 	}
 
 	static float PerTime = 0.2f;
-	if (PrevTileColor != CurTileColor && PerTime < 0.0f)
+	if (PrevTileColor != CurTileColor && 0.0f > PerTime)
 	{
 		PrevTileColor = CurTileColor;
 		EffectPlayer.Stop();

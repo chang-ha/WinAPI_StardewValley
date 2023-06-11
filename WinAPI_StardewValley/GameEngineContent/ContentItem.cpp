@@ -41,7 +41,7 @@ void ContentItem::Init(const std::string& _FileName, ItemType _Type)
 
 void ContentItem::Start()
 {
-	Renderer = CreateRenderer(RenderOrder::PlayOver);
+	Renderer = CreateRenderer(RenderOrder::PlayBelow);
 	Collision = CreateCollision(CollisionOrder::Item);
 	if (nullptr == GameEngineSound::FindSound("coin.wav"))
 	{

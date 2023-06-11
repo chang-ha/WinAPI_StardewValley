@@ -42,7 +42,7 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		Player::MainPlayer->SetPos({ Back->GetRenderScale().X * 0.8055f, Back->GetRenderScale().Y * 0.225f });
 		Player::MainPlayer->SetDir(PlayerDir::Down);
-		GetMainCamera()->SetPos(Player::MainPlayer->GetPos() - GlobalValue::WinScale.Half());
+		GetMainCamera()->SetPos(Player::MainPlayer->GetPos() - GlobalValue::WinScale * 0.55f);
 	}
 
 	// _PrveLevel == BusStation
