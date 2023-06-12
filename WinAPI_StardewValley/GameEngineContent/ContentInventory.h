@@ -5,7 +5,7 @@
 
 class GameEngineRenderer;
 class ContentItem;
-struct InventoryItemData
+class InventoryItemData
 {
 public:
 	ContentItem* Item = nullptr;
