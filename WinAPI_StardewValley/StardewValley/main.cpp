@@ -6,7 +6,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-    _CrtSetBreakAlloc(7986);
+    // _CrtSetBreakAlloc(7986);
     GameEngineCore::EngineStart<StardewValleyCore>("StardewValley", hInstance);
     return 0;
 }
