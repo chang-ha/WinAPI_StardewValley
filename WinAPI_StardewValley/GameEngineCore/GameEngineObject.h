@@ -37,7 +37,7 @@ public:
 		IsDeathValue = true;
 	}
 
-	bool IsUpdate()
+	virtual bool IsUpdate()
 	{
 		return true == IsUpdateValue && false == IsDeathValue;
 	}

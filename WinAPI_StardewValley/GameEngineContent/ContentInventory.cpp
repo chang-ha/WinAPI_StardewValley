@@ -54,15 +54,15 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
 		_ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
 		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
+		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
 		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Inventory_Item);
 		_ItemCollision->SetCollisionScale(_Item->Texture->GetScale() * RENDERRATIO);
+		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
 		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
 		_ItemCountRenderer->SetText(" ");
-		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
-		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
 		AllItem[PushIndex] = new InventoryItemData();
 		AllItem[PushIndex]->Item = _Item;
