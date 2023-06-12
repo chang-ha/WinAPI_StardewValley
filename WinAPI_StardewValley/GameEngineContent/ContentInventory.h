@@ -5,6 +5,16 @@
 
 class GameEngineRenderer;
 class ContentItem;
+struct InventoryItem
+{
+	friend class ContentInventory;
+private:
+	ContentItem* Item;
+	GameEngineRenderer* ItemRenderer;
+	GameEngineCollision* ItemCollision;
+	GameEngineRenderer* ItemCountRenderer;
+};
+
 class ContentInventory : public GameEngineActor
 {
 public:
@@ -32,7 +42,7 @@ public:
 
 	ContentItem* GetCurItem()
 	{
-		return AllItem[CurIndex];
+		return AllItem[CurIndex]->Item;
 	}
 
 protected:
@@ -47,9 +57,6 @@ private:
 	int CurIndex = 0;
 	float PosSettingValue = 0.0f;
 
-	std::vector<ContentItem*> AllItem;
-	std::vector<GameEngineRenderer*> ItemRenderer;
-	std::vector<GameEngineCollision*> ItemCollision;
-	std::vector<GameEngineRenderer*> ItemCountRenderer;
+	std::vector<InventoryItem*> AllItem;
 };
 

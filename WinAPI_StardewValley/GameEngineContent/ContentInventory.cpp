@@ -27,6 +27,14 @@ ContentInventory::ContentInventory()
 
 ContentInventory::~ContentInventory()
 {
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		if (nullptr != AllItem[x])
+		{
+			delete AllItem[x];
+			AllItem[x] = nullptr;
+		}
+	}
 
 }
 
@@ -56,10 +64,11 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
 		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
-		AllItem[PushIndex] = _Item;
-		ItemRenderer[PushIndex] = _ItemRenderer;
-		ItemCollision[PushIndex] = _ItemCollision;
-		ItemCountRenderer[PushIndex] = _ItemCountRenderer;
+		AllItem[PushIndex] = new InventoryItem();
+		AllItem[PushIndex]->Item = _Item;
+		AllItem[PushIndex]->ItemRenderer = _ItemRenderer;
+		AllItem[PushIndex]->ItemCollision = _ItemCollision;
+		AllItem[PushIndex]->ItemCountRenderer = _ItemCountRenderer;
 	}
 	else if (nullptr != Find)
 	{
@@ -94,10 +103,10 @@ ContentItem* ContentInventory::FindItem(const ContentItem* _Item, int _ResultInd
 			continue;
 		}
 
-		if (AllItem[x]->GetItemName() == _Item->GetItemName())
+		if (AllItem[x]->Item->GetItemName() == _Item->GetItemName())
 		{
 			_ResultIndex = x;
-			return  AllItem[x];
+			return  AllItem[x]->Item;
 		}
 	}
 	_ResultIndex = -1;
@@ -118,15 +127,16 @@ int ContentInventory::BlankSpace()
 
 void ContentInventory::SetPosInventoryItem()
 {
-	for (int x = 0; x < ItemRenderer.size(); x++)
+	for (int x = 0; x < AllItem.size(); x++)
 	{
-		if (nullptr == ItemRenderer[x])
+		if (nullptr == AllItem[x])
 		{
 			continue;
 		}
-		ItemRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
-		ItemCollision[x]->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue )});
-		ItemCountRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
+
+		AllItem[x]->ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+		AllItem[x]->ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue )});
+		AllItem[x]->ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
 	}
 }
 
@@ -134,16 +144,10 @@ void ContentInventory::Start()
 {
 	// Resize Vector
 	AllItem.resize(MAXSIZE);
-	ItemRenderer.resize(MAXSIZE);
-	ItemCollision.resize(MAXSIZE);
-	ItemCountRenderer.resize(MAXSIZE);
 
 	for (int x = 0; x < AllItem.size(); x++)
 	{
 		AllItem[x] = nullptr;
-		ItemRenderer[x] = nullptr;
-		ItemCollision[x] = nullptr;
-		ItemCountRenderer[x] = nullptr;
 	}
 
 	// Texture Load
@@ -181,7 +185,6 @@ void ContentInventory::Start()
 	CurIndexRenderer->SetRenderScaleToTexture();
 
 	// Inventory Text
-	// "Sandoll 미생" 출력을 원하면 해당 컴퓨터에 폰트 깔아야함
 	NameText = CreateUIRenderer(RenderOrder::UI);
 	NameText->SetText("Player", 40, "Sandoll 미생");
 	NameText->SetRenderScale({ 100, 40 });
@@ -234,28 +237,28 @@ void ContentInventory::Update(float _Delta)
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
 	// CollisionPos Update
-	for (int x = 0; x < ItemCollision.size(); x++)
+	for (int x = 0; x < AllItem.size(); x++)
 	{
-		if (nullptr == ItemCollision[x])
+		if (nullptr == AllItem[x])
 		{
 			continue;
 		}
-		ItemCollision[x]->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+		AllItem[x]->ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 	}
 
 	// ItemCountRenderer Update
-	for (int x = 0; x < ItemCountRenderer.size(); x++)
+	for (int x = 0; x < AllItem.size(); x++)
 	{
-		if (nullptr == ItemCountRenderer[x])
+		if (nullptr == AllItem[x])
 		{
 			continue;
 		}
 
-		if (1 == AllItem[x]->GetItemCount())
+		if (1 == AllItem[x]->Item->GetItemCount())
 		{
 			continue;
 		}
-		ItemCountRenderer[x]->SetText(std::to_string(AllItem[x]->GetItemCount()), 20, "Sandoll 미생");
+		AllItem[x]->ItemCountRenderer->SetText(std::to_string(AllItem[x]->Item->GetItemCount()), 20, "Sandoll 미생");
 	}
 
 	// Inventory On/Off
