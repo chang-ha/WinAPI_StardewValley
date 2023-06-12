@@ -233,6 +233,26 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
+	// Mouse Interaction
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		if (nullptr == AllItem[x])
+		{
+			continue;
+		}
+
+		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
+			&& true == GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			ContentMouse::MainMouse->GetItemRenderer()->SetTexture(AllItem[x]->Item->ItemName);
+			ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale()*RENDERRATIO);
+			ContentMouse::MainMouse->GetItemRenderer()->On();
+			AllItem[x]->ItemRenderer->Off();
+			AllItem[x]->ItemCollision->Off();
+			AllItem[x]->ItemCountRenderer->Off();
+		}
+	}
+
 	// CurIndexRenderer
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 

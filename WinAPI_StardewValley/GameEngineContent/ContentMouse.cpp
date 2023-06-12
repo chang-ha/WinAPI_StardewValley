@@ -24,6 +24,8 @@ void ContentMouse::Start()
 {
 	MouseRenderer = CreateUIRenderer(RenderOrder::UIMouse);
 	MouseCollision = CreateCollision(CollisionOrder::UIMouse);
+	ItemRenderer = CreateUIRenderer(RenderOrder::UI);
+	ItemRenderer->Off();
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Cursor01.bmp"))
 	{
 		GameEnginePath FilePath;

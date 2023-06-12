@@ -37,6 +37,17 @@ public:
 	{
 		return MouseCollision;
 	}
+
+	GameEngineRenderer* GetItemRenderer()
+	{
+		return ItemRenderer;
+	}
+
+	void SetItemRenderer(GameEngineRenderer* _ItemRenderer)
+	{
+		ItemRenderer = _ItemRenderer;
+	}
+
 protected:
 
 private:
@@ -44,10 +55,9 @@ private:
 	GameEngineRenderer* MouseRenderer = nullptr;
 	GameEngineCollision* MouseCollision = nullptr;
 
+	GameEngineRenderer* ItemRenderer = nullptr;
+
 	// ContentInventory* InteractionInventory;
 	// int InteractionIndex;
-
-	// GameEngineRenderer* ItemRenderer = nullptr;
-	
 };
 

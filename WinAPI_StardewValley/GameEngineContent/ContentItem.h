@@ -68,7 +68,8 @@ private:
 
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
-	GameEngineCollision* Collision = nullptr;	std::vector<GameEngineCollision*> _CollisionResult;
+	GameEngineCollision* Collision = nullptr;	
+	std::vector<GameEngineCollision*> _CollisionResult;
 	std::string ItemName = "";
 	int ItemCount = 1;
 	ItemType Type = ItemType::NotItem;

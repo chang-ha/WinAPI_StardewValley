@@ -57,8 +57,8 @@ void ContentItem::Start()
 
 void ContentItem::RandomVector()
 {
-	StartDir.X = GameEngineRandom::MainRandom.RandomInt(0, 150) - 75;
-	StartDir.Y = -GameEngineRandom::MainRandom.RandomInt(180, 200);
+	StartDir.X = static_cast<float>(GameEngineRandom::MainRandom.RandomInt(0, 150) - 75);
+	StartDir.Y = static_cast<float>(- GameEngineRandom::MainRandom.RandomInt(180, 200));
 }
 
 void ContentItem::Update(float _Delta)
