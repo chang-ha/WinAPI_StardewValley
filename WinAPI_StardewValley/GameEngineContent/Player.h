@@ -34,7 +34,7 @@ enum PlayerDir
 
 class TileMap;
 class ContentItem;
-struct InventoryItemData;
+class InventoryItemData;
 class Player : public ContentActor
 {
 public:

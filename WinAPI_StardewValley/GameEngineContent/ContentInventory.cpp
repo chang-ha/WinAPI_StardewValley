@@ -48,7 +48,6 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		// Item Off
 		_Item->Off();
 		_Item->Collision->Off();
-		_Item->Renderer->Off();
 		
 		// Inventory Item & ItemCount Renderer
 		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
