@@ -34,6 +34,7 @@ enum PlayerDir
 
 class TileMap;
 class ContentItem;
+struct InventoryItemData;
 class Player : public ContentActor
 {
 public:
@@ -109,7 +110,7 @@ private:
 	int CurTileColor = 0;
 	GameEngineWindowTexture* CollisionTexture = nullptr;
 	std::vector<GameEngineCollision*> CollisionResult;
-	ContentItem* CurItem = nullptr;
+	InventoryItemData* CurItem = nullptr;
 
 	// State Start
 	void IdleStart();

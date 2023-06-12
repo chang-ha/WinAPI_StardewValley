@@ -52,7 +52,7 @@ public:
 		return Type;
 	}
 
-	void StartRandonVector();
+	void RandomVector();
 
 	void Init(const std::string& _FileName, ItemType _Type);
 
@@ -63,13 +63,12 @@ protected:
 	void LevelEnd() override;
 
 private:
-	float Time = 1.0f;
+	float MoveTime = 1.0f;
 	float4 StartDir= {};
 
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
-	GameEngineCollision* Collision = nullptr;
-	std::vector<GameEngineCollision*> _CollisionResult;
+	GameEngineCollision* Collision = nullptr;	std::vector<GameEngineCollision*> _CollisionResult;
 	std::string ItemName = "";
 	int ItemCount = 1;
 	ItemType Type = ItemType::NotItem;

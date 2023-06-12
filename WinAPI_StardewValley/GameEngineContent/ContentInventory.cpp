@@ -64,7 +64,7 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
 		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
-		AllItem[PushIndex] = new InventoryItem();
+		AllItem[PushIndex] = new InventoryItemData();
 		AllItem[PushIndex]->Item = _Item;
 		AllItem[PushIndex]->ItemRenderer = _ItemRenderer;
 		AllItem[PushIndex]->ItemCollision = _ItemCollision;

@@ -55,21 +55,21 @@ void ContentItem::Start()
 	}
 }
 
-void ContentItem::StartRandonVector()
+void ContentItem::RandomVector()
 {
-	StartDir.X = GameEngineRandom::MainRandom.RandomInt(0, 50) - 25;
-	StartDir.Y = -GameEngineRandom::MainRandom.RandomInt(20, 100);
+	StartDir.X = GameEngineRandom::MainRandom.RandomInt(0, 150) - 75;
+	StartDir.Y = -GameEngineRandom::MainRandom.RandomInt(180, 200);
 }
-
 
 void ContentItem::Update(float _Delta)
 {
-	if (GetLiveTime() >= Time)
+	if (GetLiveTime() <= MoveTime)
 	{
 		StartDir.Y += 200.0f * _Delta;
+		AddPos(StartDir * _Delta);
 	}
 
-	if (GetLiveTime() >= Time && false == ContentInventory::MainInventory->IsFull(this))
+	if (GetLiveTime() >= MoveTime && false == ContentInventory::MainInventory->IsFull(this))
 	{
 		float4 Dir = Player::MainPlayer->GetPos() - GetPos();
 		if (true == Collision->CollisionCheck(Player::MainPlayer->GetBodyCollision(), CollisionType::Rect, CollisionType::Rect))

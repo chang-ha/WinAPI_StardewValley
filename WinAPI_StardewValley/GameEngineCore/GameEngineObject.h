@@ -9,7 +9,7 @@ class GameEngineObject
 public:
 	// constructer destructer
 	GameEngineObject();
-	~GameEngineObject();
+	virtual ~GameEngineObject();
 
 	// delete function
 	GameEngineObject(const GameEngineObject& _Ohter) = delete;
