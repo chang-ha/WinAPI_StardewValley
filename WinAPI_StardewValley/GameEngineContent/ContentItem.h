@@ -52,6 +52,8 @@ public:
 		return Type;
 	}
 
+	void StartRandonVector();
+
 	void Init(const std::string& _FileName, ItemType _Type);
 
 protected:
@@ -61,6 +63,9 @@ protected:
 	void LevelEnd() override;
 
 private:
+	float Time = 1.0f;
+	float4 StartDir= {};
+
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineCollision* Collision = nullptr;

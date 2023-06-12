@@ -12,7 +12,7 @@ public:
 
 	// constructer destructer
 	ContentInventory();
-	~ContentInventory();
+	~ContentInventory() override;
 
 	// delete function
 	ContentInventory(const ContentInventory& _Ohter) = delete;
@@ -23,8 +23,6 @@ public:
 	bool IsFull(const ContentItem* _Item);
 
 	void PushItem(ContentItem* _Item);
-
-	void PopItem(int _ItemIndex);
 
 	ContentItem* FindItem(const ContentItem* _Item, int _ResultIndex = 0);
 

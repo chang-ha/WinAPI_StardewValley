@@ -43,5 +43,11 @@ private:
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineRenderer* MouseRenderer = nullptr;
 	GameEngineCollision* MouseCollision = nullptr;
+
+	// ContentInventory* InteractionInventory;
+	// int InteractionIndex;
+
+	// GameEngineRenderer* ItemRenderer = nullptr;
+	
 };
 

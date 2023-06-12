@@ -58,9 +58,9 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
-	std::string PrevLevel = "";
-	std::string NextLevel = "";
-	std::string Building = "";
+	// std::string PrevLevel = "";
+	// std::string NextLevel = "";
+	// std::string Building = "";
 private:
 };
 

@@ -1,4 +1,6 @@
-﻿#include <GameEnginePlatform/GameEngineWindowTexture.h>
+﻿#include <GameEngineBase/GameEngineRandom.h>
+
+#include <GameEnginePlatform/GameEngineWindowTexture.h>
 
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -53,9 +55,21 @@ void ContentItem::Start()
 	}
 }
 
+void ContentItem::StartRandonVector()
+{
+	StartDir.X = GameEngineRandom::MainRandom.RandomInt(0, 50) - 25;
+	StartDir.Y = -GameEngineRandom::MainRandom.RandomInt(20, 100);
+}
+
+
 void ContentItem::Update(float _Delta)
 {
-	if (GetLiveTime() >= 1.0f && false == ContentInventory::MainInventory->IsFull(this))
+	if (GetLiveTime() >= Time)
+	{
+		StartDir.Y += 200.0f * _Delta;
+	}
+
+	if (GetLiveTime() >= Time && false == ContentInventory::MainInventory->IsFull(this))
 	{
 		float4 Dir = Player::MainPlayer->GetPos() - GetPos();
 		if (true == Collision->CollisionCheck(Player::MainPlayer->GetBodyCollision(), CollisionType::Rect, CollisionType::Rect))

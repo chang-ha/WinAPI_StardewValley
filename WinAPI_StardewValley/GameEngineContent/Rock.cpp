@@ -43,7 +43,7 @@ void Rock::Update(float _Delta)
 		{
 			ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 			Item->Init("Rock.bmp", ItemType::Resources);
-			Item->SetPos(GetPos() + float4{ x * RENDERRATIO * 8, 0 });
+			Item->StartRandonVector();
 		}
 		Death();
 	}
