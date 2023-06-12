@@ -57,7 +57,7 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
 		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Inventory_Item);
-		_ItemCollision->SetCollisionScale(_Item->Texture->GetScale() * RENDERRATIO);
+		_ItemCollision->SetCollisionScale(_Item->Texture->GetScale());
 		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
 		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
@@ -76,6 +76,21 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_Item->Death();
 	}
 
+}
+
+void ContentInventory::PopItem(int _Index)
+{
+	if (nullptr == AllItem[_Index])
+	{
+		return;
+	}
+
+	AllItem[_Index]->ItemRenderer->Death();
+	AllItem[_Index]->ItemCollision->Death();
+	AllItem[_Index]->ItemCountRenderer->Death();
+	AllItem[_Index]->Item->Death();
+	delete AllItem[_Index];
+	AllItem[_Index] = nullptr;
 }
 	
 bool ContentInventory::IsFull(const ContentItem* _Item)
@@ -233,26 +248,6 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
-	// Mouse Interaction
-	for (int x = 0; x < AllItem.size(); x++)
-	{
-		if (nullptr == AllItem[x])
-		{
-			continue;
-		}
-
-		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
-			&& true == GameEngineInput::IsDown(VK_LBUTTON))
-		{
-			ContentMouse::MainMouse->GetItemRenderer()->SetTexture(AllItem[x]->Item->ItemName);
-			ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale()*RENDERRATIO);
-			ContentMouse::MainMouse->GetItemRenderer()->On();
-			AllItem[x]->ItemRenderer->Off();
-			AllItem[x]->ItemCollision->Off();
-			AllItem[x]->ItemCountRenderer->Off();
-		}
-	}
-
 	// CurIndexRenderer
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
@@ -307,6 +302,24 @@ void ContentInventory::Update(float _Delta)
 			Player::MainPlayer->SetIsUpdate(false);
 			Player::MainPlayer->ChangeState(PlayerState::Idle);
 			Player::MainPlayer->EffectPlayer.Stop();
+		}
+	}
+
+	// Mouse Interaction
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		if (nullptr == AllItem[x])
+		{
+			continue;
+		}
+
+		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
+			&& true == GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			ContentMouse::MainMouse->GetItemRenderer()->SetTexture(AllItem[x]->Item->ItemName);
+			ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale() * RENDERRATIO);
+			ContentMouse::MainMouse->GetItemRenderer()->On();
+			PopItem(x);
 		}
 	}
 }
