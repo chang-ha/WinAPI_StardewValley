@@ -7,6 +7,7 @@
 
 class GameEngineWindowTexture;
 class ContentLevel;
+class InventoryItemData;
 class ContentMouse : public GameEngineActor
 {
 	friend ContentLevel;
@@ -42,12 +43,21 @@ public:
 	{
 		return ItemRenderer;
 	}
-
+	
 	void SetItemRenderer(GameEngineRenderer* _ItemRenderer)
 	{
 		ItemRenderer = _ItemRenderer;
 	}
 
+	InventoryItemData* GetPickItem()
+	{
+		return PickItem;
+	}
+
+	void SetPickItem(InventoryItemData* _PickItem)
+	{
+		PickItem = _PickItem;
+	}
 protected:
 
 private:
@@ -56,8 +66,9 @@ private:
 	GameEngineCollision* MouseCollision = nullptr;
 
 	GameEngineRenderer* ItemRenderer = nullptr;
+	InventoryItemData* PickItem = nullptr;
 
 	// ContentInventory* InteractionInventory;
-	// int InteractionIndex;
+	// int PrevIndex;
 };
 

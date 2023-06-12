@@ -77,6 +77,22 @@ void ContentInventory::PushItem(ContentItem* _Item)
 
 }
 
+void ContentInventory::PushItem(InventoryItemData* _ItemData)
+{
+	ContentItem* Find = FindItem(_ItemData->Item);
+	if (nullptr == Find)
+	{
+		int PushIndex = BlankSpace();
+
+		_ItemData->ItemCountRenderer->On();
+		_ItemData->ItemCollision->On();
+		_ItemData->ItemRenderer->On();
+
+		AllItem[PushIndex] = _ItemData;
+	}
+}
+
+
 void ContentInventory::PopItem(int _Index)
 {
 	if (nullptr == AllItem[_Index])
@@ -305,6 +321,15 @@ void ContentInventory::Update(float _Delta)
 	}
 
 	// Mouse Interaction
+	static float PerTime = 0.0f;
+	if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && true == GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		PushItem(ContentMouse::MainMouse->GetPickItem());
+		ContentMouse::MainMouse->GetItemRenderer()->Off();
+		ContentMouse::MainMouse->SetPickItem(nullptr);
+		PerTime = 0.5f;
+	}
+
 	for (int x = 0; x < AllItem.size(); x++)
 	{
 		if (nullptr == AllItem[x])
@@ -313,12 +338,18 @@ void ContentInventory::Update(float _Delta)
 		}
 
 		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
-			&& true == GameEngineInput::IsDown(VK_LBUTTON))
+			&& true == GameEngineInput::IsDown(VK_LBUTTON) && 0.0f >= PerTime)
 		{
 			ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
 			ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale() * RENDERRATIO);
 			ContentMouse::MainMouse->GetItemRenderer()->On();
-			PopItem(x);
+
+			ContentMouse::MainMouse->SetPickItem(AllItem[x]);
+			AllItem[x]->ItemCollision->Off();
+			AllItem[x]->ItemRenderer->Off();
+			AllItem[x]->ItemCountRenderer->Off();
+			AllItem[x] = nullptr;
 		}
 	}
+	PerTime -= _Delta;
 }
