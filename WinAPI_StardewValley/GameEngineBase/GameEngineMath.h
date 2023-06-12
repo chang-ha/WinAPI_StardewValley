@@ -177,5 +177,18 @@ protected:
 
 private:
 
+
+	public:
+		float PI = 3.141592f;
+
+		inline float4 GetUnitVectorFromAngle(const float _Degree)
+		{
+			float Angle = _Degree * (PI / 180.0f);
+
+			float Base = static_cast<float>(cos(Angle));
+			float Height = static_cast<float>(sin(Angle));
+
+			return float4{ Base , Height };
+		}
 };
 

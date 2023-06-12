@@ -79,6 +79,9 @@
     <ClInclude Include="ContentUIManager.h">
       <Filter>Global\UI</Filter>
     </ClInclude>
+    <ClInclude Include="FadeObject.h">
+      <Filter>Global\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -157,6 +160,9 @@
       <Filter>Level\05. FarmMap\Resources</Filter>
     </ClCompile>
     <ClCompile Include="ContentUIManager.cpp">
+      <Filter>Global\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeObject.cpp">
       <Filter>Global\UI</Filter>
     </ClCompile>
   </ItemGroup>
