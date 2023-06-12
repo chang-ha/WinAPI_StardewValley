@@ -24,7 +24,7 @@ public:
 
 	void PushItem(ContentItem* _Item);
 
-	// void PopItem(ContentItem* _Item);
+	void PopItem(int _ItemIndex);
 
 	ContentItem* FindItem(const ContentItem* _Item, int _ResultIndex = 0);
 

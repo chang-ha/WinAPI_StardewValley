@@ -69,24 +69,22 @@ void ContentInventory::PushItem(ContentItem* _Item)
 
 }
 
-//void ContentInventory::PopItem(ContentItem* _Item)
-//{
-//	int ItemIndex = 0;
-//	ContentItem* Find = FindItem(_Item, ItemIndex);
-//	if (nullptr == Find)
-//	{
-//		return;
-//	}
-//
-//	AllItem[ItemIndex]->Death();
-//	ItemRenderer[ItemIndex]->Death();
-//	ItemCollision[ItemIndex]->Death();
-//	ItemCountRenderer[ItemIndex]->Death();
-//	AllItem[ItemIndex] = nullptr;
-//	ItemRenderer[ItemIndex] = nullptr;
-//	ItemCollision[ItemIndex] = nullptr;
-//	ItemCountRenderer[ItemIndex] = nullptr;
-//}
+void ContentInventory::PopItem(int _ItemIndex)
+{
+	if (nullptr == AllItem[_ItemIndex])
+	{
+		return;
+	}
+
+	AllItem[_ItemIndex]->Death();
+	ItemRenderer[_ItemIndex]->Death();
+	ItemCollision[_ItemIndex]->Death();
+	ItemCountRenderer[_ItemIndex]->Death();
+	AllItem[_ItemIndex] = nullptr;
+	ItemRenderer[_ItemIndex] = nullptr;
+	ItemCollision[_ItemIndex] = nullptr;
+	ItemCountRenderer[_ItemIndex] = nullptr;
+}
 	
 bool ContentInventory::IsFull(const ContentItem* _Item)
 {
@@ -246,6 +244,21 @@ void ContentInventory::Update(float _Delta)
 		if (12 == CurIndex)
 		{
 			CurIndex = 0;
+		}
+	}
+
+	// Mouse Interaction
+	for (int x = 0; x < ItemCollision.size(); x++)
+	{
+		if (nullptr == ItemCollision[x])
+		{
+			continue;
+		}
+
+		if (true == ItemCollision[x]->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect , CollisionType::Rect)
+			&& true == GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			PopItem(x);
 		}
 	}
 

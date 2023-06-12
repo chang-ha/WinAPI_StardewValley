@@ -37,9 +37,6 @@
     <ClInclude Include="StardewValleyCore.h">
       <Filter>ContentCore</Filter>
     </ClInclude>
-    <ClInclude Include="ContentUIManager.h">
-      <Filter>ContentCore</Filter>
-    </ClInclude>
     <ClInclude Include="ShippingBin.h">
       <Filter>Level\05. FarmMap</Filter>
     </ClInclude>
@@ -79,6 +76,9 @@
     <ClInclude Include="Tree.h">
       <Filter>Level\05. FarmMap\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="ContentUIManager.h">
+      <Filter>Global\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -112,9 +112,6 @@
       <Filter>ContentCore</Filter>
     </ClCompile>
     <ClCompile Include="StardewValleyCore.cpp">
-      <Filter>ContentCore</Filter>
-    </ClCompile>
-    <ClCompile Include="ContentUIManager.cpp">
       <Filter>ContentCore</Filter>
     </ClCompile>
     <ClCompile Include="ShippingBin.cpp">
@@ -158,6 +155,9 @@
     </ClCompile>
     <ClCompile Include="Tree.cpp">
       <Filter>Level\05. FarmMap\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentUIManager.cpp">
+      <Filter>Global\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
