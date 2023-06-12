@@ -49,15 +49,15 @@ public:
 		ItemRenderer = _ItemRenderer;
 	}
 
-	InventoryItemData* GetPickItem()
-	{
-		return PickItem;
-	}
+	//InventoryItemData* GetPickItem()
+	//{
+	//	return PickItem;
+	//}
 
-	void SetPickItem(InventoryItemData* _PickItem)
-	{
-		PickItem = _PickItem;
-	}
+	//void SetPickItem(InventoryItemData* _PickItem)
+	//{
+	//	PickItem = _PickItem;
+	//}
 protected:
 
 private:
@@ -66,7 +66,7 @@ private:
 	GameEngineCollision* MouseCollision = nullptr;
 
 	GameEngineRenderer* ItemRenderer = nullptr;
-	InventoryItemData* PickItem = nullptr;
+	// InventoryItemData* PickItem = nullptr;
 
 	// ContentInventory* InteractionInventory;
 	// int PrevIndex;

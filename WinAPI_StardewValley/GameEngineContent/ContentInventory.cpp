@@ -321,14 +321,14 @@ void ContentInventory::Update(float _Delta)
 	}
 
 	// Mouse Interaction
-	static float PerTime = 0.0f;
-	if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && true == GameEngineInput::IsDown(VK_LBUTTON))
-	{
-		PushItem(ContentMouse::MainMouse->GetPickItem());
-		ContentMouse::MainMouse->GetItemRenderer()->Off();
-		ContentMouse::MainMouse->SetPickItem(nullptr);
-		PerTime = 0.5f;
-	}
+	//static float PerTime = 0.0f;
+	//if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && true == GameEngineInput::IsDown(VK_LBUTTON))
+	//{
+	//	PushItem(ContentMouse::MainMouse->GetPickItem());
+	//	ContentMouse::MainMouse->GetItemRenderer()->Off();
+	//	ContentMouse::MainMouse->SetPickItem(nullptr);
+	//	PerTime = 0.5f;
+	//}
 
 	for (int x = 0; x < AllItem.size(); x++)
 	{
@@ -343,13 +343,13 @@ void ContentInventory::Update(float _Delta)
 			ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
 			ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale() * RENDERRATIO);
 			ContentMouse::MainMouse->GetItemRenderer()->On();
+			// ContentMouse::MainMouse->SetPickItem(AllItem[x]);
 
-			ContentMouse::MainMouse->SetPickItem(AllItem[x]);
 			AllItem[x]->ItemCollision->Off();
 			AllItem[x]->ItemRenderer->Off();
 			AllItem[x]->ItemCountRenderer->Off();
 			AllItem[x] = nullptr;
 		}
 	}
-	PerTime -= _Delta;
+	// PerTime -= _Delta;
 }
