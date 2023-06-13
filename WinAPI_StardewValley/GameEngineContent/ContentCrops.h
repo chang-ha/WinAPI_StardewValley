@@ -17,9 +17,11 @@ public:
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
+	void Grow();
 
 	GameEngineRenderer* CropsRenderer = nullptr;
 	int GrowStep = 0;
+	int MaxGrowStep = 5;
 private:
 
 };
