@@ -113,8 +113,6 @@ void Farm::Start()
 
 		FarmWateringTileMap = CreateActor<TileMap>(UpdateOrder::Player);
 		FarmWateringTileMap->CreateTileMap("waterDirt.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::BackGround));
-
-
 	}
 
 	// Shipping Box
@@ -222,8 +220,9 @@ void Farm::GroundSeeding(ContentItem* _SeedItem)
 {
 	int Index_X = Player::MainPlayer->TileLimit().iX();
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
+	std::vector<GameEngineCollision*> _CollisionResult;
 	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y)
-		)
+		&& false == Player::MainPlayer->ToolCollision->Collision(CollisionOrder::Crops, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
 		ContentCrops* Crops = CreateActor<ContentCrops>();
 		Crops->SetPos(FarmTileMap->IndexToPos(Index_X, Index_Y));

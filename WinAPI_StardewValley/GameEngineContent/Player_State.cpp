@@ -132,7 +132,12 @@ void Player::IdleUpdate(float _DeltaTime)
 			Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 			if (nullptr != _Farm)
 			{
+				float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
+				ToolCollision = CreateCollision(CollisionOrder::Axe);
+				ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
+				ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
 				_Farm->GroundSeeding(CurItem);
+				ToolCollision->Death();
 			}
 			return;
 		}
