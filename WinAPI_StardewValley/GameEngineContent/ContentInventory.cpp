@@ -321,6 +321,7 @@ void ContentInventory::Update(float _Delta)
 				AllItem[x]->ItemCountRenderer->SetText(" ");
 				AllItem[x]->ItemRenderer->Death();
 				AllItem[x]->ItemRenderer = nullptr;
+				AllItem[x]->Item = nullptr;
 			}
 			else if (nullptr != AllItem[x]->ItemRenderer && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{

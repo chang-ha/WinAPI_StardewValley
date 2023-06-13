@@ -43,9 +43,9 @@ public:
 
 	void SetPosInventoryItem();
 
-	InventoryItemData* GetCurItem()
+	ContentItem* GetCurItem()
 	{
-		return AllItem[CurIndex];
+		return AllItem[CurIndex]->Item;
 	}
 
 protected:

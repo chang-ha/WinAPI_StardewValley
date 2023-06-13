@@ -33,7 +33,7 @@ void Player::ToolStart()
 	float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
 	ChangeAnimationState("Tool1");
 
-	switch (CurItem->Item->GetItemType())
+	switch (CurItem->GetItemType())
 	{
 	case ItemType::Axe:
 		// Tool Axe
@@ -149,11 +149,11 @@ void Player::IdleUpdate(float _DeltaTime)
 			return;
 		}
 
-		if (ItemType::Resources == CurItem->Item->GetItemType())
+		if (ItemType::Resources == CurItem->GetItemType())
 		{
 			return;
 		}
-		else if (ItemType::WateringCan == CurItem->Item->GetItemType())
+		else if (ItemType::WateringCan == CurItem->GetItemType())
 		{
 			ToolDirCheck();
 			ChangeState(PlayerState::Tool2);
