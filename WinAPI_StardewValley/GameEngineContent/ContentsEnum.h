@@ -34,6 +34,7 @@ enum class CollisionOrder
 	WateringCan,
 	Resources,
 	Item,
+	Crops,
 	Button,
 	UI,
 	Inventory_Item,

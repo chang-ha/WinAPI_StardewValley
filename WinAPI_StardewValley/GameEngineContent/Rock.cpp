@@ -45,7 +45,7 @@ void Rock::Update(float _Delta)
 		{
 			ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 			Item->Init("Rock.bmp", ItemType::Resources);
-			Item->SetPos(GetPos());
+			Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO);
 			Item->RandomVector();
 		}
 		Death();

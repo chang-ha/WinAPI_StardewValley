@@ -16,6 +16,11 @@ ContentResources::~ContentResources()
 
 }
 
+void ContentResources::Start()
+{
+
+}
+
 void ContentResources::Init(const std::string& _FileName)
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
@@ -28,8 +33,10 @@ void ContentResources::Init(const std::string& _FileName)
 	}
 	Renderer = CreateRenderer(_FileName, RenderOrder::BackGround);
 	Renderer->SetTexture(_FileName);
+	Renderer->SetRenderPos(TILESIZE.Half() * RENDERRATIO);
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	Collision = CreateCollision(CollisionOrder::Resources);
+	Collision->SetCollisionPos(TILESIZE.Half() * RENDERRATIO);
 	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
 }
 

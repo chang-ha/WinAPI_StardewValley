@@ -24,6 +24,7 @@ Tree::~Tree()
 void Tree::Init(const std::string& _FileName)
 {
 	ContentResources::Init(_FileName);
+	Renderer->SetRenderPos((TILESIZE.Half() - float4{0, 2})* RENDERRATIO);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("UpperPart_" + _FileName))
 	{
 		GameEnginePath FilePath;
@@ -43,7 +44,7 @@ void Tree::Init(const std::string& _FileName)
 	}
 	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::PlayOver);
 	UpperPart->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-	UpperPart->SetRenderPos({ 0, -36 * RENDERRATIO });
+	UpperPart->SetRenderPos((TILESIZE.Half() - float4{ 0, 38 }) * RENDERRATIO);
 }
 
 

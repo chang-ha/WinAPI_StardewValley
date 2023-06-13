@@ -118,15 +118,15 @@ void Farm::Start()
 
 	Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 	FarmTree->Init("Tree.bmp");
-	FarmTree->SetPos(FarmTileMap->IndexToPos(60, 20) + TILESIZE.Half() * RENDERRATIO);
+	FarmTree->SetPos(FarmTileMap->IndexToPos(60, 20));
 
 	Rock* FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 	FarmRock->Init("Rock_Small01.bmp");
-	FarmRock->SetPos(FarmTileMap->IndexToPos(65, 20) + TILESIZE.Half() * RENDERRATIO);
+	FarmRock->SetPos(FarmTileMap->IndexToPos(65, 20));
 
 	FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 	FarmRock->Init("Rock_Small02.bmp");
-	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20) + TILESIZE.Half() * RENDERRATIO);
+	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
 
 	ContentCrops* Crop = CreateActor<ContentCrops>();
 	Crop->SetPos(FarmTileMap->IndexToPos(67, 20));

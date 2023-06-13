@@ -20,6 +20,7 @@ protected:
 	void Grow();
 
 	GameEngineRenderer* CropsRenderer = nullptr;
+	GameEngineCollision* CropsCollision = nullptr;
 	int GrowStep = 0;
 	int MaxGrowStep = 5;
 private:

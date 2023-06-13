@@ -4,6 +4,7 @@
 
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "ContentCrops.h"
 #include "GlobalValue.h"
@@ -31,10 +32,10 @@ void ContentCrops::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Crops1.bmp"));
 		ResourcesManager::GetInst().CreateSpriteSheet("Crops1.bmp", 6, 1);
 	}
-	CropsRenderer = CreateRenderer(RenderOrder::PlayBelow);
+	CropsRenderer = CreateRenderer(RenderOrder::BackGround);
 	GrowStep = GameEngineRandom::MainRandom.RandomInt(0, 1);
 	CropsRenderer->SetSprite("Crops1.bmp", GrowStep);
-	CropsRenderer->SetRenderPos({TILESIZE.X, 0});
+	CropsRenderer->SetRenderPos({TILESIZE.hX() * RENDERRATIO, 0});
 	CropsRenderer->SetRenderScale({TILESIZE.X * RENDERRATIO, TILESIZE.Y * 2 * RENDERRATIO});
 } 
 
@@ -63,6 +64,12 @@ void ContentCrops::Grow()
 	}
 
 	CropsRenderer->SetSprite("Crops1.bmp", GrowStep);
+	if (MaxGrowStep == GrowStep)
+	{
+		CropsCollision = CreateCollision(CollisionOrder::Crops);
+		CropsCollision->SetCollisionScale(TILESIZE * RENDERRATIO);
+		CropsCollision->SetCollisionPos(TILESIZE.Half() * RENDERRATIO);
+	}
 }
 
 

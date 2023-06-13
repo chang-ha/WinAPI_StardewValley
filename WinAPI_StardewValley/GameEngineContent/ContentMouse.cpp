@@ -39,7 +39,7 @@ void ContentMouse::Start()
 	MouseRenderer->SetTexture("Cursor01.bmp");
 	MouseRenderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	MouseRenderer->SetRenderPos(Texture->GetScale().Half() * RENDERRATIO);
-	MouseCollision->SetCollisionScale(Texture->GetScale() * RENDERRATIO);
+	MouseCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
 }
 
 void ContentMouse::Update(float _Delta)
