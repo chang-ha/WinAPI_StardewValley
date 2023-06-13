@@ -61,9 +61,6 @@
     <ClInclude Include="GeneralStore.h">
       <Filter>Level\09. Store</Filter>
     </ClInclude>
-    <ClInclude Include="ContentItem.h">
-      <Filter>ContentCore</Filter>
-    </ClInclude>
     <ClInclude Include="PlayOver.h">
       <Filter>Global\Actor</Filter>
     </ClInclude>
@@ -84,6 +81,12 @@
     </ClInclude>
     <ClInclude Include="ContentCrops.h">
       <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentItem.h">
+      <Filter>Global\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentSeed.h">
+      <Filter>Global\Item</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +147,6 @@
     <ClCompile Include="GeneralStore.cpp">
       <Filter>Level\09. Store</Filter>
     </ClCompile>
-    <ClCompile Include="ContentItem.cpp">
-      <Filter>ContentCore</Filter>
-    </ClCompile>
     <ClCompile Include="PlayOver.cpp">
       <Filter>Global\Actor</Filter>
     </ClCompile>
@@ -170,6 +170,12 @@
     </ClCompile>
     <ClCompile Include="ContentCrops.cpp">
       <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentItem.cpp">
+      <Filter>Global\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentSeed.cpp">
+      <Filter>Global\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +229,9 @@
     </Filter>
     <Filter Include="Level\05. FarmMap\Crops">
       <UniqueIdentifier>{c46e94a3-986f-41ae-8810-ea54d79feeaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global\Item">
+      <UniqueIdentifier>{ca863b1a-0713-481b-967c-64051ad8ee94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

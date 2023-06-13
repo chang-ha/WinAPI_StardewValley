@@ -100,16 +100,17 @@ public:
 protected:
 
 private:
-	float Speed = 350.0f;
 	bool IsUpdate = true;
-	PlayerState State = PlayerState::Null;
-	int Dir = PlayerDir::Null;
-	std::string CurState = "";
+	float Speed = 350.0f;
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
-	GameEngineWindowTexture* CollisionTexture = nullptr;
-	std::vector<GameEngineCollision*> CollisionResult;
 	ContentItem* CurItem = nullptr;
+	std::string CurState = "";
+
+	PlayerState State = PlayerState::Null;
+	int Dir = PlayerDir::Null;
+
+	GameEngineWindowTexture* CollisionTexture = nullptr;
 
 	// State Start
 	void IdleStart();

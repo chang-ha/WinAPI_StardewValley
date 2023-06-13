@@ -17,7 +17,11 @@ ContentMouse::ContentMouse()
 
 ContentMouse::~ContentMouse()
 {
-
+	if (nullptr != ContentMouse::MainMouse->GetPickItem())
+	{
+		delete ContentMouse::MainMouse->GetPickItem();
+		ContentMouse::MainMouse->SetPickItem(nullptr);
+	}
 }
 
 void ContentMouse::Start()

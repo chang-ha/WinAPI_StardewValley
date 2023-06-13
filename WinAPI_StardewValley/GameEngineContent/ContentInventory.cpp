@@ -36,11 +36,7 @@ ContentInventory::~ContentInventory()
 		}
 	}
 
-	if (nullptr != ContentMouse::MainMouse->GetPickItem())
-	{
-		delete ContentMouse::MainMouse->GetPickItem();
-		ContentMouse::MainMouse->SetPickItem(nullptr);
-	}
+
 }
 
 void ContentInventory::PushItem(ContentItem* _Item)

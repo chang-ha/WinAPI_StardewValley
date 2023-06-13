@@ -14,6 +14,7 @@ enum ItemType
 	Seed,
 };
 
+class GameEngineWindowTexture;
 class GameEngineRenderer;
 class ContentInventory;
 class ContentItem : public ContentActor

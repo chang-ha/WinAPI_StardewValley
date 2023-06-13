@@ -117,9 +117,9 @@ void Player::IdleUpdate(float _DeltaTime)
 
 	if (true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		if (true == ContentMouse::MainMouse->GetMouseCollision()->Collision(CollisionOrder::Inventory_Item, CollisionResult, CollisionType::Rect, CollisionType::Rect))
+		std::vector<GameEngineCollision*> _CollisionResult;
+		if (true == ContentMouse::MainMouse->GetMouseCollision()->Collision(CollisionOrder::Inventory_Item, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 		{
-			CollisionResult.clear();
 			return;
 		}
 

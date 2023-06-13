@@ -10,6 +10,7 @@
 #include "GlobalValue.h"
 #include "Player.h"
 #include "ContentItem.h"
+#include "ContentSeed.h"
 
 Tree::Tree()
 {
@@ -84,38 +85,39 @@ void Tree::Update(float _Delta)
 			Item->SetPos(GetPos() + float4{x * RENDERRATIO * 8, 0});
 			Item->RandomVector();
 		}
-
-		ContentItem* Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		
+		// Test Code
+		ContentItem* Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
 		Test->Init("Seed1.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
 		Test->Init("Seed2.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
 		Test->Init("Seed3.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
 		Test->Init("Seed4.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
 		Test->Init("Seed5.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
 		Test->Init("Seed6.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
-		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
 		Test->Init("Seed7.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
