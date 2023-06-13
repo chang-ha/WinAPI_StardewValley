@@ -15,6 +15,7 @@
 #include "Farm.h"
 #include "ContentItem.h"
 #include "ContentInventory.h"
+#include "ContentCrops.h"
 
 void Player::IdleStart()
 {
@@ -50,23 +51,8 @@ void Player::ToolStart()
 		Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 		if (nullptr != _Farm)
 		{
-			TileMap* CurTileMap = _Farm->GetTileMap();
-			int Index_X = TileLimit().iX();
-			int Index_Y = TileLimit().iY();
-			float4 CheckPos = _Farm->GetTileMap()->IndexToPos(Index_X, Index_Y);
-			if (Tile::Sand == GetTileColor(RGB(0, 0, 0), CheckPos - GetPos()) 
-				&& false == ToolCollision->Collision(CollisionOrder::Resources, CollisionResult, CollisionType::Rect, CollisionType::Rect)
-				&& nullptr == CurTileMap->GetTile(Index_X, Index_Y))
-			{
-				CurTileMap->SetTile(Index_X, Index_Y, 0);
-				_Farm->TileSetting(Index_X, Index_Y);
-				_Farm->TileSetting(Index_X, Index_Y - 1);
-				_Farm->TileSetting(Index_X, Index_Y + 1);
-				_Farm->TileSetting(Index_X - 1, Index_Y);
-				_Farm->TileSetting(Index_X + 1, Index_Y);
-				EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
-				CollisionResult.clear();
-			}
+			_Farm->GroundHoe();
+			EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
 		}
 	}
 	break;
@@ -93,20 +79,8 @@ void Player::Tool2Start()
 	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 	if (nullptr != _Farm)
 	{
-		TileMap* CurTileMap = _Farm->GetTileMap();
-		TileMap* WaterTileMap = _Farm->GetWateringTileMap();
-		int Index_X = TileLimit().iX();
-		int Index_Y = TileLimit().iY();
-		if (nullptr != CurTileMap->GetTile(Index_X, Index_Y))
-		{
-			WaterTileMap->SetTile(Index_X, Index_Y, 0);
-			_Farm->TileSetting(Index_X, Index_Y, true);
-			_Farm->TileSetting(Index_X, Index_Y - 1, true);
-			_Farm->TileSetting(Index_X, Index_Y + 1, true);
-			_Farm->TileSetting(Index_X - 1, Index_Y, true);
-			_Farm->TileSetting(Index_X + 1, Index_Y, true);
-			EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
-		}
+		_Farm->GroundWatering();
+		EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
 	}
 
 	if (PlayerDir::Down == Dir)
@@ -152,6 +126,14 @@ void Player::IdleUpdate(float _DeltaTime)
 		if (ItemType::Resources == CurItem->GetItemType())
 		{
 			return;
+		}
+		else if (ItemType::Seed == CurItem->GetItemType())
+		{
+			Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
+			if (nullptr != _Farm)
+			{
+				_Farm->GroundSeeding(CurItem);
+			}
 		}
 		else if (ItemType::WateringCan == CurItem->GetItemType())
 		{

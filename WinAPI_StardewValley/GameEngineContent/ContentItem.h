@@ -1,4 +1,6 @@
 #pragma once
+#include <GameEngineBase/GameEngineDebug.h>
+
 #include "ContentActor.h"
 
 enum ItemType
@@ -36,6 +38,15 @@ public:
 	void PlusItemCount(int _ItemCount)
 	{
 		ItemCount += _ItemCount;
+	}
+
+	void MinusItemCount(int _ItemCount)
+	{
+		if ( 0 >= ItemCount - _ItemCount)
+		{
+			MsgBoxAssert("아이템 갯수는 0 이하일 수 없습니다.");
+		}
+		ItemCount -= _ItemCount;
 	}
 
 	void SetItemCount(int _ItemCount)

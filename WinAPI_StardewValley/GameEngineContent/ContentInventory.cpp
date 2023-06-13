@@ -81,6 +81,8 @@ void ContentInventory::PopItem(int _Index)
 	AllItem[_Index]->ItemCountRenderer->SetText(" ");
 	AllItem[_Index]->ItemRenderer->Death();
 	AllItem[_Index]->Item->Death();
+	AllItem[_Index]->ItemRenderer = nullptr;
+	AllItem[_Index]->Item = nullptr;
 }
 	
 bool ContentInventory::IsFull(const ContentItem* _Item)
@@ -89,7 +91,7 @@ bool ContentInventory::IsFull(const ContentItem* _Item)
 
 	if (-1 == Index)
 	{
-		if (nullptr != FindItem(_Item, Index))
+		if (nullptr != FindItem(_Item))
 		{
 			return false;
 		}
@@ -99,7 +101,7 @@ bool ContentInventory::IsFull(const ContentItem* _Item)
 	return false;
 }
 
-ContentItem* ContentInventory::FindItem(const ContentItem* _Item, int _ResultIndex)
+ContentItem* ContentInventory::FindItem(const ContentItem* _Item, int* _ResultIndex)
 {
 	for (int x = 0; x < AllItem.size(); x++)
 	{
@@ -110,11 +112,13 @@ ContentItem* ContentInventory::FindItem(const ContentItem* _Item, int _ResultInd
 
 		if (AllItem[x]->Item->GetItemName() == _Item->GetItemName())
 		{
-			_ResultIndex = x;
+			if (nullptr != _ResultIndex)
+			{
+				*_ResultIndex = x;
+			}
 			return  AllItem[x]->Item;
 		}
 	}
-	_ResultIndex = -1;
 	return nullptr;
 }
 
@@ -141,6 +145,25 @@ void ContentInventory::SetPosInventoryItem()
 		{
 			AllItem[x]->ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 		}
+	}
+}
+
+void ContentInventory::UseItem(ContentItem* _Item)
+{
+	int ItemIndex = 0;
+	ContentItem* Find = FindItem(_Item, &ItemIndex);
+	if (nullptr == Find)
+	{
+		MsgBoxAssert("인벤토리에 없는 아이템을 사용하려고 했습니다.");
+	}
+
+	if (1 == Find->GetItemCount())
+	{
+		PopItem(ItemIndex);
+	}
+	else
+	{
+		Find->MinusItemCount(1);
 	}
 }
 

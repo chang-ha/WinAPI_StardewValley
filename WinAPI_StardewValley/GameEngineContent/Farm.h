@@ -28,6 +28,10 @@ public:
 
 	void TileSetting(int _X, int _Y, bool IsWatering = false);
 
+	void GroundHoe();
+	void GroundWatering();
+	void GroundSeeding(ContentItem* _SeedItem);
+
 protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;

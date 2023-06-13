@@ -128,20 +128,20 @@ void Farm::Start()
 	FarmRock->Init("Rock_Small02.bmp");
 	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
 
-	ContentCrops* Crop = CreateActor<ContentCrops>();
-	Crop->SetPos(FarmTileMap->IndexToPos(67, 20));
+	//ContentCrops* Crop = CreateActor<ContentCrops>();
+	//Crop->SetPos(FarmTileMap->IndexToPos(67, 20));
 
-	Crop = CreateActor<ContentCrops>();
-	Crop->SetPos(FarmTileMap->IndexToPos(68, 20));
+	//Crop = CreateActor<ContentCrops>();
+	//Crop->SetPos(FarmTileMap->IndexToPos(68, 20));
 
-	Crop = CreateActor<ContentCrops>();
-	Crop->SetPos(FarmTileMap->IndexToPos(69, 20));
+	//Crop = CreateActor<ContentCrops>();
+	//Crop->SetPos(FarmTileMap->IndexToPos(69, 20));
 
-	Crop = CreateActor<ContentCrops>();
-	Crop->SetPos(FarmTileMap->IndexToPos(70, 20));
+	//Crop = CreateActor<ContentCrops>();
+	//Crop->SetPos(FarmTileMap->IndexToPos(70, 20));
 
-	Crop = CreateActor<ContentCrops>();
-	Crop->SetPos(FarmTileMap->IndexToPos(71, 19));
+	//Crop = CreateActor<ContentCrops>();
+	//Crop->SetPos(FarmTileMap->IndexToPos(71, 19));
 }
 
 void Farm::Update(float _Delta)
@@ -187,5 +187,59 @@ void Farm::TileSetting(int _X, int _Y, bool IsWatering)
 		int Z = nullptr == FarmWateringTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
 		FarmWateringTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
 	}
+	}
+}
+
+void Farm::GroundHoe()
+{
+	int Index_X = Player::MainPlayer->TileLimit().iX();
+	int Index_Y = Player::MainPlayer->TileLimit().iY();
+	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
+	{
+		return;
+	}
+
+	float4 CheckPos = FarmTileMap->IndexToPos(Index_X, Index_Y);
+	if (Tile::Sand != Player::MainPlayer->GetTileColor(RGB(0, 0, 0), CheckPos - Player::MainPlayer->GetPos()))
+	{
+		return;
+	}
+
+	std::vector<GameEngineCollision*> _CollisionResult;
+	if (false == Player::MainPlayer->ToolCollision->Collision(CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	{
+		FarmTileMap->SetTile(Index_X, Index_Y, 0);
+		TileSetting(Index_X, Index_Y);
+		TileSetting(Index_X, Index_Y - 1);
+		TileSetting(Index_X, Index_Y + 1);
+		TileSetting(Index_X - 1, Index_Y);
+		TileSetting(Index_X + 1, Index_Y);
+	}
+}
+
+void Farm::GroundWatering()
+{
+	int Index_X = Player::MainPlayer->TileLimit().iX();
+	int Index_Y = Player::MainPlayer->TileLimit().iY();
+	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
+	{
+		FarmWateringTileMap->SetTile(Index_X, Index_Y, 0);
+		TileSetting(Index_X, Index_Y, true);
+		TileSetting(Index_X, Index_Y - 1, true);
+		TileSetting(Index_X, Index_Y + 1, true);
+		TileSetting(Index_X - 1, Index_Y, true);
+		TileSetting(Index_X + 1, Index_Y, true);
+	}
+}
+
+void Farm::GroundSeeding(ContentItem* _SeedItem)
+{
+	int Index_X = Player::MainPlayer->TileLimit().iX();
+	int Index_Y = Player::MainPlayer->TileLimit().iY();
+	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
+	{
+		ContentCrops* Crops = CreateActor<ContentCrops>();
+		Crops->SetPos(FarmTileMap->IndexToPos(Index_X, Index_Y));
+		ContentInventory::MainInventory->UseItem(_SeedItem);
 	}
 }

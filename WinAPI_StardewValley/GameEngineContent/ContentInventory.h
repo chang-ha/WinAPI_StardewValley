@@ -35,11 +35,13 @@ public:
 
 	void PopItem(int _Index);
 
-	ContentItem* FindItem(const ContentItem* _Item, int _ResultIndex = 0);
+	ContentItem* FindItem(const ContentItem* _Item, int* _ResultIndex = nullptr);
 
 	int BlankSpace();
 
 	void SetPosInventoryItem();
+
+	void UseItem(ContentItem* _Item);
 
 	ContentItem* GetCurItem()
 	{
