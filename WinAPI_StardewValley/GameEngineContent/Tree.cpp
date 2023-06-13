@@ -85,37 +85,37 @@ void Tree::Update(float _Delta)
 		}
 
 		ContentItem* Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Seed1.bmp", ItemType::Resources);
+		Test->Init("Seed1.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
 		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Seed2.bmp", ItemType::Resources);
+		Test->Init("Seed2.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
 		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Seed3.bmp", ItemType::Resources);
+		Test->Init("Seed3.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
 		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Seed4.bmp", ItemType::Resources);
+		Test->Init("Seed4.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
 		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Seed5.bmp", ItemType::Resources);
+		Test->Init("Seed5.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
 		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Seed6.bmp", ItemType::Resources);
+		Test->Init("Seed6.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 
 		Test = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Test->Init("Seed7.bmp", ItemType::Resources);
+		Test->Init("Seed7.bmp", ItemType::Seed);
 		Test->SetPos(GetPos());
 		Test->RandomVector();
 

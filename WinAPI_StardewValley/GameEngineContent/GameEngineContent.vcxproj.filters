@@ -82,6 +82,9 @@
     <ClInclude Include="FadeObject.h">
       <Filter>Global\UI</Filter>
     </ClInclude>
+    <ClInclude Include="ContentCrops.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -165,6 +168,9 @@
     <ClCompile Include="FadeObject.cpp">
       <Filter>Global\UI</Filter>
     </ClCompile>
+    <ClCompile Include="ContentCrops.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -214,6 +220,9 @@
     </Filter>
     <Filter Include="Level\05. FarmMap\Resources">
       <UniqueIdentifier>{1b52eb4c-e5ad-4328-b8cb-45b8689bf9d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\05. FarmMap\Crops">
+      <UniqueIdentifier>{c46e94a3-986f-41ae-8810-ea54d79feeaa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

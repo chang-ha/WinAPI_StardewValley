@@ -33,8 +33,6 @@ public:
 
 	void PushItem(ContentItem* _Item);
 
-	void PushItem(InventoryItemData* _ItemData);
-
 	void PopItem(int _Index);
 
 	ContentItem* FindItem(const ContentItem* _Item, int _ResultIndex = 0);

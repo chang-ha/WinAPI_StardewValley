@@ -28,10 +28,12 @@ void Rock::Init(const std::string& _FileName)
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("rock.wav"));
 	}
 }
+
 void Rock::Start()
 {
 
 }
+
 void Rock::Update(float _Delta)
 {
 	if (true == Collision->Collision(CollisionOrder::PickAxe, _CollisionResult, CollisionType::Rect, CollisionType::Rect))

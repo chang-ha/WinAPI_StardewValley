@@ -20,6 +20,7 @@
 #include "ContentInventory.h"
 #include "Tree.h"
 #include "Rock.h"
+#include "ContentCrops.h"
 
 Farm::Farm()
 {
@@ -126,6 +127,9 @@ void Farm::Start()
 	FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 	FarmRock->Init("Rock_Small02.bmp");
 	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20) + TILESIZE.Half() * RENDERRATIO);
+
+	ContentCrops* Crop = CreateActor<ContentCrops>();
+	Crop->SetPos(FarmTileMap->IndexToPos(67, 20));
 }
 
 void Farm::Update(float _Delta)

@@ -9,6 +9,7 @@ enum ItemType
 	Hoe,
 	WateringCan,
 	Resources,
+	Seed,
 };
 
 class GameEngineRenderer;

@@ -64,9 +64,9 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\");
+		FilePath.MoveChild("Resources\\Textures\\TileMap\\");
 
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("TileMap\\Select_Tile.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Select_Tile.bmp"));
 		ResourcesManager::GetInst().CreateSpriteSheet("Select_Tile.bmp", 1, 1);
 	}
 }
