@@ -130,21 +130,6 @@ void Farm::Start()
 	FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 	FarmRock->Init("Rock_Small02.bmp");
 	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
-
-	//ContentCrops* Crop = CreateActor<ContentCrops>();
-	//Crop->SetPos(FarmTileMap->IndexToPos(67, 20));
-
-	//Crop = CreateActor<ContentCrops>();
-	//Crop->SetPos(FarmTileMap->IndexToPos(68, 20));
-
-	//Crop = CreateActor<ContentCrops>();
-	//Crop->SetPos(FarmTileMap->IndexToPos(69, 20));
-
-	//Crop = CreateActor<ContentCrops>();
-	//Crop->SetPos(FarmTileMap->IndexToPos(70, 20));
-
-	//Crop = CreateActor<ContentCrops>();
-	//Crop->SetPos(FarmTileMap->IndexToPos(71, 19));
 }
 
 void Farm::Update(float _Delta)
