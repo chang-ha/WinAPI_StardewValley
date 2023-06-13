@@ -3,6 +3,12 @@
 
 class GameEngineMath
 {
+public:
+	static const float PI;
+	static const float PI2;
+
+	static const float D2R;
+	static const float R2D;
 };
 
 class float4
@@ -179,16 +185,14 @@ private:
 
 
 public:
-	float PI = 3.141592f;
-
-	inline float4 GetUnitVectorFromAngle(const float _Degree)
+	inline float4 GetUnitVectorFromDeg(const float _Degree)
 	{
-		float Angle = _Degree * (PI / 180.0f);
+		return GetUnitVectorFromRad(_Degree * GameEngineMath::D2R);
+	}
 
-		float Base = static_cast<float>(cos(Angle));
-		float Height = static_cast<float>(sin(Angle));
-
-		return float4{ Base , Height };
+	inline float4 GetUnitVectorFromRad(const float _Rad)
+	{
+		return { cosf(_Rad) , sinf(_Rad) };
 	}
 };
 
