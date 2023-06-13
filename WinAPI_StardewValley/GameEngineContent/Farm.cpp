@@ -113,9 +113,12 @@ void Farm::Start()
 		FarmWateringTileMap = CreateActor<TileMap>(UpdateOrder::Player);
 		FarmWateringTileMap->CreateTileMap("waterDirt.bmp", Back->GetScale().iX() / TILESIZE.iX(), Back->GetScale().iY() / TILESIZE.iY(), TILESIZE * RENDERRATIO, static_cast<int>(RenderOrder::BackGround));
 	}
+
+	// Shipping Box
 	ShippingBin* ship = CreateActor<ShippingBin>(UpdateOrder::Map);
 	ship->SetPos({ Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f });
 
+	// Test Actor
 	Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 	FarmTree->Init("Tree.bmp");
 	FarmTree->SetPos(FarmTileMap->IndexToPos(60, 20));

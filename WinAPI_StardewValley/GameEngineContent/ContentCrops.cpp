@@ -32,7 +32,7 @@ void ContentCrops::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Crops1.bmp"));
 		ResourcesManager::GetInst().CreateSpriteSheet("Crops1.bmp", 6, 1);
 	}
-	CropsRenderer = CreateRenderer(RenderOrder::BackGround);
+	CropsRenderer = CreateRenderer(RenderOrder::PlayBelow);
 	GrowStep = GameEngineRandom::MainRandom.RandomInt(0, 1);
 	CropsRenderer->SetSprite("Crops1.bmp", GrowStep);
 	CropsRenderer->SetRenderPos({TILESIZE.hX() * RENDERRATIO, 0});

@@ -148,8 +148,6 @@ void Player::IdleUpdate(float _DeltaTime)
 			return;
 		}
 	}
-
-
 }
 
 
