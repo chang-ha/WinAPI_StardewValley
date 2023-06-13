@@ -79,6 +79,7 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 void Farm::Start()
 {
 	NextLevel = "BusStation";
+	PrevLevel = "FarmHouse";
 	Building = "FarmHouse";
 	GameEnginePath FilePath;
 
@@ -137,11 +138,6 @@ void Farm::Start()
 void Farm::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-
-	if (true == GameEngineInput::IsDown('P'))
-	{
-		Back->SwitchRender();
-	}
 }
 
 void Farm::TileSetting(int _X, int _Y, bool IsWatering)
@@ -226,7 +222,8 @@ void Farm::GroundSeeding(ContentItem* _SeedItem)
 {
 	int Index_X = Player::MainPlayer->TileLimit().iX();
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
-	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
+	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y)
+		)
 	{
 		ContentCrops* Crops = CreateActor<ContentCrops>();
 		Crops->SetPos(FarmTileMap->IndexToPos(Index_X, Index_Y));

@@ -98,6 +98,11 @@ void ContentLevel::Update(float _Delta)
 		CollisionDebugRenderSwitch();
 	}
 
+	if (true == GameEngineInput::IsDown(VK_F2))
+	{
+		Back->SwitchRender();
+	}
+
 	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
 	{
 		GameEngineCore::ChangeLevel(PrevLevel);

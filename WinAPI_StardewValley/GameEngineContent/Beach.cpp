@@ -74,9 +74,4 @@ void Beach::Start()
 void Beach::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-
-	if (true == GameEngineInput::IsDown('P'))
-	{
-		Back->SwitchRender();
-	}
 }

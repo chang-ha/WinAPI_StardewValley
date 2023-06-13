@@ -134,6 +134,7 @@ void Player::IdleUpdate(float _DeltaTime)
 			{
 				_Farm->GroundSeeding(CurItem);
 			}
+			return;
 		}
 		else if (ItemType::WateringCan == CurItem->GetItemType())
 		{

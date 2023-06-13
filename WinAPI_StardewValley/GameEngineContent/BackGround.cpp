@@ -65,12 +65,12 @@ void BackGround::SwitchRender()
 {
 	BackGroundTexture = !BackGroundTexture;
 
-	if (BackGroundTexture)
+	if (true == BackGroundTexture && nullptr != CollisionTexture)
 	{
 		Renderer->On();
 		CollisionRenderer->Off();
 	}
-	else 
+	else  if(false == BackGroundTexture && nullptr != CollisionTexture)
 	{
 		Renderer->Off();
 		CollisionRenderer->On();

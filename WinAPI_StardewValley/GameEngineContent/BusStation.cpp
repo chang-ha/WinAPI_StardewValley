@@ -87,9 +87,4 @@ void BusStation::Start()
 void BusStation::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-
-	if (true == GameEngineInput::IsDown('P'))
-	{
-		Back->SwitchRender();
-	}
 }

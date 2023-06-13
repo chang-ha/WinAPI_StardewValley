@@ -372,6 +372,8 @@ void Player::Start()
 
 	Dir = PlayerDir::Right;
 	ChangeState(PlayerState::Idle);
+
+
 }
 
 void Player::Update(float _Delta)
@@ -379,7 +381,7 @@ void Player::Update(float _Delta)
 	if (true == IsUpdate)
 	{
 		StateUpdate(_Delta);
-		if (true == GameEngineInput::IsDown('P'))
+		if (true == GameEngineInput::IsDown(VK_F2))
 		{
 			CollisionDebug = !CollisionDebug;
 		}
@@ -600,6 +602,8 @@ int Player::GetTileColor(unsigned int _Color, float4 _Pos /*= float4::ZERO*/)
 
 void Player::Render(float _Delta)
 {
+	// Debug Renderer
+
 	if (true == CollisionDebug)
 	{
 		HDC handle = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();

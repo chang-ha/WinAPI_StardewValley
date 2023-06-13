@@ -106,9 +106,4 @@ void PelicanTown::Start()
 void PelicanTown::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-
-	if (true == GameEngineInput::IsDown('P'))
-	{
-		Back->SwitchRender();
-	}
 }

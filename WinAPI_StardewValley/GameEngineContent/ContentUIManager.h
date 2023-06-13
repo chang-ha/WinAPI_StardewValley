@@ -34,5 +34,10 @@ private:
 	GameEngineRenderer* Energy = nullptr;
 	// GameEngineRenderer* EnergyBar = nullptr;
 	GameEngineRenderer* Inventory = nullptr;
+
+	GameEngineRenderer* Text1Renderer = nullptr;
+	GameEngineRenderer* Text2Renderer = nullptr;
+	GameEngineRenderer* Text3Renderer = nullptr;
+	GameEngineRenderer* Text4Renderer = nullptr;
 };
 

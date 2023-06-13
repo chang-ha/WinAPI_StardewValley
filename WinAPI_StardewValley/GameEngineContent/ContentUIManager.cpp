@@ -51,6 +51,19 @@ void ContentUIManager::Start()
 		Inventory->SetRenderScaleToTexture();
 		InventoryDownRender();
 	}
+
+	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	Text2Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	Text3Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	Text4Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	Text1Renderer->SetText("콜리젼디버그 : F1", 30, "Sandoll 미생");
+	Text1Renderer->SetRenderPos({ 0, 0 });
+	Text2Renderer->SetText("맵 콜리전디버그 : F2", 30, "Sandoll 미생");
+	Text2Renderer->SetRenderPos({ 0, 30 });
+	Text3Renderer->SetText("이전레벨이동 : 1", 30, "Sandoll 미생");
+	Text3Renderer->SetRenderPos({ 0, 60 });
+	Text4Renderer->SetText("다음레벨이동 : 2", 30, "Sandoll 미생");
+	Text4Renderer->SetRenderPos({ 0, 90 });
 }
 
 void ContentUIManager::Update(float _Delta)

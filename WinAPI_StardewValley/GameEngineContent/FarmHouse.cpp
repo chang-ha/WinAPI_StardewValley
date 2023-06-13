@@ -118,9 +118,4 @@ void FarmHouse::Start()
 void FarmHouse::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-
-	if (true == GameEngineInput::IsDown('P'))
-	{
-		Back->SwitchRender();
-	}
 }
