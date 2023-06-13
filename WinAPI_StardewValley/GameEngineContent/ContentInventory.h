@@ -53,12 +53,13 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-	GameEngineRenderer* InventoryRenderer = nullptr;
-	GameEngineRenderer* NameText = nullptr;
-	GameEngineRenderer* CurIndexRenderer = nullptr;
 	GameEngineSoundPlayer EffectPlayer;
 	int CurIndex = 0;
 	float PosSettingValue = 0.0f;
+
+	GameEngineRenderer* InventoryRenderer = nullptr;
+	GameEngineRenderer* NameText = nullptr;
+	GameEngineRenderer* CurIndexRenderer = nullptr;
 
 	std::vector<InventoryItemData*> AllItem;
 };

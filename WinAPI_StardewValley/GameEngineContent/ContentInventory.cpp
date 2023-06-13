@@ -36,6 +36,11 @@ ContentInventory::~ContentInventory()
 		}
 	}
 
+	if (nullptr != ContentMouse::MainMouse->GetPickItem())
+	{
+		delete ContentMouse::MainMouse->GetPickItem();
+		ContentMouse::MainMouse->SetPickItem(nullptr);
+	}
 }
 
 void ContentInventory::PushItem(ContentItem* _Item)
@@ -55,19 +60,8 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
 		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
-		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Inventory_Item);
-		_ItemCollision->SetCollisionScale(_Item->Texture->GetScale());
-		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
-
-		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
-		_ItemCountRenderer->SetText(" ");
-		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
-
-		AllItem[PushIndex] = new InventoryItemData();
 		AllItem[PushIndex]->Item = _Item;
 		AllItem[PushIndex]->ItemRenderer = _ItemRenderer;
-		AllItem[PushIndex]->ItemCollision = _ItemCollision;
-		AllItem[PushIndex]->ItemCountRenderer = _ItemCountRenderer;
 	}
 	else if (nullptr != Find)
 	{
@@ -77,35 +71,16 @@ void ContentInventory::PushItem(ContentItem* _Item)
 
 }
 
-void ContentInventory::PushItem(InventoryItemData* _ItemData)
-{
-	ContentItem* Find = FindItem(_ItemData->Item);
-	if (nullptr == Find)
-	{
-		int PushIndex = BlankSpace();
-
-		_ItemData->ItemCountRenderer->On();
-		_ItemData->ItemCollision->On();
-		_ItemData->ItemRenderer->On();
-
-		AllItem[PushIndex] = _ItemData;
-	}
-}
-
-
 void ContentInventory::PopItem(int _Index)
 {
-	if (nullptr == AllItem[_Index])
+	if (nullptr == AllItem[_Index]->Item)
 	{
 		return;
 	}
 
+	AllItem[_Index]->ItemCountRenderer->SetText(" ");
 	AllItem[_Index]->ItemRenderer->Death();
-	AllItem[_Index]->ItemCollision->Death();
-	AllItem[_Index]->ItemCountRenderer->Death();
 	AllItem[_Index]->Item->Death();
-	delete AllItem[_Index];
-	AllItem[_Index] = nullptr;
 }
 	
 bool ContentInventory::IsFull(const ContentItem* _Item)
@@ -128,7 +103,7 @@ ContentItem* ContentInventory::FindItem(const ContentItem* _Item, int _ResultInd
 {
 	for (int x = 0; x < AllItem.size(); x++)
 	{
-		if (nullptr == AllItem[x])
+		if (nullptr == AllItem[x]->Item)
 		{
 			continue;
 		}
@@ -147,7 +122,7 @@ int ContentInventory::BlankSpace()
 {
 	for (int x = 0; x < AllItem.size(); x++)
 	{
-		if (nullptr == AllItem[x])
+		if (nullptr == AllItem[x]->Item)
 		{
 			return x;
 		}
@@ -159,14 +134,13 @@ void ContentInventory::SetPosInventoryItem()
 {
 	for (int x = 0; x < AllItem.size(); x++)
 	{
-		if (nullptr == AllItem[x])
-		{
-			continue;
-		}
-
-		AllItem[x]->ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 		AllItem[x]->ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue )});
 		AllItem[x]->ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
+
+		if (nullptr != AllItem[x]->ItemRenderer)
+		{
+			AllItem[x]->ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+		}
 	}
 }
 
@@ -177,7 +151,18 @@ void ContentInventory::Start()
 
 	for (int x = 0; x < AllItem.size(); x++)
 	{
-		AllItem[x] = nullptr;
+		AllItem[x] = new InventoryItemData();
+
+		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Inventory_Item);
+		_ItemCollision->SetCollisionScale(TILESIZE);
+		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+
+		GameEngineRenderer* _ItemCountRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
+		_ItemCountRenderer->SetText(" ");
+		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
+
+		AllItem[x]->ItemCollision = _ItemCollision;
+		AllItem[x]->ItemCountRenderer = _ItemCountRenderer;
 	}
 
 	// Texture Load
@@ -279,7 +264,7 @@ void ContentInventory::Update(float _Delta)
 	// ItemCountRenderer Update
 	for (int x = 0; x < AllItem.size(); x++)
 	{
-		if (nullptr == AllItem[x])
+		if (nullptr == AllItem[x]->Item)
 		{
 			continue;
 		}
@@ -321,35 +306,47 @@ void ContentInventory::Update(float _Delta)
 	}
 
 	// Mouse Interaction
-	//static float PerTime = 0.0f;
-	//if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && true == GameEngineInput::IsDown(VK_LBUTTON))
-	//{
-	//	PushItem(ContentMouse::MainMouse->GetPickItem());
-	//	ContentMouse::MainMouse->GetItemRenderer()->Off();
-	//	ContentMouse::MainMouse->SetPickItem(nullptr);
-	//	PerTime = 0.5f;
-	//}
-
 	for (int x = 0; x < AllItem.size(); x++)
 	{
-		if (nullptr == AllItem[x])
-		{
-			continue;
-		}
-
 		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
-			&& true == GameEngineInput::IsDown(VK_LBUTTON) && 0.0f >= PerTime)
+			&& true == GameEngineInput::IsDown(VK_LBUTTON))
 		{
-			ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
-			ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale() * RENDERRATIO);
-			ContentMouse::MainMouse->GetItemRenderer()->On();
-			// ContentMouse::MainMouse->SetPickItem(AllItem[x]);
+			if (nullptr != AllItem[x]->ItemRenderer && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+			{
+				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
+				ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale() * RENDERRATIO);
+				ContentMouse::MainMouse->GetItemRenderer()->On();
+				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
 
-			AllItem[x]->ItemCollision->Off();
-			AllItem[x]->ItemRenderer->Off();
-			AllItem[x]->ItemCountRenderer->Off();
-			AllItem[x] = nullptr;
+				AllItem[x]->ItemCountRenderer->SetText(" ");
+				AllItem[x]->ItemRenderer->Death();
+				AllItem[x]->ItemRenderer = nullptr;
+			}
+			else if (nullptr != AllItem[x]->ItemRenderer && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+			{
+				ContentItem* TempValue = ContentMouse::MainMouse->GetPickItem();
+
+				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
+				ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale()* RENDERRATIO);
+				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
+
+				AllItem[x]->ItemRenderer->SetTexture("Inventory_" + TempValue->GetItemName());
+				AllItem[x]->ItemRenderer->SetRenderScale(TempValue->Texture->GetScale() * RENDERRATIO);
+				AllItem[x]->ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+				AllItem[x]->Item = TempValue;
+			}
+			else if (nullptr == AllItem[x]->ItemRenderer && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+			{
+				GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
+				_ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
+				_ItemRenderer->SetRenderScale(ContentMouse::MainMouse->GetPickItem()->Texture->GetScale()* RENDERRATIO);
+				_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+				AllItem[x]->ItemRenderer = _ItemRenderer;
+				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
+
+				ContentMouse::MainMouse->GetItemRenderer()->Off();
+			}
+
 		}
 	}
-	// PerTime -= _Delta;
 }
