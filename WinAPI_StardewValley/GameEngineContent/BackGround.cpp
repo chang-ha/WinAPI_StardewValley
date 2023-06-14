@@ -61,7 +61,7 @@ void BackGround::Init(const std::string& _FileName, const std::string& _Collisio
 	Scale = Texture->GetScale();
 }
 
-void BackGround::SwitchRender()
+void BackGround::SwitchBackGroundRender()
 {
 	BackGroundTexture = !BackGroundTexture;
 
@@ -74,5 +74,15 @@ void BackGround::SwitchRender()
 	{
 		Renderer->Off();
 		CollisionRenderer->On();
+	}
+}
+
+void BackGround::ResetBackGroundRender()
+{
+	if (false == BackGroundTexture && nullptr != CollisionTexture)
+	{
+		BackGroundTexture = !BackGroundTexture;
+		Renderer->On();
+		CollisionRenderer->Off();
 	}
 }

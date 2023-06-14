@@ -73,7 +73,7 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 void ContentLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
-	ContentLevel* NextLevel = dynamic_cast<ContentLevel*>(_NextLevel);
+	Back->ResetBackGroundRender();
 }
 
 void ContentLevel::Start()
@@ -100,7 +100,7 @@ void ContentLevel::Update(float _Delta)
 
 	if (true == GameEngineInput::IsDown(VK_F2))
 	{
-		Back->SwitchRender();
+		Back->SwitchBackGroundRender();
 	}
 
 	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)

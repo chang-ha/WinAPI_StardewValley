@@ -36,7 +36,9 @@ public:
 		return RenderScale;
 	}
 
-	void SwitchRender();
+	void SwitchBackGroundRender();
+
+	void ResetBackGroundRender();
 
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineRenderer* CollisionRenderer = nullptr;

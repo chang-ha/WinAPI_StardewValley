@@ -363,7 +363,6 @@ void ContentInventory::Update(float _Delta)
 				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
 
 				ContentMouse::MainMouse->GetItemRenderer()->Off();
-				ContentMouse::MainMouse->SetPickItem(nullptr);
 			}
 
 		}
