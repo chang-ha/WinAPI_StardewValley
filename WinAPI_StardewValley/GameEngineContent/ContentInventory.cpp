@@ -49,13 +49,10 @@ void ContentInventory::PushItem(ContentItem* _Item)
 		_Item->Collision->Off();
 		
 		// Inventory Item & ItemCount Renderer
-		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
-		_ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
-		_ItemRenderer->SetRenderScale(_Item->Texture->GetScale() * RENDERRATIO);
-		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * PushIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+		AllItem[PushIndex]->ItemRenderer->SetTexture("Inventory_" + _Item->GetItemName());
+		AllItem[PushIndex]->ItemRenderer->On();
 
 		AllItem[PushIndex]->Item = _Item;
-		AllItem[PushIndex]->ItemRenderer = _ItemRenderer;
 	}
 	else if (nullptr != Find)
 	{
@@ -73,9 +70,8 @@ void ContentInventory::PopItem(const int _Index)
 	}
 
 	AllItem[_Index]->ItemCountRenderer->SetText(" ");
-	AllItem[_Index]->ItemRenderer->Death();
+	AllItem[_Index]->ItemRenderer->Off();
 	AllItem[_Index]->Item->Death();
-	AllItem[_Index]->ItemRenderer = nullptr;
 	AllItem[_Index]->Item = nullptr;
 }
 	
@@ -169,6 +165,11 @@ void ContentInventory::Start()
 	{
 		AllItem[x] = new InventoryItemData();
 
+		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
+		_ItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
+		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+		_ItemRenderer->Off();
+
 		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Inventory_Item);
 		_ItemCollision->SetCollisionScale(TILESIZE);
 		_ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
@@ -177,6 +178,7 @@ void ContentInventory::Start()
 		_ItemCountRenderer->SetText(" ");
 		_ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * (0.955f - PosSettingValue) });
 
+		AllItem[x]->ItemRenderer = _ItemRenderer;
 		AllItem[x]->ItemCollision = _ItemCollision;
 		AllItem[x]->ItemCountRenderer = _ItemCountRenderer;
 	}
@@ -327,7 +329,7 @@ void ContentInventory::Update(float _Delta)
 		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
 			&& true == GameEngineInput::IsDown(VK_LBUTTON))
 		{
-			if (nullptr != AllItem[x]->ItemRenderer && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+			if (nullptr != AllItem[x]->Item && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
 				// Inventory -> Mouse
 				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
@@ -335,11 +337,10 @@ void ContentInventory::Update(float _Delta)
 				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
 
 				AllItem[x]->ItemCountRenderer->SetText(" ");
-				AllItem[x]->ItemRenderer->Death();
-				AllItem[x]->ItemRenderer = nullptr;
+				AllItem[x]->ItemRenderer->Off();
 				AllItem[x]->Item = nullptr;
 			}
-			else if (nullptr != AllItem[x]->ItemRenderer && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+			else if (nullptr != AllItem[x]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
 				// Mouse -> Inventroy & Inventory -> Mouse
 				ContentItem* TempValue = ContentMouse::MainMouse->GetPickItem();
@@ -348,20 +349,16 @@ void ContentInventory::Update(float _Delta)
 				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
 
 				AllItem[x]->ItemRenderer->SetTexture("Inventory_" + TempValue->GetItemName());
-				AllItem[x]->ItemRenderer->SetRenderScale(TempValue->Texture->GetScale() * RENDERRATIO);
-				AllItem[x]->ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 				AllItem[x]->Item = TempValue;
 			}
-			else if (nullptr == AllItem[x]->ItemRenderer && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+			else if (nullptr == AllItem[x]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
 				// Mouse -> Inventory
-				GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
-				_ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
-				_ItemRenderer->SetRenderScale(ContentMouse::MainMouse->GetPickItem()->Texture->GetScale()* RENDERRATIO);
-				_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
-				AllItem[x]->ItemRenderer = _ItemRenderer;
-				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
+				AllItem[x]->ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
+				AllItem[x]->ItemRenderer->On();
 
+
+				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
 				ContentMouse::MainMouse->GetItemRenderer()->Off();
 			}
 

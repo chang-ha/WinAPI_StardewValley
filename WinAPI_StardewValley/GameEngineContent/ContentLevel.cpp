@@ -38,6 +38,8 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->ClockHand->Off();
 		ContentUIManager::MainUI->Energy->Off();
 		ContentUIManager::MainUI->Inventory->Off();
+
+		ContentMouse::MainMouse->GetItemRenderer()->Off();
 	}
 	else
 	{
@@ -45,12 +47,13 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->ClockHand->On();
 		ContentUIManager::MainUI->Energy->On();
 		ContentUIManager::MainUI->Inventory->On();
+		ContentMouse::MainMouse->GetItemRenderer()->On();
 
-		Player::MainPlayer->SetPlayLevel(this);
 		if (nullptr == Player::MainPlayer)
 		{
 			MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 		}
+		Player::MainPlayer->SetPlayLevel(this);
 
 		if (nullptr == UITileMap)
 		{

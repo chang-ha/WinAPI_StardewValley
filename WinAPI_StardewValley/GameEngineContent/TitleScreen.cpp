@@ -319,6 +319,7 @@ void TitleScreen::Update(float _Delta)
 
 		if ("Title_new01.bmp" == TitleButton->GetFileName())
 		{
+			// New Button
 			TitleButton->Renderer->SetTexture("Title_new02.bmp");
 			if (true == GameEngineInput::IsDown(VK_LBUTTON))
 			{
@@ -328,14 +329,17 @@ void TitleScreen::Update(float _Delta)
 		}
 		else if ("Title_load01.bmp" == TitleButton->GetFileName())
 		{
+			// Load Button
 			TitleButton->Renderer->SetTexture("Title_load02.bmp");
 		}
 		else if ("Title_coop01.bmp" == TitleButton->GetFileName())
 		{
+			// Coop Button
 			TitleButton->Renderer->SetTexture("Title_coop02.bmp");
 		}
 		else if ("Title_exit01.bmp" == TitleButton->GetFileName())
 		{
+			// Exit Button
 			TitleButton->Renderer->SetTexture("Title_exit02.bmp");
 			if (true == GameEngineInput::IsDown(VK_LBUTTON))
 			{
