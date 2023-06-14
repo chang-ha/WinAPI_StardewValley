@@ -138,6 +138,7 @@ void Player::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("thudStep.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("hoeHit.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("wateringcan.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("harvest.wav"));
 	}
 
 	// Player Renderer 
@@ -630,4 +631,12 @@ void Player::Render(float _Delta)
 		PlayerCollision.Pos = WindowActorPos() + DownCollision;
 		Rectangle(handle, PlayerCollision.iLeft(), PlayerCollision.iTop(), PlayerCollision.iRight(), PlayerCollision.iBot());
 	}
+}
+
+void Player::ToolCollisionCreate(CollisionOrder _CollisionType)
+{
+	float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
+	ToolCollision = CreateCollision(_CollisionType);
+	ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
+	ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
 }

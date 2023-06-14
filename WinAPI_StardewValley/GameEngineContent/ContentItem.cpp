@@ -22,7 +22,7 @@ ContentItem::~ContentItem()
 
 }
 
-void ContentItem::Init(const std::string& _FileName, ItemType _Type)
+void ContentItem::Init(const std::string& _FileName, ItemType _Type, int _ItemCount)
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
@@ -39,6 +39,7 @@ void ContentItem::Init(const std::string& _FileName, ItemType _Type)
 	Collision->SetCollisionScale(Texture->GetScale() * RENDERRATIO * 3);
 	ItemName = _FileName;
 	Type = _Type;
+	ItemCount = _ItemCount;
 }
 
 void ContentItem::Start()

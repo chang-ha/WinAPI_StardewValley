@@ -14,10 +14,14 @@ public:
 	ContentCrops& operator=(const ContentCrops& _Other) = delete;
 	ContentCrops& operator=(ContentCrops&& _Other) noexcept = delete;
 
+	void Harvest();
+
 protected:
+
 	void Start() override;
 	void Update(float _Delta) override;
 	void Grow();
+	bool IsGrownUp();
 
 	GameEngineRenderer* CropsRenderer = nullptr;
 	GameEngineCollision* CropsCollision = nullptr;

@@ -31,23 +31,18 @@ void Player::RunStart()
 
 void Player::ToolStart()
 {
-	float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
 	ChangeAnimationState("Tool1");
 
 	switch (CurItem->GetItemType())
 	{
 	case ItemType::Axe:
 		// Tool Axe
-		ToolCollision = CreateCollision(CollisionOrder::Axe);
-		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
-		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
+		ToolCollisionCreate(CollisionOrder::Axe);
 		break;
 	case ItemType::Hoe:
 		// Tool Hoe
 	{
-		ToolCollision = CreateCollision(CollisionOrder::Hoe);
-		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
-		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
+		ToolCollisionCreate(CollisionOrder::Hoe);
 		Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 		if (nullptr != _Farm)
 		{
@@ -58,9 +53,7 @@ void Player::ToolStart()
 	break;
 	case ItemType::PickAxe:
 		// Tool PickAxe
-		ToolCollision = CreateCollision(CollisionOrder::PickAxe);
-		ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
-		ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
+		ToolCollisionCreate(CollisionOrder::PickAxe);
 		break;
 	}
 
@@ -97,7 +90,7 @@ void Player::Tool2Start()
 
 void Player::IdleUpdate(float _DeltaTime)
 {
-	EffectPlayer.Stop();
+	// EffectPlayer.Stop();
 
 	if (true == GameEngineInput::IsDown('A')
 		|| true == GameEngineInput::IsDown('W')
@@ -107,6 +100,28 @@ void Player::IdleUpdate(float _DeltaTime)
 		DirCheck();
 		ChangeState(PlayerState::Run);
 		return;
+	}
+
+	if (true == GameEngineInput::IsDown(VK_RBUTTON))
+	{
+		// Harvest
+		std::vector<GameEngineCollision*> _CollisionResult;
+		{
+			// Test용
+			ToolCollisionCreate(CollisionOrder::Axe);
+		}
+		if (true == ToolCollision->Collision(CollisionOrder::Crops, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+		{
+			ContentCrops* _Crops = dynamic_cast<ContentCrops*>(_CollisionResult[0]->GetActor());
+			if (nullptr == _Crops)
+			{
+				MsgBoxAssert("해당 액터의 콜리전 타입이 잘못되어 있습니다.");
+			}
+			_Crops->Harvest();
+			EffectPlayer = GameEngineSound::SoundPlay("harvest.wav");
+			EffectPlayer.SetVolume(1.0f);
+		}
+		ToolCollision->Death();
 	}
 
 	// Use Item
@@ -133,10 +148,7 @@ void Player::IdleUpdate(float _DeltaTime)
 			Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 			if (nullptr != _Farm)
 			{
-				float4 CollisionPos = PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY());
-				ToolCollision = CreateCollision(CollisionOrder::Axe);
-				ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
-				ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
+				ToolCollisionCreate(CollisionOrder::Axe);
 				_Farm->GroundSeeding(CurItem);
 				ToolCollision->Death();
 			}

@@ -5,10 +5,13 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineLevel.h>
 
 #include "ContentCrops.h"
 #include "GlobalValue.h"
 #include "ContentsEnum.h"
+#include "ContentInventory.h"
+#include "ContentItem.h"
 
 ContentCrops::ContentCrops()
 {
@@ -22,20 +25,20 @@ ContentCrops::~ContentCrops()
 
 void ContentCrops::Start()
 {
-	if (false == ResourcesManager::GetInst().IsLoadTexture("Crops1.bmp"))
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Crops_Parsnip.bmp"))
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Crops\\");
 
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Crops1.bmp"));
-		ResourcesManager::GetInst().CreateSpriteSheet("Crops1.bmp", 6, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Crops_Parsnip.bmp"));
+		ResourcesManager::GetInst().CreateSpriteSheet("Crops_Parsnip.bmp", 6, 1);
 	}
 	GrowStep = GameEngineRandom::MainRandom.RandomInt(0, 1);
 
 	CropsRenderer = CreateRenderer(RenderOrder::PlayBelow);
-	CropsRenderer->SetSprite("Crops1.bmp", GrowStep);
+	CropsRenderer->SetSprite("Crops_Parsnip.bmp", GrowStep);
 	CropsRenderer->SetRenderPos({TILESIZE.hX() * RENDERRATIO, 0});
 	CropsRenderer->SetRenderScale({TILESIZE.X * RENDERRATIO, TILESIZE.Y * 2 * RENDERRATIO});
 
@@ -68,7 +71,37 @@ void ContentCrops::Grow()
 		++GrowStep;
 	}
 
-	CropsRenderer->SetSprite("Crops1.bmp", GrowStep);
+	CropsRenderer->SetSprite("Crops_Parsnip.bmp", GrowStep);
+}
+
+bool ContentCrops::IsGrownUp()
+{
+	if (GrowStep < MaxGrowStep)
+	{
+		return false;
+	}
+	return true;
+}
+
+void ContentCrops::Harvest()
+{
+	ContentItem* Crops = GetLevel()->CreateActor<ContentItem>();
+	Crops->Init("Parsnip.bmp", ItemType::Crops);
+
+	if (false == IsGrownUp())
+	{
+		return;
+	}
+
+	if (true == ContentInventory::MainInventory->IsFull(Crops))
+	{
+		Crops->Death();
+	}
+	else if (false == ContentInventory::MainInventory->IsFull(Crops))
+	{
+		ContentInventory::MainInventory->PushItem(Crops);
+		this->Death();
+	}
 }
 
 

@@ -11,6 +11,7 @@ enum ItemType
 	Hoe,
 	WateringCan,
 	Resources,
+	Crops,
 	Seed,
 };
 
@@ -67,7 +68,7 @@ public:
 
 	void RandomVector();
 
-	void Init(const std::string& _FileName, ItemType _Type);
+	void Init(const std::string& _FileName, ItemType _Type, int _ItemCount = 1);
 
 protected:
 	void Start() override;

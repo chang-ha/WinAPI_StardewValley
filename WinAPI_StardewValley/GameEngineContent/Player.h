@@ -1,6 +1,6 @@
 #pragma once
 #include "ContentActor.h"
-
+#include "ContentsEnum.h"
 
 enum class PlayerState
 {
@@ -131,6 +131,8 @@ private:
 	// DirCheck
 	void DirCheck();
 	void ToolDirCheck();
+
+	void ToolCollisionCreate(CollisionOrder _CollisionType);
 
 	void LevelStart() override;
 	void Start() override;

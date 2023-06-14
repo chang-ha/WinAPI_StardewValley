@@ -19,6 +19,9 @@
 #include "ContentUIManager.h"
 #include "ContentMouse.h"
 
+// Test용
+#include "ContentSeed.h"
+
 ContentInventory* ContentInventory::MainInventory = nullptr;
 
 ContentInventory::ContentInventory()
@@ -242,6 +245,11 @@ void ContentInventory::Start()
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 	Item->Init("wateringcan.bmp", ItemType::WateringCan);
 	PushItem(Item);
+
+	// TestCode
+	Item = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
+	Item->Init("Parsnip_Seed.bmp", ItemType::Seed, 20);
+	PushItem(Item);
 }
 
 void ContentInventory::Update(float _Delta)
@@ -264,6 +272,29 @@ void ContentInventory::Update(float _Delta)
 		{
 			CurIndex = 0;
 		}
+	}
+
+	for (int i = '0'; i <= '9'; i++)
+	{
+		if (true == GameEngineInput::IsDown('0'))
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
+			CurIndex = 9;
+		}
+		else if (true == GameEngineInput::IsDown(i))
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
+			CurIndex = static_cast<int>(i) - '0' - 1;
+		}
+	}
+
+	if (true == GameEngineInput::IsDown('-'))
+	{
+		int a = 0;
+	}
+	if (true == GameEngineInput::IsDown('='))
+	{
+		int a = 0;
 	}
 
 
@@ -363,7 +394,6 @@ void ContentInventory::Update(float _Delta)
 				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
 				ContentMouse::MainMouse->GetItemRenderer()->Off();
 			}
-
 		}
 	}
 }

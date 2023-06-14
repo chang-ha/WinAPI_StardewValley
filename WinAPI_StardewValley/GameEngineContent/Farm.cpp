@@ -218,11 +218,15 @@ void Farm::GroundWatering()
 
 void Farm::GroundSeeding(ContentItem* _SeedItem)
 {
+	std::vector<GameEngineCollision*> _CollisionResult;
+	if (true == Player::MainPlayer->ToolCollision->Collision(CollisionOrder::Crops, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	{
+		return;
+	}
+
 	int Index_X = Player::MainPlayer->TileLimit().iX();
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
-	std::vector<GameEngineCollision*> _CollisionResult;
-	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y)
-		&& false == Player::MainPlayer->ToolCollision->Collision(CollisionOrder::Crops, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
 	{
 		ContentCrops* Crops = CreateActor<ContentCrops>();
 		Crops->SetPos(FarmTileMap->IndexToPos(Index_X, Index_Y));
