@@ -109,6 +109,7 @@ void Player::IdleUpdate(float _DeltaTime)
 		return;
 	}
 
+	// Use Item
 	CurItem = ContentInventory::MainInventory->GetCurItem();
 	if (nullptr == CurItem)
 	{

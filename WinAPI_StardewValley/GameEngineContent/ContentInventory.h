@@ -33,7 +33,7 @@ public:
 
 	void PushItem(ContentItem* _Item);
 
-	void PopItem(int _Index);
+	void PopItem(const int _Index);
 
 	ContentItem* FindItem(const ContentItem* _Item, int* _ResultIndex = nullptr);
 
@@ -53,14 +53,14 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-	GameEngineSoundPlayer EffectPlayer;
 	int CurIndex = 0;
 	float PosSettingValue = 0.0f;
 
 	GameEngineRenderer* InventoryRenderer = nullptr;
-	GameEngineRenderer* NameText = nullptr;
 	GameEngineRenderer* CurIndexRenderer = nullptr;
-
+	GameEngineRenderer* NameText = nullptr;
 	std::vector<InventoryItemData*> AllItem;
+
+	GameEngineSoundPlayer EffectPlayer;
 };
 

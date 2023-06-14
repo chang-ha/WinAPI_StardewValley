@@ -35,8 +35,6 @@ ContentInventory::~ContentInventory()
 			AllItem[x] = nullptr;
 		}
 	}
-
-
 }
 
 void ContentInventory::PushItem(ContentItem* _Item)
@@ -67,7 +65,7 @@ void ContentInventory::PushItem(ContentItem* _Item)
 
 }
 
-void ContentInventory::PopItem(int _Index)
+void ContentInventory::PopItem(const int _Index)
 {
 	if (nullptr == AllItem[_Index]->Item)
 	{
@@ -93,7 +91,6 @@ bool ContentInventory::IsFull(const ContentItem* _Item)
 		}
 		return true;
 	}
-
 	return false;
 }
 
@@ -226,7 +223,7 @@ void ContentInventory::Start()
 	NameText->Off();
 
 
-	// Default Item
+	// Player Default Item
 	GameEngineLevel* CurLevel = GetLevel();
 	ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 	Item->Init("axe.bmp", ItemType::Axe);
@@ -332,8 +329,8 @@ void ContentInventory::Update(float _Delta)
 		{
 			if (nullptr != AllItem[x]->ItemRenderer && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
+				// Inventory -> Mouse
 				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
-				ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale() * RENDERRATIO);
 				ContentMouse::MainMouse->GetItemRenderer()->On();
 				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
 
@@ -344,10 +341,10 @@ void ContentInventory::Update(float _Delta)
 			}
 			else if (nullptr != AllItem[x]->ItemRenderer && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
+				// Mouse -> Inventroy & Inventory -> Mouse
 				ContentItem* TempValue = ContentMouse::MainMouse->GetPickItem();
 
 				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
-				ContentMouse::MainMouse->GetItemRenderer()->SetRenderScale(AllItem[x]->Item->Texture->GetScale()* RENDERRATIO);
 				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
 
 				AllItem[x]->ItemRenderer->SetTexture("Inventory_" + TempValue->GetItemName());
@@ -357,6 +354,7 @@ void ContentInventory::Update(float _Delta)
 			}
 			else if (nullptr == AllItem[x]->ItemRenderer && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
+				// Mouse -> Inventory
 				GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
 				_ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
 				_ItemRenderer->SetRenderScale(ContentMouse::MainMouse->GetPickItem()->Texture->GetScale()* RENDERRATIO);
@@ -365,6 +363,7 @@ void ContentInventory::Update(float _Delta)
 				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
 
 				ContentMouse::MainMouse->GetItemRenderer()->Off();
+				ContentMouse::MainMouse->SetPickItem(nullptr);
 			}
 
 		}
