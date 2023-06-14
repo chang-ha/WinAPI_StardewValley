@@ -94,6 +94,7 @@ public:
 	GameEngineRenderer* ShirtRenderer = nullptr;
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* HatRenderer = nullptr;
+	GameEngineRenderer* ShadowRenderer = nullptr;
 
 	GameEngineCollision* BodyCollision = nullptr;
 	GameEngineCollision* ToolCollision = nullptr;

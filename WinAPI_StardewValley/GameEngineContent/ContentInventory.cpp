@@ -266,6 +266,7 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
+
 	// CurIndexRenderer
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
@@ -348,6 +349,7 @@ void ContentInventory::Update(float _Delta)
 				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
 				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
 
+				AllItem[x]->ItemCountRenderer->SetText(" ");
 				AllItem[x]->ItemRenderer->SetTexture("Inventory_" + TempValue->GetItemName());
 				AllItem[x]->Item = TempValue;
 			}
@@ -357,7 +359,7 @@ void ContentInventory::Update(float _Delta)
 				AllItem[x]->ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
 				AllItem[x]->ItemRenderer->On();
 
-
+				AllItem[x]->ItemCountRenderer->SetText(" ");
 				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
 				ContentMouse::MainMouse->GetItemRenderer()->Off();
 			}

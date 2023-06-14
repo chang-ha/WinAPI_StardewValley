@@ -120,6 +120,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair_Tool2", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1_Tool2.bmp"), 3, 1);
 
 		// ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
+		ResourcesManager::GetInst().CreateSpriteSheet("Shadow.bmp", FilePath.PlusFilePath("Shadow.bmp"), 1, 1);
 	}
 
 	// Sound Load
@@ -359,6 +360,12 @@ void Player::Start()
 	//	HatRenderer->SetRenderScale(HatRenderer->GetTextureScale() * 3.7f);
 	//}
 
+	ShadowRenderer = CreateRenderer(RenderOrder::Shadow);
+	ShadowRenderer->CreateAnimation("Idle", "Shadow.bmp", 0, 0);
+	ShadowRenderer->ChangeAnimation("Idle");
+	ShadowRenderer->SetScaleRatio(RENDERRATIO);
+	ShadowRenderer->SetRenderPos(float4{ 0, 14 } * RENDERRATIO);
+	
 	// Player Collision
 	BodyCollision = CreateCollision(CollisionOrder::Player);
 	BodyCollision->SetCollisionPos({0, 16});

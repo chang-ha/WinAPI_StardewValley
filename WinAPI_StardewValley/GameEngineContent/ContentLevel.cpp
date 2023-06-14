@@ -38,7 +38,6 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->ClockHand->Off();
 		ContentUIManager::MainUI->Energy->Off();
 		ContentUIManager::MainUI->Inventory->Off();
-
 	}
 	else
 	{
@@ -104,12 +103,12 @@ void ContentLevel::Update(float _Delta)
 		Back->SwitchBackGroundRender();
 	}
 
-	if (true == GameEngineInput::IsDown('1') && "" != PrevLevel)
+	if (true == GameEngineInput::IsDown(VK_F3) && "" != PrevLevel)
 	{
 		GameEngineCore::ChangeLevel(PrevLevel);
 	}
 
-	if (true == GameEngineInput::IsDown('2') && "" != NextLevel)
+	if (true == GameEngineInput::IsDown(VK_F4) && "" != NextLevel)
 	{
 		GameEngineCore::ChangeLevel(NextLevel);
 	}

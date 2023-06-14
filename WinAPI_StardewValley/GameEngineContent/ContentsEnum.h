@@ -11,6 +11,7 @@ enum class RenderOrder
 {
 	BackGround,
 	PlayBelow,
+	Shadow,
 	Play,
 	Pants,
 	Shirt,
