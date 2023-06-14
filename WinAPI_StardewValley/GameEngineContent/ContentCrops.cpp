@@ -45,6 +45,16 @@ void ContentCrops::Start()
 	CropsCollision = CreateCollision(CollisionOrder::Crops);
 	CropsCollision->SetCollisionScale(TILESIZE * RENDERRATIO);
 	CropsCollision->SetCollisionPos(TILESIZE.Half() * RENDERRATIO);
+
+	if (nullptr == GameEngineSound::FindSound("harvest.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
+
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("harvest.wav"));
+	}
 } 
 
 void ContentCrops::Update(float _Delta)
@@ -100,6 +110,7 @@ void ContentCrops::Harvest()
 	else if (false == ContentInventory::MainInventory->IsFull(Crops))
 	{
 		ContentInventory::MainInventory->PushItem(Crops);
+		EffectPlayer = GameEngineSound::SoundPlay("harvest.wav");
 		this->Death();
 	}
 }

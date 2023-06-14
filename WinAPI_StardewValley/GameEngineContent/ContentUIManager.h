@@ -34,6 +34,8 @@ private:
 	GameEngineRenderer* Energy = nullptr;
 	// GameEngineRenderer* EnergyBar = nullptr;
 	GameEngineRenderer* Inventory = nullptr;
+	GameEngineRenderer* DayRenderer = nullptr;
+	int DayValue = 1;
 
 	GameEngineRenderer* Text1Renderer = nullptr;
 	GameEngineRenderer* Text2Renderer = nullptr;

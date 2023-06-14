@@ -34,7 +34,10 @@ void ContentMouse::Start()
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\UI\\");
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor01.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor03.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor04.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor07.bmp"));
 	}
 	Texture = ResourcesManager::GetInst().FindTexture("Cursor01.bmp");
 	MouseRenderer->SetTexture("Cursor01.bmp");

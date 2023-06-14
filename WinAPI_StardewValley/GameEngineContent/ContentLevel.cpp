@@ -38,6 +38,7 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->ClockHand->Off();
 		ContentUIManager::MainUI->Energy->Off();
 		ContentUIManager::MainUI->Inventory->Off();
+		ContentUIManager::MainUI->DayRenderer->Off();
 	}
 	else
 	{
@@ -45,6 +46,7 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->ClockHand->On();
 		ContentUIManager::MainUI->Energy->On();
 		ContentUIManager::MainUI->Inventory->On();
+		ContentUIManager::MainUI->DayRenderer->On();
 
 		if (nullptr == Player::MainPlayer)
 		{

@@ -11,6 +11,9 @@
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
 
+// Test
+#include <GameEnginePlatform/GameEngineInput.h>
+
 ContentUIManager* ContentUIManager::MainUI = nullptr;
 
 ContentUIManager::ContentUIManager()
@@ -51,6 +54,10 @@ void ContentUIManager::Start()
 		Inventory->SetRenderScaleToTexture();
 		InventoryDownRender();
 	}
+	DayRenderer = CreateUIRenderer(RenderOrder::UI);
+	DayRenderer->SetText("월.    1", 30, "Sandoll 미생");
+	DayRenderer->SetRenderPos({GlobalValue::WinScale.X - 100, 13});
+
 
 	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	Text2Renderer = CreateUIRenderer(RenderOrder::PlayOver);
@@ -68,7 +75,38 @@ void ContentUIManager::Start()
 
 void ContentUIManager::Update(float _Delta)
 {
-
+	if (true == GameEngineInput::IsDown('P'))
+	{
+		++DayValue;
+		std::string Day = "";
+		switch (DayValue % 7)
+		{
+		case 0:
+			Day = "일";
+			break;
+		case 1:
+			Day = "월";
+			break;
+		case 2:
+			Day = "화";
+			break;
+		case 3:
+			Day = "수";
+			break;
+		case 4:
+			Day = "목";
+			break;
+		case 5:
+			Day = "금";
+			break;
+		case 6:
+			Day = "토";
+			break;
+		default:
+			break;
+		}
+		DayRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
+	}
 }
 
 void ContentUIManager::InventoryUpRender()

@@ -34,7 +34,7 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	ContentLevel::LevelStart(_PrevLevel);
 
 	Player::MainPlayer->SetCollisionTexture("Collision_farmhouse.bmp");
-	Player::MainPlayer->SetPos({ GetRenderScale().X * 0.595f, GetRenderScale().Y * 0.65f});
+	Player::MainPlayer->SetPos({ GetRenderScale().X * 0.595f, GetRenderScale().Y * 0.648f});
 	Player::MainPlayer->SetDir(PlayerDir::Right);
 
 	// _PrevLevel == TitleScreen

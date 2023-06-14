@@ -16,11 +16,11 @@ public:
 
 	void Harvest();
 
+	bool IsGrownUp();
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void Grow();
-	bool IsGrownUp();
 
 	GameEngineRenderer* CropsRenderer = nullptr;
 	GameEngineCollision* CropsCollision = nullptr;

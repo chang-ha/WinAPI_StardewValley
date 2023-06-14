@@ -47,7 +47,6 @@ void Player::ToolStart()
 		if (nullptr != _Farm)
 		{
 			_Farm->GroundHoe();
-			EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
 		}
 	}
 	break;
@@ -73,7 +72,6 @@ void Player::Tool2Start()
 	if (nullptr != _Farm)
 	{
 		_Farm->GroundWatering();
-		EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
 	}
 
 	if (PlayerDir::Down == Dir)
@@ -133,10 +131,9 @@ void Player::IdleUpdate(float _DeltaTime)
 				MsgBoxAssert("해당 액터의 CollisionOrder가 잘못되어 있습니다.");
 			}
 			_Crops->Harvest();
-			EffectPlayer = GameEngineSound::SoundPlay("harvest.wav");
+			ToolDirCheck();
+			ChangeState(PlayerState::Harvest);
 		}
-		ToolDirCheck();
-		ChangeState(PlayerState::Harvest);
 	}
 
 	// Use Item

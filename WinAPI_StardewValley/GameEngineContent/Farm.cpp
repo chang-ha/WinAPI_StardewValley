@@ -97,6 +97,17 @@ void Farm::Start()
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 
+	if (nullptr == GameEngineSound::FindSound("hoeHit.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
+
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("hoeHit.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("wateringcan.wav"));
+	}
+
 	// Create TileMap
 	if (nullptr == FarmTileMap)
 	{
@@ -200,6 +211,7 @@ void Farm::GroundHoe()
 		TileSetting(Index_X, Index_Y + 1);
 		TileSetting(Index_X - 1, Index_Y);
 		TileSetting(Index_X + 1, Index_Y);
+		EffectPlayer = GameEngineSound::SoundPlay("hoeHit.wav");
 	}
 }
 
@@ -215,6 +227,7 @@ void Farm::GroundWatering()
 		TileSetting(Index_X, Index_Y + 1, true);
 		TileSetting(Index_X - 1, Index_Y, true);
 		TileSetting(Index_X + 1, Index_Y, true);
+		EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
 	}
 }
 
