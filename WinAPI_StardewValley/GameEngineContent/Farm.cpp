@@ -158,6 +158,7 @@ void Farm::TileSetting(int _X, int _Y, bool IsWatering)
 		int Z = nullptr == FarmTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
 		FarmTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
 	}
+	break;
 	case true:
 	{
 		GameEngineRenderer* CurTile = FarmWateringTileMap->GetTile(_X, _Y);
@@ -171,6 +172,7 @@ void Farm::TileSetting(int _X, int _Y, bool IsWatering)
 		int Z = nullptr == FarmWateringTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
 		FarmWateringTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
 	}
+	break;
 	}
 }
 
@@ -207,6 +209,7 @@ void Farm::GroundWatering()
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
 	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
 	{
+		FarmWateringTileMap->SetTile(Index_X, Index_Y, 0);
 		TileSetting(Index_X, Index_Y, true);
 		TileSetting(Index_X, Index_Y - 1, true);
 		TileSetting(Index_X, Index_Y + 1, true);
