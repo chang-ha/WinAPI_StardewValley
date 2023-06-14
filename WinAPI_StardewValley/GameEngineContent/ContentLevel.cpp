@@ -39,7 +39,6 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->Energy->Off();
 		ContentUIManager::MainUI->Inventory->Off();
 
-		ContentMouse::MainMouse->GetItemRenderer()->Off();
 	}
 	else
 	{
@@ -47,7 +46,6 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->ClockHand->On();
 		ContentUIManager::MainUI->Energy->On();
 		ContentUIManager::MainUI->Inventory->On();
-		ContentMouse::MainMouse->GetItemRenderer()->On();
 
 		if (nullptr == Player::MainPlayer)
 		{
