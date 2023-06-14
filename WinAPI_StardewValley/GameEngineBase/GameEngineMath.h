@@ -185,12 +185,28 @@ private:
 
 
 public:
-	inline float4 GetUnitVectorFromDeg(const float _Degree)
+	inline float AngleDeg()
+	{
+		return AngleRad() * GameEngineMath::R2D;
+	}
+
+	inline float AngleRad()
+	{
+		float4 AngleVector = NormalizeReturn();
+		float Angle = acosf(AngleVector.X);
+		if (0 >= AngleVector.Y)
+		{
+			Angle = GameEngineMath::PI + GameEngineMath::PI - Angle;
+		}
+		return Angle;
+	}
+
+	static float4 GetUnitVectorFromDeg(const float _Degree)
 	{
 		return GetUnitVectorFromRad(_Degree * GameEngineMath::D2R);
 	}
 
-	inline float4 GetUnitVectorFromRad(const float _Rad)
+	static float4 GetUnitVectorFromRad(const float _Rad)
 	{
 		return { cosf(_Rad) , sinf(_Rad) };
 	}
