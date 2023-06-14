@@ -88,6 +88,21 @@ void Player::Tool2Start()
 	}
 }
 
+void Player::HarvestStart()
+{
+	ChangeAnimationState("Harvest");
+	if (PlayerDir::Down == Dir)
+	{
+		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+	}
+
+	if (PlayerDir::Up == Dir)
+	{
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
+		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+	}
+}
+
 void Player::IdleUpdate(float _DeltaTime)
 {
 	// EffectPlayer.Stop();
@@ -115,13 +130,13 @@ void Player::IdleUpdate(float _DeltaTime)
 			ContentCrops* _Crops = dynamic_cast<ContentCrops*>(_CollisionResult[0]->GetActor());
 			if (nullptr == _Crops)
 			{
-				MsgBoxAssert("해당 액터의 콜리전 타입이 잘못되어 있습니다.");
+				MsgBoxAssert("해당 액터의 CollisionOrder가 잘못되어 있습니다.");
 			}
 			_Crops->Harvest();
 			EffectPlayer = GameEngineSound::SoundPlay("harvest.wav");
-			EffectPlayer.SetVolume(1.0f);
 		}
-		ToolCollision->Death();
+		ToolDirCheck();
+		ChangeState(PlayerState::Harvest);
 	}
 
 	// Use Item
@@ -392,5 +407,15 @@ void Player::Tool2Update(float _DeltaTime)
 	{
 		ChangeState(PlayerState::Idle);
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
+	}
+}
+
+void Player::HarvestUpdate(float _DeltaTime)
+{
+	if (true == ArmRenderer->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::Idle);
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
+		ToolCollision->Death();
 	}
 }

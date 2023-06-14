@@ -207,7 +207,6 @@ void Farm::GroundWatering()
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
 	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
 	{
-		FarmWateringTileMap->SetTile(Index_X, Index_Y, 0);
 		TileSetting(Index_X, Index_Y, true);
 		TileSetting(Index_X, Index_Y - 1, true);
 		TileSetting(Index_X, Index_Y + 1, true);

@@ -9,6 +9,7 @@ enum class PlayerState
 	Run,
 	Tool,
 	Tool2,
+	Harvest,
 };
 
 enum Tile
@@ -118,12 +119,14 @@ private:
 	void RunStart();
 	void ToolStart();
 	void Tool2Start();
+	void HarvestStart();
 
 	// State Update
 	void IdleUpdate(float _Delta);
 	void RunUpdate(float _Delta);
 	void ToolUpdate(float _Delta);
 	void Tool2Update(float _Delta);
+	void HarvestUpdate(float _Delta);
 
 	void StateUpdate(float _Delta);
 	void ChangeAnimationState(const std::string& _AnimationName);

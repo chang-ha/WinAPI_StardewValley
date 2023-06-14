@@ -2,6 +2,7 @@
 #define RUNSPEED2 0.1f
 #define TOOL1SPEED 0.08f
 #define TOOL2SPEED 0.05f
+#define HARVESTSPEED 0.1f
 
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -62,6 +63,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_body_Tool2", FilePath.PlusFilePath("Player_body\\Right_Player_body_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_body_Tool2", FilePath.PlusFilePath("Player_body\\Left_Player_body_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_body_Tool2", FilePath.PlusFilePath("Player_body\\Up_Player_body_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_body_Harvest", FilePath.PlusFilePath("Player_body\\Down_Player_body_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_body_Harvest", FilePath.PlusFilePath("Player_body\\Right_Player_body_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_body_Harvest", FilePath.PlusFilePath("Player_body\\Left_Player_body_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_body_Harvest", FilePath.PlusFilePath("Player_body\\Up_Player_body_Harvest.bmp"), 4, 1);
 
 		// Pants Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants", FilePath.PlusFilePath("Player_pants\\Up_Player_pants1.bmp"), 9, 1);
@@ -76,6 +81,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Pants_Tool2", FilePath.PlusFilePath("Player_pants\\Right_Player_pants1_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Pants_Tool2", FilePath.PlusFilePath("Player_pants\\Left_Player_pants1_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants_Tool2", FilePath.PlusFilePath("Player_pants\\Up_Player_pants1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Pants_Harvest", FilePath.PlusFilePath("Player_pants\\Down_Player_pants1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Pants_Harvest", FilePath.PlusFilePath("Player_pants\\Right_Player_pants1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Pants_Harvest", FilePath.PlusFilePath("Player_pants\\Left_Player_pants1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants_Harvest", FilePath.PlusFilePath("Player_pants\\Up_Player_pants1_Harvest.bmp"), 4, 1);
 
 		// Shirt Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt1.bmp"), 9, 1);
@@ -90,6 +99,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Shirt_Tool2", FilePath.PlusFilePath("Player_shirt\\Right_Player_shirt1_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Shirt_Tool2", FilePath.PlusFilePath("Player_shirt\\Left_Player_shirt1_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt_Tool2", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Shirt_Harvest", FilePath.PlusFilePath("Player_shirt\\Down_Player_shirt1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Shirt_Harvest", FilePath.PlusFilePath("Player_shirt\\Right_Player_shirt1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Shirt_Harvest", FilePath.PlusFilePath("Player_shirt\\Left_Player_shirt1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt_Harvest", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt1_Harvest.bmp"), 4, 1);
 
 		// Arm Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm", FilePath.PlusFilePath("Player_arm\\Up_Player_arm.bmp"), 9, 1);
@@ -104,6 +117,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_arm_Tool2", FilePath.PlusFilePath("Player_arm\\Right_Player_arm_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm_Tool2", FilePath.PlusFilePath("Player_arm\\Left_Player_arm_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm_Tool2", FilePath.PlusFilePath("Player_arm\\Up_Player_arm_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm_Harvest", FilePath.PlusFilePath("Player_arm\\Down_Player_arm_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_arm_Harvest", FilePath.PlusFilePath("Player_arm\\Right_Player_arm_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm_Harvest", FilePath.PlusFilePath("Player_arm\\Left_Player_arm_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm_Harvest", FilePath.PlusFilePath("Player_arm\\Up_Player_arm_Harvest.bmp"), 4, 1);
 
 		// Hair Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1.bmp"), 9, 1);
@@ -118,6 +135,10 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_hair_Tool2", FilePath.PlusFilePath("Player_hair\\Right_Player_hair1_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_hair_Tool2", FilePath.PlusFilePath("Player_hair\\Left_Player_hair1_Tool2.bmp"), 3, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair_Tool2", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1_Tool2.bmp"), 3, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_hair_Harvest", FilePath.PlusFilePath("Player_hair\\Down_Player_hair1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_hair_Harvest", FilePath.PlusFilePath("Player_hair\\Right_Player_hair1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_hair_Harvest", FilePath.PlusFilePath("Player_hair\\Left_Player_hair1_Harvest.bmp"), 4, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair_Harvest", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1_Harvest.bmp"), 4, 1);
 
 		// ResourcesManager::GetInst().CreateSpriteFolder("Player_hat", FilePath.PlusFilePath("Player_hat"));
 		ResourcesManager::GetInst().CreateSpriteSheet("Shadow.bmp", FilePath.PlusFilePath("Shadow.bmp"), 1, 1);
@@ -168,6 +189,7 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Up_Tool1", "Up_Player_body_Tool1", 0, 4, TOOL1SPEED, false);
 			BodyRenderer->CreateAnimation("Up_Tool2", "Up_Player_body_Tool2", 0, 2, TOOL2SPEED, false);
 			BodyRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
+			BodyRenderer->CreateAnimation("Up_Harvest", "Up_Player_body_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		// Down
@@ -177,6 +199,7 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Down_Tool1", "Down_Player_body_Tool1", 0, 4, TOOL1SPEED, false);
 			BodyRenderer->CreateAnimation("Down_Tool2", "Down_Player_body_Tool2", 0, 2, TOOL2SPEED, false);
 			BodyRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
+			BodyRenderer->CreateAnimation("Down_Harvest", "Down_Player_body_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 		
 		// Right
@@ -186,6 +209,7 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Right_Tool1", "Right_Player_body_Tool1", 0, 4, TOOL1SPEED, false);
 			BodyRenderer->CreateAnimation("Right_Tool2", "Right_Player_body_Tool2", 0, 2, TOOL2SPEED, false);
 			BodyRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
+			BodyRenderer->CreateAnimation("Right_Harvest", "Right_Player_body_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 		
 		// Left
@@ -195,6 +219,7 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Left_Tool1", "Left_Player_body_Tool1", 0, 4, TOOL1SPEED, false);
 			BodyRenderer->CreateAnimation("Left_Tool2", "Left_Player_body_Tool2", 0, 2, TOOL2SPEED, false);
 			BodyRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
+			BodyRenderer->CreateAnimation("Left_Harvest", "Left_Player_body_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 	}
 
@@ -207,6 +232,7 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Up_Tool1", "Up_Player_Pants_Tool1", 0, 4, TOOL1SPEED, false);
 			PantsRenderer->CreateAnimation("Up_Tool2", "Up_Player_Pants_Tool2", 0, 2, TOOL2SPEED, false);
 			PantsRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
+			PantsRenderer->CreateAnimation("Up_Harvest", "Up_Player_Pants_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Down
@@ -216,6 +242,7 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Down_Tool1", "Down_Player_Pants_Tool1", 0, 4, TOOL1SPEED, false);
 			PantsRenderer->CreateAnimation("Down_Tool2", "Down_Player_Pants_Tool2", 0, 2, TOOL2SPEED, false);
 			PantsRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
+			PantsRenderer->CreateAnimation("Down_Harvest", "Down_Player_Pants_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Right
@@ -225,6 +252,7 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Right_Tool1", "Right_Player_Pants_Tool1", 0, 4, TOOL1SPEED, false);
 			PantsRenderer->CreateAnimation("Right_Tool2", "Right_Player_Pants_Tool2", 0, 2, TOOL2SPEED, false);
 			PantsRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
+			PantsRenderer->CreateAnimation("Right_Harvest", "Right_Player_Pants_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Left
@@ -234,6 +262,7 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Left_Tool1", "Left_Player_Pants_Tool1", 0, 4, TOOL1SPEED, false);
 			PantsRenderer->CreateAnimation("Left_Tool2", "Left_Player_Pants_Tool2", 0, 2, TOOL2SPEED, false);
 			PantsRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
+			PantsRenderer->CreateAnimation("Left_Harvest", "Left_Player_Pants_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 	}
 
@@ -246,6 +275,7 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Up_Tool1", "Up_Player_Shirt_Tool1", 0, 4, TOOL1SPEED, false);
 			ShirtRenderer->CreateAnimation("Up_Tool2", "Up_Player_Shirt_Tool2", 0, 2, TOOL2SPEED, false);
 			ShirtRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
+			ShirtRenderer->CreateAnimation("Up_Harvest", "Up_Player_Shirt_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Down
@@ -255,6 +285,7 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Down_Tool1", "Down_Player_Shirt_Tool1", 0, 4, TOOL1SPEED, false);
 			ShirtRenderer->CreateAnimation("Down_Tool2", "Down_Player_Shirt_Tool2", 0, 2, TOOL2SPEED, false);
 			ShirtRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
+			ShirtRenderer->CreateAnimation("Down_Harvest", "Down_Player_Shirt_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Right
@@ -264,6 +295,7 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Right_Tool1", "Right_Player_Shirt_Tool1", 0, 4, TOOL1SPEED, false);
 			ShirtRenderer->CreateAnimation("Right_Tool2", "Right_Player_Shirt_Tool2", 0, 2, TOOL2SPEED, false);
 			ShirtRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
+			ShirtRenderer->CreateAnimation("Right_Harvest", "Right_Player_Shirt_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Left
@@ -273,6 +305,7 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Left_Tool1", "Left_Player_Shirt_Tool1", 0, 4, TOOL1SPEED, false);
 			ShirtRenderer->CreateAnimation("Left_Tool2", "Left_Player_Shirt_Tool2", 0, 2, TOOL2SPEED, false);
 			ShirtRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
+			ShirtRenderer->CreateAnimation("Left_Harvest", "Left_Player_Shirt_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 	}
 	
@@ -285,6 +318,7 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Up_Tool1", "Up_Player_arm_Tool1", 0, 4, TOOL1SPEED, false);
 			ArmRenderer->CreateAnimation("Up_Tool2", "Up_Player_arm_Tool2", 0, 2, TOOL2SPEED, false);
 			ArmRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
+			ArmRenderer->CreateAnimation("Up_Harvest", "Up_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		// Down
@@ -294,6 +328,7 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Down_Tool1", "Down_Player_arm_Tool1", 0, 4, TOOL1SPEED, false);
 			ArmRenderer->CreateAnimation("Down_Tool2", "Down_Player_arm_Tool2", 0, 2, TOOL2SPEED, false);
 			ArmRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
+			ArmRenderer->CreateAnimation("Down_Harvest", "Down_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		// Right
@@ -303,6 +338,7 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Right_Tool1", "Right_Player_arm_Tool1", 0, 4, TOOL1SPEED, false);
 			ArmRenderer->CreateAnimation("Right_Tool2", "Right_Player_arm_Tool2", 0, 2, TOOL2SPEED, false);
 			ArmRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
+			ArmRenderer->CreateAnimation("Right_Harvest", "Right_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		// Left
@@ -312,6 +348,7 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Left_Tool1", "Left_Player_arm_Tool1", 0, 4, TOOL1SPEED, false);
 			ArmRenderer->CreateAnimation("Left_Tool2", "Left_Player_arm_Tool2", 0, 2, TOOL2SPEED, false);
 			ArmRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
+			ArmRenderer->CreateAnimation("Left_Harvest", "Left_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 	}
 
@@ -324,6 +361,7 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Up_Tool1", "Up_Player_hair_Tool1", 0, 4, TOOL1SPEED, false);
 			HairRenderer->CreateAnimation("Up_Tool2", "Up_Player_hair_Tool2", 0, 2, TOOL2SPEED, false);
 			HairRenderer->FindAnimation("Up_Tool2")->Inters[2] = 1.0f;
+			HairRenderer->CreateAnimation("Up_Harvest", "Up_Player_hair_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Down
@@ -333,6 +371,7 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Down_Tool1", "Down_Player_hair_Tool1", 0, 4, TOOL1SPEED, false);
 			HairRenderer->CreateAnimation("Down_Tool2", "Down_Player_hair_Tool2", 0, 2, TOOL2SPEED, false);
 			HairRenderer->FindAnimation("Down_Tool2")->Inters[2] = 1.0f;
+			HairRenderer->CreateAnimation("Down_Harvest", "Down_Player_hair_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Right
@@ -342,6 +381,7 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Right_Tool1", "Right_Player_hair_Tool1", 0, 4, TOOL1SPEED, false);
 			HairRenderer->CreateAnimation("Right_Tool2", "Right_Player_hair_Tool2", 0, 2, TOOL2SPEED, false);
 			HairRenderer->FindAnimation("Right_Tool2")->Inters[2] = 1.0f;
+			HairRenderer->CreateAnimation("Right_Harvest", "Right_Player_hair_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		//Left
@@ -351,6 +391,7 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Left_Tool1", "Left_Player_hair_Tool1", 0, 4, TOOL1SPEED, false);
 			HairRenderer->CreateAnimation("Left_Tool2", "Left_Player_hair_Tool2", 0, 2, TOOL2SPEED, false);
 			HairRenderer->FindAnimation("Left_Tool2")->Inters[2] = 1.0f;
+			HairRenderer->CreateAnimation("Left_Harvest", "Left_Player_hair_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 	}
 
@@ -408,6 +449,8 @@ void Player::StateUpdate(float _Delta)
 		return ToolUpdate(_Delta);
 	case PlayerState::Tool2:
 		return Tool2Update(_Delta);
+	case PlayerState::Harvest:
+		return HarvestUpdate(_Delta);
 	default:
 		break;
 	}
@@ -430,6 +473,9 @@ void Player::ChangeState(PlayerState _State)
 			break;
 		case PlayerState::Tool2:
 			Tool2Start();
+			break;
+		case PlayerState::Harvest:
+			HarvestStart();
 			break;
 		default:
 			break;
