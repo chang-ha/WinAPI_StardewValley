@@ -51,11 +51,11 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 		{
 			for (ContentCrops* _CurCrops : AllCrops)
 			{
-				if (false == _CurCrops->GetIsWatering())
+				float4 Index = FarmWateringTileMap->PosToIndex(_CurCrops->GetPos());
+				if (nullptr == FarmWateringTileMap->GetTile(Index.iX(), Index.iY()))
 				{
 					continue;
 				}
-				_CurCrops->SetIsWatering(false);
 				_CurCrops->Grow();
 			}
 		}
@@ -245,7 +245,7 @@ void Farm::GroundHoe()
 	}
 }
 
-bool Farm::GroundWatering()
+void Farm::GroundWatering()
 {
 	int Index_X = Player::MainPlayer->TileLimit().iX();
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
@@ -258,9 +258,7 @@ bool Farm::GroundWatering()
 		TileSetting(Index_X - 1, Index_Y, true);
 		TileSetting(Index_X + 1, Index_Y, true);
 		EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
-		return true;
 	}
-	return false;
 }
 
 void Farm::GroundSeeding(ContentItem* _SeedItem)

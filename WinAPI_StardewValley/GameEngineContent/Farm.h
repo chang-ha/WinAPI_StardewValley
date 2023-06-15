@@ -30,7 +30,7 @@ public:
 	void TileSetting(int _X, int _Y, bool IsWatering = false);
 
 	void GroundHoe();
-	bool GroundWatering();
+	void GroundWatering();
 	void GroundSeeding(ContentItem* _SeedItem);
 
 protected:

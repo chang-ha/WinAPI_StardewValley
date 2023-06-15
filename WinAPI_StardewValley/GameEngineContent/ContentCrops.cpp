@@ -12,6 +12,7 @@
 #include "ContentsEnum.h"
 #include "ContentInventory.h"
 #include "ContentItem.h"
+#include "Farm.h"
 
 ContentCrops::ContentCrops()
 {
@@ -59,11 +60,6 @@ void ContentCrops::Start()
 
 void ContentCrops::Update(float _Delta)
 {
-	std::vector<GameEngineCollision*> _CollisionResult;
-	if (true == CropsCollision->Collision(CollisionOrder::WateringCan, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
-	{
-		IsWatering = true;
-	}
 }
 
 void ContentCrops::Grow()

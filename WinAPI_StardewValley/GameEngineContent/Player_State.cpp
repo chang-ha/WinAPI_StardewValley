@@ -71,11 +71,7 @@ void Player::Tool2Start()
 	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 	if (nullptr != _Farm)
 	{
-		bool Success = _Farm->GroundWatering();
-		if (true == Success)
-		{
-			ToolCollisionCreate(CollisionOrder::WateringCan);
-		}
+		_Farm->GroundWatering();
 	}
 
 	if (PlayerDir::Down == Dir)
@@ -343,13 +339,6 @@ void Player::RunUpdate(float _DeltaTime)
 		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
 
-	//static bool SleepUI = false;
-	//Color = GetTileColor(RGB(0, 0, 0), GetPos());
-	//if (Tile::SleepTile == Color && false == SleepUI)
-	//{
-
-	//}
-
 	// CameraSetting
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
 	float4 BackScale = PlayLevel->GetRenderScale();
@@ -413,7 +402,6 @@ void Player::Tool2Update(float _DeltaTime)
 	{
 		ChangeState(PlayerState::Idle);
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
-		ToolCollision->Death();
 	}
 }
 

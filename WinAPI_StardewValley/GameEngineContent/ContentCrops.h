@@ -20,15 +20,6 @@ public:
 
 	void Grow();
 
-	bool GetIsWatering()
-	{
-		return IsWatering;
-	}
-
-	void SetIsWatering(bool _WateringValue)
-	{
-		IsWatering = _WateringValue;
-	}
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -37,7 +28,6 @@ protected:
 	GameEngineCollision* CropsCollision = nullptr;
 	int GrowStep = 0;
 	int MaxGrowStep = 5;
-	bool IsWatering = false;
 private:
 
 };
