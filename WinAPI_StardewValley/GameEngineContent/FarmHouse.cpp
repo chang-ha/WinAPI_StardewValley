@@ -11,13 +11,14 @@
 
 #include "FarmHouse.h"
 #include "BackGround.h"
+#include "TitleScreen.h"
 #include "Player.h"
 #include "PlayOver.h"
 #include "ContentUIManager.h"
-#include "TitleScreen.h"
 #include "Farm.h"
 #include "ContentInventory.h"
 #include "ContentsEnum.h"
+#include "SleepLevel.h"
 
 FarmHouse::FarmHouse()
 {
@@ -37,6 +38,9 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	Player::MainPlayer->SetPos({ GetRenderScale().X * 0.595f, GetRenderScale().Y * 0.648f});
 	Player::MainPlayer->SetDir(PlayerDir::Right);
 
+	ContentInventory::MainInventory->On();
+	Player::MainPlayer->SetIsUpdate(true);
+	 
 	// _PrevLevel == TitleScreen
 	if (nullptr != dynamic_cast<TitleScreen*>(_PrevLevel))
 	{
@@ -48,6 +52,12 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		Player::MainPlayer->SetPos({ GetRenderScale().X * 0.410f, GetRenderScale().Y * 0.74f });
 		Player::MainPlayer->SetDir(PlayerDir::Up);
+	}
+
+	// _PrevLevel == TitleScreen
+	if (nullptr != dynamic_cast<SleepLevel*>(_PrevLevel))
+	{
+		BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3", 10000);
 	}
 }
 
@@ -69,6 +79,13 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 		NextLevel->BGMPlayer = this->BGMPlayer;
 		Player::MainPlayer->OverOn();
 		ContentInventory::MainInventory->OverOn();
+	}
+
+	if (nullptr != dynamic_cast<SleepLevel*>(_NextLevel))
+	{
+		BGMPlayer.Stop();
+		Player::MainPlayer->OverOff();
+		ContentInventory::MainInventory->OverOff();
 	}
 }
 

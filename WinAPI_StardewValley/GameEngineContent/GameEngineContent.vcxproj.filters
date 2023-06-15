@@ -91,6 +91,9 @@
     <ClInclude Include="ContentNpc.h">
       <Filter>Global\Actor</Filter>
     </ClInclude>
+    <ClInclude Include="SleepLevel.h">
+      <Filter>Level\11. Sleep</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -183,6 +186,9 @@
     <ClCompile Include="ContentNpc.cpp">
       <Filter>Global\Actor</Filter>
     </ClCompile>
+    <ClCompile Include="SleepLevel.cpp">
+      <Filter>Level\11. Sleep</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -235,6 +241,9 @@
     </Filter>
     <Filter Include="Global\Item">
       <UniqueIdentifier>{ca863b1a-0713-481b-967c-64051ad8ee94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\11. Sleep">
+      <UniqueIdentifier>{e7d44064-638f-4873-ab5d-dbb2a0c62530}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

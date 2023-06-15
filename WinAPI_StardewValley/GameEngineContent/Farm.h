@@ -3,6 +3,7 @@
 
 class Player;
 class TileMap;
+class ContentCrops;
 class Farm : public ContentLevel
 {
 public:
@@ -42,5 +43,6 @@ private:
 
 	TileMap* FarmTileMap = nullptr;
 	TileMap* FarmWateringTileMap = nullptr;
+	std::map<int, ContentCrops*> AllCrops;
 };
 

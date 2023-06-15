@@ -23,6 +23,7 @@ public:
 
 	void InventoryUpRender();
 	void InventoryDownRender();
+	void SleepUIOn();
 
 protected:
 	void Start() override;
@@ -39,11 +40,11 @@ private:
 	// Day UI
 	GameEngineRenderer* DayRenderer = nullptr;
 	int DayValue = 1;
+
 	// FarmHouse's Sleep UI
 	GameEngineRenderer* SleepUIRenderer = nullptr;
 	GameEngineCollision* SleepYesCollision = nullptr;
 	GameEngineCollision* SleepNoCollision = nullptr;
-
 
 	// Debug Value
 	GameEngineRenderer* Text1Renderer = nullptr;

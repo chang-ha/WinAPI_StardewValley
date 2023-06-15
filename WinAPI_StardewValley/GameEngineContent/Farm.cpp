@@ -147,6 +147,22 @@ void Farm::Start()
 void Farm::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
+
+	//if (true == GameEngineInput::IsDown('L'))
+	//{
+	//	for (int i = 0; i < AllCrops.size(); i++)
+	//	{
+	//		AllCrops[i]->Grow();
+	//	}
+	//}
+
+	//for (int i = 0; i < AllCrops.size(); i++)
+	//{
+	//	if (nullptr == AllCrops[i])
+	//	{
+
+	//	}
+	//}
 }
 
 void Farm::TileSetting(int _X, int _Y, bool IsWatering)

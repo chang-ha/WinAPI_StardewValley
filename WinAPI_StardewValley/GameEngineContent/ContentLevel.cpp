@@ -15,6 +15,7 @@
 #include "ContentUIManager.h"
 #include "ContentMouse.h"
 #include "ContentsEnum.h"
+#include "SleepLevel.h"
 
 ContentLevel::ContentLevel()
 {
@@ -32,7 +33,7 @@ float4 ContentLevel::GetRenderScale()
 
 void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	if (nullptr != dynamic_cast<TitleScreen*>(this))
+	if (nullptr != dynamic_cast<TitleScreen*>(this) || nullptr != dynamic_cast<SleepLevel*>(this))
 	{
 		ContentUIManager::MainUI->Clock->Off();
 		ContentUIManager::MainUI->ClockHand->Off();

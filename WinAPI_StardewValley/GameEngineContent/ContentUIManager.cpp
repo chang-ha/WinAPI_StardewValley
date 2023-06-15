@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 
+#include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -11,6 +12,7 @@
 #include "ContentUIManager.h"
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
+#include "ContentMouse.h"
 
 // Test
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -92,6 +94,16 @@ void ContentUIManager::Start()
 	Text4Renderer->SetRenderPos({ 0, 90 });
 }
 
+void ContentUIManager::SleepUIOn()
+{
+	ContentInventory::MainInventory->Off();
+	Inventory->Off();
+	Player::MainPlayer->StopPlayer();
+	SleepUIRenderer->On();
+	SleepYesCollision->On();
+	SleepNoCollision->On();
+}
+
 void ContentUIManager::Update(float _Delta)
 {
 	// Test Code
@@ -130,14 +142,28 @@ void ContentUIManager::Update(float _Delta)
 
 	if (true == GameEngineInput::IsDown('K'))
 	{
-		ContentInventory::MainInventory->Off();
-		Inventory->Off();
-		Player::MainPlayer->StopPlayer();
-		SleepUIRenderer->On();
-		SleepYesCollision->On();
-		SleepNoCollision->On();
+		SleepUIOn();
 	}
-	else if (true == GameEngineInput::IsDown('L'))
+
+	// Sleep UI
+	if (false == SleepUIRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	if (true == SleepYesCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect) && true == GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		ContentUIManager::MainUI->Clock->Off();
+		ContentUIManager::MainUI->ClockHand->Off();
+		ContentUIManager::MainUI->Energy->Off();
+		ContentUIManager::MainUI->Inventory->Off();
+		ContentUIManager::MainUI->DayRenderer->Off();
+		SleepUIRenderer->Off();
+		SleepYesCollision->Off();
+		SleepNoCollision->Off();
+		GameEngineCore::ChangeLevel("SleepLevel");
+	}
+	else if (true == SleepNoCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect) && true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ContentInventory::MainInventory->On();
 		Inventory->On();
