@@ -349,9 +349,7 @@ void ContentInventory::Update(float _Delta)
 			PosSettingValue = 0.702f;
 			SetPosInventoryItem();
 
-			Player::MainPlayer->SetIsUpdate(false);
-			Player::MainPlayer->ChangeState(PlayerState::Idle);
-			Player::MainPlayer->EffectPlayer.Stop();
+			Player::MainPlayer->StopPlayer();
 		}
 	}
 

@@ -21,7 +21,8 @@ enum Tile
 	Floor = RGB(255, 255, 0),
 	PrevMap = RGB(0, 0, 255),
 	NextMap = RGB(255, 0, 0),
-	Building = RGB(0, 255, 255)
+	Building = RGB(0, 255, 255),
+	SleepTile = RGB(255, 0, 255)
 };
 
 enum PlayerDir
@@ -88,6 +89,8 @@ public:
 	void SetCollisionTexture(const std::string& _CollisionTexture);
 
 	int GetTileColor(unsigned int _Color, float4 _Pos = float4::ZERO);
+
+	void StopPlayer();
 
 	GameEngineRenderer* BodyRenderer = nullptr;
 	GameEngineRenderer* ArmRenderer = nullptr;

@@ -339,7 +339,12 @@ void Player::RunUpdate(float _DeltaTime)
 		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
 
+	//static bool SleepUI = false;
+	//Color = GetTileColor(RGB(0, 0, 0), GetPos());
+	//if (Tile::SleepTile == Color && false == SleepUI)
+	//{
 
+	//}
 
 	// CameraSetting
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();

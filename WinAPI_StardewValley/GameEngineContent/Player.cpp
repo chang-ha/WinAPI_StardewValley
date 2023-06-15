@@ -683,3 +683,10 @@ void Player::ToolCollisionCreate(CollisionOrder _CollisionType)
 	ToolCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
 	ToolCollision->SetCollisionPos(CollisionPos + TILESIZE.Half() * RENDERRATIO - GetPos());
 }
+
+void Player::StopPlayer()
+{
+	IsUpdate = false;
+	Player::MainPlayer->ChangeState(PlayerState::Idle);
+	EffectPlayer.Stop();
+}

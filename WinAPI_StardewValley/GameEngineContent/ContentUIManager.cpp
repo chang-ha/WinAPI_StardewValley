@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineCore/GameEngineCollision.h>
 
 #include "ContentUIManager.h"
 #include "ContentsEnum.h"
@@ -62,6 +63,16 @@ void ContentUIManager::Start()
 		SleepUIRenderer->SetRenderPos({GlobalValue::WinScale.Half().X, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y});
 		SleepUIRenderer->SetRenderScale(Texture->GetScale() * 0.8f);
 		SleepUIRenderer->Off();
+
+		SleepYesCollision = CreateCollision(CollisionOrder::Button);
+		SleepYesCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.78f });
+		SleepYesCollision->SetCollisionScale({GlobalValue::WinScale.hX() + 100, 50});
+		SleepYesCollision->Off();
+
+		SleepNoCollision = CreateCollision(CollisionOrder::Button);
+		SleepNoCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.88f });
+		SleepNoCollision->SetCollisionScale({ GlobalValue::WinScale.hX() + 100, 50});
+		SleepNoCollision->Off();
 	}
 	DayRenderer = CreateUIRenderer(RenderOrder::UI);
 	DayRenderer->SetText("월.    1", 30, "Sandoll 미생");
@@ -121,8 +132,10 @@ void ContentUIManager::Update(float _Delta)
 	{
 		ContentInventory::MainInventory->Off();
 		Inventory->Off();
-		Player::MainPlayer->SetIsUpdate(false);
+		Player::MainPlayer->StopPlayer();
 		SleepUIRenderer->On();
+		SleepYesCollision->On();
+		SleepNoCollision->On();
 	}
 	else if (true == GameEngineInput::IsDown('L'))
 	{
@@ -130,6 +143,8 @@ void ContentUIManager::Update(float _Delta)
 		Inventory->On();
 		Player::MainPlayer->SetIsUpdate(true);
 		SleepUIRenderer->Off();
+		SleepYesCollision->Off();
+		SleepNoCollision->Off();
 	}
 }
 
