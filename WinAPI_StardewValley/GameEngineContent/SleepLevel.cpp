@@ -9,6 +9,7 @@
 #include "ContentsEnum.h"
 #include "BackGround.h"
 #include "PlayOver.h"
+#include "ContentUIManager.h"
 
 SleepLevel::SleepLevel()
 {
@@ -23,6 +24,7 @@ SleepLevel::~SleepLevel()
 void SleepLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
+	ContentUIManager::MainUI->PlusDayValue();
 }
 void SleepLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {

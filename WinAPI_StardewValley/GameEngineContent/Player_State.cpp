@@ -339,6 +339,17 @@ void Player::RunUpdate(float _DeltaTime)
 		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
 
+	static bool SleepUIOnce = false;
+	if (Tile::SleepTile == Color && false == SleepUIOnce)
+	{
+		SleepUIOnce = true;
+		ContentUIManager::MainUI->SleepUIOn();
+	}
+	else if (Tile::Floor == Color && true == SleepUIOnce)
+	{
+		SleepUIOnce = false;
+	}
+
 	// CameraSetting
 	float4 CameraPos = GetLevel()->GetMainCamera()->GetPos();
 	float4 BackScale = PlayLevel->GetRenderScale();

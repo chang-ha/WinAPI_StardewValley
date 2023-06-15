@@ -24,6 +24,11 @@ public:
 	void InventoryUpRender();
 	void InventoryDownRender();
 	void SleepUIOn();
+	void PlusDayValue()
+	{
+		++DayValue;
+		DayChange = true;
+	}
 
 protected:
 	void Start() override;
@@ -40,6 +45,7 @@ private:
 	// Day UI
 	GameEngineRenderer* DayRenderer = nullptr;
 	int DayValue = 1;
+	bool DayChange = false;
 
 	// FarmHouse's Sleep UI
 	GameEngineRenderer* SleepUIRenderer = nullptr;

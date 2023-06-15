@@ -107,9 +107,8 @@ void ContentUIManager::SleepUIOn()
 void ContentUIManager::Update(float _Delta)
 {
 	// Test Code
-	if (true == GameEngineInput::IsDown('P'))
+	if (true == DayChange)
 	{
-		++DayValue;
 		std::string Day = "";
 		switch (DayValue % 7)
 		{
@@ -138,11 +137,6 @@ void ContentUIManager::Update(float _Delta)
 			break;
 		}
 		DayRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
-	}
-
-	if (true == GameEngineInput::IsDown('K'))
-	{
-		SleepUIOn();
 	}
 
 	// Sleep UI
