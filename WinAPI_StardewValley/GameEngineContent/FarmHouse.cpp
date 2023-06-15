@@ -54,10 +54,11 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 		Player::MainPlayer->SetDir(PlayerDir::Up);
 	}
 
-	// _PrevLevel == TitleScreen
+	// _PrevLevel == SleepLevel
 	if (nullptr != dynamic_cast<SleepLevel*>(_PrevLevel))
 	{
 		BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3", 10000);
+		IsSleepValue = true;
 	}
 }
 

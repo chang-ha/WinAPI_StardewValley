@@ -41,9 +41,22 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 	// _PrevLevel == FarmHouse
 	if (nullptr != dynamic_cast<FarmHouse*>(_PrevLevel))
 	{
+		FarmHouse* _FarmHouse = dynamic_cast<FarmHouse*>(_PrevLevel);
 		Player::MainPlayer->SetPos({ Back->GetRenderScale().X * 0.8055f, Back->GetRenderScale().Y * 0.225f });
 		Player::MainPlayer->SetDir(PlayerDir::Down);
 		GetMainCamera()->SetPos(Player::MainPlayer->GetPos() - GlobalValue::WinScale * 0.55f);
+
+		if (true == _FarmHouse->GetIsSleep())
+		{
+			for (ContentCrops* _CurCrops : AllCrops)
+			{
+				if (false == _CurCrops->GetIsWatering())
+				{
+					continue;
+				}
+				_CurCrops->Grow();
+			}
+		}
 	}
 
 	// _PrveLevel == BusStation
@@ -73,6 +86,7 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 		BusStation* NextLevel = dynamic_cast<BusStation*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
 	}
+
 }
 
 
@@ -147,15 +161,6 @@ void Farm::Start()
 void Farm::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-
-	if (true == GameEngineInput::IsDown('L'))
-	{
-		for (ContentCrops* _CurCrops : AllCrops)
-		{
-			_CurCrops->Grow();
-		}
-
-	}
 
 	// Crops Release
 	std::list<ContentCrops*>::iterator StartIter = AllCrops.begin();
@@ -238,7 +243,7 @@ void Farm::GroundHoe()
 	}
 }
 
-void Farm::GroundWatering()
+bool Farm::GroundWatering()
 {
 	int Index_X = Player::MainPlayer->TileLimit().iX();
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
@@ -251,7 +256,9 @@ void Farm::GroundWatering()
 		TileSetting(Index_X - 1, Index_Y, true);
 		TileSetting(Index_X + 1, Index_Y, true);
 		EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
+		return true;
 	}
+	return false;
 }
 
 void Farm::GroundSeeding(ContentItem* _SeedItem)

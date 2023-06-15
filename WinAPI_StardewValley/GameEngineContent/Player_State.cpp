@@ -71,7 +71,11 @@ void Player::Tool2Start()
 	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 	if (nullptr != _Farm)
 	{
-		_Farm->GroundWatering();
+		bool Success = _Farm->GroundWatering();
+		if (true == Success)
+		{
+			ToolCollisionCreate(CollisionOrder::WateringCan);
+		}
 	}
 
 	if (PlayerDir::Down == Dir)

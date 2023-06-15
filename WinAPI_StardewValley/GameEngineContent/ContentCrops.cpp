@@ -59,9 +59,10 @@ void ContentCrops::Start()
 
 void ContentCrops::Update(float _Delta)
 {
-	if (true == GameEngineInput::IsDown('O'))
+	std::vector<GameEngineCollision*> _CollisionResult;
+	if (true == CropsCollision->Collision(CollisionOrder::WateringCan, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
-		Grow();
+		IsWatering = true;
 	}
 }
 
