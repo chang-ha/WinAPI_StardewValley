@@ -46,6 +46,7 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 		Player::MainPlayer->SetDir(PlayerDir::Down);
 		GetMainCamera()->SetPos(Player::MainPlayer->GetPos() - GlobalValue::WinScale * 0.55f);
 
+		// Crops Grow
 		if (true == _FarmHouse->GetIsSleep())
 		{
 			for (ContentCrops* _CurCrops : AllCrops)
@@ -54,6 +55,7 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 				{
 					continue;
 				}
+				_CurCrops->SetIsWatering(false);
 				_CurCrops->Grow();
 			}
 		}

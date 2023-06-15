@@ -413,6 +413,7 @@ void Player::Tool2Update(float _DeltaTime)
 	{
 		ChangeState(PlayerState::Idle);
 		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
+		ToolCollision->Death();
 	}
 }
 
