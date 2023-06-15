@@ -96,6 +96,7 @@ private:
 	class Animation
 	{
 	public:
+		std::string Name = "";
 		GameEngineSprite* Sprite = nullptr;
 		size_t CurFrame = 0;
 		size_t StartFrame = -1;
@@ -121,7 +122,7 @@ public:
 		bool _Loop = true);
 
 	void CreateAnimationToFrame(
-		const std::string& _AniamtionName,
+		const std::string& _AnimationName,
 		const std::string& _SpriteName,
 		const std::vector<size_t>& _Frame,
 		float _Inter = 0.1f,
@@ -135,6 +136,11 @@ public:
 	bool IsAnimationEnd()
 	{
 		return CurAnimation->IsEnd;
+	}
+
+	bool IsAnimation(const std::string& _Name)
+	{
+		return CurAnimation->Name == _Name;
 	}
 
 	void ChangeAnimation(const std::string& _AnimationName, int _StartFrame = 0, bool _ForceChange = false);

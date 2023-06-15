@@ -255,25 +255,6 @@ void ContentInventory::Start()
 void ContentInventory::Update(float _Delta)
 {
 	// Change CurIndex
-	if (true == GameEngineInput::IsDown('Q'))
-	{
-		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
-		--CurIndex;
-		if (-1 == CurIndex)
-		{
-			CurIndex = 11;
-		}
-	}
-	else if (true == GameEngineInput::IsDown('E'))
-	{
-		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
-		++CurIndex;
-		if (12 == CurIndex)
-		{
-			CurIndex = 0;
-		}
-	}
-
 	for (int i = '0'; i <= '9'; i++)
 	{
 		if (true == GameEngineInput::IsDown('0'))
@@ -288,14 +269,16 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
-	if (true == GameEngineInput::IsDown(VK_SUBTRACT))
+	if (true == GameEngineInput::IsDown('-'))
 	{
-		int a = 0;
+		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
+		CurIndex = 10;
 	}
-	//if (true == GameEngineInput::IsDown('='))
-	//{
-	//	int a = 0;
-	//}
+	else if (true == GameEngineInput::IsDown('='))
+	{
+		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
+		CurIndex = 11;
+	}
 
 
 	// CurIndexRenderer

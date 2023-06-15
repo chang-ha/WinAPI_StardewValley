@@ -187,6 +187,7 @@ void GameEngineRenderer::CreateAnimation(const std::string& _AnimationName, cons
 	}
 
 	GameEngineRenderer::Animation& Animation = AllAnimation[UpperName];
+	Animation.Name = _AnimationName;
 	Animation.Sprite = Sprite;
 	if (-1 != _Start)
 	{
@@ -227,13 +228,13 @@ void GameEngineRenderer::CreateAnimation(const std::string& _AnimationName, cons
 }
 
 void GameEngineRenderer::CreateAnimationToFrame(
-	const std::string& _AniamtionName,
+	const std::string& _AnimationName,
 	const std::string& _SpriteName,
 	const std::vector<size_t>& _Frame,
 	float _Inter,
 	bool _Loop)
 {
-	std::string UpperName = GameEngineString::ToUpperReturn(_AniamtionName);
+	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
 
 	if (nullptr != FindAnimation(UpperName))
 	{
@@ -251,6 +252,7 @@ void GameEngineRenderer::CreateAnimationToFrame(
 
 	GameEngineRenderer::Animation& Animation = AllAnimation[UpperName];
 
+	Animation.Name = _AnimationName;
 	Animation.Sprite = Sprite;
 	Animation.StartFrame = 0;
 	Animation.EndFrame = _Frame.size() - 1;

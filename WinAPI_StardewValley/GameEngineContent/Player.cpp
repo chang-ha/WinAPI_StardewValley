@@ -399,6 +399,7 @@ void Player::Start()
 	//	HatRenderer->SetRenderScale(HatRenderer->GetTextureScale() * 3.7f);
 	//}
 
+	// Shadow
 	ShadowRenderer = CreateRenderer(RenderOrder::Shadow);
 	ShadowRenderer->CreateAnimation("Idle", "Shadow.bmp", 0, 0);
 	ShadowRenderer->ChangeAnimation("Idle");
@@ -418,8 +419,6 @@ void Player::Start()
 
 	Dir = PlayerDir::Right;
 	ChangeState(PlayerState::Idle);
-
-
 }
 
 void Player::Update(float _Delta)
