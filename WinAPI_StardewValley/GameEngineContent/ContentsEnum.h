@@ -29,6 +29,7 @@ enum class CollisionOrder
 {
 	Map,
 	Player,
+	Npc,
 	Axe,
 	PickAxe,
 	Hoe,
