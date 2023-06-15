@@ -13,6 +13,8 @@
 
 // Test
 #include <GameEnginePlatform/GameEngineInput.h>
+#include "ContentInventory.h"
+#include "Player.h"
 
 ContentUIManager* ContentUIManager::MainUI = nullptr;
 
@@ -53,11 +55,17 @@ void ContentUIManager::Start()
 		Inventory = CreateUIRenderer("UI_Inventory.bmp", RenderOrder::UI);
 		Inventory->SetRenderScaleToTexture();
 		InventoryDownRender();
+
+		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
+		SleepUIRenderer = CreateUIRenderer(RenderOrder::UIMouse);
+		SleepUIRenderer->SetTexture("UI_Sleep.bmp");
+		SleepUIRenderer->SetRenderPos({GlobalValue::WinScale.Half().X, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y});
+		SleepUIRenderer->SetRenderScale(Texture->GetScale() * 0.8f);
+		SleepUIRenderer->Off();
 	}
 	DayRenderer = CreateUIRenderer(RenderOrder::UI);
 	DayRenderer->SetText("월.    1", 30, "Sandoll 미생");
 	DayRenderer->SetRenderPos({GlobalValue::WinScale.X - 100, 13});
-
 
 	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	Text2Renderer = CreateUIRenderer(RenderOrder::PlayOver);
@@ -75,6 +83,7 @@ void ContentUIManager::Start()
 
 void ContentUIManager::Update(float _Delta)
 {
+	// Test Code
 	if (true == GameEngineInput::IsDown('P'))
 	{
 		++DayValue;
@@ -106,6 +115,21 @@ void ContentUIManager::Update(float _Delta)
 			break;
 		}
 		DayRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
+	}
+
+	if (true == GameEngineInput::IsDown('K'))
+	{
+		ContentInventory::MainInventory->Off();
+		Inventory->Off();
+		Player::MainPlayer->SetIsUpdate(false);
+		SleepUIRenderer->On();
+	}
+	else if (true == GameEngineInput::IsDown('L'))
+	{
+		ContentInventory::MainInventory->On();
+		Inventory->On();
+		Player::MainPlayer->SetIsUpdate(true);
+		SleepUIRenderer->Off();
 	}
 }
 

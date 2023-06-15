@@ -322,6 +322,7 @@ void Player::RunUpdate(float _DeltaTime)
 		}
 		MovePos.Y = static_cast<float>(MovePos.iY());
 	}
+	AddPos(MovePos);
 
 	// Change Map
 	Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
@@ -338,7 +339,6 @@ void Player::RunUpdate(float _DeltaTime)
 		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
 	}
 
-	AddPos(MovePos);
 
 
 	// CameraSetting

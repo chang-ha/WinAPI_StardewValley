@@ -119,9 +119,6 @@ void GameEngineInput::InputInit()
 	{
 		AllKeys[i] = GameEngineKey(i);
 	}
-
-	AllKeys['-'] = GameEngineKey('-');
-	AllKeys['='] = GameEngineKey('=');
 }
 
 void GameEngineInput::GameEngineKey::Update(float _DeltaTime)

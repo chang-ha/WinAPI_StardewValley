@@ -288,14 +288,14 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
-	if (true == GameEngineInput::IsDown('-'))
+	if (true == GameEngineInput::IsDown(VK_SUBTRACT))
 	{
 		int a = 0;
 	}
-	if (true == GameEngineInput::IsDown('='))
-	{
-		int a = 0;
-	}
+	//if (true == GameEngineInput::IsDown('='))
+	//{
+	//	int a = 0;
+	//}
 
 
 	// CurIndexRenderer

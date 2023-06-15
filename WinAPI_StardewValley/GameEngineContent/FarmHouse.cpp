@@ -103,6 +103,8 @@ void FarmHouse::Start()
 		Over->Renderer->SetRenderScale(Over->GetScale() * RENDERRATIO);
 		Over->SetRenderScale(Over->GetScale() * RENDERRATIO);
 		Over->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.66f });
+
+
 	}
 
 	// Sound

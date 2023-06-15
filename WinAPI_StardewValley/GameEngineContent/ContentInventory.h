@@ -2,6 +2,7 @@
 #include <vector>
 
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 class GameEngineRenderer;
 class ContentItem;

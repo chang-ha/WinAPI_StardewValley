@@ -29,14 +29,23 @@ protected:
 	void Update(float _Delta) override;
 
 private:
+	// Main UI
 	GameEngineRenderer* Clock = nullptr;
 	GameEngineRenderer* ClockHand = nullptr;
 	GameEngineRenderer* Energy = nullptr;
 	// GameEngineRenderer* EnergyBar = nullptr;
+	// Inventroy UI
 	GameEngineRenderer* Inventory = nullptr;
+	// Day UI
 	GameEngineRenderer* DayRenderer = nullptr;
 	int DayValue = 1;
+	// FarmHouse's Sleep UI
+	GameEngineRenderer* SleepUIRenderer = nullptr;
+	GameEngineCollision* SleepYesCollision = nullptr;
+	GameEngineCollision* SleepNoCollision = nullptr;
 
+
+	// Debug Value
 	GameEngineRenderer* Text1Renderer = nullptr;
 	GameEngineRenderer* Text2Renderer = nullptr;
 	GameEngineRenderer* Text3Renderer = nullptr;
