@@ -111,7 +111,7 @@ void ContentCrops::Harvest()
 	{
 		ContentInventory::MainInventory->PushItem(Crops);
 		EffectPlayer = GameEngineSound::SoundPlay("harvest.wav");
-		this->Death();
+		this->Off();
 	}
 }
 

@@ -148,21 +148,28 @@ void Farm::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
 
-	//if (true == GameEngineInput::IsDown('L'))
-	//{
-	//	for (int i = 0; i < AllCrops.size(); i++)
-	//	{
-	//		AllCrops[i]->Grow();
-	//	}
-	//}
+	if (true == GameEngineInput::IsDown('L'))
+	{
+		for (ContentCrops* _CurCrops : AllCrops)
+		{
+			_CurCrops->Grow();
+		}
 
-	//for (int i = 0; i < AllCrops.size(); i++)
-	//{
-	//	if (nullptr == AllCrops[i])
-	//	{
+	}
 
-	//	}
-	//}
+	// Crops Release
+	std::list<ContentCrops*>::iterator StartIter = AllCrops.begin();
+	std::list<ContentCrops*>::iterator EndIter = AllCrops.end();
+	for (; StartIter != EndIter; )
+	{
+		ContentCrops* _Crops = *StartIter;
+		if (true == _Crops->IsUpdate())
+		{
+			++StartIter;
+			continue;
+		}
+		StartIter = AllCrops.erase(StartIter);
+	}
 }
 
 void Farm::TileSetting(int _X, int _Y, bool IsWatering)
@@ -262,5 +269,6 @@ void Farm::GroundSeeding(ContentItem* _SeedItem)
 		ContentCrops* Crops = CreateActor<ContentCrops>();
 		Crops->SetPos(FarmTileMap->IndexToPos(Index_X, Index_Y));
 		ContentInventory::MainInventory->UseItem(_SeedItem);
+		AllCrops.push_back(Crops);
 	}
 }
