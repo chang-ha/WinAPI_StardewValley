@@ -155,6 +155,10 @@ void Player::IdleUpdate(float _DeltaTime)
 		{
 			return;
 		}
+		else if (ItemType::Crops == CurItem->GetItemType())
+		{
+			return;
+		}
 		else if (ItemType::Seed == CurItem->GetItemType())
 		{
 			Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
