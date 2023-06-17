@@ -35,6 +35,10 @@ public:
 
 	void SetTile(float4 _Pos, int _Index, float4 _TilePos = float4::ZERO, bool _IsImageSize = false);
 
+	void DeathTile(float4 _Pos);
+
+	void DeathTile(int X, int Y);
+
 protected:
 
 private:

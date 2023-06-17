@@ -59,18 +59,13 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 				_CurCrops->Grow();
 			}
 
-			// Death하면 다시 세팅 불가능
-			//for (int y = 0; y < Back->GetScale().iY() / TILESIZE.iY(); y++)
-			//{
-			//	for (int x = 0; x < Back->GetScale().iX() / TILESIZE.iX(); x++)
-			//	{
-			//		GameEngineRenderer* _CurRenderer = FarmWateringTileMap->GetTile(x,y);
-			//		if (nullptr != _CurRenderer)
-			//		{
-			//			_CurRenderer->Death();
-			//		}
-			//	}
-			//}
+			for (int y = 0; y < Back->GetScale().iY() / TILESIZE.iY(); y++)
+			{
+				for (int x = 0; x < Back->GetScale().iX() / TILESIZE.iX(); x++)
+				{
+					FarmWateringTileMap->DeathTile(x, y);
+				}
+			}
 			_FarmHouse->SetIsSleep(false);
 		}
 	}

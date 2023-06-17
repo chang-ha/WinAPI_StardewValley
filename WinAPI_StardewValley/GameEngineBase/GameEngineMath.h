@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <Windows.h>
 
 class GameEngineMath
 {
@@ -179,6 +180,15 @@ public:
 		return X > Y ? X : Y;
 	}
 
+	POINT WindowPOINT()
+	{
+		return POINT{ iX(), iY() };
+	}
+
+	float4 	GetRotationToDegZ(const float _Angle) const
+	{
+		return GetRotationToDegZ(*this, _Angle);
+	}
 protected:
 
 private:
@@ -201,6 +211,19 @@ public:
 		return Angle;
 	}
 
+	static float4 GetRotationToDegZ(const float4& _Value, const float _Deg)
+	{
+		return GetRotationToRadZ(_Value, _Deg * GameEngineMath::D2R);
+	}
+
+	static float4 GetRotationToRadZ(const float4& _Value, const float _Rad)
+	{
+		float4 Rot;
+		Rot.X = _Value.X * cosf(_Rad) - _Value.Y * sinf(_Rad);
+		Rot.Y = _Value.X * sinf(_Rad) + _Value.Y * cosf(_Rad);
+		return Rot;
+	}
+
 	static float4 GetUnitVectorFromDeg(const float _Degree)
 	{
 		return GetUnitVectorFromRad(_Degree * GameEngineMath::D2R);
@@ -212,3 +235,70 @@ public:
 	}
 };
 
+class GameEngineRect
+{
+public:
+	float4 Pos;
+	float4 Scale;
+
+public:
+	float4 CenterLeftTop()
+	{
+		return { CenterLeft(), CenterTop() };
+	}
+
+	float4 CenterRightTop()
+	{
+		return{ CenterRight(), CenterTop() };
+	}
+
+	float4 CenterLeftBot()
+	{
+		return{ CenterLeft(), CenterBot() };
+	}
+
+	float4 CenterRightBot()
+	{
+		return{ CenterRight(), CenterBot() };
+	}
+
+	float CenterLeft()
+	{
+		return Pos.X - Scale.hX();
+	}
+
+	float CenterRight()
+	{
+		return Pos.X + Scale.hX();
+	}
+
+	float CenterTop()
+	{
+		return Pos.Y - Scale.hY();
+	}
+
+	float CenterBot()
+	{
+		return Pos.Y + Scale.hY();
+	}
+
+	int iCenterLeft()
+	{
+		return Pos.iX() - Scale.ihX();
+	}
+
+	int iCenterRight()
+	{
+		return Pos.iX() + Scale.ihX();
+	}
+
+	int iCenterTop()
+	{
+		return Pos.iY() - Scale.ihY();
+	}
+
+	int iCenterBot()
+	{
+		return Pos.iY() + Scale.ihY();
+	}
+};

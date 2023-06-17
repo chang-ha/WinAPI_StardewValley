@@ -36,6 +36,8 @@ public:
 
 	void SetSprite(const std::string& _Name, size_t _Index = 0);
 
+	void SetAngle(float _Angle);
+
 	void SetRenderPos(const float4& _Pos)
 	{
 		RenderPos = _Pos;
@@ -78,10 +80,12 @@ private:
 	GameEngineCamera* Camera = nullptr;
 	CameraType CameraTypeValue = CameraType::MAIN;
 	GameEngineWindowTexture* Texture = nullptr;
+	GameEngineWindowTexture* MaskTexture = nullptr;
 	GameEngineSprite* Sprite = nullptr;
 	bool ScaleCheck = false;
 	float ScaleRatio = 1.0f;
 	std::string Text = "";
+	float Angle = 0.0f;
 
 	void TextRender(float _DeltaTime);
 	float4 RenderPos = {};

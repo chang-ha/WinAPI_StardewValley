@@ -61,6 +61,11 @@ void GameEngineWindowTexture::BitCopy(GameEngineWindowTexture* _CopyTexture, con
 
 void GameEngineWindowTexture::BitCopy(GameEngineWindowTexture* _CopyTexture, const float4& _Pos, const float4& _Scale)
 {
+	if (nullptr == _CopyTexture)
+	{
+		MsgBoxAssert("카피할 텍스처가 세팅되지 않았습니다.");
+	}
+
 	HDC CopyImageDC = _CopyTexture->GetImageDC();
 	BitBlt(ImageDC, 
 		_Pos.iX() - _Scale.ihX(),
@@ -72,6 +77,11 @@ void GameEngineWindowTexture::BitCopy(GameEngineWindowTexture* _CopyTexture, con
 
 void GameEngineWindowTexture::TransCopy(GameEngineWindowTexture* _CopyTexture, const float4& _Pos, const float4& _Scale, const float4& _OtherPos, const float4& _OtherScale, int _TransColor)
 {
+	if (nullptr == _CopyTexture)
+	{
+		MsgBoxAssert("카피할 텍스처가 세팅되지 않았습니다.");
+	}
+
 	HDC CopyImageDC = _CopyTexture->GetImageDC();
 	TransparentBlt(ImageDC,
 		_Pos.iX() - _Scale.ihX(),
@@ -123,4 +133,54 @@ void GameEngineWindowTexture::FillTexture(unsigned int _Color)
 	HBRUSH brh = CreateSolidBrush(_Color);
 	FillRect(ImageDC, &Rc, brh);
 	DeleteObject(brh);
+}
+
+void GameEngineWindowTexture::PlgCopy(GameEngineWindowTexture* _CopyTexture
+	, GameEngineWindowTexture* _MaskTexture
+	, const float4& _Pos
+	, const float4& _Scale
+	, const float4& _OtherPos
+	, const float4& _OtherScale
+	, float _Angle)
+{
+	if (nullptr == _CopyTexture)
+	{
+		MsgBoxAssert("카피할 텍스처가 세팅되지 않았습니다.");
+	}
+
+	if (nullptr == _MaskTexture)
+	{
+		MsgBoxAssert("마스크 텍스처가 없이 이미지 회전을 시킬수는 없습니다.");
+	}
+
+	if (_Angle == 180.0f)
+	{
+		// 완전히 반전되었을때는 에러가 발생할 수 있으므로 약간 틀어줌
+		_Angle = 180.000001f;
+	}
+
+	POINT ArrPoint[3];
+
+	GameEngineRect Rect = GameEngineRect(float4::ZERO, _Scale);
+
+	float4 LeftTop = Rect.CenterLeftTop();
+	float4 RightTop = Rect.CenterRightTop();
+	float4 LeftBot = Rect.CenterLeftBot();
+
+	ArrPoint[0] = (LeftTop.GetRotationToDegZ(_Angle) + _Pos).WindowPOINT();
+	ArrPoint[1] = (RightTop.GetRotationToDegZ(_Angle) + _Pos).WindowPOINT();
+	ArrPoint[2] = (LeftBot.GetRotationToDegZ(_Angle) + _Pos).WindowPOINT();
+
+	HDC CopyImageDC = _CopyTexture->GetImageDC();
+
+	PlgBlt(ImageDC,
+		ArrPoint,
+		CopyImageDC,
+		_OtherPos.iX(), 
+		_OtherPos.iY(), 
+		_OtherScale.iX(), 
+		_OtherScale.iY(), 
+		_MaskTexture->BitMap,
+		_OtherPos.iX(), 
+		_OtherPos.iY());
 }
