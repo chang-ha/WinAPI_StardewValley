@@ -39,7 +39,7 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->ClockHand->Off();
 		ContentUIManager::MainUI->Energy->Off();
 		ContentUIManager::MainUI->Inventory->Off();
-		ContentUIManager::MainUI->DayRenderer->Off();
+		ContentUIManager::MainUI->DayTextRenderer->Off();
 	}
 	else
 	{
@@ -47,7 +47,7 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 		ContentUIManager::MainUI->ClockHand->On();
 		ContentUIManager::MainUI->Energy->On();
 		ContentUIManager::MainUI->Inventory->On();
-		ContentUIManager::MainUI->DayRenderer->On();
+		ContentUIManager::MainUI->DayTextRenderer->On();
 
 		if (nullptr == Player::MainPlayer)
 		{
@@ -126,8 +126,13 @@ void ContentLevel::Update(float _Delta)
 
 		if (nullptr != PrevTile && PrevTile != CurTile)
 		{
-			PrevTile->Off();
+			UITileMap->DeathTile(PrevIndex.iX(), PrevIndex.iY());
 		}
+
+		//if (nullptr != PrevTile && PrevTile != CurTile)
+		//{
+		//	PrevTile->Off();
+		//}
 		PrevIndex = CurIndex;
 
 		if (nullptr != CurTile)

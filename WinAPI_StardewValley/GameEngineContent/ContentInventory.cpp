@@ -19,9 +19,6 @@
 #include "ContentUIManager.h"
 #include "ContentMouse.h"
 
-// Test용
-#include "ContentSeed.h"
-
 ContentInventory* ContentInventory::MainInventory = nullptr;
 
 ContentInventory::ContentInventory()
@@ -247,8 +244,16 @@ void ContentInventory::Start()
 	PushItem(Item);
 
 	// TestCode
-	Item = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
-	Item->Init("Parsnip_Seed.bmp", ItemType::Seed, 20);
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("Seed_Parsnip.bmp", ItemType::Seed, 20);
+	PushItem(Item);
+
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("Seed_Cauliflower.bmp", ItemType::Seed, 20);
+	PushItem(Item);
+
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("Seed_Garlic.bmp", ItemType::Seed, 20);
 	PushItem(Item);
 }
 

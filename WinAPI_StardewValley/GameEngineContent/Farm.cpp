@@ -21,6 +21,10 @@
 #include "Tree.h"
 #include "Rock.h"
 #include "ContentCrops.h"
+#include "Parsnip.h"
+#include "ContentItem.h"
+#include "Cauliflower.h"
+#include "Garlic.h"
 
 Farm::Farm()
 {
@@ -282,7 +286,25 @@ void Farm::GroundSeeding(ContentItem* _SeedItem)
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
 	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
 	{
-		ContentCrops* Crops = CreateActor<ContentCrops>();
+		ContentCrops* Crops = nullptr;
+		if (_SeedItem->GetItemName() == "Seed_Parsnip.bmp")
+		{
+			Crops = CreateActor<Parsnip>();
+		}
+		else if (_SeedItem->GetItemName() == "Seed_Cauliflower.bmp")
+		{
+			Crops = CreateActor<Cauliflower>();
+		}
+		else if (_SeedItem->GetItemName() == "Seed_Garlic.bmp")
+		{
+			Crops = CreateActor<Garlic>();
+		}
+
+		if (nullptr == Crops)
+		{
+			MsgBoxAssert("씨앗이 아닌 아이템을 땅에 심을수 없습니다.");
+		}
+
 		Crops->SetPos(FarmTileMap->IndexToPos(Index_X, Index_Y));
 		ContentInventory::MainInventory->UseItem(_SeedItem);
 		AllCrops.push_back(Crops);

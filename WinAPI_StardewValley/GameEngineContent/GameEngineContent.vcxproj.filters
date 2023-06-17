@@ -76,9 +76,6 @@
     <ClInclude Include="ContentItem.h">
       <Filter>Global\Item</Filter>
     </ClInclude>
-    <ClInclude Include="ContentSeed.h">
-      <Filter>Global\Item</Filter>
-    </ClInclude>
     <ClInclude Include="ContentResources.h">
       <Filter>Level\05. FarmMap\Resources</Filter>
     </ClInclude>
@@ -93,6 +90,15 @@
     </ClInclude>
     <ClInclude Include="SleepLevel.h">
       <Filter>Level\11. Sleep</Filter>
+    </ClInclude>
+    <ClInclude Include="Parsnip.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
+    <ClInclude Include="Garlic.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
+    <ClInclude Include="Cauliflower.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -171,9 +177,6 @@
     <ClCompile Include="ContentItem.cpp">
       <Filter>Global\Item</Filter>
     </ClCompile>
-    <ClCompile Include="ContentSeed.cpp">
-      <Filter>Global\Item</Filter>
-    </ClCompile>
     <ClCompile Include="ContentResources.cpp">
       <Filter>Level\05. FarmMap\Resources</Filter>
     </ClCompile>
@@ -188,6 +191,15 @@
     </ClCompile>
     <ClCompile Include="SleepLevel.cpp">
       <Filter>Level\11. Sleep</Filter>
+    </ClCompile>
+    <ClCompile Include="Parsnip.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClCompile>
+    <ClCompile Include="Garlic.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClCompile>
+    <ClCompile Include="Cauliflower.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

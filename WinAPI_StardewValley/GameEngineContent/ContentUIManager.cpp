@@ -76,9 +76,9 @@ void ContentUIManager::Start()
 		SleepNoCollision->SetCollisionScale({ GlobalValue::WinScale.hX() + 100, 50});
 		SleepNoCollision->Off();
 	}
-	DayRenderer = CreateUIRenderer(RenderOrder::UI);
-	DayRenderer->SetText("월.    1", 30, "Sandoll 미생");
-	DayRenderer->SetRenderPos({GlobalValue::WinScale.X - 100, 13});
+	DayTextRenderer = CreateUIRenderer(RenderOrder::UI);
+	DayTextRenderer->SetText("월.    1", 30, "Sandoll 미생");
+	DayTextRenderer->SetRenderPos({GlobalValue::WinScale.X - 100, 13});
 
 	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	Text2Renderer = CreateUIRenderer(RenderOrder::PlayOver);
@@ -106,7 +106,7 @@ void ContentUIManager::SleepUIOn()
 
 void ContentUIManager::Update(float _Delta)
 {
-	// Test Code
+	// Day Code
 	if (true == DayChange)
 	{
 		std::string Day = "";
@@ -136,7 +136,7 @@ void ContentUIManager::Update(float _Delta)
 		default:
 			break;
 		}
-		DayRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
+		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
 	}
 
 	// Sleep UI
@@ -151,7 +151,7 @@ void ContentUIManager::Update(float _Delta)
 		ContentUIManager::MainUI->ClockHand->Off();
 		ContentUIManager::MainUI->Energy->Off();
 		ContentUIManager::MainUI->Inventory->Off();
-		ContentUIManager::MainUI->DayRenderer->Off();
+		ContentUIManager::MainUI->DayTextRenderer->Off();
 		SleepUIRenderer->Off();
 		SleepYesCollision->Off();
 		SleepNoCollision->Off();

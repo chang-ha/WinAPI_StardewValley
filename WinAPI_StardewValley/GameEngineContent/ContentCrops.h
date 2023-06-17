@@ -26,6 +26,7 @@ protected:
 
 	GameEngineRenderer* CropsRenderer = nullptr;
 	GameEngineCollision* CropsCollision = nullptr;
+	std::string CropsName = "";
 	int GrowStep = 0;
 	int MaxGrowStep = 5;
 private:

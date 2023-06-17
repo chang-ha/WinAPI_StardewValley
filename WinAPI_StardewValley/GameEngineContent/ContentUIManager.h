@@ -40,10 +40,12 @@ private:
 	GameEngineRenderer* ClockHand = nullptr;
 	GameEngineRenderer* Energy = nullptr;
 	// GameEngineRenderer* EnergyBar = nullptr;
+	
 	// Inventroy UI
 	GameEngineRenderer* Inventory = nullptr;
+
 	// Day UI
-	GameEngineRenderer* DayRenderer = nullptr;
+	GameEngineRenderer* DayTextRenderer = nullptr;
 	int DayValue = 1;
 	bool DayChange = false;
 
