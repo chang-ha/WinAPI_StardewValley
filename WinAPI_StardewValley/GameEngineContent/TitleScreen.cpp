@@ -122,36 +122,27 @@ void TitleScreen::Start()
 	{
 		Logo = CreateActor<PlayOver>(UpdateOrder::Map);
 		Logo->Init("Title_Logo.bmp");
-		Logo->Renderer->SetTexture("Title_Logo.bmp");
 		Logo->Renderer->SetRenderScale(Logo->GetScale() * 2.5f);
 		Logo->SetRenderScale(Logo->GetScale() * 2.5f);
 		Logo->SetPos({ Back->GetPos().X, Logo->GetRenderScale().Half().Y + 40});
 
 		New_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		New_Button->Init("Title_new01.bmp");
-		New_Button->Renderer->SetRenderScale(New_Button->GetScale() * RENDERRATIO);
-		New_Button->SetRenderScale(New_Button->GetScale() * RENDERRATIO);
 		New_Button->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.2f, GlobalValue::WinScale.Y - New_Button->GetRenderScale().Half().Y - 50 });
 		New_Button->Renderer->Off();
 
 		Load_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Load_Button->Init("Title_load01.bmp");
-		Load_Button->Renderer->SetRenderScale(Load_Button->GetScale() * RENDERRATIO);
-		Load_Button->SetRenderScale(Load_Button->GetScale() * RENDERRATIO);
 		Load_Button->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.4f, GlobalValue::WinScale.Y - Load_Button->GetRenderScale().Half().Y - 50 });
 		Load_Button->Renderer->Off();
 
 		Coop_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Coop_Button->Init("Title_coop01.bmp");
-		Coop_Button->Renderer->SetRenderScale(Coop_Button->GetScale() * RENDERRATIO);
-		Coop_Button->SetRenderScale(Coop_Button->GetScale() * RENDERRATIO);
 		Coop_Button->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.6f, GlobalValue::WinScale.Y - Coop_Button->GetRenderScale().Half().Y - 50 });
 		Coop_Button->Renderer->Off();
 
 		Exit_Button = CreateActor<PlayOver>(UpdateOrder::Map);
 		Exit_Button->Init("Title_exit01.bmp");
-		Exit_Button->Renderer->SetRenderScale(Exit_Button->GetScale() * RENDERRATIO);
-		Exit_Button->SetRenderScale(Exit_Button->GetScale() * RENDERRATIO);
 		Exit_Button->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X * 0.8f, GlobalValue::WinScale.Y - Exit_Button->GetRenderScale().Half().Y - 50 });
 		Exit_Button->Renderer->Off();
 
@@ -183,15 +174,9 @@ void TitleScreen::Start()
 		Bird2 = CreateActor<Creature>(UpdateOrder::Player);
 
 		LeftTree->Init("Title_LeftTree.bmp");
-		LeftTree->Renderer->SetTexture("Title_LeftTree.bmp");
-		LeftTree->Renderer->SetRenderScale(LeftTree->GetScale() * RENDERRATIO);
-		LeftTree->SetRenderScale(LeftTree->GetScale() * RENDERRATIO);
 		LeftTree->SetPos({ GetMainCamera()->GetPos().X + LeftTree->GetRenderScale().Half().X, Back->GetRenderScale().Y - LeftTree->GetRenderScale().Half().Y});
 
 		RightTree->Init("Title_RightTree.bmp");
-		RightTree->Renderer->SetTexture("Title_RightTree.bmp");
-		RightTree->Renderer->SetRenderScale(RightTree->GetScale() * RENDERRATIO);
-		RightTree->SetRenderScale(RightTree->GetScale() * RENDERRATIO);
 		RightTree->SetPos({ GetMainCamera()->GetPos().X + GlobalValue::WinScale.X - RightTree->GetRenderScale().Half().X, Back->GetRenderScale().Y - RightTree->GetRenderScale().Half().Y });
 
 		LeftLeaf->Renderer->SetScaleRatio(2.5f);

@@ -1,9 +1,11 @@
 ﻿#include <GameEnginePlatform/GameEngineWindowTexture.h>
 
 #include <GameEngineCore/ResourcesManager.h>
+#include <GameEngineCore/GameEngineRenderer.h>
 
 #include "ContentsEnum.h"
 #include "PlayOver.h"
+#include "GlobalValue.h"
 
 PlayOver::PlayOver()
 {
@@ -36,5 +38,8 @@ void PlayOver::Init(const std::string& _FileName)
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
 	}
 	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
+	Renderer->SetTexture(_FileName);
+	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+	RenderScale = Texture->GetScale() * RENDERRATIO;
 	Scale = Texture->GetScale();
 }
