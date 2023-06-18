@@ -35,6 +35,8 @@ protected:
 	void Update(float _Delta) override;
 
 private:
+	GameEngineWindowTexture* Texture = nullptr;
+
 	// Main UI
 	GameEngineRenderer* Clock = nullptr;
 	GameEngineRenderer* ClockHand = nullptr;
@@ -53,6 +55,7 @@ private:
 	GameEngineRenderer* SleepUIRenderer = nullptr;
 	GameEngineCollision* SleepYesCollision = nullptr;
 	GameEngineCollision* SleepNoCollision = nullptr;
+	float UIRenderRatio = 0.1f;
 
 	// Debug Value
 	GameEngineRenderer* Text1Renderer = nullptr;

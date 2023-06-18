@@ -39,7 +39,7 @@ void ContentUIManager::Start()
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\UI\\");
 
-		GameEngineWindowTexture* Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
+		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
 		Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
 		Clock->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 		Clock->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, Texture->GetScale().Half().Y * RENDERRATIO });
@@ -63,7 +63,7 @@ void ContentUIManager::Start()
 		SleepUIRenderer = CreateUIRenderer(RenderOrder::UIMouse);
 		SleepUIRenderer->SetTexture("UI_Sleep.bmp");
 		SleepUIRenderer->SetRenderPos({GlobalValue::WinScale.Half().X, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y});
-		SleepUIRenderer->SetRenderScale(Texture->GetScale() * 0.8f);
+		SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
 		SleepUIRenderer->Off();
 
 		SleepYesCollision = CreateCollision(CollisionOrder::Button);
@@ -106,6 +106,18 @@ void ContentUIManager::SleepUIOn()
 
 void ContentUIManager::Update(float _Delta)
 {
+	if (0.8f > UIRenderRatio && true == SleepUIRenderer->IsUpdate())
+	{
+		UIRenderRatio += 1.6f * _Delta;
+		SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
+	}
+
+	if (0.8f <= UIRenderRatio && false == SleepUIRenderer->IsUpdate())
+	{
+		UIRenderRatio = 0.1f;
+		SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
+	}
+
 	// Day Code
 	if (true == DayChange)
 	{
