@@ -25,6 +25,7 @@
 #include "ContentItem.h"
 #include "Cauliflower.h"
 #include "Garlic.h"
+#include "Potato.h"
 
 Farm::Farm()
 {
@@ -298,6 +299,10 @@ void Farm::GroundSeeding(ContentItem* _SeedItem)
 		else if (_SeedItem->GetItemName() == "Seed_Garlic.bmp")
 		{
 			Crops = CreateActor<Garlic>();
+		}
+		else if (_SeedItem->GetItemName() == "Seed_Potato.bmp")
+		{
+			Crops = CreateActor<Potato>();
 		}
 
 		if (nullptr == Crops)

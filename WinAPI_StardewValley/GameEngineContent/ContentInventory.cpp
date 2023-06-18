@@ -255,6 +255,10 @@ void ContentInventory::Start()
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 	Item->Init("Seed_Garlic.bmp", ItemType::Seed, 20);
 	PushItem(Item);
+
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("Seed_Potato.bmp", ItemType::Seed, 20);
+	PushItem(Item);
 }
 
 void ContentInventory::Update(float _Delta)

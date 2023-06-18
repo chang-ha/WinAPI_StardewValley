@@ -100,6 +100,9 @@
     <ClInclude Include="Cauliflower.h">
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClInclude>
+    <ClInclude Include="Potato.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -199,6 +202,9 @@
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="Cauliflower.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClCompile>
+    <ClCompile Include="Potato.cpp">
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClCompile>
   </ItemGroup>
