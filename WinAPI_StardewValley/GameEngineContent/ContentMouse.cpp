@@ -79,8 +79,11 @@ void ContentMouse::Update(float _Delta)
 		else
 		{
 			MouseRenderer->SetTexture("Cursor01.bmp");
-
 		}
+	}
+	else
+	{
+		MouseRenderer->SetTexture("Cursor01.bmp");
 	}
 }
 

@@ -31,10 +31,16 @@ void ContentResources::Init(const std::string& _FileName)
 		FilePath.MoveChild("Resources\\Textures\\Resources\\");
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
 	}
+	// Resources Renderer
 	Renderer = CreateRenderer(_FileName, RenderOrder::BackGround);
 	Renderer->SetTexture(_FileName);
 	Renderer->SetRenderPos(TILESIZE.Half() * RENDERRATIO);
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+
+	// ShadowRenderer
+	// ShadowRenderer = CreateRenderer(RenderOrder::PlayBelow);
+
+	// Resources Collision
 	Collision = CreateCollision(CollisionOrder::Resources);
 	Collision->SetCollisionPos(TILESIZE.Half() * RENDERRATIO);
 	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);

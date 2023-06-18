@@ -30,6 +30,7 @@ protected:
 	void Start() override;
 
 	GameEngineRenderer* Renderer = nullptr;
+	GameEngineRenderer* ShadowRenderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineCollision* Collision = nullptr;
 	bool IsHitten = false;
