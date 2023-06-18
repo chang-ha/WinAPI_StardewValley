@@ -103,6 +103,9 @@
     <ClInclude Include="Potato.h">
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClInclude>
+    <ClInclude Include="ContentBuilding.h">
+      <Filter>Global\Building</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -207,6 +210,9 @@
     <ClCompile Include="Potato.cpp">
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClCompile>
+    <ClCompile Include="ContentBuilding.cpp">
+      <Filter>Global\Building</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -262,6 +268,9 @@
     </Filter>
     <Filter Include="Level\11. Sleep">
       <UniqueIdentifier>{e7d44064-638f-4873-ab5d-dbb2a0c62530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global\Building">
+      <UniqueIdentifier>{7f113873-3d4b-464a-9a5c-1c2f780bcf94}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

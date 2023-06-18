@@ -16,16 +16,20 @@
 #include "FarmHouse.h"
 #include "BusStation.h"
 #include "ContentsEnum.h"
-#include "ShippingBin.h"
 #include "ContentInventory.h"
+#include "ShippingBin.h"
+// Resources
 #include "Tree.h"
 #include "Rock.h"
+// Crops
 #include "ContentCrops.h"
 #include "Parsnip.h"
 #include "ContentItem.h"
 #include "Cauliflower.h"
 #include "Garlic.h"
 #include "Potato.h"
+// Building
+#include "ContentBuilding.h"
 
 Farm::Farm()
 {
@@ -102,9 +106,7 @@ void Farm::LevelEnd(GameEngineLevel* _NextLevel)
 		BusStation* NextLevel = dynamic_cast<BusStation*>(_NextLevel);
 		NextLevel->BGMPlayer = this->BGMPlayer;
 	}
-
 }
-
 
 void Farm::Start()
 {
@@ -172,6 +174,10 @@ void Farm::Start()
 	FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 	FarmRock->Init("Rock_Small02.bmp");
 	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
+
+	ContentBuilding* House = CreateActor<ContentBuilding>();
+	House->Init("House.bmp");
+	House->SetPos({ Back->GetRenderScale().X * 0.7945f, Back->GetRenderScale().Y * 0.195f });
 }
 
 void Farm::Update(float _Delta)

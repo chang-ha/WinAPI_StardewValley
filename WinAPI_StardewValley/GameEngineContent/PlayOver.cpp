@@ -1,4 +1,5 @@
-﻿#include <GameEnginePlatform/GameEngineWindowTexture.h>
+﻿#include <GameEnginePlatform/GameEngineInput.h>
+#include <GameEnginePlatform/GameEngineWindowTexture.h>
 
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -24,6 +25,17 @@ void PlayOver::Start()
 
 void PlayOver::Update(float _Delta)
 {
+	if (true == GameEngineInput::IsDown(VK_F2))
+	{
+		if (true == Renderer->IsUpdate())
+		{
+			Renderer->Off();
+		}
+		else if (false == Renderer->IsUpdate())
+		{
+			Renderer->On();
+		}
+	}
 }
 
 void PlayOver::Init(const std::string& _FileName)
