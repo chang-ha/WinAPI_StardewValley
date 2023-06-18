@@ -20,5 +20,8 @@ protected:
 private:
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineCollision* Collision = nullptr;
+
+	// Shop UI
+	GameEngineRenderer* ShopRenderer = nullptr;
 };
 
