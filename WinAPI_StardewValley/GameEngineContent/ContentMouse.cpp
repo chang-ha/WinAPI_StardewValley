@@ -1,4 +1,6 @@
-﻿#include <GameEnginePlatform/GameEngineWindow.h>
+﻿#include <GameEngineBase/GameEngineDebug.h>
+
+#include <GameEnginePlatform/GameEngineWindow.h>
 
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCollision.h>
@@ -8,6 +10,9 @@
 
 #include "ContentsEnum.h"
 #include "ContentMouse.h"
+
+// Test Code
+#include "ContentCrops.h"
 
 ContentMouse* ContentMouse::MainMouse = nullptr;
 
@@ -60,7 +65,22 @@ void ContentMouse::Update(float _Delta)
 	std::vector<GameEngineCollision*> _CollisionResult;
 	if (true == MouseCollision->Collision(CollisionOrder::Crops, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
+		GameEngineActor* _Actor = _CollisionResult[0]->GetActor();
+		ContentCrops* _Crops = dynamic_cast<ContentCrops*>(_Actor);
+		if (nullptr == _Crops)
+		{
+			MsgBoxAssert("Crops가 아닌데 CollisionOrder가 Crops로 되어있습니다.");
+		}
 
+		if (true == _Crops->IsGrownUp())
+		{
+			MouseRenderer->SetTexture("Cursor07.bmp");
+		}
+		else
+		{
+			MouseRenderer->SetTexture("Cursor01.bmp");
+
+		}
 	}
 }
 

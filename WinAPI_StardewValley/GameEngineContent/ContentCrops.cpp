@@ -32,7 +32,7 @@ void ContentCrops::Start()
 	CropsRenderer->SetRenderScale({TILESIZE.X * RENDERRATIO, TILESIZE.Y * 2 * RENDERRATIO});
 
 	CropsCollision = CreateCollision(CollisionOrder::Crops);
-	CropsCollision->SetCollisionScale(TILESIZE * RENDERRATIO);
+	CropsCollision->SetCollisionScale(TILESIZE);
 	CropsCollision->SetCollisionPos(TILESIZE.Half() * RENDERRATIO);
 
 	if (nullptr == GameEngineSound::FindSound("harvest.wav"))
@@ -97,6 +97,7 @@ bool ContentCrops::Harvest()
 		ContentInventory::MainInventory->PushItem(Crops);
 		EffectPlayer = GameEngineSound::SoundPlay("harvest.wav");
 		this->Off();
+		CropsCollision->Off();
 		return true;
 	}
 	return false;
