@@ -30,7 +30,3 @@ void Parsnip::Start()
 
 	CropsRenderer->SetSprite("Crops_Parsnip.bmp", GrowStep);
 }
-void Parsnip::Update(float _Delta)
-{
-
-}

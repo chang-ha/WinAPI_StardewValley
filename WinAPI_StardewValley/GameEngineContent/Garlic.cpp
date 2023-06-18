@@ -29,7 +29,3 @@ void Garlic::Start()
 	}
 	CropsRenderer->SetSprite("Crops_Garlic.bmp", GrowStep);
 }
-void Garlic::Update(float _Delta)
-{
-
-}

@@ -30,8 +30,3 @@ void Potato::Start()
 	CropsRenderer->SetSprite("Crops_Potato.bmp", GrowStep);
 	MaxGrowStep = 6;
 }
-
-void Potato::Update(float _Delta)
-{
-
-}

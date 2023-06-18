@@ -30,7 +30,3 @@ void Cauliflower::Start()
 	CropsRenderer->SetSprite("Crops_Cauliflower.bmp", GrowStep);
 	MaxGrowStep = 6;
 }
-void Cauliflower::Update(float _Delta)
-{
-
-}

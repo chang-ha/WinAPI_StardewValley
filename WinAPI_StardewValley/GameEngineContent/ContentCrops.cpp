@@ -78,11 +78,11 @@ bool ContentCrops::IsGrownUp()
 	return true;
 }
 
-void ContentCrops::Harvest()
+bool ContentCrops::Harvest()
 {
 	if (false == IsGrownUp())
 	{
-		return;
+		return false;
 	}
 
 	ContentItem* Crops = GetLevel()->CreateActor<ContentItem>();
@@ -97,7 +97,9 @@ void ContentCrops::Harvest()
 		ContentInventory::MainInventory->PushItem(Crops);
 		EffectPlayer = GameEngineSound::SoundPlay("harvest.wav");
 		this->Off();
+		return true;
 	}
+	return false;
 }
 
 

@@ -14,7 +14,7 @@ public:
 	ContentCrops& operator=(const ContentCrops& _Other) = delete;
 	ContentCrops& operator=(ContentCrops&& _Other) noexcept = delete;
 
-	void Harvest();
+	bool Harvest();
 
 	bool IsGrownUp();
 

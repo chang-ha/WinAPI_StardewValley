@@ -130,9 +130,12 @@ void Player::IdleUpdate(float _DeltaTime)
 			{
 				MsgBoxAssert("해당 액터의 CollisionOrder가 잘못되어 있습니다.");
 			}
-			_Crops->Harvest();
-			ToolDirCheck();
-			ChangeState(PlayerState::Harvest);
+
+			if (true == _Crops->Harvest())
+			{
+				ToolDirCheck();
+				ChangeState(PlayerState::Harvest);
+			}
 		}
 	}
 
