@@ -2,6 +2,7 @@
 #include "ContentLevel.h"
 
 class Player;
+class PlayOver;
 class FarmHouse : public ContentLevel
 {
 public:
@@ -33,5 +34,6 @@ private:
 	void Start() override;
 	void Update(float _Delta) override;
 	bool IsSleepValue = false;
+	PlayOver* BedDie = nullptr;
 };
 

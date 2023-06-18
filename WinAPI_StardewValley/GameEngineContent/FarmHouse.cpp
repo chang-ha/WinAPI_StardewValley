@@ -94,6 +94,15 @@ void FarmHouse::Start()
 {
 	PrevLevel = "TitleScreen";
 	NextLevel = "Farm";
+	// Sound Load
+	if (nullptr == GameEngineSound::FindSound("Farm.mp3"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\BGM");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Farm.mp3"));
+	}
 
 	// Texture
 	if (nullptr == Back)
@@ -116,21 +125,30 @@ void FarmHouse::Start()
 
 		// Detail
 		PlayOver* Over = CreateActor<PlayOver>(UpdateOrder::Map);
-		Over->Init("farmhouse_bed.bmp");
+		Over->Init("Detail_Bed.bmp");
 		Over->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.66f });
-	}
 
-	// Sound
-	if (nullptr == GameEngineSound::FindSound("Farm.mp3"))
-	{
-		GameEnginePath FilePath;
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Sounds\\BGM");
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Farm.mp3"));
+		Over = CreateActor<PlayOver>(UpdateOrder::Map);
+		Over->Init("Detail_farmhouse.bmp");
+		Over->SetPos(GlobalValue::WinScale.Half());
+
+		BedDie = CreateActor<PlayOver>(UpdateOrder::Map);
+		BedDie->Init("Detail_BedDie.bmp");
+		BedDie->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.60f });
 	}
 }
 void FarmHouse::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
+
+	if (static_cast<int>(RenderOrder::PlayOver) == BedDie->Renderer->GetOrder()
+		&& BedDie->GetPos().Y <= Player::MainPlayer->GetPos().Y)
+	{
+		BedDie->Renderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
+	}
+	else if (static_cast<int>(RenderOrder::PlayBelow) == BedDie->Renderer->GetOrder()
+		&& BedDie->GetPos().Y > Player::MainPlayer->GetPos().Y)
+	{
+		BedDie->Renderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
+	}
 }
