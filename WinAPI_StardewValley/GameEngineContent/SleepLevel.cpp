@@ -49,11 +49,12 @@ void SleepLevel::Start()
 
 	PlayOver* OK_Button = CreateActor<PlayOver>();
 	OK_Button->Init("Ok_Button.bmp");
-	OK_Button->Renderer->SetTexture("OK_Button.bmp");
 	OK_Button->SetPos(GlobalValue::WinScale.Half());
+	OK_Button->Renderer->SetRenderScaleToTexture();
 	OK_Button_Collision = OK_Button->CreateCollision(CollisionOrder::Button);
 	OK_Button_Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
 }
+
 void SleepLevel::Update(float _Delta)
 {
 	if (true == OK_Button_Collision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)

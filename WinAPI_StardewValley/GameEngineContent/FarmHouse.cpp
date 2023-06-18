@@ -137,6 +137,7 @@ void FarmHouse::Start()
 		BedDie->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.60f });
 	}
 }
+
 void FarmHouse::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
