@@ -106,6 +106,9 @@
     <ClInclude Include="ContentBuilding.h">
       <Filter>Global\Building</Filter>
     </ClInclude>
+    <ClInclude Include="Counter.h">
+      <Filter>Level\09. Store</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -212,6 +215,9 @@
     </ClCompile>
     <ClCompile Include="ContentBuilding.cpp">
       <Filter>Global\Building</Filter>
+    </ClCompile>
+    <ClCompile Include="Counter.cpp">
+      <Filter>Level\09. Store</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

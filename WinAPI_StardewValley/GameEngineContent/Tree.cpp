@@ -56,13 +56,15 @@ void Tree::Update(float _Delta)
 {
 	Hitten();
 
-	if (Player::MainPlayer->GetPos().Y < GetPos().Y && UpperPart->GetOrder() < Player::MainPlayer->GetOrder())
+	if (static_cast<int>(RenderOrder::PlayBelow) == UpperPart->GetOrder()
+		&& Player::MainPlayer->GetPos().Y < GetPos().Y)
 	{
 		UpperPart->SetOrder(static_cast<int>(RenderOrder::PlayOver));
 	}
-	else if (Player::MainPlayer->GetPos().Y > GetPos().Y && UpperPart->GetOrder() > Player::MainPlayer->GetOrder())
+	else if (static_cast<int>(RenderOrder::PlayOver) == UpperPart->GetOrder()
+		&& Player::MainPlayer->GetPos().Y > GetPos().Y)
 	{
-		UpperPart->SetOrder(static_cast<int>(RenderOrder::BackGround));
+		UpperPart->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 	}
 
 	static float PerTime = 0.5f;

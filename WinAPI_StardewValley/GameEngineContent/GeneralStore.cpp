@@ -8,6 +8,7 @@
 #include "PelicanTown.h"
 #include "BackGround.h"
 #include "ContentsEnum.h"
+#include "Counter.h"
 
 GeneralStore::GeneralStore()
 {
@@ -58,6 +59,9 @@ void GeneralStore::Start()
 		Back->CollisionRenderer->SetTexture("Collision_GeneralStore.bmp");
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
+
+	Counter* _Counter = CreateActor<Counter>();
+	_Counter->SetPos({ Back->GetRenderScale().X * 0.143f, Back->GetRenderScale().Y * 0.544f });
 }
 void GeneralStore::Update(float _Delta)
 {

@@ -48,7 +48,7 @@ void ContentBuilding::Update(float _Delta)
 		}
 	}
 
-	if (static_cast<int>(RenderOrder::PlayOver) == Renderer->GetOrder()
+	if (static_cast<int>(RenderOrder::PlayOver_Building) == Renderer->GetOrder()
 		&& GetPos().Y <= Player::MainPlayer->GetPos().Y)
 	{
 		Renderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
@@ -56,6 +56,6 @@ void ContentBuilding::Update(float _Delta)
 	else if (static_cast<int>(RenderOrder::PlayBelow) == Renderer->GetOrder()
 		&& GetPos().Y > Player::MainPlayer->GetPos().Y)
 	{
-		Renderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
+		Renderer->SetOrder(static_cast<int>(RenderOrder::PlayOver_Building));
 	}
 }

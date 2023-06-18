@@ -137,6 +137,7 @@ void Player::IdleUpdate(float _DeltaTime)
 				ChangeState(PlayerState::Harvest);
 			}
 		}
+		ToolCollision->Death();
 	}
 
 	// Use Item

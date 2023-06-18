@@ -13,6 +13,8 @@
 
 // Test Code
 #include "ContentCrops.h"
+#include "Counter.h"
+#include "Player.h"
 
 ContentMouse* ContentMouse::MainMouse = nullptr;
 
@@ -69,7 +71,7 @@ void ContentMouse::Update(float _Delta)
 		ContentCrops* _Crops = dynamic_cast<ContentCrops*>(_Actor);
 		if (nullptr == _Crops)
 		{
-			MsgBoxAssert("Crops가 아닌데 CollisionOrder가 Crops로 되어있습니다.");
+			MsgBoxAssert("해당 Actor는 Crops가 아닌데 CollisionOrder가 Crops로 되어있습니다.");
 		}
 
 		if (true == _Crops->IsGrownUp())
@@ -80,6 +82,27 @@ void ContentMouse::Update(float _Delta)
 		{
 			MouseRenderer->SetTexture("Cursor01.bmp");
 		}
+	}
+	else if (true == MouseCollision->Collision(CollisionOrder::Shop, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	{
+		GameEngineActor* _Actor = _CollisionResult[0]->GetActor();
+		Counter* _Counter = dynamic_cast<Counter*>(_Actor);
+		if (nullptr == _Counter)
+		{
+			MsgBoxAssert("해당 Actor는 Counter가 아닌데 CollisionOrder가 Counter로 되어있습니다.");
+		}
+
+		if (TILESIZE.X * RENDERRATIO < _Counter->GetPos().X - Player::MainPlayer->GetPos().X)
+		{
+			return;
+		}
+
+		if (TILESIZE.Y * RENDERRATIO < _Counter->GetPos().Y - Player::MainPlayer->GetPos().Y)
+		{
+			return;
+		}
+
+		MouseRenderer->SetTexture("Cursor03.bmp");
 	}
 	else
 	{

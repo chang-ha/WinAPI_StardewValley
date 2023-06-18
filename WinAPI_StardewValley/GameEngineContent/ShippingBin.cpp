@@ -13,6 +13,8 @@
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
 
+#include "Player.h"
+
 ShippingBin::ShippingBin()
 {
 
@@ -68,6 +70,17 @@ void ShippingBin::Start()
 
 void ShippingBin::Update(float _Delta)
 {
+	if (static_cast<int>(RenderOrder::PlayOver_Building) == BodyRenderer->GetOrder()
+		&& GetPos().Y <= Player::MainPlayer->GetPos().Y)
+	{
+		BodyRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
+	}
+	else if (static_cast<int>(RenderOrder::PlayBelow) == BodyRenderer->GetOrder()
+		&& GetPos().Y > Player::MainPlayer->GetPos().Y)
+	{
+		BodyRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver_Building));
+	}
+
 	std::vector<GameEngineCollision*> _CollisionResult;
 	if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && false == IsOpen)
 	{
