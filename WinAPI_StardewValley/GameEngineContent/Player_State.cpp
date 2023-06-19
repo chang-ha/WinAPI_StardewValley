@@ -66,6 +66,7 @@ void Player::ToolStart()
 
 void Player::Tool2Start()
 {
+	// Tool WateringCan
 	ChangeAnimationState("Tool2");
 
 	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
@@ -88,6 +89,7 @@ void Player::Tool2Start()
 
 void Player::HarvestStart()
 {
+	// Harvest
 	ChangeAnimationState("Harvest");
 	if (PlayerDir::Down == Dir)
 	{
@@ -294,7 +296,6 @@ void Player::RunUpdate(float _DeltaTime)
 		}
 		MovePos.X = static_cast<float>(MovePos.iX());
 	}
-
 
 	///////// Player Move(Up, Down)
 	if (true == GameEngineInput::IsPress('W') && PlayerDir::Up == (Dir & PlayerDir::Up))

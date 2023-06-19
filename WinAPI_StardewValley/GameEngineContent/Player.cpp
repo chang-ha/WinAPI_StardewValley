@@ -408,7 +408,7 @@ void Player::Start()
 	
 	// Player Collision
 	BodyCollision = CreateCollision(CollisionOrder::Player);
-	BodyCollision->SetCollisionPos({0, 16});
+	BodyCollision->SetCollisionPos(float4{0, 9} * RENDERRATIO);
 	BodyCollision->SetCollisionScale(TILESIZE * RENDERRATIO);
 
 	// Debug Collision
