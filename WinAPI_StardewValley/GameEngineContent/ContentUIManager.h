@@ -24,6 +24,8 @@ public:
 	void InventoryUpRender();
 	void InventoryDownRender();
 	void SleepUIOn();
+	void ShopUIOn();
+	void ShopUIOff();
 	void PlusDayValue()
 	{
 		++DayValue;
@@ -35,7 +37,7 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-	GameEngineWindowTexture* Texture = nullptr;
+	GameEngineWindowTexture* SleepUITexture = nullptr;
 
 	// Main UI
 	GameEngineRenderer* Clock = nullptr;
@@ -56,6 +58,12 @@ private:
 	GameEngineCollision* SleepYesCollision = nullptr;
 	GameEngineCollision* SleepNoCollision = nullptr;
 	float UIRenderRatio = 0.1f;
+
+	// PierreShop UI
+	GameEngineRenderer* ShopRenderer = nullptr;
+	GameEngineRenderer* CancelRenderer = nullptr;
+	// GameEngineRenderer* PrevSelectRenderer = nullptr;
+	// GameEngineRenderer* NextSelectRenderer = nullptr;
 
 	// Debug Value
 	GameEngineRenderer* Text1Renderer = nullptr;

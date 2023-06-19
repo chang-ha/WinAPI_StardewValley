@@ -38,48 +38,70 @@ void ContentUIManager::Start()
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\UI\\");
-
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
-		Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
-		Clock->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-		Clock->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, Texture->GetScale().Half().Y * RENDERRATIO });
-
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand.bmp"));
-		ClockHand = CreateUIRenderer("Clock_hand.bmp", RenderOrder::UI);
-		ClockHand->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-		ClockHand->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO - 135, Texture->GetScale().Half().Y * RENDERRATIO + 10 });
-
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
-		Energy = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
-		Energy->SetRenderScale(Texture->GetScale() * 3);
-		Energy->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y * RENDERRATIO });
-
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory.bmp"));
-		Inventory = CreateUIRenderer("UI_Inventory.bmp", RenderOrder::UI);
-		Inventory->SetRenderScaleToTexture();
-		InventoryDownRender();
-
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
-		SleepUIRenderer = CreateUIRenderer(RenderOrder::UIMouse);
-		SleepUIRenderer->SetTexture("UI_Sleep.bmp");
-		SleepUIRenderer->SetRenderPos({GlobalValue::WinScale.Half().X, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y});
-		SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
-		SleepUIRenderer->Off();
-
-		SleepYesCollision = CreateCollision(CollisionOrder::Button);
-		SleepYesCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.78f });
-		SleepYesCollision->SetCollisionScale({GlobalValue::WinScale.hX() + 100, 50});
-		SleepYesCollision->Off();
-
-		SleepNoCollision = CreateCollision(CollisionOrder::Button);
-		SleepNoCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.88f });
-		SleepNoCollision->SetCollisionScale({ GlobalValue::WinScale.hX() + 100, 50});
-		SleepNoCollision->Off();
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Pierre.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Cancel.bmp"));
 	}
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Clock.bmp");
+	Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
+	Clock->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+	Clock->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, Texture->GetScale().Half().Y * RENDERRATIO });
+
+	Texture = ResourcesManager::GetInst().FindTexture("Clock_hand.bmp");
+	ClockHand = CreateUIRenderer("Clock_hand.bmp", RenderOrder::UI);
+	ClockHand->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+	ClockHand->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO - 135, Texture->GetScale().Half().Y * RENDERRATIO + 10 });
+
+	Texture = ResourcesManager::GetInst().FindTexture("Energy.bmp");
+	Energy = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
+	Energy->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+	Energy->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y * RENDERRATIO });
+
 	DayTextRenderer = CreateUIRenderer(RenderOrder::UI);
 	DayTextRenderer->SetText("월.    1", 30, "Sandoll 미생");
-	DayTextRenderer->SetRenderPos({GlobalValue::WinScale.X - 100, 13});
+	DayTextRenderer->SetRenderPos({ GlobalValue::WinScale.X - 100, 13 });
 
+	Inventory = CreateUIRenderer("UI_Inventory.bmp", RenderOrder::UI);
+	InventoryDownRender();
+
+	// SleepUI
+	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
+	SleepUIRenderer = CreateUIRenderer(RenderOrder::UIMouse);
+	SleepUIRenderer->SetTexture("UI_Sleep.bmp");
+	SleepUIRenderer->SetRenderPos({GlobalValue::WinScale.Half().X, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y});
+	SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
+	SleepUIRenderer->Off();
+
+	SleepYesCollision = CreateCollision(CollisionOrder::Button);
+	SleepYesCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.78f });
+	SleepYesCollision->SetCollisionScale({GlobalValue::WinScale.hX() + 100, 50});
+	SleepYesCollision->Off();
+
+	SleepNoCollision = CreateCollision(CollisionOrder::Button);
+	SleepNoCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.88f });
+	SleepNoCollision->SetCollisionScale({ GlobalValue::WinScale.hX() + 100, 50});
+	SleepNoCollision->Off();
+
+	// ShopUI
+	Texture = ResourcesManager::GetInst().FindTexture("UI_Shop_Pierre.bmp");
+	ShopRenderer = CreateUIRenderer("UI_Shop_Pierre.bmp", RenderOrder::UI);
+	ShopRenderer->SetRenderPos(GlobalValue::WinScale.Half());
+	ShopRenderer->SetRenderScale(Texture->GetScale() * 0.9f);
+	ShopRenderer->Off();
+
+	CancelRenderer = CreateUIRenderer("UI_Cancel.bmp", RenderOrder::UI);
+	CancelRenderer->SetRenderPos({GlobalValue::WinScale.Half().X + Texture->GetScale().Half().X, GlobalValue::WinScale.Half().Y - Texture->GetScale().Half().Y});
+	CancelRenderer->Off();
+
+	// PrevSelectRenderer = CreateUIRenderer(RenderOrder::UI);
+	// NextSelectRenderer = CreateUIRenderer(RenderOrder::UI);
+
+
+	// Debug Renderer
 	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	Text2Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	Text3Renderer = CreateUIRenderer(RenderOrder::PlayOver);
@@ -104,20 +126,26 @@ void ContentUIManager::SleepUIOn()
 	SleepNoCollision->On();
 }
 
+void ContentUIManager::ShopUIOn()
+{
+	ContentInventory::MainInventory->Off();
+	Inventory->Off();
+	Player::MainPlayer->StopPlayer();
+	ShopRenderer->On();
+	CancelRenderer->On();
+}
+
+void ContentUIManager::ShopUIOff()
+{
+	ContentInventory::MainInventory->On();
+	Inventory->On();
+	Player::MainPlayer->SetIsUpdate(true);
+	ShopRenderer->Off();
+	CancelRenderer->Off();
+}
+
 void ContentUIManager::Update(float _Delta)
 {
-	if (0.8f > UIRenderRatio && true == SleepUIRenderer->IsUpdate())
-	{
-		UIRenderRatio += 2.4f * _Delta;
-		SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
-	}
-
-	if (0.8f <= UIRenderRatio && false == SleepUIRenderer->IsUpdate())
-	{
-		UIRenderRatio = 0.1f;
-		SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
-	}
-
 	// Day Code
 	if (true == DayChange)
 	{
@@ -152,6 +180,19 @@ void ContentUIManager::Update(float _Delta)
 	}
 
 	// Sleep UI
+
+	// SleepUI Datail
+	if (0.8f > UIRenderRatio && true == SleepUIRenderer->IsUpdate())
+	{
+		UIRenderRatio += 2.4f * _Delta;
+		SleepUIRenderer->SetRenderScale(SleepUITexture->GetScale() * UIRenderRatio);
+	}
+	else if (0.8f <= UIRenderRatio && false == SleepUIRenderer->IsUpdate())
+	{
+		UIRenderRatio = 0.1f;
+		SleepUIRenderer->SetRenderScale(SleepUITexture->GetScale() * UIRenderRatio);
+	}
+
 	if (false == SleepUIRenderer->IsUpdate())
 	{
 		return;

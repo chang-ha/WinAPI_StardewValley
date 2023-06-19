@@ -8,8 +8,8 @@
 #include "Counter.h"
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
-#include "ContentMouse.h"
-#include "Player.h"
+#include "ContentUIManager.h"
+
 Counter::Counter()
 {
 
@@ -22,7 +22,6 @@ Counter::~Counter()
 
 void Counter::Start()
 {
-	GameEngineWindowTexture* Texture = nullptr;
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Counter.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -31,7 +30,7 @@ void Counter::Start()
 		FilePath.MoveChild("Resources\\Textures\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Over\\Counter.bmp"));
 	}
-	Texture = ResourcesManager::GetInst().FindTexture("Counter.bmp");
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Counter.bmp");
 	Renderer = CreateRenderer(RenderOrder::PlayBelow);
 	Renderer->SetTexture("Counter.bmp");
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
@@ -39,9 +38,6 @@ void Counter::Start()
 	Collision = CreateCollision(CollisionOrder::Shop);
 	Collision->SetCollisionScale(float4{3.0f, 1.5f} * TILESIZE * RENDERRATIO);
 	Collision->SetCollisionPos({ -Texture->GetScale().X * 0.7f, Texture->GetScale().Y * 0.8f});
-
-	// ShopRenderer = CreateUIRenderer(RenderOrder::UI);
-	// ShopRenderer->SetTexture();
 }
 
 void Counter::Update(float _Delta)
@@ -49,7 +45,11 @@ void Counter::Update(float _Delta)
 	std::vector<GameEngineCollision*> _CollisionResult;
 	if (true == Collision->Collision(CollisionOrder::PlayerAction, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
-		Player::MainPlayer->StopPlayer();
+		ContentUIManager::MainUI->ShopUIOn();
 	}
-
+	
+	if (true == GameEngineInput::IsDown('M'))
+	{
+		ContentUIManager::MainUI->ShopUIOff();
+	}
 }

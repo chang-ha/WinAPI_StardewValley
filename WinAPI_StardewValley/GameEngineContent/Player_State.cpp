@@ -106,6 +106,10 @@ void Player::HarvestStart()
 void Player::IdleUpdate(float _DeltaTime)
 {
 	// EffectPlayer.Stop();
+	if (nullptr != ToolCollision && false == ToolCollision->IsDeath())
+	{
+		ToolCollision->Death();
+	}
 
 	if (true == GameEngineInput::IsDown('A')
 		|| true == GameEngineInput::IsDown('W')
@@ -136,7 +140,6 @@ void Player::IdleUpdate(float _DeltaTime)
 				ChangeState(PlayerState::Harvest);
 			}
 		}
-		ToolCollision->Death();
 	}
 
 	// Use Item
