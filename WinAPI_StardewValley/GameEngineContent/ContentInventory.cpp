@@ -351,7 +351,11 @@ void ContentInventory::Update(float _Delta)
 		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
 			&& true == GameEngineInput::IsDown(VK_LBUTTON))
 		{
-			if (nullptr != AllItem[x]->Item && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+			if (true == ContentUIManager::MainUI->Inventory->IsUpdate())
+			{
+				CurIndex = x;
+			}
+			else if (nullptr != AllItem[x]->Item && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
 				// Inventory -> Mouse
 				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
