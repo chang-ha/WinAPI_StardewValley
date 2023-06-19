@@ -360,3 +360,61 @@ void GameEngineCollision::DebugRender()
 		break;
 	}
 }
+
+
+bool GameEngineCollision::CollisonCheckNext(const CollisionData& _Next, GameEngineCollision* _Other
+	, CollisionType _ThisType
+	, CollisionType _OtherType)
+{
+	if (nullptr == CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)])
+	{
+		MsgBoxAssert("충돌체크함수를 만들지 않았습니다.");
+		return false;
+	}
+
+	return CollisionFunction[static_cast<int>(_ThisType)][static_cast<int>(_OtherType)](_Next, _Other->GetCollisionData());
+}
+
+bool GameEngineCollision::CollisionNext(const float4& _NextPos, int _Order, std::vector<GameEngineCollision*>& _Result
+	, CollisionType _ThisType = CollisionType::CirCle
+	, CollisionType _OtherType = CollisionType::CirCle)
+{
+	if (false == IsUpdate())
+	{
+		return false;
+	}
+
+	std::list<GameEngineCollision*>& OtherCollision = GetActor()->GetLevel()->AllCollision[_Order];
+
+	if (0 == OtherCollision.size())
+	{
+		return false;
+	}
+
+	bool Check = false;
+
+	CollisionData NextData = GetCollisionData();
+	NextData.Pos += _NextPos;
+
+	for (GameEngineCollision* Collision : OtherCollision)
+	{
+		if (nullptr == Collision)
+		{
+			MsgBoxAssert("존재하지 않는 콜리전이 있습니다.");
+			return false;
+		}
+
+		if (false == Collision->IsUpdate())
+		{
+			continue;
+		}
+
+		if (true == CollisonCheckNext(NextData, Collision, _ThisType, _OtherType))
+		{
+			_Result.push_back(Collision);
+			Check = true;
+		}
+	}
+
+	return Check;
+}
