@@ -61,8 +61,17 @@ private:
 
 	// Pierre's Shop UI
 	GameEngineRenderer* ShopRenderer = nullptr;
+	GameEngineRenderer* ItemSelectRenderer = nullptr;
 	GameEngineRenderer* CancelRenderer = nullptr;
 	GameEngineCollision* CancelCollision = nullptr;
+	GameEngineRenderer* Item1PriceTextRenderer = nullptr;
+	GameEngineRenderer* Item2PriceTextRenderer = nullptr;
+	GameEngineRenderer* Item3PriceTextRenderer = nullptr;
+	GameEngineRenderer* Item4PriceTextRenderer = nullptr;
+	GameEngineCollision* Item1Collision = nullptr;
+	GameEngineCollision* Item2Collision = nullptr;
+	GameEngineCollision* Item3Collision = nullptr;
+	GameEngineCollision* Item4Collision = nullptr;
 	// GameEngineRenderer* PrevSelectRenderer = nullptr;
 	// GameEngineRenderer* NextSelectRenderer = nullptr;
 

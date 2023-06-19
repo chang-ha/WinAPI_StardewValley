@@ -47,6 +47,7 @@ void ContentUIManager::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Pierre.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Cancel.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Select.bmp"));
 	}
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Clock.bmp");
 	Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
@@ -105,9 +106,54 @@ void ContentUIManager::Start()
 	CancelCollision->SetCollisionScale(float4{ 11, 11 } *RENDERRATIO);
 	CancelCollision->Off();
 
+	Texture = ResourcesManager::GetInst().FindTexture("UI_Shop_Select.bmp");
+	ItemSelectRenderer = CreateUIRenderer("UI_Shop_Select.bmp");
+	ItemSelectRenderer->SetRenderPos(GlobalValue::WinScale.Half());
+	ItemSelectRenderer->SetRenderScale(Texture->GetScale() * 0.9f);
+	ItemSelectRenderer->Off();
+
+	// Item1
+	{
+		Item1PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
+		Item1PriceTextRenderer->SetText("1", 20, "Sandoll 미생");
+		Item1PriceTextRenderer->Off();
+		Item1Collision = CreateCollision(CollisionOrder::Button);
+		Item1Collision->SetCollisionScale(Texture->GetScale() * 0.9f);
+		Item1Collision->Off();
+	}
+
+	// Item2
+	{
+		Item2PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
+		Item2PriceTextRenderer->SetText("1", 20, "Sandoll 미생");
+		Item2PriceTextRenderer->Off();
+		Item2Collision = CreateCollision(CollisionOrder::Button);
+		Item2Collision->SetCollisionScale(Texture->GetScale() * 0.9f);
+		Item2Collision->Off();
+	}
+
+	// Item3
+	{
+		Item3PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
+		Item3PriceTextRenderer->SetText("1", 20, "Sandoll 미생");
+		Item3PriceTextRenderer->Off();
+		Item3Collision = CreateCollision(CollisionOrder::Button);
+		Item3Collision->SetCollisionScale(Texture->GetScale() * 0.9f);
+		Item3Collision->Off();
+	}
+
+	// Item4
+	{
+		Item4PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
+		Item4PriceTextRenderer->SetText("1", 20, "Sandoll 미생");
+		Item4PriceTextRenderer->Off();
+		Item4Collision = CreateCollision(CollisionOrder::Button);
+		Item4Collision->SetCollisionScale(Texture->GetScale() * 0.9f);
+		Item4Collision->Off();
+	}
+
 	// PrevSelectRenderer = CreateUIRenderer(RenderOrder::UI);
 	// NextSelectRenderer = CreateUIRenderer(RenderOrder::UI);
-
 
 	// Debug Renderer
 	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
