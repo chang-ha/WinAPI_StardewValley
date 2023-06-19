@@ -9,7 +9,7 @@
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
 #include "ContentMouse.h"
-
+#include "Player.h"
 Counter::Counter()
 {
 
@@ -46,9 +46,10 @@ void Counter::Start()
 
 void Counter::Update(float _Delta)
 {
-	if (true == GameEngineInput::IsDown(VK_RBUTTON)
-		&& true == Collision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+	std::vector<GameEngineCollision*> _CollisionResult;
+	if (true == Collision->Collision(CollisionOrder::PlayerAction, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
-
+		Player::MainPlayer->StopPlayer();
 	}
+
 }

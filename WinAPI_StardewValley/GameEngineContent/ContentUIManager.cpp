@@ -108,7 +108,7 @@ void ContentUIManager::Update(float _Delta)
 {
 	if (0.8f > UIRenderRatio && true == SleepUIRenderer->IsUpdate())
 	{
-		UIRenderRatio += 1.6f * _Delta;
+		UIRenderRatio += 2.4f * _Delta;
 		SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
 	}
 

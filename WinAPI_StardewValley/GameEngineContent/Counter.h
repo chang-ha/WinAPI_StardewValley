@@ -14,6 +14,7 @@ public:
 	Counter& operator=(const Counter& _Other) = delete;
 	Counter& operator=(Counter&& _Other) noexcept = delete;
 
+	void ShopUIOn();
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

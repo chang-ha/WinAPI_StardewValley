@@ -23,6 +23,7 @@ enum class CollisionOrder
 	Map,
 	Button,
 	Player,
+	PlayerAction,
 	Npc,
 	Axe,
 	PickAxe,

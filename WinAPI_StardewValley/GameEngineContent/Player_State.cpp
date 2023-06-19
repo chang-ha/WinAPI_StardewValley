@@ -121,10 +121,7 @@ void Player::IdleUpdate(float _DeltaTime)
 	{
 		// Harvest
 		std::vector<GameEngineCollision*> _CollisionResult;
-		{
-			// Test¿ë
-			ToolCollisionCreate(CollisionOrder::Axe);
-		}
+		ToolCollisionCreate(CollisionOrder::PlayerAction);
 		if (true == ToolCollision->Collision(CollisionOrder::Crops, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 		{
 			ContentCrops* _Crops = dynamic_cast<ContentCrops*>(_CollisionResult[0]->GetActor());
