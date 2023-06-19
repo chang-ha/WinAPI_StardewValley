@@ -1,4 +1,5 @@
-﻿#include <GameEngineBase/GameEngineDebug.h>
+﻿#include <GameEngineBase/GameEngineTime.h>
+#include <GameEngineBase/GameEngineDebug.h>
 
 #include "GameEngineLevel.h"
 #include "GameEngineCamera.h"
@@ -45,6 +46,9 @@ void GameEngineLevel::ActorUpdate(float _Delta)
 	for (const std::pair<int, std::list<GameEngineActor*>>& _Pair : AllActors)
 	{
 		const std::list<GameEngineActor*>& Group = _Pair.second;
+
+		float TimeScale = GameEngineTime::MainTimer.GetTimeScale(_Pair.first);
+
 		for (GameEngineActor* _Actor : Group)
 		{
 			if (false == _Actor->IsUpdate())
@@ -52,7 +56,8 @@ void GameEngineLevel::ActorUpdate(float _Delta)
 				continue;
 			}
 			_Actor->AddLiveTime(_Delta);
-			_Actor->Update(_Delta);
+			_Actor->Update(_Delta * TimeScale);
+			_Actor->SubObjectUpdate(_Delta * TimeScale);
 		}
 	}
 }

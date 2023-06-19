@@ -64,7 +64,7 @@ void GameEngineRenderer::SetAngle(float _Angle)
 }
 
 
-void GameEngineRenderer::TextRender(float _DeltaTime)
+void GameEngineRenderer::TextRender(float _Delta)
 {
 	float4 TextPos = GetActor()->GetPos() + RenderPos - Camera->GetPos();
 
@@ -104,14 +104,8 @@ void GameEngineRenderer::TextRender(float _DeltaTime)
 	return;
 }
 
-void GameEngineRenderer::Render(float _DeltaTime)
+void GameEngineRenderer::Update(float _Delta)
 {
-	if ("" != Text)
-	{
-		TextRender(_DeltaTime);
-		return;
-	}
-
 	if (nullptr != CurAnimation)
 	{
 		if (true == CurAnimation->Loop)
@@ -119,7 +113,7 @@ void GameEngineRenderer::Render(float _DeltaTime)
 			CurAnimation->IsEnd = false;
 		}
 
-		CurAnimation->CurInter -= _DeltaTime;
+		CurAnimation->CurInter -= _Delta;
 		if (0.0f >= CurAnimation->CurInter)
 		{
 			++CurAnimation->CurFrame;
@@ -152,6 +146,15 @@ void GameEngineRenderer::Render(float _DeltaTime)
 		{
 			SetRenderScale(SpriteInfo.RenderScale * ScaleRatio);
 		}
+	}
+}
+
+void GameEngineRenderer::Render(float _Delta)
+{
+	if ("" != Text)
+	{
+		TextRender(_Delta);
+		return;
 	}
 
 	if (nullptr == Texture)

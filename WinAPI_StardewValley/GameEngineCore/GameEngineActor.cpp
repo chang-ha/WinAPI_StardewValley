@@ -96,3 +96,20 @@ void GameEngineActor::ActorRelease()
 		ObjectStartIter = AllRenderer.erase(ObjectStartIter);
 	}
 }
+
+void GameEngineActor::SubObjectUpdate(float _DeltaTime)
+{
+	std::list<GameEngineRenderer*>::iterator ObjectStartIter = AllRenderer.begin();
+	std::list<GameEngineRenderer*>::iterator ObjectEndIter = AllRenderer.end();
+
+	for (; ObjectStartIter != ObjectEndIter; ++ObjectStartIter)
+	{
+		GameEngineRenderer* Renderer = *ObjectStartIter;
+		if (false == Renderer->IsUpdate())
+		{
+			continue;
+		}
+
+		Renderer->Update(_DeltaTime);
+	}
+}

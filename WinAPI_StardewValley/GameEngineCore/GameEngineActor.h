@@ -116,5 +116,6 @@ private:
 	std::list<GameEngineRenderer*> AllRenderer;
 	std::list<GameEngineCollision*> AllCollision;
 	void ActorRelease();
+	void SubObjectUpdate(float _DeltaTime);
 };
 

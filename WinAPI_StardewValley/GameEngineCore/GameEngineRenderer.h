@@ -87,13 +87,13 @@ private:
 	std::string Text = "";
 	float Angle = 0.0f;
 
-	void TextRender(float _DeltaTime);
+	void TextRender(float _Delta);
 	float4 RenderPos = {};
 	float4 RenderScale = {};
 
 	float4 CopyPos = {};
 	float4 CopyScale = {};
-	void Render(float _DeltaTime);
+	void Render(float _Delta);
 
 /////////// Animation
 private:
@@ -150,6 +150,7 @@ public:
 	void ChangeAnimation(const std::string& _AnimationName, int _StartFrame = 0, bool _ForceChange = false);
 	void MainCameraSetting();
 	void UICameraSetting();
+	void Update(float _Delta) override;
 
 /////////// TextRender
 	public:
