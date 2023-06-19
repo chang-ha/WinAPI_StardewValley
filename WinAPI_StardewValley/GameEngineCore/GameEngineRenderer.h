@@ -38,6 +38,8 @@ public:
 
 	void SetAngle(float _Angle);
 
+	void SetAlpha(unsigned char _Alpha);
+
 	void SetRenderPos(const float4& _Pos)
 	{
 		RenderPos = _Pos;
@@ -86,6 +88,7 @@ private:
 	float ScaleRatio = 1.0f;
 	std::string Text = "";
 	float Angle = 0.0f;
+	unsigned char Alpha = 255;
 
 	void TextRender(float _Delta);
 	float4 RenderPos = {};

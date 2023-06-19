@@ -184,3 +184,34 @@ void GameEngineWindowTexture::PlgCopy(GameEngineWindowTexture* _CopyTexture
 		_OtherPos.iX(), 
 		_OtherPos.iY());
 }
+
+void GameEngineWindowTexture::AlphaCopy(GameEngineWindowTexture* _CopyTexture, const float4& _Pos, const float4& _Scale, const float4& _OtherPos, const float4& _OtherScale, unsigned char _Alpha)
+{
+	if (nullptr == _CopyTexture)
+	{
+		MsgBoxAssert("카피할 텍스처가 세팅되지 않았습니다.");
+	}
+
+	HDC CopyImageDC = _CopyTexture->GetImageDC();
+
+	BLENDFUNCTION Function;
+
+	Function.BlendOp = AC_SRC_OVER;
+	Function.BlendFlags = 0;
+	Function.SourceConstantAlpha = _Alpha;
+	Function.AlphaFormat = AC_SRC_ALPHA;
+
+	AlphaBlend(
+		ImageDC,
+		_Pos.iX() - _Scale.ihX(),
+		_Pos.iY() - _Scale.ihY(),
+		_Scale.iX(),
+		_Scale.iY(),
+		CopyImageDC,
+		_OtherPos.iY(), 
+		_OtherPos.iX(), 
+		_OtherScale.iX(),
+		_OtherScale.iY(),
+		Function
+	);
+}

@@ -63,6 +63,10 @@ void GameEngineRenderer::SetAngle(float _Angle)
 	Angle = _Angle;
 }
 
+void GameEngineRenderer::SetAlpha(unsigned char _Alpha)
+{
+	Alpha = _Alpha;
+}
 
 void GameEngineRenderer::TextRender(float _Delta)
 {
@@ -164,13 +168,17 @@ void GameEngineRenderer::Render(float _Delta)
 
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
 
-	if (0 == Angle)
+	if (0 == Angle && 255 == Alpha)
 	{
 		BackBuffer->TransCopy(Texture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale);
 	}
-	else
+	else if (0 != Angle)
 	{
 		BackBuffer->PlgCopy(Texture, MaskTexture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale, Angle);
+	}
+	else if (255 != Alpha)
+	{
+		BackBuffer->AlphaCopy(Texture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale, Alpha);
 	}
 }
 
