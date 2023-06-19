@@ -457,7 +457,7 @@ void Player::ToolUpdate(float _DeltaTime)
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
 		ToolCollision->Death();
 	}
 }
@@ -467,7 +467,7 @@ void Player::Tool2Update(float _DeltaTime)
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
 	}
 }
 
@@ -476,7 +476,7 @@ void Player::HarvestUpdate(float _DeltaTime)
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Arm));
+		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
 		ToolCollision->Death();
 	}
 }

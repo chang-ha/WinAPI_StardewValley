@@ -42,7 +42,7 @@ void Tree::Init(const std::string& _FileName)
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("axchop.wav"));
 	}
-	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::PlayOver);
+	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::Play);
 	UpperPart->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	UpperPart->SetRenderPos((TILESIZE.Half() - float4{ 0, 38 }) * RENDERRATIO);
 }
@@ -55,17 +55,6 @@ void Tree::Start()
 void Tree::Update(float _Delta)
 {
 	Hitten();
-
-	if (static_cast<int>(RenderOrder::PlayBelow) == UpperPart->GetOrder()
-		&& Player::MainPlayer->GetPos().Y < GetPos().Y)
-	{
-		UpperPart->SetOrder(static_cast<int>(RenderOrder::PlayOver));
-	}
-	else if (static_cast<int>(RenderOrder::PlayOver) == UpperPart->GetOrder()
-		&& Player::MainPlayer->GetPos().Y > GetPos().Y)
-	{
-		UpperPart->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
-	}
 
 	static float PerTime = 0.5f;
 	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && 0.0f > PerTime)
@@ -86,40 +75,6 @@ void Tree::Update(float _Delta)
 			Item->SetPos(GetPos() + float4{x * RENDERRATIO * 8, 0});
 			Item->RandomVector();
 		}
-		
-		// Test Code
-
-
-		//Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
-		//Test->Init("Seed2.bmp", ItemType::Seed);
-		//Test->SetPos(GetPos());
-		//Test->RandomVector();
-
-		//Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
-		//Test->Init("Seed3.bmp", ItemType::Seed);
-		//Test->SetPos(GetPos());
-		//Test->RandomVector();
-
-		//Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
-		//Test->Init("Seed4.bmp", ItemType::Seed);
-		//Test->SetPos(GetPos());
-		//Test->RandomVector();
-
-		//Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
-		//Test->Init("Seed5.bmp", ItemType::Seed);
-		//Test->SetPos(GetPos());
-		//Test->RandomVector();
-
-		//Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
-		//Test->Init("Seed6.bmp", ItemType::Seed);
-		//Test->SetPos(GetPos());
-		//Test->RandomVector();
-
-		//Test = CurLevel->CreateActor<ContentSeed>(UpdateOrder::Inventory);
-		//Test->Init("Seed7.bmp", ItemType::Seed);
-		//Test->SetPos(GetPos());
-		//Test->RandomVector();
-
 		Death();
 	}
 

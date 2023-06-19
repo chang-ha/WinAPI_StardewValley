@@ -20,7 +20,7 @@ Creature::~Creature()
 
 void Creature::Start()
 {
-	Renderer = CreateRenderer(RenderOrder::Creature);
+	Renderer = CreateRenderer(RenderOrder::PlayOver);
 }
 
 

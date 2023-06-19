@@ -29,7 +29,7 @@ void ContentBuilding::Init(const std::string& _FileName)
 		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
 	}
 	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
-	Renderer = CreateRenderer(RenderOrder::PlayBelow);
+	Renderer = CreateRenderer(RenderOrder::Play);
 	Renderer->SetTexture(_FileName);
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 }
@@ -46,16 +46,5 @@ void ContentBuilding::Update(float _Delta)
 		{
 			Renderer->On();
 		}
-	}
-
-	if (static_cast<int>(RenderOrder::PlayOver_Building) == Renderer->GetOrder()
-		&& GetPos().Y <= Player::MainPlayer->GetPos().Y)
-	{
-		Renderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
-	}
-	else if (static_cast<int>(RenderOrder::PlayBelow) == Renderer->GetOrder()
-		&& GetPos().Y > Player::MainPlayer->GetPos().Y)
-	{
-		Renderer->SetOrder(static_cast<int>(RenderOrder::PlayOver_Building));
 	}
 }

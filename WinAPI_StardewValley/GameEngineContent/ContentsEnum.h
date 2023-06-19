@@ -11,15 +11,7 @@ enum class RenderOrder
 {
 	BackGround,
 	PlayBelow,
-	Shadow,
 	Play,
-	Pants,
-	Shirt,
-	Hair,
-	Hat,
-	Arm,
-	Creature,
-	PlayOver_Building,
 	PlayOver,
 	UI,
 	Inventory_Item,
@@ -29,6 +21,7 @@ enum class RenderOrder
 enum class CollisionOrder
 {
 	Map,
+	Button,
 	Player,
 	Npc,
 	Axe,
@@ -38,7 +31,6 @@ enum class CollisionOrder
 	Resources,
 	Item,
 	Crops,
-	Button,
 	Shop,
 	UI,
 	Inventory_Item,

@@ -133,6 +133,7 @@ void FarmHouse::Start()
 		Over->SetPos(GlobalValue::WinScale.Half());
 
 		BedDie = CreateActor<PlayOver>(UpdateOrder::Map);
+		BedDie->Renderer->SetOrder(static_cast<int>(RenderOrder::Play));
 		BedDie->Init("Detail_BedDie.bmp");
 		BedDie->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.60f });
 	}
@@ -141,15 +142,4 @@ void FarmHouse::Start()
 void FarmHouse::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
-
-	if (static_cast<int>(RenderOrder::PlayOver) == BedDie->Renderer->GetOrder()
-		&& BedDie->GetPos().Y <= Player::MainPlayer->GetPos().Y)
-	{
-		BedDie->Renderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
-	}
-	else if (static_cast<int>(RenderOrder::PlayBelow) == BedDie->Renderer->GetOrder()
-		&& BedDie->GetPos().Y > Player::MainPlayer->GetPos().Y)
-	{
-		BedDie->Renderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
-	}
 }

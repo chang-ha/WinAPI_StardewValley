@@ -160,19 +160,21 @@ void Player::Start()
 	}
 
 	// Player Renderer 
+	ShadowRenderer = CreateRenderer(RenderOrder::Play);
+
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
 	BodyRenderer->SetScaleRatio(RENDERRATIO);
 
-	PantsRenderer = CreateRenderer(RenderOrder::Pants);
+	PantsRenderer = CreateRenderer(RenderOrder::Play);
 	PantsRenderer->SetScaleRatio(RENDERRATIO);
 
-	ShirtRenderer = CreateRenderer(RenderOrder::Shirt);
+	ShirtRenderer = CreateRenderer(RenderOrder::Play);
 	ShirtRenderer->SetScaleRatio(RENDERRATIO);
 	
-	ArmRenderer = CreateRenderer(RenderOrder::Arm);
+	ArmRenderer = CreateRenderer(RenderOrder::Play);
 	ArmRenderer->SetScaleRatio(RENDERRATIO);
 
-	HairRenderer = CreateRenderer(RenderOrder::Hair);
+	HairRenderer = CreateRenderer(RenderOrder::Play);
 	HairRenderer->SetScaleRatio(RENDERRATIO);
 
 	// HatRenderer = CreateRenderer(RenderOrder::Hat);
@@ -400,7 +402,7 @@ void Player::Start()
 	//}
 
 	// Shadow
-	ShadowRenderer = CreateRenderer(RenderOrder::Shadow);
+	ShadowRenderer->SetAlpha(254);
 	ShadowRenderer->CreateAnimation("Idle", "Shadow.bmp", 0, 0);
 	ShadowRenderer->ChangeAnimation("Idle");
 	ShadowRenderer->SetScaleRatio(RENDERRATIO);
