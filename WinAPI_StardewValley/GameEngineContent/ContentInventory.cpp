@@ -137,6 +137,20 @@ void ContentInventory::SetPosInventoryItem()
 	}
 }
 
+void ContentInventory::SetPosInventoryShop()
+{
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		AllItem[x]->ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.48f + 0.036f * x), GlobalValue::WinScale.Y * 0.66f });
+		AllItem[x]->ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.49f + 0.036f * x), GlobalValue::WinScale.Y * 0.67f });
+
+		if (nullptr != AllItem[x]->ItemRenderer)
+		{
+			AllItem[x]->ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.48f + 0.036f * x), GlobalValue::WinScale.Y * 0.66f });
+		}
+	}
+}
+
 void ContentInventory::UseItem(ContentItem* _Item)
 {
 	int ItemIndex = 0;
@@ -294,13 +308,16 @@ void ContentInventory::Update(float _Delta)
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 
 	// CollisionPos Update
-	for (int x = 0; x < AllItem.size(); x++)
+	if (true == ContentUIManager::MainUI->Inventory->IsUpdate())
 	{
-		if (nullptr == AllItem[x])
+		for (int x = 0; x < AllItem.size(); x++)
 		{
-			continue;
+			if (nullptr == AllItem[x])
+			{
+				continue;
+			}
+			AllItem[x]->ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 		}
-		AllItem[x]->ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 	}
 
 	// ItemCountRenderer Update

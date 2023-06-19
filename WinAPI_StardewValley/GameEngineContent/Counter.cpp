@@ -47,9 +47,4 @@ void Counter::Update(float _Delta)
 	{
 		ContentUIManager::MainUI->ShopUIOn();
 	}
-	
-	if (true == GameEngineInput::IsDown('M'))
-	{
-		ContentUIManager::MainUI->ShopUIOff();
-	}
 }

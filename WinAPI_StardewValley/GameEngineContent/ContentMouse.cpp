@@ -53,7 +53,7 @@ void ContentMouse::Start()
 	MouseCollision->SetCollisionScale(TILESIZE * RENDERRATIO * 0.8f);
 
 	// Mouse Item Renderer
-	ItemRenderer = CreateUIRenderer(RenderOrder::UI);
+	ItemRenderer = CreateUIRenderer(RenderOrder::UIMouse);
 	ItemRenderer->SetRenderPos(TILESIZE * RENDERRATIO);
 	ItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
 	ItemRenderer->Off();

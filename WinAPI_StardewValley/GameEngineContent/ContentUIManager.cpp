@@ -19,6 +19,8 @@
 #include "ContentInventory.h"
 #include "Player.h"
 
+#include <GameEngineCore/GameEngineCamera.h>
+
 ContentUIManager* ContentUIManager::MainUI = nullptr;
 
 ContentUIManager::ContentUIManager()
@@ -72,18 +74,18 @@ void ContentUIManager::Start()
 	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
 	SleepUIRenderer = CreateUIRenderer(RenderOrder::UIMouse);
 	SleepUIRenderer->SetTexture("UI_Sleep.bmp");
-	SleepUIRenderer->SetRenderPos({GlobalValue::WinScale.Half().X, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y});
-	SleepUIRenderer->SetRenderScale(Texture->GetScale() * UIRenderRatio);
+	SleepUIRenderer->SetRenderPos({GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y - SleepUITexture->GetScale().hY()});
+	SleepUIRenderer->SetRenderScale(SleepUITexture->GetScale() * UIRenderRatio);
 	SleepUIRenderer->Off();
 
 	SleepYesCollision = CreateCollision(CollisionOrder::Button);
 	SleepYesCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.78f });
-	SleepYesCollision->SetCollisionScale({GlobalValue::WinScale.hX() + 100, 50});
+	SleepYesCollision->SetCollisionScale({GlobalValue::WinScale.hX() + 150, 50});
 	SleepYesCollision->Off();
 
 	SleepNoCollision = CreateCollision(CollisionOrder::Button);
 	SleepNoCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.88f });
-	SleepNoCollision->SetCollisionScale({ GlobalValue::WinScale.hX() + 100, 50});
+	SleepNoCollision->SetCollisionScale({ GlobalValue::WinScale.hX() + 150, 50});
 	SleepNoCollision->Off();
 
 	// ShopUI
@@ -94,8 +96,15 @@ void ContentUIManager::Start()
 	ShopRenderer->Off();
 
 	CancelRenderer = CreateUIRenderer("UI_Cancel.bmp", RenderOrder::UI);
-	CancelRenderer->SetRenderPos({GlobalValue::WinScale.Half().X + Texture->GetScale().Half().X, GlobalValue::WinScale.Half().Y - Texture->GetScale().Half().Y});
+	CancelRenderer->SetRenderPos({GlobalValue::WinScale.hX() + Texture->GetScale().hX() - 75, GlobalValue::WinScale.hY() - Texture->GetScale().hY() + 40});
+	CancelRenderer->SetRenderScale(float4{11, 11} *RENDERRATIO);
 	CancelRenderer->Off();
+
+	CancelCollision = CreateCollision(CollisionOrder::Button);
+	CancelCollision->SetCollisionPos({GlobalValue::WinScale.X - 140, GlobalValue::WinScale.hY() + 117});
+	CancelCollision->SetCollisionScale(float4{ 11, 11 } *RENDERRATIO);
+	CancelCollision->Off();
+
 
 	// PrevSelectRenderer = CreateUIRenderer(RenderOrder::UI);
 	// NextSelectRenderer = CreateUIRenderer(RenderOrder::UI);
@@ -128,59 +137,26 @@ void ContentUIManager::SleepUIOn()
 
 void ContentUIManager::ShopUIOn()
 {
-	ContentInventory::MainInventory->Off();
 	Inventory->Off();
 	Player::MainPlayer->StopPlayer();
 	ShopRenderer->On();
 	CancelRenderer->On();
+	CancelCollision->On();
+	ContentInventory::MainInventory->SetPosInventoryShop();
 }
 
 void ContentUIManager::ShopUIOff()
 {
-	ContentInventory::MainInventory->On();
 	Inventory->On();
 	Player::MainPlayer->SetIsUpdate(true);
 	ShopRenderer->Off();
 	CancelRenderer->Off();
+	CancelCollision->Off();
+	ContentInventory::MainInventory->SetPosInventoryItem();
 }
 
-void ContentUIManager::Update(float _Delta)
+void ContentUIManager::SleepUIUpdate(float _Delta)
 {
-	// Day Code
-	if (true == DayChange)
-	{
-		std::string Day = "";
-		switch (DayValue % 7)
-		{
-		case 0:
-			Day = "일";
-			break;
-		case 1:
-			Day = "월";
-			break;
-		case 2:
-			Day = "화";
-			break;
-		case 3:
-			Day = "수";
-			break;
-		case 4:
-			Day = "목";
-			break;
-		case 5:
-			Day = "금";
-			break;
-		case 6:
-			Day = "토";
-			break;
-		default:
-			break;
-		}
-		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
-	}
-
-	// Sleep UI
-
 	// SleepUI Datail
 	if (0.8f > UIRenderRatio && true == SleepUIRenderer->IsUpdate())
 	{
@@ -219,6 +195,59 @@ void ContentUIManager::Update(float _Delta)
 		SleepYesCollision->Off();
 		SleepNoCollision->Off();
 	}
+}
+void ContentUIManager::ShopUIUpdate(float _Delta)
+{
+	if (false == ShopRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown(VK_LBUTTON) 
+		&& true == CancelCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+	{
+		ShopUIOff();
+	}
+}
+
+
+void ContentUIManager::Update(float _Delta)
+{
+	// Day Code
+	if (true == DayChange)
+	{
+		std::string Day = "";
+		switch (DayValue % 7)
+		{
+		case 0:
+			Day = "일";
+			break;
+		case 1:
+			Day = "월";
+			break;
+		case 2:
+			Day = "화";
+			break;
+		case 3:
+			Day = "수";
+			break;
+		case 4:
+			Day = "목";
+			break;
+		case 5:
+			Day = "금";
+			break;
+		case 6:
+			Day = "토";
+			break;
+		default:
+			break;
+		}
+		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
+	}
+
+	SleepUIUpdate(_Delta);
+	ShopUIUpdate(_Delta);
 }
 
 void ContentUIManager::InventoryUpRender()

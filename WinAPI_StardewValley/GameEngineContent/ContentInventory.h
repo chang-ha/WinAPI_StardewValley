@@ -42,6 +42,8 @@ public:
 
 	void SetPosInventoryItem();
 
+	void SetPosInventoryShop();
+
 	void UseItem(ContentItem* _Item);
 
 	ContentItem* GetCurItem()

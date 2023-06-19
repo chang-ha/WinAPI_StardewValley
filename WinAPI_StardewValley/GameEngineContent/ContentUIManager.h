@@ -62,6 +62,7 @@ private:
 	// PierreShop UI
 	GameEngineRenderer* ShopRenderer = nullptr;
 	GameEngineRenderer* CancelRenderer = nullptr;
+	GameEngineCollision* CancelCollision = nullptr;
 	// GameEngineRenderer* PrevSelectRenderer = nullptr;
 	// GameEngineRenderer* NextSelectRenderer = nullptr;
 
@@ -70,5 +71,8 @@ private:
 	GameEngineRenderer* Text2Renderer = nullptr;
 	GameEngineRenderer* Text3Renderer = nullptr;
 	GameEngineRenderer* Text4Renderer = nullptr;
+
+	void SleepUIUpdate(float _Delta);
+	void ShopUIUpdate(float _Delta);
 };
 
