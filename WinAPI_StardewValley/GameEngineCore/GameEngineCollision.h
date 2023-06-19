@@ -141,7 +141,7 @@ public:
 	template<typename EnumType>
 	bool CollisionNext(const float4& _NextPos, EnumType _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::CirCle, CollisionType _OtherType = CollisionType::CirCle)
 	{
-		return CollisionNext(static_cast<int>(_Order), _Result, _ThisType, _OtherType);
+		return CollisionNext(_NextPos, static_cast<int>(_Order), _Result, _ThisType, _OtherType);
 	}
 
 	bool CollisionNext(const float4& _NextPos, int _Order, std::vector<GameEngineCollision*>& _Result, CollisionType _ThisType = CollisionType::CirCle, CollisionType _OtherType = CollisionType::CirCle);

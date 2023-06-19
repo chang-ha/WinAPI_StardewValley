@@ -297,6 +297,29 @@ void Player::RunUpdate(float _DeltaTime)
 		MovePos.X = static_cast<float>(MovePos.iX());
 	}
 
+	// ActorCollision
+	std::vector<GameEngineCollision*> _CollisionResult;
+	if (true == BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	{
+		if (LeftCollision == CheckPos)
+		{
+			while (BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+			{
+				MovePos += float4::RIGHT;
+				BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect);
+			}
+		}
+		else if (RightCollision == CheckPos)
+		{
+			while (BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+			{
+				MovePos += float4::LEFT;
+				BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect);
+			}
+		}
+		MovePos.X = static_cast<float>(MovePos.iX());
+	}
+
 	///////// Player Move(Up, Down)
 	if (true == GameEngineInput::IsPress('W') && PlayerDir::Up == (Dir & PlayerDir::Up))
 	{
@@ -331,6 +354,29 @@ void Player::RunUpdate(float _DeltaTime)
 		}
 		MovePos.Y = static_cast<float>(MovePos.iY());
 	}
+
+	// ActorCollision
+	if (true == BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	{
+		if (UpCollision == CheckPos)
+		{
+			while (BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+			{
+				MovePos += float4::DOWN;
+				BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect);
+			}
+		}
+		else if (DownCollision == CheckPos)
+		{
+			while (BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+			{
+				MovePos += float4::UP;
+				BodyCollision->CollisionNext(MovePos, CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect);
+			}
+		}
+		MovePos.Y = static_cast<float>(MovePos.iY());
+	}
+
 	AddPos(MovePos);
 
 	// Change Map
