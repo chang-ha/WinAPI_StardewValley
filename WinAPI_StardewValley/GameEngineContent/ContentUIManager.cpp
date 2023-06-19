@@ -105,7 +105,6 @@ void ContentUIManager::Start()
 	CancelCollision->SetCollisionScale(float4{ 11, 11 } *RENDERRATIO);
 	CancelCollision->Off();
 
-
 	// PrevSelectRenderer = CreateUIRenderer(RenderOrder::UI);
 	// NextSelectRenderer = CreateUIRenderer(RenderOrder::UI);
 

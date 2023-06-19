@@ -9,6 +9,7 @@
 #include "BackGround.h"
 #include "ContentsEnum.h"
 #include "Counter.h"
+#include "ContentNpc.h"
 
 GeneralStore::GeneralStore()
 {
@@ -62,6 +63,9 @@ void GeneralStore::Start()
 
 	Counter* _Counter = CreateActor<Counter>();
 	_Counter->SetPos({ Back->GetRenderScale().X * 0.143f, Back->GetRenderScale().Y * 0.544f });
+
+	ContentNpc* _Npc = CreateActor<ContentNpc>();
+	_Npc->SetPos({ Back->GetRenderScale().X * 0.1f, Back->GetRenderScale().Y * 0.52f });
 }
 void GeneralStore::Update(float _Delta)
 {

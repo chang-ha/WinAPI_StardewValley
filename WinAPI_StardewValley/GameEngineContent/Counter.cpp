@@ -31,7 +31,7 @@ void Counter::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Over\\Counter.bmp"));
 	}
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Counter.bmp");
-	Renderer = CreateRenderer(RenderOrder::PlayBelow);
+	Renderer = CreateRenderer(RenderOrder::Play);
 	Renderer->SetTexture("Counter.bmp");
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 

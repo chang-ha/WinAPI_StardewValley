@@ -40,16 +40,15 @@ void PlayOver::Update(float _Delta)
 
 void PlayOver::Init(const std::string& _FileName)
 {
-	FileName = _FileName;
-	if (false == ResourcesManager::GetInst().IsLoadTexture(FileName))
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Over\\");
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
 	}
-	Texture = ResourcesManager::GetInst().FindTexture(_FileName);
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	Renderer->SetTexture(_FileName);
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	RenderScale = Texture->GetScale() * RENDERRATIO;

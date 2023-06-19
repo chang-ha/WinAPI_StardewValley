@@ -59,7 +59,7 @@ private:
 	GameEngineCollision* SleepNoCollision = nullptr;
 	float UIRenderRatio = 0.1f;
 
-	// PierreShop UI
+	// Pierre's Shop UI
 	GameEngineRenderer* ShopRenderer = nullptr;
 	GameEngineRenderer* CancelRenderer = nullptr;
 	GameEngineCollision* CancelCollision = nullptr;
