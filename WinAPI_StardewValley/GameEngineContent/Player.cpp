@@ -160,7 +160,7 @@ void Player::Start()
 	}
 
 	// Player Renderer 
-	ShadowRenderer = CreateRenderer(RenderOrder::Play);
+	ShadowRenderer = CreateRenderer(RenderOrder::PlayBelow);
 
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
 	BodyRenderer->SetScaleRatio(RENDERRATIO);
@@ -178,7 +178,14 @@ void Player::Start()
 	HairRenderer->SetScaleRatio(RENDERRATIO);
 
 	// HatRenderer = CreateRenderer(RenderOrder::Hat);
-	
+
+	// Shadow
+	ShadowRenderer->SetAlpha(120);
+	ShadowRenderer->CreateAnimation("Idle", "Shadow.bmp", 0, 0);
+	ShadowRenderer->ChangeAnimation("Idle");
+	ShadowRenderer->SetScaleRatio(RENDERRATIO);
+	ShadowRenderer->SetRenderPos(float4{ 0, 14 } *RENDERRATIO);
+
 	// Body
 	{
 		// Up
@@ -401,12 +408,6 @@ void Player::Start()
 	//	HatRenderer->SetRenderScale(HatRenderer->GetTextureScale() * 3.7f);
 	//}
 
-	// Shadow
-	ShadowRenderer->SetAlpha(254);
-	ShadowRenderer->CreateAnimation("Idle", "Shadow.bmp", 0, 0);
-	ShadowRenderer->ChangeAnimation("Idle");
-	ShadowRenderer->SetScaleRatio(RENDERRATIO);
-	ShadowRenderer->SetRenderPos(float4{ 0, 14 } * RENDERRATIO);
 	
 	// Player Collision
 	BodyCollision = CreateCollision(CollisionOrder::Player);

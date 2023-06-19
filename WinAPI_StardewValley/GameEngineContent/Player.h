@@ -117,6 +117,12 @@ private:
 
 	GameEngineWindowTexture* CollisionTexture = nullptr;
 
+	void LevelStart() override;
+	void Start() override;
+	void Update(float _Delta) override;
+	void Render(float _Delta) override;
+	void ToolCollisionCreate(CollisionOrder _CollisionType);
+
 	// State Start
 	void IdleStart();
 	void RunStart();
@@ -137,13 +143,6 @@ private:
 	// DirCheck
 	void DirCheck();
 	void ToolDirCheck();
-
-	void ToolCollisionCreate(CollisionOrder _CollisionType);
-
-	void LevelStart() override;
-	void Start() override;
-	void Update(float _Delta) override;
-	void Render(float _Delta) override;
 
 	// PlayerCollision Value
 	bool CollisionDebug = false;
