@@ -1,28 +1,24 @@
 #pragma once
+#include "GameEngineRenderer.h"
 #include <map>
 #include <list>
-#include <string>
 
-#include <GameEngineBase/GameEngineMath.h>
-
-#include "GameEngineRenderer.h"
-
-class GameEngineActor;
-class GameEngineLevel;
+// Ό³Έν :
 class GameEngineRenderer;
 class GameEngineCamera
 {
-	friend GameEngineActor;
-	friend GameEngineLevel;
-	friend GameEngineRenderer;
+	friend class GameEngineRenderer;
+	friend class GameEngineActor;
+	friend class GameEngineLevel;
+
 public:
-	// constructer destructer
+	// constrcuter destructer
 	GameEngineCamera();
 	~GameEngineCamera();
 
-	// delete function
-	GameEngineCamera(const GameEngineCamera& _Ohter) = delete;
-	GameEngineCamera(GameEngineCamera&& _Ohter) noexcept = delete;
+	// delete Function
+	GameEngineCamera(const GameEngineCamera& _Other) = delete;
+	GameEngineCamera(GameEngineCamera&& _Other) noexcept = delete;
 	GameEngineCamera& operator=(const GameEngineCamera& _Other) = delete;
 	GameEngineCamera& operator=(GameEngineCamera&& _Other) noexcept = delete;
 
@@ -31,23 +27,58 @@ public:
 		return Pos;
 	}
 
-	void SetPos(const float4& _Pos)
+	void SetPos(const float4& _Value) 
 	{
-		Pos = _Pos;
+		Pos = _Value;
 	}
 
-	void AddPos(const float4& _Pos)
+	void AddPos(const float4& _Value)
 	{
-		Pos += _Pos;
+		Pos += _Value;
 	}
+
+	template<typename EnumType>
+	void SetYSort(EnumType _Order, bool _Sort)
+	{
+		SetYSort(static_cast<int>(_Order), _Sort);
+	}
+
+	void SetYSort(int _Order, bool _Sort) 
+	{
+		YSort[_Order] = _Sort;
+	}
+
+	template<typename EnumType>
+	bool GetYSort(EnumType _Order)
+	{
+		return GetYSort(static_cast<int>(_Order));
+	}
+
+	bool GetYSort(int _Order)
+	{
+		if (YSort.end() == YSort.find(_Order))
+		{
+			YSort[_Order] = false;
+		}
+
+		return YSort[_Order];
+	}
+
 protected:
 
 private:
 	float4 Pos = float4::ZERO;
+
 	std::map<int, std::list<GameEngineRenderer*>> Renderers;
+
+	std::map<int, bool> YSort;
+
 	void PushRenderer(GameEngineRenderer* _Renderer, int _Order);
-	void Render(float _DeltaTime);
+
 	void Release();
+
 	void OverRelease();
+
+	void Render(float _Delta);
 };
 

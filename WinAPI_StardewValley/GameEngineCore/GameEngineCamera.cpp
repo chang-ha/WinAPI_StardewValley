@@ -1,75 +1,108 @@
-ï»¿#include <GameEngineBase/GameEngineDebug.h>
-
 #include "GameEngineCamera.h"
+#include <GameEngineBase/GameEngineDebug.h>
 #include "GameEngineActor.h"
 
-GameEngineCamera::GameEngineCamera()
+GameEngineCamera::GameEngineCamera() 
 {
-
 }
 
-GameEngineCamera::~GameEngineCamera()
+GameEngineCamera::~GameEngineCamera() 
 {
+}
 
+bool YSortFunction(GameEngineRenderer* _Left, GameEngineRenderer* _Right)
+{
+	return _Left->GetActorYPivot() < _Right->GetActorYPivot();
+}
+
+void GameEngineCamera::Render(float _Delta)
+{
+	//for (const std::pair<int, std::list<GameEngineRenderer*>>& Pair : Renderers)
+	//{
+	//}
+
+	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
+	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
+
+	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
+	{
+		std::list<GameEngineRenderer*>& List = GroupStartIter->second;
+
+		std::list<GameEngineRenderer*>::iterator RenderStartIter = List.begin();
+		std::list<GameEngineRenderer*>::iterator RenderEndIter = List.end();
+
+		// A C D F
+		// 157 2011
+		// C F A D 
+		// 7 111520
+		// 0 ¹ø ±×·ì ysort ÇØ¾ßÇØ?
+		if (true == GetYSort(GroupStartIter->first))
+		{
+			// Æ÷ÀÎÅÍÀÇ °ªÀ¸·Î sort¸¦ ÇÕ´Ï´Ù
+			// ³»ºÎ¿¡ ÀÖ´Â °ªÀ» ºñ±³ÇÕ´Ï´Ù.
+			// ±×³É ÇÏ¸é Æ÷ÀÎÅÍÀÇ Å©±â·Î ÇÕ´Ï´Ù.
+			// Æ÷ÀÎÅÍ´Â ¹¹´Ù? => 8¹ÙÀÌÆ® Á¤¼ö
+			// List.sort();
+			List.sort(YSortFunction);
+		}
+
+		for (; RenderStartIter != RenderEndIter; ++RenderStartIter)
+		{
+			GameEngineRenderer* Render = *RenderStartIter;
+
+			if (false == Render->IsUpdate())
+			{
+				continue;
+			}
+
+			Render->Render(_Delta);
+		}
+	}
 }
 
 void GameEngineCamera::PushRenderer(GameEngineRenderer* _Renderer, int _Order)
 {
 	if (nullptr == _Renderer)
 	{
-		MsgBoxAssert("nullptrì¸ Rendererë¥¼ ê·¸ë£¹ì— ë„£ì„ìˆœ ì—†ìŠµë‹ˆë‹¤.");
+		MsgBoxAssert("nullptrÀÎ ·£´õ·¯¸¦ ±×·ì¿¡ ¼ÓÇÏ°Ô ÇÏ·Á°í Çß½À´Ï´Ù.");
 	}
+
 	_Renderer->Camera = this;
 	Renderers[_Order].push_back(_Renderer);
 }
 
-void GameEngineCamera::Render(float _DeltaTime)
-{
-	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
-	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
-	for (;GroupStartIter != GroupEndIter; ++GroupStartIter)
-	{
-		std::list<GameEngineRenderer*>& List = GroupStartIter->second;
-		std::list<GameEngineRenderer*>::iterator RendererStartIter = List.begin();
-		std::list<GameEngineRenderer*>::iterator RendererEndIter = List.end();
-		for (; RendererStartIter != RendererEndIter ; ++RendererStartIter)
-		{
-			GameEngineRenderer* Renderer = *RendererStartIter;
-			if (false == Renderer->IsUpdate())
-			{
-				continue;
-			}
-			Renderer->Render(_DeltaTime);
-		}
-	}
-}
-
 void GameEngineCamera::Release()
 {
-	std::map <int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
-	std::map <int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
-	std::list<GameEngineRenderer*>::iterator ObjectStartIter;
-	std::list<GameEngineRenderer*>::iterator ObjectEndIter;
+
+	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
+	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
+
+	// ´«²Å ¸¸Å­ÀÌ¶óµµ ¿¬»êÀ» ÁÙÀÌ·Á´Â °ÅÁÒ.
+
 	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 	{
 		std::list<GameEngineRenderer*>& Group = GroupStartIter->second;
-		ObjectStartIter = Group.begin();
-		ObjectEndIter = Group.end();
-		for (; ObjectStartIter != ObjectEndIter; )
+
+		std::list<GameEngineRenderer*>::iterator ActorStartIter = Group.begin();
+		std::list<GameEngineRenderer*>::iterator ActorEndIter = Group.end();
+
+		for (; ActorStartIter != ActorEndIter; )
 		{
-			GameEngineRenderer* Object = *ObjectStartIter;
+			GameEngineRenderer* Object = *ActorStartIter;
 			if (false == Object->IsDeath())
 			{
-				++ObjectStartIter;
+				++ActorStartIter;
 				continue;
 			}
 
 			if (nullptr == Object)
 			{
-				MsgBoxAssert("nullì¸ ObjectëŠ” Releaseí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
+				MsgBoxAssert("nullptrÀÎ ·£´õ·¯°¡ ·¹º§ÀÇ ¸®½ºÆ®¿¡ µé¾î°¡ ÀÖ¾ú½À´Ï´Ù.");
 				continue;
 			}
-			ObjectStartIter = Group.erase(ObjectStartIter);
+			// [s] [a] [a]     [a] [e]
+			ActorStartIter = Group.erase(ActorStartIter);
+
 		}
 	}
 }
@@ -79,11 +112,16 @@ void GameEngineCamera::OverRelease()
 
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
+
+	// ´«²Å ¸¸Å­ÀÌ¶óµµ ¿¬»êÀ» ÁÙÀÌ·Á´Â °ÅÁÒ.
+
 	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 	{
 		std::list<GameEngineRenderer*>& Group = GroupStartIter->second;
+
 		std::list<GameEngineRenderer*>::iterator ActorStartIter = Group.begin();
 		std::list<GameEngineRenderer*>::iterator ActorEndIter = Group.end();
+
 		for (; ActorStartIter != ActorEndIter; )
 		{
 			GameEngineRenderer* Object = *ActorStartIter;
@@ -95,7 +133,7 @@ void GameEngineCamera::OverRelease()
 
 			if (nullptr == Object)
 			{
-				MsgBoxAssert("nullptrì¸ ëœë”ëŸ¬ê°€ ë ˆë²¨ì˜ ë¦¬ìŠ¤íŠ¸ì— ë“¤ì–´ê°€ ìˆì—ˆìŠµë‹ˆë‹¤.");
+				MsgBoxAssert("nullptrÀÎ ·£´õ·¯°¡ ·¹º§ÀÇ ¸®½ºÆ®¿¡ µé¾î°¡ ÀÖ¾ú½À´Ï´Ù.");
 				continue;
 			}
 			// [s] [a] [a]     [a] [e]

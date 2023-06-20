@@ -1,52 +1,57 @@
-ï»¿#include <GameEngineBase/GameEngineDebug.h>
-#include <GameEngineBase/GameEngineString.h>
-
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
-#include <GameEnginePlatform/GameEngineWindow.h>
-
-#include "GameEngineLevel.h"
 #include "GameEngineRenderer.h"
-#include "GameEngineActor.h"
+#include <GameEngineBase/GameEngineDebug.h>
+#include <GameEngineBase/GameEngineString.h>
+#include <GameEnginePlatform/GameEngineWindow.h>
+#include <GameEnginePlatform/GameEngineWindowTexture.h>
 #include "GameEngineCamera.h"
 #include "ResourcesManager.h"
+#include "GameEngineActor.h"
 #include "GameEngineSprite.h"
+#include "GameEngineLevel.h"
+#include <math.h>
 
-GameEngineRenderer::GameEngineRenderer()
+GameEngineRenderer::GameEngineRenderer() 
 {
-
 }
 
-GameEngineRenderer::~GameEngineRenderer()
+GameEngineRenderer::~GameEngineRenderer() 
 {
+}
+
+void GameEngineRenderer::SetSprite(const std::string& _Name, size_t _Index/* = 0*/)
+{
+	Sprite = ResourcesManager::GetInst().FindSprite(_Name);
+
+	if (nullptr == Sprite)
+	{
+		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ½ºÇÁ¶óÀÌÆ®¸¦ ¼¼ÆÃÇÏ·Á°í Çß½À´Ï´Ù." + _Name);
+	}
+
+	const GameEngineSprite::Sprite& SpriteInfo = Sprite->GetSprite(_Index);
+
+	Texture = SpriteInfo.BaseTexture;
+
+	SetCopyPos(SpriteInfo.RenderPos);
+	SetCopyScale(SpriteInfo.RenderScale);
 
 }
 
 void GameEngineRenderer::SetTexture(const std::string& _Name)
 {
 	Texture = ResourcesManager::GetInst().FindTexture(_Name);
+
 	if (nullptr == Texture)
 	{
-		MsgBoxAssert(_Name + "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” Textureë¥¼ ì„¸íŒ…í•˜ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
+		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ÅØ½ºÃ³¸¦ ¼¼ÆÃÇÏ·Á°í Çß½À´Ï´Ù." + _Name);
 	}
+
 	SetCopyPos(float4::ZERO);
 	SetCopyScale(Texture->GetScale());
+
 	if (false == ScaleCheck)
 	{
 		SetRenderScaleToTexture();
 	}
-}
-
-void GameEngineRenderer::SetSprite(const std::string& _Name, size_t _Index /*= 0*/)
-{
-	Sprite = ResourcesManager::GetInst().FindSprite(_Name);
-	if (nullptr == Sprite)
-	{
-		MsgBoxAssert(_Name + "ì¡´ì¬í•˜ì§€ ì•Šì€ Spriteë¥¼ ì„¸íŒ…í•˜ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
-	}
-	const GameEngineSprite::Sprite& SpriteInfo = Sprite->GetSprite(_Index);
-	Texture = SpriteInfo.BaseTexture;
-	SetCopyPos(SpriteInfo.RenderPos);
-	SetCopyScale(SpriteInfo.RenderScale);
 }
 
 void GameEngineRenderer::SetRenderScaleToTexture()
@@ -58,24 +63,14 @@ void GameEngineRenderer::SetRenderScaleToTexture()
 	ScaleCheck = false;
 }
 
-void GameEngineRenderer::SetAngle(float _Angle)
-{
-	Angle = _Angle;
-}
-
-void GameEngineRenderer::SetAlpha(unsigned char _Alpha)
-{
-	Alpha = _Alpha;
-}
-
-void GameEngineRenderer::TextRender(float _Delta)
+void GameEngineRenderer::TextRender(float _DeltaTime)
 {
 	float4 TextPos = GetActor()->GetPos() + RenderPos - Camera->GetPos();
 
 	HDC hdc = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();
 	HFONT hFont, OldFont;
 	LOGFONTA lf;
-	lf.lfHeight = TextScale;
+	lf.lfHeight = TextScale;// TextHeight;
 	lf.lfWidth = 0;
 	lf.lfEscapement = 0;
 	lf.lfOrientation = 0;
@@ -88,20 +83,28 @@ void GameEngineRenderer::TextRender(float _Delta)
 	lf.lfClipPrecision = 0;
 	lf.lfQuality = 0;
 	lf.lfPitchAndFamily = VARIABLE_PITCH | FF_ROMAN;
+	// lstrcpy(lf.lfFaceName, TEXT(TextType.c_str()));
 	lstrcpy(lf.lfFaceName, Face.c_str());
 	hFont = CreateFontIndirect(&lf);
 	OldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
 
-	SetTextColor(hdc, RGB(0, 0, 0));
+	//SetTextAlign(hdc, static_cast<UINT>(Align));
+	SetTextColor(hdc, RGB(255, 0, 0));
 	SetBkMode(hdc, TRANSPARENT);
 
 	RECT Rect;
 	Rect.left = TextPos.iX();
 	Rect.top = TextPos.iY();
-	Rect.right = TextPos.iX() + TextScale * static_cast<int>(Text.size());
-	Rect.bottom = TextPos.iY() + TextScale;
+	Rect.right = TextPos.iX() + TextScale * static_cast<int>(Text.size());// TextBoxScale.ix();
+	Rect.bottom = TextPos.iY() + TextScale;// TextBoxScale.iy();
+
+
 
 	DrawTextA(hdc, Text.c_str(), static_cast<int>(Text.size()), &Rect, static_cast<UINT>(DT_BOTTOM));
+
+
+	// TextOutA(GameEngineWindow::GetDoubleBufferImage()->GetImageDC(), RenderPos.ix(), RenderPos.iy(), RenderText.c_str(), static_cast<int>(RenderText.size()));
+
 	SelectObject(hdc, OldFont);
 	DeleteObject(hFont);
 
@@ -110,6 +113,7 @@ void GameEngineRenderer::TextRender(float _Delta)
 
 void GameEngineRenderer::Update(float _Delta)
 {
+
 	if (nullptr != CurAnimation)
 	{
 		if (true == CurAnimation->Loop)
@@ -121,6 +125,8 @@ void GameEngineRenderer::Update(float _Delta)
 		if (0.0f >= CurAnimation->CurInter)
 		{
 			++CurAnimation->CurFrame;
+
+
 			if (CurAnimation->CurFrame > abs(static_cast<int>(CurAnimation->EndFrame - CurAnimation->StartFrame)))
 			{
 				CurAnimation->IsEnd = true;
@@ -134,11 +140,13 @@ void GameEngineRenderer::Update(float _Delta)
 					--CurAnimation->CurFrame;
 				}
 			}
+
 			CurAnimation->CurInter
 				= CurAnimation->Inters[CurAnimation->CurFrame];
 		}
 
 		size_t Frame = CurAnimation->Frames[CurAnimation->CurFrame];
+
 		Sprite = CurAnimation->Sprite;
 		const GameEngineSprite::Sprite& SpriteInfo = Sprite->GetSprite(Frame);
 		Texture = SpriteInfo.BaseTexture;
@@ -153,17 +161,17 @@ void GameEngineRenderer::Update(float _Delta)
 	}
 }
 
-void GameEngineRenderer::Render(float _Delta)
+void GameEngineRenderer::Render(float _DeltaTime) 
 {
 	if ("" != Text)
 	{
-		TextRender(_Delta);
+		TextRender(_DeltaTime);
 		return;
 	}
 
 	if (nullptr == Texture)
 	{
-		MsgBoxAssert("ì´ë¯¸ì§€ë¥¼ ì„¸íŒ…í•˜ì§€ ì•Šì€ ëœë”ëŸ¬ ì…ë‹ˆë‹¤.");
+		MsgBoxAssert("ÀÌ¹ÌÁö¸¦ ¼¼ÆÃÇÏÁö ¾ÊÀº ·£´õ·¯ ÀÔ´Ï´Ù.");
 	}
 
 	GameEngineWindowTexture* BackBuffer = GameEngineWindow::MainWindow.GetBackBuffer();
@@ -176,49 +184,61 @@ void GameEngineRenderer::Render(float _Delta)
 	{
 		BackBuffer->PlgCopy(Texture, MaskTexture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale, Angle);
 	}
-	else if (255 != Alpha)
+	else if(255 != Alpha)
 	{
 		BackBuffer->AlphaCopy(Texture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale, Alpha);
 	}
+
 }
 
-GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::string& _AnimationName)
+
+GameEngineRenderer::Animation* GameEngineRenderer::FindAnimation(const std::string& _AniamtionName)
 {
-	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+	std::string UpperName = GameEngineString::ToUpperReturn(_AniamtionName);
+
 	std::map<std::string, Animation>::iterator FindIter = AllAnimation.find(UpperName);
-	if (AllAnimation.end() == FindIter)
+
+	if (FindIter == AllAnimation.end())
 	{
 		return nullptr;
 	}
+
 	return &FindIter->second;
 }
 
-
-void GameEngineRenderer::CreateAnimation(const std::string& _AnimationName, const std::string& _SpriteName
-	, size_t _Start /*= -1*/, size_t _End /*= -1*/, float _Inter /*= 0.1f*/, bool _Loop /*= true*/)
+void GameEngineRenderer::CreateAnimation(
+	const std::string& _AniamtionName,
+	const std::string& _SpriteName,
+	size_t _Start /*= -1*/, size_t _End /*= -1*/,
+	float _Inter /*= 0.1f*/,
+	bool _Loop /*= true*/)
 {
-	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+	std::string UpperName = GameEngineString::ToUpperReturn(_AniamtionName);
+
 	if (nullptr != FindAnimation(UpperName))
 	{
-		MsgBoxAssert(_AnimationName + "ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ì…ë‹ˆë‹¤.");
+		MsgBoxAssert("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç ³×ÀÓÀÔ´Ï´Ù." + UpperName);
 		return;
 	}
 
 	GameEngineSprite* Sprite = ResourcesManager::GetInst().FindSprite(_SpriteName);
-	if (nullptr == Sprite)
+
+	if (nullptr ==  Sprite)
 	{
-		MsgBoxAssert(_SpriteName + "ì€ ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ìŠ¤í”„ë¼ì´íŠ¸ì…ë‹ˆë‹¤.");
+		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ½ºÇÁ¶óÀÌÆ®·Î ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¸¸µé·Á°í Çß½À´Ï´Ù." + _SpriteName);
 		return;
 	}
 
 	GameEngineRenderer::Animation& Animation = AllAnimation[UpperName];
-	Animation.Name = _AnimationName;
+
+	Animation.Name = _AniamtionName;
 	Animation.Sprite = Sprite;
-	if (-1 != _Start)
+
+	if (_Start != -1)
 	{
 		Animation.StartFrame = _Start;
 	}
-	else
+	else 
 	{
 		Animation.StartFrame = 0;
 	}
@@ -227,15 +247,20 @@ void GameEngineRenderer::CreateAnimation(const std::string& _AnimationName, cons
 	{
 		Animation.EndFrame = _End;
 	}
-	else
+	else 
 	{
 		Animation.EndFrame = Animation.Sprite->GetSpriteCount() - 1;
 	}
 
+	// 0 - 5 - 5
+	// ¿ª
+
+	// 0, 0
 	Animation.Inters.resize(abs(static_cast<int>(Animation.EndFrame - Animation.StartFrame)) + 1);
 	Animation.Frames.resize(abs(static_cast<int>(Animation.EndFrame - Animation.StartFrame)) + 1);
 
 	int FrameDir = 1;
+
 	if (_Start > _End)
 	{
 		FrameDir = -1;
@@ -249,21 +274,23 @@ void GameEngineRenderer::CreateAnimation(const std::string& _AnimationName, cons
 		Animation.Inters[i] = _Inter;
 		Start += FrameDir;
 	}
+
 	Animation.Loop = _Loop;
+
 }
 
 void GameEngineRenderer::CreateAnimationToFrame(
-	const std::string& _AnimationName,
+	const std::string& _AniamtionName,
 	const std::string& _SpriteName,
 	const std::vector<size_t>& _Frame,
 	float _Inter,
 	bool _Loop)
 {
-	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+	std::string UpperName = GameEngineString::ToUpperReturn(_AniamtionName);
 
 	if (nullptr != FindAnimation(UpperName))
 	{
-		MsgBoxAssert("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ ë„¤ì„ì…ë‹ˆë‹¤." + UpperName);
+		MsgBoxAssert("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾Ö´Ï¸ŞÀÌ¼Ç ³×ÀÓÀÔ´Ï´Ù." + UpperName);
 		return;
 	}
 
@@ -271,18 +298,21 @@ void GameEngineRenderer::CreateAnimationToFrame(
 
 	if (nullptr == Sprite)
 	{
-		MsgBoxAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ìŠ¤í”„ë¼ì´íŠ¸ë¡œ ì• ë‹ˆë©”ì´ì…˜ì„ ë§Œë“¤ë ¤ê³  í–ˆìŠµë‹ˆë‹¤." + _SpriteName);
+		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ½ºÇÁ¶óÀÌÆ®·Î ¾Ö´Ï¸ŞÀÌ¼ÇÀ» ¸¸µé·Á°í Çß½À´Ï´Ù." + _SpriteName);
 		return;
 	}
 
 	GameEngineRenderer::Animation& Animation = AllAnimation[UpperName];
 
-	Animation.Name = _AnimationName;
+	Animation.Name = _AniamtionName;
 	Animation.Sprite = Sprite;
 	Animation.StartFrame = 0;
 	Animation.EndFrame = _Frame.size() - 1;
+
 	Animation.Inters.resize(_Frame.size() + 1);
+
 	Animation.Frames = _Frame;
+
 	for (size_t i = 0; i < Animation.Frames.size(); i++)
 	{
 		Animation.Inters[i] = _Inter;
@@ -292,42 +322,27 @@ void GameEngineRenderer::CreateAnimationToFrame(
 }
 
 
-void GameEngineRenderer::ChangeAnimation(const std::string& _AnimationName, int _StartFrame /*= 0*/, bool _ForceChange /*= false*/)
+
+void GameEngineRenderer::ChangeAnimation(const std::string& _AniamtionName, int _FrameCount, bool _ForceChange)
 {
-	Animation* ChangeAnimation = FindAnimation(_AnimationName);
-	if (nullptr == ChangeAnimation)
-	{
-		MsgBoxAssert(_AnimationName + "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì• ë‹ˆë©”ì´ì…˜ìœ¼ë¡œ êµí™˜í•˜ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
-		return;
-	}
+	Animation* ChangeAni = FindAnimation(_AniamtionName);
 
-	if (ChangeAnimation == CurAnimation && false == _ForceChange)
+	if (ChangeAni == CurAnimation && false == _ForceChange)
 	{
 		return;
 	}
 
-	CurAnimation = ChangeAnimation;
+	CurAnimation = FindAnimation(_AniamtionName);
+
 	CurAnimation->CurInter = CurAnimation->Inters[0];
-	CurAnimation->CurFrame = _StartFrame;
+	CurAnimation->CurFrame = _FrameCount;
 	CurAnimation->IsEnd = false;
-}
 
-void GameEngineRenderer::Start()
-{
-}
-
-void GameEngineRenderer::SetOrder(int _Order)
-{
-	if (nullptr == Camera)
+	if (nullptr == CurAnimation)
 	{
-		MsgBoxAssert("ì¹´ë©”ë¼ê°€ ì„¸íŒ…ë˜ì–´ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
+		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀ¸·Î Ã¼ÀÎÁö ÇÏ·Á°í Çß½À´Ï´Ù." + _AniamtionName);
+		return;
 	}
-	std::list<GameEngineRenderer*>& PrevRenders = Camera->Renderers[GetOrder()];
-	PrevRenders.remove(this);
-
-	GameEngineObject::SetOrder(_Order);
-	std::list<GameEngineRenderer*>& NextRenders = Camera->Renderers[GetOrder()];
-	NextRenders.push_back(this);
 }
 
 void GameEngineRenderer::MainCameraSetting()
@@ -340,4 +355,47 @@ void GameEngineRenderer::UICameraSetting()
 {
 	Camera = GetActor()->GetLevel()->GetUICamera();
 	CameraTypeValue = CameraType::UI;
+}
+
+void GameEngineRenderer::Start() 
+{
+}
+
+void GameEngineRenderer::SetAngle(float _Angle)
+{
+	Angle = _Angle;
+}
+
+void GameEngineRenderer::SetAlpha(unsigned char _Alpha)
+{
+	Alpha = _Alpha;
+}
+
+void GameEngineRenderer::SetOrder(int _Order)
+{
+	if (nullptr == Camera)
+	{
+		MsgBoxAssert("Ä«¸Ş¶ó°¡ ¼¼ÆÃµÇÁö ¾Ê¾Ò´Âµ¥ ¿À´õ¸¦ ÁöÁ¤Çß½À´Ï´Ù.");
+	}
+
+	// 0 => 5¹øÀ¸·Î ¹Ù²Ù°í ½Í´Ù.
+
+	// ¿À´õ¸¦ º¯°æÇÏ´Â°Ç ¸¶±¸ÀâÀÌ·Î ¾µ¸¸ÇÑ°Ç ¾Æ´Ï´Ù. 
+	// 0¹ø ·£´õ ±×·ì
+	// 0¹ø±×·ì¿¡¼­´Â »èÁ¦°¡ µÈ´Ù.
+	std::list<GameEngineRenderer*>& PrevRenders = Camera->Renderers[GetOrder()];
+	PrevRenders.remove(this);
+
+	GameEngineObject::SetOrder(_Order);
+
+	std::list<GameEngineRenderer*>& NextRenders = Camera->Renderers[GetOrder()];
+	NextRenders.push_back(this);
+
+}
+
+float GameEngineRenderer::GetActorYPivot()
+{
+	float4 ActorPos = GetActor()->GetPos() + RenderPos;
+
+	return ActorPos.Y + YPivot;
 }

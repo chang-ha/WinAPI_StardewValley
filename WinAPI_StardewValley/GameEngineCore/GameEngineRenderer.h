@@ -1,11 +1,9 @@
 #pragma once
+#include "GameEngineActorSubObject.h"
+#include <GameEngineBase/GameEngineMath.h>
 #include <string>
 #include <map>
 #include <vector>
-
-#include <GameEngineBase/GameEngineMath.h>
-
-#include "GameEngineActorSubObject.h"
 
 enum class CameraType
 {
@@ -13,92 +11,109 @@ enum class CameraType
 	UI,
 };
 
-class GameEngineWindowTexture;
-class GameEngineActor;
-class GameEngineCamera;
+// 설명 :
 class GameEngineSprite;
+class GameEngineActor;
+class GameEngineWindowTexture;
 class GameEngineRenderer : public GameEngineActorSubObject
 {
-	friend GameEngineCamera;
-	friend GameEngineActor;
+	friend class GameEngineCamera;
+	friend class GameEngineActor;
+
 public:
-	// constructer destructer
+	// constrcuter destructer
 	GameEngineRenderer();
 	~GameEngineRenderer();
 
-	// delete function
-	GameEngineRenderer(const GameEngineRenderer& _Ohter) = delete;
-	GameEngineRenderer(GameEngineRenderer&& _Ohter) noexcept = delete;
+	// delete Function
+	GameEngineRenderer(const GameEngineRenderer& _Other) = delete;
+	GameEngineRenderer(GameEngineRenderer&& _Other) noexcept = delete;
 	GameEngineRenderer& operator=(const GameEngineRenderer& _Other) = delete;
 	GameEngineRenderer& operator=(GameEngineRenderer&& _Other) noexcept = delete;
 
-	void SetTexture(const std::string& _Name);
 
-	void SetSprite(const std::string& _Name, size_t _Index = 0);
-
-	void SetAngle(float _Angle);
-
-	void SetAlpha(unsigned char _Alpha);
-
-	void SetRenderPos(const float4& _Pos)
+	void SetRenderPos(const float4& _Value)
 	{
-		RenderPos = _Pos;
+		RenderPos = _Value;
 	}
 
-	void SetRenderScale(const float4& _Scale)
+
+	void SetRenderScale(const float4& _Value)
 	{
-		RenderScale = _Scale;
+		RenderScale = _Value;
 		ScaleCheck = true;
 	}
 
-	void SetCopyPos(const float4& _Pos)
+	void SetCopyPos(const float4& _Value)
 	{
-		CopyPos = _Pos;
+		CopyPos = _Value;
 	}
 
-	void SetCopyScale(const float4& _Scale)
+	void SetCopyScale(const float4& _Value)
 	{
-		CopyScale = _Scale;
+		CopyScale = _Value;
 	}
 
-	void SetScaleRatio(const float _Ratio)
+	void SetScaleRatio(const float& _Scale)
 	{
-		ScaleRatio = _Ratio;
+		ScaleRatio = _Scale;
 	}
+
+	void SetYPivot(float _Pivot)
+	{
+		YPivot = _Pivot;
+	}
+
 
 	CameraType GetCameraType()
 	{
 		return CameraTypeValue;
 	}
 
+	void SetAlpha(unsigned char _Alpha);
+
+	void SetAngle(float _Angle);
+
+	void SetSprite(const std::string& _Name, size_t _Index = 0);
+
+	void SetTexture(const std::string& _Name);
+
 	void SetRenderScaleToTexture();
 
-	void SetOrder(int _Order) override;
+	void SetOrder(int _Order) override; 
+
+	float GetActorYPivot();
 
 protected:
 	void Start() override;
 
+
 private:
 	GameEngineCamera* Camera = nullptr;
-	CameraType CameraTypeValue = CameraType::MAIN;
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineWindowTexture* MaskTexture = nullptr;
+
 	GameEngineSprite* Sprite = nullptr;
-	bool ScaleCheck = false;
 	float ScaleRatio = 1.0f;
-	std::string Text = "";
+	bool ScaleCheck = false;
+	float4 RenderPos;
+	float4 RenderScale;
+	float4 CopyPos;
+	float4 CopyScale;
+	CameraType CameraTypeValue = CameraType::MAIN;
+	std::string Text;
+
+	float YPivot = 0.0f;
+
 	float Angle = 0.0f;
 	unsigned char Alpha = 255;
 
-	void TextRender(float _Delta);
-	float4 RenderPos = {};
-	float4 RenderScale = {};
+	void TextRender(float _DeltaTime);
 
-	float4 CopyPos = {};
-	float4 CopyScale = {};
-	void Render(float _Delta);
+	void Render(float _DeltaTime);
 
-/////////// Animation
+
+/////////////////////////////////// 애니메이션
 private:
 	class Animation
 	{
@@ -116,31 +131,35 @@ private:
 	};
 
 public:
-	std::map<std::string, Animation> AllAnimation;
-	Animation* CurAnimation = nullptr;
-
-	Animation* FindAnimation(const std::string& _AnimationName);
+	Animation* FindAnimation(const std::string& _AniamtionName);
 
 	void CreateAnimation(
-		const std::string& _AnimationName,
-		const std::string& _SpriteName,
+		const std::string& _AniamtionName, 
+		const std::string& _SpriteName, 
 		size_t _Start = -1, size_t _End = -1,
-		float _Inter = 0.1f,
+		float _Inter = 0.1f, 
 		bool _Loop = true);
 
 	void CreateAnimationToFrame(
-		const std::string& _AnimationName,
+		const std::string& _AniamtionName,
 		const std::string& _SpriteName,
 		const std::vector<size_t>& _Frame,
 		float _Inter = 0.1f,
 		bool _Loop = true);
 
-	size_t GetCurFrame()
+	void ChangeAnimation(const std::string& _AniamtionName, int _StartFrame = 0, bool _ForceChange = false);
+
+	void MainCameraSetting();
+	void UICameraSetting();
+
+	void Update(float _Delta) override;
+
+	size_t GetCurFrame() 
 	{
 		return CurAnimation->CurFrame;
 	}
 
-	bool IsAnimationEnd()
+	bool IsAnimationEnd() 
 	{
 		return CurAnimation->IsEnd;
 	}
@@ -150,22 +169,21 @@ public:
 		return CurAnimation->Name == _Name;
 	}
 
-	void ChangeAnimation(const std::string& _AnimationName, int _StartFrame = 0, bool _ForceChange = false);
-	void MainCameraSetting();
-	void UICameraSetting();
-	void Update(float _Delta) override;
+private:
+	std::map<std::string, Animation> AllAnimation;
+	Animation* CurAnimation = nullptr;
 
-/////////// TextRender
-	public:
-		void SetText(const std::string& _Text, int _TextScale = 20, const std::string& _Face = "굴림")
-		{
-			Text = _Text;
-			TextScale = _TextScale;
-			Face = _Face;
-		}
+/////////////////////////////////// Text관련
+public:
+	void SetText(const std::string& _Text, int _TextScale = 20, const std::string& _Face = "굴림")
+	{
+		Text = _Text;
+		TextScale = _TextScale;
+		Face = _Face;
+	}
 
 private:
-	std::string Face = "";
-	int TextScale = 0;
+	std::string Face;
+	int TextScale;
 };
 

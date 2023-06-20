@@ -46,6 +46,8 @@ void Farm::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
 
+	GetMainCamera()->SetYSort(RenderOrder::Play, true);
+
 	Player::MainPlayer->SetCollisionTexture("Collision_Farm.bmp");
 
 	// _PrevLevel == FarmHouse
