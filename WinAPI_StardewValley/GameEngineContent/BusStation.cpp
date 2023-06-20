@@ -14,6 +14,7 @@
 #include "Farm.h"
 #include "PelicanTown.h"
 #include "ContentsEnum.h"
+#include "PlayOver.h"
 
 BusStation::BusStation()
 {
@@ -82,6 +83,10 @@ void BusStation::Start()
 		Back->CollisionRenderer->SetTexture("Collision_BusStation.bmp");
 		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
+	// Detail
+	PlayOver* Over = CreateActor<PlayOver>(UpdateOrder::Map);
+	Over->Init("Detail_BusStation.bmp");
+	Over->SetPos(GetRenderScale().Half());
 }
 
 void BusStation::Update(float _Delta)

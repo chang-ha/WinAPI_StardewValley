@@ -1,14 +1,22 @@
-﻿#define ITEMRENDER_START_X 0.345f
+﻿#pragma region
+#define ITEMSELECT_START_X 0.609f
+#define ITEMSELECT_START_Y 0.211f
+#define ITEMSELECT_Y 0.1056f
+
+#define ITEMRENDER_START_X 0.345f
 #define ITEMRENDER_START_Y 0.21f
 #define ITEMRENDER_Y 0.1055f
 
-#define ITEMPRICE_START_Y 0.18f
+#define ITEMNAME_X 0.37f
+
+#define ITEMPRICE_START_Y 0.185f
 #define ITEMPRICE_X 0.84f
-#define ITEMPRICE_Y 0.11f
+#define ITEMPRICE_Y 0.106f
 
 #define ITEMCOLLISION_START_Y 0.7f
 #define ITEMCOLLISION_X 0.605f
 #define ITEMCOLLISION_Y 0.105f
+#pragma endregion
 
 #include <GameEngineBase/GameEnginePath.h>
 
@@ -168,7 +176,6 @@ void ContentUIManager::Start()
 
 	Texture = ResourcesManager::GetInst().FindTexture("UI_Shop_Select.bmp");
 	ItemSelectRenderer = CreateUIRenderer("UI_Shop_Select.bmp", RenderOrder::UI);
-	ItemSelectRenderer->SetRenderPos(GlobalValue::WinScale.Half());
 	ItemSelectRenderer->SetRenderScale(Texture->GetScale() * 0.9f);
 	ItemSelectRenderer->Off();
 
@@ -183,8 +190,13 @@ void ContentUIManager::Start()
 		_ItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO * 1.2f);
 		_ItemRenderer->Off();
 
+		GameEngineRenderer* _ItemNameTextRenderer = CreateUIRenderer(RenderOrder::UI);
+		_ItemNameTextRenderer->SetText(" ");
+		_ItemNameTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMNAME_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y * x) });
+		_ItemNameTextRenderer->Off();
+
 		GameEngineRenderer* _ItemPriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
-		_ItemPriceTextRenderer->SetText("20", 45, "Sandoll 미생");
+		_ItemPriceTextRenderer->SetText(" ");
 		_ItemPriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y * x) });
 		_ItemPriceTextRenderer->Off();
 
@@ -194,6 +206,7 @@ void ContentUIManager::Start()
 		_ItemCollision->Off();
 
 		ShopItem[x]->ItemRenderer = _ItemRenderer;
+		ShopItem[x]->ItemNameTextRenderer = _ItemNameTextRenderer;
 		ShopItem[x]->ItemPriceTextRenderer = _ItemPriceTextRenderer;
 		ShopItem[x]->ItemCollision = _ItemCollision;
 	}
@@ -307,6 +320,7 @@ void ContentUIManager::ShopUIOn()
 	{
 		ShopItem[x]->ItemRenderer->On();
 		ShopItem[x]->ItemCollision->On();
+		ShopItem[x]->ItemNameTextRenderer->On();
 		ShopItem[x]->ItemPriceTextRenderer->On();
 }
 	ContentInventory::MainInventory->SetPosInventoryShop();
@@ -319,10 +333,12 @@ void ContentUIManager::ShopUIOff()
 	ShopRenderer->Off();
 	CancelRenderer->Off();
 	CancelCollision->Off();
+	ItemSelectRenderer->Off();
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		ShopItem[x]->ItemRenderer->Off();
 		ShopItem[x]->ItemCollision->Off();
+		ShopItem[x]->ItemNameTextRenderer->Off();
 		ShopItem[x]->ItemPriceTextRenderer->Off();
 	}
 	ContentInventory::MainInventory->SetPosInventoryItem();
@@ -431,6 +447,12 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
+		if (true == ShopItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+		{
+			ItemSelectRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMSELECT_START_X, GlobalValue::WinScale.Y * (ITEMSELECT_START_Y + ITEMSELECT_Y * x)});
+			ItemSelectRenderer->On();
+		}
+
 		if (true == GameEngineInput::IsDown(VK_LBUTTON)
 			&& true == ShopItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 		{
@@ -508,18 +530,22 @@ void ContentUIManager::ShopItemSetting()
 		case 0:
 			_FileName = "Shop_Seed_Parsnip.bmp";
 			ShopItem[x]->ItemPrice = 20;
+			ShopItem[x]->ItemNameTextRenderer->SetText("파스닙 씨앗", 45, "Sandoll 미생");
 			break;
 		case 1:
 			_FileName = "Shop_Seed_Cauliflower.bmp";
 			ShopItem[x]->ItemPrice = 30;
+			ShopItem[x]->ItemNameTextRenderer->SetText("콜리플라워 씨앗", 45, "Sandoll 미생");
 			break;
 		case 2:
 			_FileName = "Shop_Seed_Garlic.bmp";
 			ShopItem[x]->ItemPrice = 40;
+			ShopItem[x]->ItemNameTextRenderer->SetText("마늘 씨앗", 45, "Sandoll 미생");
 			break;
 		case 3:
 			_FileName = "Shop_Seed_Potato.bmp";
 			ShopItem[x]->ItemPrice = 50;
+			ShopItem[x]->ItemNameTextRenderer->SetText("감자 씨앗", 45, "Sandoll 미생");
 			break;
 		default:
 			break;

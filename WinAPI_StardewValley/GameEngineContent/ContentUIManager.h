@@ -10,6 +10,7 @@ private:
 	int ItemPrice = 0;
 	GameEngineRenderer* ItemRenderer = nullptr;
 	GameEngineRenderer* ItemPriceTextRenderer = nullptr;
+	GameEngineRenderer* ItemNameTextRenderer = nullptr;
 	GameEngineCollision* ItemCollision = nullptr;
 };
 
@@ -86,6 +87,7 @@ private:
 	float UIRenderRatio = 0.1f;
 
 	// Pierre's Shop UI
+	int ItemSelectIndex = -1;
 	GameEngineRenderer* ShopRenderer = nullptr;
 	GameEngineRenderer* ItemSelectRenderer = nullptr;
 	GameEngineRenderer* CancelRenderer = nullptr;
