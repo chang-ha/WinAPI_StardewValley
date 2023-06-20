@@ -17,10 +17,6 @@ bool YSortFunction(GameEngineRenderer* _Left, GameEngineRenderer* _Right)
 
 void GameEngineCamera::Render(float _Delta)
 {
-	//for (const std::pair<int, std::list<GameEngineRenderer*>>& Pair : Renderers)
-	//{
-	//}
-
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
 
@@ -31,18 +27,8 @@ void GameEngineCamera::Render(float _Delta)
 		std::list<GameEngineRenderer*>::iterator RenderStartIter = List.begin();
 		std::list<GameEngineRenderer*>::iterator RenderEndIter = List.end();
 
-		// A C D F
-		// 157 2011
-		// C F A D 
-		// 7 111520
-		// 0 번 그룹 ysort 해야해?
 		if (true == GetYSort(GroupStartIter->first))
 		{
-			// 포인터의 값으로 sort를 합니다
-			// 내부에 있는 값을 비교합니다.
-			// 그냥 하면 포인터의 크기로 합니다.
-			// 포인터는 뭐다? => 8바이트 정수
-			// List.sort();
 			List.sort(YSortFunction);
 		}
 
@@ -73,11 +59,8 @@ void GameEngineCamera::PushRenderer(GameEngineRenderer* _Renderer, int _Order)
 
 void GameEngineCamera::Release()
 {
-
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
-
-	// 눈꼽 만큼이라도 연산을 줄이려는 거죠.
 
 	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 	{
@@ -100,20 +83,15 @@ void GameEngineCamera::Release()
 				MsgBoxAssert("nullptr인 랜더러가 레벨의 리스트에 들어가 있었습니다.");
 				continue;
 			}
-			// [s] [a] [a]     [a] [e]
 			ActorStartIter = Group.erase(ActorStartIter);
-
 		}
 	}
 }
 
 void GameEngineCamera::OverRelease()
 {
-
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupStartIter = Renderers.begin();
 	std::map<int, std::list<GameEngineRenderer*>>::iterator GroupEndIter = Renderers.end();
-
-	// 눈꼽 만큼이라도 연산을 줄이려는 거죠.
 
 	for (; GroupStartIter != GroupEndIter; ++GroupStartIter)
 	{
@@ -136,9 +114,7 @@ void GameEngineCamera::OverRelease()
 				MsgBoxAssert("nullptr인 랜더러가 레벨의 리스트에 들어가 있었습니다.");
 				continue;
 			}
-			// [s] [a] [a]     [a] [e]
 			ActorStartIter = Group.erase(ActorStartIter);
-
 		}
 	}
 }

@@ -45,6 +45,7 @@ void Tree::Init(const std::string& _FileName)
 	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::Play);
 	UpperPart->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	UpperPart->SetRenderPos((TILESIZE.Half() - float4{ 0, 38 }) * RENDERRATIO);
+	UpperPart->SetYPivot(- (TILESIZE.Half().Y - 38)* RENDERRATIO);
 }
 
 

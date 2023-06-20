@@ -11,7 +11,6 @@ enum class CameraType
 	UI,
 };
 
-// Ό³Έν :
 class GameEngineSprite;
 class GameEngineActor;
 class GameEngineWindowTexture;

@@ -70,7 +70,7 @@ void GameEngineRenderer::TextRender(float _DeltaTime)
 	HDC hdc = GameEngineWindow::MainWindow.GetBackBuffer()->GetImageDC();
 	HFONT hFont, OldFont;
 	LOGFONTA lf;
-	lf.lfHeight = TextScale;// TextHeight;
+	lf.lfHeight = TextScale;
 	lf.lfWidth = 0;
 	lf.lfEscapement = 0;
 	lf.lfOrientation = 0;
@@ -83,27 +83,20 @@ void GameEngineRenderer::TextRender(float _DeltaTime)
 	lf.lfClipPrecision = 0;
 	lf.lfQuality = 0;
 	lf.lfPitchAndFamily = VARIABLE_PITCH | FF_ROMAN;
-	// lstrcpy(lf.lfFaceName, TEXT(TextType.c_str()));
 	lstrcpy(lf.lfFaceName, Face.c_str());
 	hFont = CreateFontIndirect(&lf);
 	OldFont = static_cast<HFONT>(SelectObject(hdc, hFont));
 
-	//SetTextAlign(hdc, static_cast<UINT>(Align));
-	SetTextColor(hdc, RGB(255, 0, 0));
+	SetTextColor(hdc, RGB(0, 0, 0));
 	SetBkMode(hdc, TRANSPARENT);
 
 	RECT Rect;
 	Rect.left = TextPos.iX();
 	Rect.top = TextPos.iY();
-	Rect.right = TextPos.iX() + TextScale * static_cast<int>(Text.size());// TextBoxScale.ix();
-	Rect.bottom = TextPos.iY() + TextScale;// TextBoxScale.iy();
-
-
+	Rect.right = TextPos.iX() + TextScale * static_cast<int>(Text.size());
+	Rect.bottom = TextPos.iY() + TextScale;
 
 	DrawTextA(hdc, Text.c_str(), static_cast<int>(Text.size()), &Rect, static_cast<UINT>(DT_BOTTOM));
-
-
-	// TextOutA(GameEngineWindow::GetDoubleBufferImage()->GetImageDC(), RenderPos.ix(), RenderPos.iy(), RenderText.c_str(), static_cast<int>(RenderText.size()));
 
 	SelectObject(hdc, OldFont);
 	DeleteObject(hFont);
@@ -252,10 +245,6 @@ void GameEngineRenderer::CreateAnimation(
 		Animation.EndFrame = Animation.Sprite->GetSpriteCount() - 1;
 	}
 
-	// 0 - 5 - 5
-	// 역
-
-	// 0, 0
 	Animation.Inters.resize(abs(static_cast<int>(Animation.EndFrame - Animation.StartFrame)) + 1);
 	Animation.Frames.resize(abs(static_cast<int>(Animation.EndFrame - Animation.StartFrame)) + 1);
 
@@ -378,11 +367,6 @@ void GameEngineRenderer::SetOrder(int _Order)
 		MsgBoxAssert("카메라가 세팅되지 않았는데 오더를 지정했습니다.");
 	}
 
-	// 0 => 5번으로 바꾸고 싶다.
-
-	// 오더를 변경하는건 마구잡이로 쓸만한건 아니다. 
-	// 0번 랜더 그룹
-	// 0번그룹에서는 삭제가 된다.
 	std::list<GameEngineRenderer*>& PrevRenders = Camera->Renderers[GetOrder()];
 	PrevRenders.remove(this);
 
@@ -390,7 +374,6 @@ void GameEngineRenderer::SetOrder(int _Order)
 
 	std::list<GameEngineRenderer*>& NextRenders = Camera->Renderers[GetOrder()];
 	NextRenders.push_back(this);
-
 }
 
 float GameEngineRenderer::GetActorYPivot()
