@@ -1,6 +1,15 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
 
+class ContentUIManager;
+class ShopItemData
+{
+	friend ContentUIManager;
+private:
+	GameEngineRenderer* ItemPriceTextRenderer = nullptr;
+	GameEngineCollision* ItemCollision = nullptr;
+};
+
 class GameEngineRenderer;
 class ContentLevel;
 class ContentInventory;
@@ -64,16 +73,9 @@ private:
 	GameEngineRenderer* ItemSelectRenderer = nullptr;
 	GameEngineRenderer* CancelRenderer = nullptr;
 	GameEngineCollision* CancelCollision = nullptr;
-	GameEngineRenderer* Item1PriceTextRenderer = nullptr;
-	GameEngineRenderer* Item2PriceTextRenderer = nullptr;
-	GameEngineRenderer* Item3PriceTextRenderer = nullptr;
-	GameEngineRenderer* Item4PriceTextRenderer = nullptr;
-	GameEngineCollision* Item1Collision = nullptr;
-	GameEngineCollision* Item2Collision = nullptr;
-	GameEngineCollision* Item3Collision = nullptr;
-	GameEngineCollision* Item4Collision = nullptr;
 	// GameEngineRenderer* PrevSelectRenderer = nullptr;
 	// GameEngineRenderer* NextSelectRenderer = nullptr;
+	std::vector<ShopItemData*> ShopItem;
 
 	// Debug Value
 	GameEngineRenderer* Text1Renderer = nullptr;

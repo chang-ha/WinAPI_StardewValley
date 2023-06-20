@@ -36,7 +36,14 @@ ContentUIManager::ContentUIManager()
 
 ContentUIManager::~ContentUIManager()
 {
-
+	for (int x = 0; x < ShopItem.size(); x++)
+	{
+		if (nullptr != ShopItem[x])
+		{
+			delete ShopItem[x];
+			ShopItem[x] = nullptr;
+		}
+	}
 }
 
 void ContentUIManager::Start()
@@ -119,52 +126,23 @@ void ContentUIManager::Start()
 	ItemSelectRenderer->SetRenderScale(Texture->GetScale() * 0.9f);
 	ItemSelectRenderer->Off();
 
-	// Item1
-	{
-		Item1PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
-		Item1PriceTextRenderer->SetText("20", 45, "Sandoll 미생");
-		Item1PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * ITEMPRICE_START_Y });
-		Item1PriceTextRenderer->Off();
-		Item1Collision = CreateCollision(CollisionOrder::Button);
-		Item1Collision->SetCollisionScale({Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f});
-		Item1Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * ITEMCOLLISION_START_Y });
-		Item1Collision->Off();
-	}
+	ShopItem.resize(4);
 
-	// Item2
+	for (int x = 0; x < ShopItem.size(); x++)
 	{
-		Item2PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
-		Item2PriceTextRenderer->SetText("30", 45, "Sandoll 미생");
-		Item2PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y) });
-		Item2PriceTextRenderer->Off();
-		Item2Collision = CreateCollision(CollisionOrder::Button);
-		Item2Collision->SetCollisionScale({ Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f });
-		Item2Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (ITEMCOLLISION_START_Y + ITEMCOLLISION_Y) });
-		Item2Collision->Off();
-	}
+		ShopItem[x] = new ShopItemData();
+		GameEngineRenderer* _ItemPriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
+		_ItemPriceTextRenderer->SetText("20", 45, "Sandoll 미생");
+		_ItemPriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y * x) });
+		_ItemPriceTextRenderer->Off();
 
-	// Item3
-	{
-		Item3PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
-		Item3PriceTextRenderer->SetText("40", 45, "Sandoll 미생");
-		Item3PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y * 2.0f) });
-		Item3PriceTextRenderer->Off();
-		Item3Collision = CreateCollision(CollisionOrder::Button);
-		Item3Collision->SetCollisionScale({ Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f });
-		Item3Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (ITEMCOLLISION_START_Y + ITEMCOLLISION_Y * 2.0f) });
-		Item3Collision->Off();
-	}
+		GameEngineCollision* _ItemCollision = CreateCollision(CollisionOrder::Button);
+		_ItemCollision->SetCollisionScale({ Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f });
+		_ItemCollision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (ITEMCOLLISION_START_Y + ITEMCOLLISION_Y * x) });
+		_ItemCollision->Off();
 
-	// Item4
-	{
-		Item4PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
-		Item4PriceTextRenderer->SetText("50", 45, "Sandoll 미생");
-		Item4PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y * 3.0f) });
-		Item4PriceTextRenderer->Off();
-		Item4Collision = CreateCollision(CollisionOrder::Button);
-		Item4Collision->SetCollisionScale({ Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f });
-		Item4Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (ITEMCOLLISION_START_Y + ITEMCOLLISION_Y * 3.0f) });
-		Item4Collision->Off();
+		ShopItem[x]->ItemPriceTextRenderer = _ItemPriceTextRenderer;
+		ShopItem[x]->ItemCollision = _ItemCollision;
 	}
 
 	// PrevSelectRenderer = CreateUIRenderer(RenderOrder::UI);
@@ -202,14 +180,11 @@ void ContentUIManager::ShopUIOn()
 	ShopRenderer->On();
 	CancelRenderer->On();
 	CancelCollision->On();
-	Item1PriceTextRenderer->On();
-	Item2PriceTextRenderer->On();
-	Item3PriceTextRenderer->On();
-	Item4PriceTextRenderer->On();
-	Item1Collision->On();
-	Item2Collision->On();
-	Item3Collision->On();
-	Item4Collision->On();
+	for (int x = 0; x < ShopItem.size(); x++)
+	{
+		ShopItem[x]->ItemCollision->On();
+		ShopItem[x]->ItemPriceTextRenderer->On();
+	}
 	ContentInventory::MainInventory->SetPosInventoryShop();
 }
 
@@ -220,14 +195,11 @@ void ContentUIManager::ShopUIOff()
 	ShopRenderer->Off();
 	CancelRenderer->Off();
 	CancelCollision->Off();
-	Item1PriceTextRenderer->Off();
-	Item2PriceTextRenderer->Off();
-	Item3PriceTextRenderer->Off();
-	Item4PriceTextRenderer->Off();
-	Item1Collision->Off();
-	Item2Collision->Off();
-	Item3Collision->Off();
-	Item4Collision->Off();
+	for (int x = 0; x < ShopItem.size(); x++)
+	{
+		ShopItem[x]->ItemCollision->Off();
+		ShopItem[x]->ItemPriceTextRenderer->Off();
+	}
 	ContentInventory::MainInventory->SetPosInventoryItem();
 }
 
