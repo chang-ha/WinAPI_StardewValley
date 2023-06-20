@@ -386,14 +386,23 @@ void ContentInventory::Update(float _Delta)
 			else if (nullptr != AllItem[x]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
 				// Mouse -> Inventroy & Inventory -> Mouse
-				ContentItem* TempValue = ContentMouse::MainMouse->GetPickItem();
+				if (ContentMouse::MainMouse->GetPickItem()->GetItemName() == AllItem[x]->Item->ItemName)
+				{
+					AllItem[x]->Item->PlusItemCount(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
+					ContentMouse::MainMouse->GetItemRenderer()->Off();
 
-				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
-				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
+				}
+				else
+				{
+					ContentItem* TempValue = ContentMouse::MainMouse->GetPickItem();
 
-				AllItem[x]->ItemCountRenderer->SetText(" ");
-				AllItem[x]->ItemRenderer->SetTexture("Inventory_" + TempValue->GetItemName());
-				AllItem[x]->Item = TempValue;
+					ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
+					ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
+
+					AllItem[x]->ItemCountRenderer->SetText(" ");
+					AllItem[x]->ItemRenderer->SetTexture("Inventory_" + TempValue->GetItemName());
+					AllItem[x]->Item = TempValue;
+				}
 			}
 			else if (nullptr == AllItem[x]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{

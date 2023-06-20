@@ -14,6 +14,7 @@
 
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
+#include <GameEnginePlatform/GameEngineInput.h>
 
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineLevel.h>
@@ -25,13 +26,9 @@
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
 #include "ContentMouse.h"
-
-// Test
-#include <GameEnginePlatform/GameEngineInput.h>
 #include "ContentInventory.h"
 #include "Player.h"
-
-#include <GameEngineCore/GameEngineCamera.h>
+#include "ContentItem.h"
 
 ContentUIManager* ContentUIManager::MainUI = nullptr;
 
@@ -313,6 +310,35 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 		&& true == CancelCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 	{
 		ShopUIOff();
+	}
+
+	for (int x = 0; x < ShopItem.size(); x++)
+	{
+		if (true == GameEngineInput::IsDown(VK_LBUTTON)
+			&& true == ShopItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+		{
+			ContentItem* _Item = GetLevel()->CreateActor<ContentItem>();
+			switch (x)
+			{
+			case 0:
+				_Item->Init("Seed_Parsnip.bmp", ItemType::Seed);
+				break;
+			case 1:
+				_Item->Init("Seed_Cauliflower.bmp", ItemType::Seed);
+				break;
+			case 2:
+				_Item->Init("Seed_Garlic.bmp", ItemType::Seed);
+				break;
+			case 3:
+				_Item->Init("Seed_Potato.bmp", ItemType::Seed);
+				break;
+			default:
+				break;
+			}
+			ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + _Item->GetItemName());
+			ContentMouse::MainMouse->GetItemRenderer()->On();
+			ContentMouse::MainMouse->SetPickItem(_Item);
+		}
 	}
 }
 
