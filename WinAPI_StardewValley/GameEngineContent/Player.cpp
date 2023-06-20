@@ -173,6 +173,7 @@ void Player::Start()
 	
 	ArmRenderer = CreateRenderer(RenderOrder::Play);
 	ArmRenderer->SetScaleRatio(RENDERRATIO);
+	ArmRenderer->SetYPivot(5 *RENDERRATIO);
 
 	HairRenderer = CreateRenderer(RenderOrder::Play);
 	HairRenderer->SetScaleRatio(RENDERRATIO);

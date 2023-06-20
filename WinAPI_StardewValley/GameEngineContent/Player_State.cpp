@@ -58,8 +58,8 @@ void Player::ToolStart()
 
 	if (PlayerDir::Up == Dir)
 	{
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+		ArmRenderer->SetYPivot(-1);
 	}
 	EffectPlayer.SetVolume(0.6f);
 }
@@ -82,8 +82,8 @@ void Player::Tool2Start()
 
 	if (PlayerDir::Up == Dir)
 	{
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+		ArmRenderer->SetYPivot(-1);
 	}
 }
 
@@ -98,8 +98,8 @@ void Player::HarvestStart()
 
 	if (PlayerDir::Up == Dir)
 	{
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+		ArmRenderer->SetYPivot(-1);
 	}
 }
 
@@ -457,8 +457,8 @@ void Player::ToolUpdate(float _DeltaTime)
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
 		ToolCollision->Death();
+		ArmRenderer->SetYPivot(5 * RENDERRATIO);
 	}
 }
 
@@ -467,7 +467,7 @@ void Player::Tool2Update(float _DeltaTime)
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
+		ArmRenderer->SetYPivot(5 * RENDERRATIO);
 	}
 }
 
@@ -476,7 +476,7 @@ void Player::HarvestUpdate(float _DeltaTime)
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		ArmRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
 		ToolCollision->Death();
+		ArmRenderer->SetYPivot(5 * RENDERRATIO);
 	}
 }

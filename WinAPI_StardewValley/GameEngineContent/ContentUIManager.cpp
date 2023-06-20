@@ -1,6 +1,8 @@
-﻿#define ITEMPRICE_X 0.84f
+﻿#define ITEMPRICE_START_Y 0.18f
+#define ITEMCOLLISION_START_Y 0.7f
+#define ITEMPRICE_X 0.84f
 #define ITEMPRICE_Y 0.11f
-#define ITEMCOLLISION_X 0.61f
+#define ITEMCOLLISION_X 0.605f
 #define ITEMCOLLISION_Y 0.105f
 
 #include <GameEngineBase/GameEnginePath.h>
@@ -121,11 +123,11 @@ void ContentUIManager::Start()
 	{
 		Item1PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
 		Item1PriceTextRenderer->SetText("20", 45, "Sandoll 미생");
-		Item1PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * 0.18f});
+		Item1PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * ITEMPRICE_START_Y });
 		Item1PriceTextRenderer->Off();
 		Item1Collision = CreateCollision(CollisionOrder::Button);
-		Item1Collision->SetCollisionScale(Texture->GetScale() * 0.9f);
-		Item1Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * 0.7f});
+		Item1Collision->SetCollisionScale({Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f});
+		Item1Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * ITEMCOLLISION_START_Y });
 		Item1Collision->Off();
 	}
 
@@ -133,11 +135,11 @@ void ContentUIManager::Start()
 	{
 		Item2PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
 		Item2PriceTextRenderer->SetText("30", 45, "Sandoll 미생");
-		Item2PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (0.18f + ITEMPRICE_Y) });
+		Item2PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y) });
 		Item2PriceTextRenderer->Off();
 		Item2Collision = CreateCollision(CollisionOrder::Button);
-		Item2Collision->SetCollisionScale(Texture->GetScale() * 0.9f);
-		Item2Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (0.7f + ITEMCOLLISION_Y) });
+		Item2Collision->SetCollisionScale({ Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f });
+		Item2Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (ITEMCOLLISION_START_Y + ITEMCOLLISION_Y) });
 		Item2Collision->Off();
 	}
 
@@ -145,11 +147,11 @@ void ContentUIManager::Start()
 	{
 		Item3PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
 		Item3PriceTextRenderer->SetText("40", 45, "Sandoll 미생");
-		Item3PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (0.18f + ITEMPRICE_Y * 2.0f) });
+		Item3PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y * 2.0f) });
 		Item3PriceTextRenderer->Off();
 		Item3Collision = CreateCollision(CollisionOrder::Button);
-		Item3Collision->SetCollisionScale(Texture->GetScale() * 0.9f);
-		Item3Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (0.7f + ITEMCOLLISION_Y * 2.0f) });
+		Item3Collision->SetCollisionScale({ Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f });
+		Item3Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (ITEMCOLLISION_START_Y + ITEMCOLLISION_Y * 2.0f) });
 		Item3Collision->Off();
 	}
 
@@ -157,11 +159,11 @@ void ContentUIManager::Start()
 	{
 		Item4PriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
 		Item4PriceTextRenderer->SetText("50", 45, "Sandoll 미생");
-		Item4PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (0.18f + ITEMPRICE_Y * 3.0f) });
+		Item4PriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y * 3.0f) });
 		Item4PriceTextRenderer->Off();
 		Item4Collision = CreateCollision(CollisionOrder::Button);
-		Item4Collision->SetCollisionScale(Texture->GetScale() * 0.9f);
-		Item4Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (0.7f + ITEMCOLLISION_Y * 3.0f) });
+		Item4Collision->SetCollisionScale({ Texture->GetScale().X * 0.9f, Texture->GetScale().Y * 0.5f });
+		Item4Collision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (ITEMCOLLISION_START_Y + ITEMCOLLISION_Y * 3.0f) });
 		Item4Collision->Off();
 	}
 
