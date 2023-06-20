@@ -6,6 +6,7 @@ class ShopItemData
 {
 	friend ContentUIManager;
 private:
+	GameEngineRenderer* ItemRenderer = nullptr;
 	GameEngineRenderer* ItemPriceTextRenderer = nullptr;
 	GameEngineCollision* ItemCollision = nullptr;
 };
@@ -33,8 +34,11 @@ public:
 	void InventoryUpRender();
 	void InventoryDownRender();
 	void SleepUIOn();
+
 	void ShopUIOn();
 	void ShopUIOff();
+	void ShopItemSetting();
+
 	void PlusDayValue()
 	{
 		++DayValue;

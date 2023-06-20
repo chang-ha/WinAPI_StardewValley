@@ -1,7 +1,12 @@
-﻿#define ITEMPRICE_START_Y 0.18f
-#define ITEMCOLLISION_START_Y 0.7f
+﻿#define ITEMRENDER_START_X 0.345f
+#define ITEMRENDER_START_Y 0.21f
+#define ITEMRENDER_Y 0.1055f
+
+#define ITEMPRICE_START_Y 0.18f
 #define ITEMPRICE_X 0.84f
 #define ITEMPRICE_Y 0.11f
+
+#define ITEMCOLLISION_START_Y 0.7f
 #define ITEMCOLLISION_X 0.605f
 #define ITEMCOLLISION_Y 0.105f
 
@@ -53,15 +58,19 @@ void ContentUIManager::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\UI\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Pierre.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Cancel.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Select.bmp"));
+		FilePath.MoveChild("Resources\\Textures\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Clock.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Clock_hand.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Energy.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Inventory.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Sleep.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Shop_Pierre.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Cancel.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Shop_Select.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Parsnip.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Cauliflower.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Garlic.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Potato.bmp"));
 	}
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Clock.bmp");
 	Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
@@ -131,6 +140,12 @@ void ContentUIManager::Start()
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		ShopItem[x] = new ShopItemData();
+
+		GameEngineRenderer* _ItemRenderer = CreateUIRenderer(RenderOrder::Inventory_Item);
+		_ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMRENDER_START_X, GlobalValue::WinScale.Y * (ITEMRENDER_START_Y + ITEMRENDER_Y * x) });
+		_ItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO * 1.2f);
+		_ItemRenderer->Off();
+
 		GameEngineRenderer* _ItemPriceTextRenderer = CreateUIRenderer(RenderOrder::UI);
 		_ItemPriceTextRenderer->SetText("20", 45, "Sandoll 미생");
 		_ItemPriceTextRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMPRICE_X, GlobalValue::WinScale.Y * (ITEMPRICE_START_Y + ITEMPRICE_Y * x) });
@@ -141,9 +156,11 @@ void ContentUIManager::Start()
 		_ItemCollision->SetCollisionPos({ GlobalValue::WinScale.X * ITEMCOLLISION_X, GlobalValue::WinScale.Y * (ITEMCOLLISION_START_Y + ITEMCOLLISION_Y * x) });
 		_ItemCollision->Off();
 
+		ShopItem[x]->ItemRenderer = _ItemRenderer;
 		ShopItem[x]->ItemPriceTextRenderer = _ItemPriceTextRenderer;
 		ShopItem[x]->ItemCollision = _ItemCollision;
 	}
+	ShopItemSetting();
 
 	// PrevSelectRenderer = CreateUIRenderer(RenderOrder::UI);
 	// NextSelectRenderer = CreateUIRenderer(RenderOrder::UI);
@@ -161,6 +178,45 @@ void ContentUIManager::Start()
 	Text3Renderer->SetRenderPos({ 0, 60 });
 	Text4Renderer->SetText("다음레벨이동 : F4", 30, "Sandoll 미생");
 	Text4Renderer->SetRenderPos({ 0, 90 });
+}
+
+void ContentUIManager::Update(float _Delta)
+{
+	// Day Code
+	if (true == DayChange)
+	{
+		std::string Day = "";
+		switch (DayValue % 7)
+		{
+		case 0:
+			Day = "일";
+			break;
+		case 1:
+			Day = "월";
+			break;
+		case 2:
+			Day = "화";
+			break;
+		case 3:
+			Day = "수";
+			break;
+		case 4:
+			Day = "목";
+			break;
+		case 5:
+			Day = "금";
+			break;
+		case 6:
+			Day = "토";
+			break;
+		default:
+			break;
+		}
+		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
+	}
+
+	SleepUIUpdate(_Delta);
+	ShopUIUpdate(_Delta);
 }
 
 void ContentUIManager::SleepUIOn()
@@ -182,9 +238,10 @@ void ContentUIManager::ShopUIOn()
 	CancelCollision->On();
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
+		ShopItem[x]->ItemRenderer->On();
 		ShopItem[x]->ItemCollision->On();
 		ShopItem[x]->ItemPriceTextRenderer->On();
-	}
+}
 	ContentInventory::MainInventory->SetPosInventoryShop();
 }
 
@@ -197,6 +254,7 @@ void ContentUIManager::ShopUIOff()
 	CancelCollision->Off();
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
+		ShopItem[x]->ItemRenderer->Off();
 		ShopItem[x]->ItemCollision->Off();
 		ShopItem[x]->ItemPriceTextRenderer->Off();
 	}
@@ -258,44 +316,36 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 	}
 }
 
-
-void ContentUIManager::Update(float _Delta)
+void ContentUIManager::ShopItemSetting()
 {
-	// Day Code
-	if (true == DayChange)
+	for (int x = 0; x < ShopItem.size(); x++)
 	{
-		std::string Day = "";
-		switch (DayValue % 7)
+		std::string _FileName = "";
+		int _ItemPrice = 0;
+		switch (x)
 		{
 		case 0:
-			Day = "일";
+			_FileName = "Shop_Seed_Parsnip.bmp";
+			_ItemPrice = 20;
 			break;
 		case 1:
-			Day = "월";
+			_FileName = "Shop_Seed_Cauliflower.bmp";
+			_ItemPrice = 30;
 			break;
 		case 2:
-			Day = "화";
+			_FileName = "Shop_Seed_Garlic.bmp";
+			_ItemPrice = 40;
 			break;
 		case 3:
-			Day = "수";
-			break;
-		case 4:
-			Day = "목";
-			break;
-		case 5:
-			Day = "금";
-			break;
-		case 6:
-			Day = "토";
+			_FileName = "Shop_Seed_Potato.bmp";
+			_ItemPrice = 50;
 			break;
 		default:
 			break;
 		}
-		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
+		ShopItem[x]->ItemRenderer->SetTexture(_FileName);
+		ShopItem[x]->ItemPriceTextRenderer->SetText(std::to_string(_ItemPrice), 45, "Sandoll 미생");
 	}
-
-	SleepUIUpdate(_Delta);
-	ShopUIUpdate(_Delta);
 }
 
 void ContentUIManager::InventoryUpRender()
