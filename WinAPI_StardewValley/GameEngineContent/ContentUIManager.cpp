@@ -50,6 +50,7 @@ ContentUIManager::~ContentUIManager()
 
 void ContentUIManager::Start()
 {
+	// Texture Load
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Clock.bmp"))
 	{
 		GameEnginePath FilePath;
@@ -69,6 +70,18 @@ void ContentUIManager::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Garlic.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Potato.bmp"));
 	}
+
+	// Sound Load
+	if (nullptr == GameEngineSound::FindSound("purchase.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("purchase.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("cancel.wav"));
+	}
+
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Clock.bmp");
 	Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
 	Clock->SetRenderScale(Texture->GetScale() * RENDERRATIO);
@@ -317,27 +330,56 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 		if (true == GameEngineInput::IsDown(VK_LBUTTON)
 			&& true == ShopItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 		{
-			ContentItem* _Item = GetLevel()->CreateActor<ContentItem>();
-			switch (x)
+			if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
-			case 0:
-				_Item->Init("Seed_Parsnip.bmp", ItemType::Seed);
-				break;
-			case 1:
-				_Item->Init("Seed_Cauliflower.bmp", ItemType::Seed);
-				break;
-			case 2:
-				_Item->Init("Seed_Garlic.bmp", ItemType::Seed);
-				break;
-			case 3:
-				_Item->Init("Seed_Potato.bmp", ItemType::Seed);
-				break;
-			default:
-				break;
+				std::string CurItemName = ContentMouse::MainMouse->GetPickItem()->GetItemName();
+				if (("Seed_Parsnip.bmp" == CurItemName && 0 == x)
+					|| ("Seed_Cauliflower.bmp" == CurItemName && 1 == x)
+					|| ("Seed_Garlic.bmp" == CurItemName && 2 == x)
+					|| ("Seed_Potato.bmp" == CurItemName && 3 == x))
+				{
+					ContentMouse::MainMouse->GetPickItem()->PlusItemCount(1);
+					ContentMouse::MainMouse->SetItemCountRenderer(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
+					ContentMouse::MainMouse->GetItemCountRenderer()->On();
+					EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
+				}
+				else
+				{
+					EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
+				}
 			}
-			ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + _Item->GetItemName());
-			ContentMouse::MainMouse->GetItemRenderer()->On();
-			ContentMouse::MainMouse->SetPickItem(_Item);
+			else
+			{
+				ContentItem* _Item = GetLevel()->CreateActor<ContentItem>();
+				switch (x)
+				{
+				case 0:
+					_Item->Init("Seed_Parsnip.bmp", ItemType::Seed);
+					break;
+				case 1:
+					_Item->Init("Seed_Cauliflower.bmp", ItemType::Seed);
+					break;
+				case 2:
+					_Item->Init("Seed_Garlic.bmp", ItemType::Seed);
+					break;
+				case 3:
+					_Item->Init("Seed_Potato.bmp", ItemType::Seed);
+					break;
+				default:
+					break;
+				}
+
+				if (true == ContentInventory::MainInventory->IsFull(_Item))
+				{
+					_Item->Death();
+					EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
+					return;
+				}
+				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + _Item->GetItemName());
+				ContentMouse::MainMouse->GetItemRenderer()->On();
+				ContentMouse::MainMouse->SetPickItem(_Item);
+				EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
+			}
 		}
 	}
 }

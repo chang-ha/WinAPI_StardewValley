@@ -57,6 +57,11 @@ void ContentMouse::Start()
 	ItemRenderer->SetRenderPos(TILESIZE * RENDERRATIO);
 	ItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
 	ItemRenderer->Off();
+
+	ItemCountRenderer = CreateUIRenderer(RenderOrder::UIMouse);
+	ItemCountRenderer->SetText(" ");
+	ItemCountRenderer->SetRenderPos((TILESIZE + float4{5, 4}) *RENDERRATIO);
+	ItemCountRenderer->Off();
 }
 
 void ContentMouse::Update(float _Delta)
@@ -115,3 +120,7 @@ float4 ContentMouse::GetMousePos()
 	return GetLevel()->GetMainCamera()->GetPos() + GetPos();
 }
 
+void ContentMouse::SetItemCountRenderer(int _ItemCountRenderer)
+{
+	ItemCountRenderer->SetText(std::to_string(_ItemCountRenderer), 20, "Sandoll 미생");
+}

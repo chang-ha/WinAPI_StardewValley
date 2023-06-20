@@ -390,7 +390,7 @@ void ContentInventory::Update(float _Delta)
 				{
 					AllItem[x]->Item->PlusItemCount(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
 					ContentMouse::MainMouse->GetItemRenderer()->Off();
-
+					ContentMouse::MainMouse->GetItemCountRenderer()->Off();
 				}
 				else
 				{
@@ -413,6 +413,7 @@ void ContentInventory::Update(float _Delta)
 				AllItem[x]->ItemCountRenderer->SetText(" ");
 				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
 				ContentMouse::MainMouse->GetItemRenderer()->Off();
+				ContentMouse::MainMouse->GetItemCountRenderer()->Off();
 			}
 		}
 	}

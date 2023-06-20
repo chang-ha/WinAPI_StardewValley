@@ -49,6 +49,13 @@ public:
 		ItemRenderer = _ItemRenderer;
 	}
 
+	GameEngineRenderer* GetItemCountRenderer()
+	{
+		return ItemCountRenderer;
+	}
+
+	void SetItemCountRenderer(int _ItemCountRenderer);
+
 	ContentItem* GetPickItem()
 	{
 		return PickItem;
@@ -66,6 +73,7 @@ private:
 	GameEngineCollision* MouseCollision = nullptr;
 
 	GameEngineRenderer* ItemRenderer = nullptr;
+	GameEngineRenderer* ItemCountRenderer = nullptr;
 	ContentItem* PickItem = nullptr;
 
 	// ContentInventory* InteractionInventory;

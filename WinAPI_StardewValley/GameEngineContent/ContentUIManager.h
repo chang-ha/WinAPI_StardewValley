@@ -1,5 +1,6 @@
 #pragma once
 #include <GameEngineCore/GameEngineActor.h>
+#include <GameEnginePlatform/GameEngineSound.h>
 
 class ContentUIManager;
 class ShopItemData
@@ -50,7 +51,7 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-	GameEngineWindowTexture* SleepUITexture = nullptr;
+	GameEngineSoundPlayer EffectPlayer;
 
 	// Main UI
 	GameEngineRenderer* Clock = nullptr;
@@ -67,6 +68,7 @@ private:
 	bool DayChange = false;
 
 	// FarmHouse's Sleep UI
+	GameEngineWindowTexture* SleepUITexture = nullptr;
 	GameEngineRenderer* SleepUIRenderer = nullptr;
 	GameEngineCollision* SleepYesCollision = nullptr;
 	GameEngineCollision* SleepNoCollision = nullptr;
