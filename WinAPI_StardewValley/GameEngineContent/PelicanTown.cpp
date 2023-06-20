@@ -29,6 +29,9 @@ PelicanTown::~PelicanTown()
 void PelicanTown::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
+
+	GetMainCamera()->SetYSort(RenderOrder::Play, true);
+
 	Player::MainPlayer->SetCollisionTexture("Collision_Town.bmp");
 
 	// _PrevLevel == BusStation

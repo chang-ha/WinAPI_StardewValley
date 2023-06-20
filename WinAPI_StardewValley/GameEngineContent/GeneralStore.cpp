@@ -24,6 +24,9 @@ GeneralStore::~GeneralStore()
 void GeneralStore::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
+
+	GetMainCamera()->SetYSort(RenderOrder::Play, true);
+
 	Player::MainPlayer->SetCollisionTexture("Collision_GeneralStore.bmp");
 
 	// _PrevLevel == PelicanTown

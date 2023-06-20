@@ -36,7 +36,7 @@ void ShippingBin::Start()
 
 		// Shipping Can Texture
 		GameEngineWindowTexture* Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shipping_Bin.bmp"));
-		BodyRenderer = CreateRenderer(RenderOrder::PlayBelow);
+		BodyRenderer = CreateRenderer(RenderOrder::Play);
 		BodyRenderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 
 		// Open & Close Animation
