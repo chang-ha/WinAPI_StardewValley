@@ -7,6 +7,7 @@ class ShopItemData
 {
 	friend ContentUIManager;
 private:
+	int ItemPrice = 0;
 	GameEngineRenderer* ItemRenderer = nullptr;
 	GameEngineRenderer* ItemPriceTextRenderer = nullptr;
 	GameEngineCollision* ItemCollision = nullptr;
@@ -32,6 +33,11 @@ public:
 	ContentUIManager& operator=(const ContentUIManager& _Other) = delete;
 	ContentUIManager& operator=(ContentUIManager&& _Other) noexcept = delete;
 
+	void BasicUIOn();
+	void BasicUIOff();
+
+	void ResetCurTextMoney();
+
 	void InventoryUpRender();
 	void InventoryDownRender();
 	void SleepUIOn();
@@ -47,8 +53,6 @@ public:
 	}
 
 protected:
-	void Start() override;
-	void Update(float _Delta) override;
 
 private:
 	GameEngineSoundPlayer EffectPlayer;
@@ -66,6 +70,13 @@ private:
 	GameEngineRenderer* DayTextRenderer = nullptr;
 	int DayValue = 1;
 	bool DayChange = false;
+
+	// MoneyUI 
+	bool MoneyUpdate = false;
+	int CurMoney = 1000;
+	int CurTextMoney = 0;
+	float MoneyUpSpeed = 300.0f;
+	std::vector<GameEngineRenderer*> AllMoney;
 
 	// FarmHouse's Sleep UI
 	GameEngineWindowTexture* SleepUITexture = nullptr;
@@ -89,6 +100,9 @@ private:
 	GameEngineRenderer* Text3Renderer = nullptr;
 	GameEngineRenderer* Text4Renderer = nullptr;
 
+	void Start() override;
+	void Update(float _Delta) override;
+	void MoneyUIUpdate(float _Delta);
 	void SleepUIUpdate(float _Delta);
 	void ShopUIUpdate(float _Delta);
 };

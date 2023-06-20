@@ -35,19 +35,13 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	if (nullptr != dynamic_cast<TitleScreen*>(this) || nullptr != dynamic_cast<SleepLevel*>(this))
 	{
-		ContentUIManager::MainUI->Clock->Off();
-		ContentUIManager::MainUI->ClockHand->Off();
-		ContentUIManager::MainUI->Energy->Off();
-		ContentUIManager::MainUI->Inventory->Off();
-		ContentUIManager::MainUI->DayTextRenderer->Off();
+		ContentUIManager::MainUI->BasicUIOff();
+		ContentUIManager::MainUI->ResetCurTextMoney();
 	}
 	else
 	{
-		ContentUIManager::MainUI->Clock->On();
-		ContentUIManager::MainUI->ClockHand->On();
-		ContentUIManager::MainUI->Energy->On();
-		ContentUIManager::MainUI->Inventory->On();
-		ContentUIManager::MainUI->DayTextRenderer->On();
+		ContentUIManager::MainUI->BasicUIOn();
+
 
 		if (nullptr == Player::MainPlayer)
 		{

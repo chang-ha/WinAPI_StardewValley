@@ -56,19 +56,35 @@ void ContentUIManager::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Clock.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Clock_hand.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Energy.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Inventory.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Sleep.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Shop_Pierre.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Cancel.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Shop_Select.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Parsnip.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Cauliflower.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Garlic.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Shop_Seed_Potato.bmp"));
+		FilePath.MoveChild("Resources\\Textures\\UI\\");
+		// Clock UI
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand.bmp"));
+		// Energy UI
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
+		// MiniInventory UI
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory.bmp"));
+		// Sleep UI
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
+		// Money UI
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_0.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_1.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_2.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_3.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_4.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_5.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_6.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_7.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_8.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_9.bmp"));
+		// Shop UI
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Pierre.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Cancel.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Select.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Parsnip.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Cauliflower.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Garlic.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Potato.bmp"));
 	}
 
 	// Sound Load
@@ -103,6 +119,17 @@ void ContentUIManager::Start()
 
 	Inventory = CreateUIRenderer("UI_Inventory.bmp", RenderOrder::UI);
 	InventoryDownRender();
+	
+	// MoneyUI
+	AllMoney.resize(8);
+	Texture = ResourcesManager::GetInst().FindTexture("UI_Money_0.bmp");
+	for (int x = 0; x < AllMoney.size(); x++)
+	{
+		AllMoney[x] = CreateUIRenderer("UI_Money_0.bmp", RenderOrder::UI);
+		AllMoney[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.983f - x * 0.0117f), GlobalValue::WinScale.Y * 0.174f});
+		AllMoney[x]->SetRenderScale(Texture->GetScale() * 2);
+		AllMoney[x]->Off();
+	}
 
 	// SleepUI
 	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
@@ -225,8 +252,38 @@ void ContentUIManager::Update(float _Delta)
 		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
 	}
 
+	MoneyUIUpdate(_Delta);
 	SleepUIUpdate(_Delta);
 	ShopUIUpdate(_Delta);
+}
+
+void ContentUIManager::BasicUIOn()
+{
+	Clock->On();
+	ClockHand->On();
+	Energy->On();
+	Inventory->On();
+	DayTextRenderer->On();
+	MoneyUpdate = true;
+}
+
+void ContentUIManager::BasicUIOff()
+{
+	Clock->Off();
+	ClockHand->Off();
+	Energy->Off();
+	Inventory->Off();
+	DayTextRenderer->Off();
+	for (int x = 0; x < AllMoney.size(); x++)
+	{
+		AllMoney[x]->Off();
+	}
+	MoneyUpdate = false;
+}
+
+void ContentUIManager::ResetCurTextMoney()
+{
+	CurTextMoney = 0;
 }
 
 void ContentUIManager::SleepUIOn()
@@ -271,6 +328,57 @@ void ContentUIManager::ShopUIOff()
 	ContentInventory::MainInventory->SetPosInventoryItem();
 }
 
+void ContentUIManager::MoneyUIUpdate(float _Delta)
+{
+	if (false == MoneyUpdate)
+	{
+		return;
+	}
+
+	if (CurMoney == CurTextMoney)
+	{
+		return;
+	}
+	else if (CurMoney > CurTextMoney)
+	{
+		CurTextMoney += static_cast<int>(MoneyUpSpeed * _Delta);
+		if (CurMoney < CurTextMoney)
+		{
+			CurTextMoney = CurMoney;
+		}
+	}
+	else
+	{
+		CurTextMoney -= static_cast<int>(MoneyUpSpeed * _Delta);
+		if (CurMoney > CurTextMoney)
+		{
+			CurTextMoney = CurMoney;
+		}
+	}
+	
+	int MoneyDigit = 0;
+	int CheckValue = CurTextMoney;
+	while (0 != CheckValue / 10)
+	{
+		CheckValue /= 10;
+		++MoneyDigit;
+	}
+
+	CheckValue = CurTextMoney;
+	for (int x = 0; x < AllMoney.size(); x++)
+	{
+		if (x > MoneyDigit)
+		{
+			AllMoney[x]->Off();
+			continue;
+		}
+		int MoneyString = (CheckValue % 10);
+		CheckValue /= 10;
+		AllMoney[x]->SetTexture("UI_Money_" + std::to_string(MoneyString) + ".bmp");
+		AllMoney[x]->On();
+	}
+}
+
 void ContentUIManager::SleepUIUpdate(float _Delta)
 {
 	// SleepUI Datail
@@ -292,11 +400,7 @@ void ContentUIManager::SleepUIUpdate(float _Delta)
 
 	if (true == SleepYesCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect) && true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
-		ContentUIManager::MainUI->Clock->Off();
-		ContentUIManager::MainUI->ClockHand->Off();
-		ContentUIManager::MainUI->Energy->Off();
-		ContentUIManager::MainUI->Inventory->Off();
-		ContentUIManager::MainUI->DayTextRenderer->Off();
+		BasicUIOff();
 		SleepUIRenderer->Off();
 		SleepYesCollision->Off();
 		SleepNoCollision->Off();
@@ -330,6 +434,14 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 		if (true == GameEngineInput::IsDown(VK_LBUTTON)
 			&& true == ShopItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 		{
+			int CheckMoney = CurMoney;
+			CheckMoney -= ShopItem[x]->ItemPrice;
+			if (0 > CheckMoney)
+			{
+				EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
+				return;
+			}
+
 			if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
 				std::string CurItemName = ContentMouse::MainMouse->GetPickItem()->GetItemName();
@@ -341,6 +453,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 					ContentMouse::MainMouse->GetPickItem()->PlusItemCount(1);
 					ContentMouse::MainMouse->SetItemCountRenderer(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
 					ContentMouse::MainMouse->GetItemCountRenderer()->On();
+					CurMoney -= ShopItem[x]->ItemPrice;
 					EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
 				}
 				else
@@ -378,6 +491,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + _Item->GetItemName());
 				ContentMouse::MainMouse->GetItemRenderer()->On();
 				ContentMouse::MainMouse->SetPickItem(_Item);
+				CurMoney -= ShopItem[x]->ItemPrice;
 				EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
 			}
 		}
@@ -389,30 +503,29 @@ void ContentUIManager::ShopItemSetting()
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		std::string _FileName = "";
-		int _ItemPrice = 0;
 		switch (x)
 		{
 		case 0:
 			_FileName = "Shop_Seed_Parsnip.bmp";
-			_ItemPrice = 20;
+			ShopItem[x]->ItemPrice = 20;
 			break;
 		case 1:
 			_FileName = "Shop_Seed_Cauliflower.bmp";
-			_ItemPrice = 30;
+			ShopItem[x]->ItemPrice = 30;
 			break;
 		case 2:
 			_FileName = "Shop_Seed_Garlic.bmp";
-			_ItemPrice = 40;
+			ShopItem[x]->ItemPrice = 40;
 			break;
 		case 3:
 			_FileName = "Shop_Seed_Potato.bmp";
-			_ItemPrice = 50;
+			ShopItem[x]->ItemPrice = 50;
 			break;
 		default:
 			break;
 		}
 		ShopItem[x]->ItemRenderer->SetTexture(_FileName);
-		ShopItem[x]->ItemPriceTextRenderer->SetText(std::to_string(_ItemPrice), 45, "Sandoll 미생");
+		ShopItem[x]->ItemPriceTextRenderer->SetText(std::to_string(ShopItem[x]->ItemPrice), 45, "Sandoll 미생");
 	}
 }
 
