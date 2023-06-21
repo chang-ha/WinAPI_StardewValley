@@ -97,7 +97,7 @@ public:
 	GameEngineRenderer* HairRenderer = nullptr;
 	GameEngineRenderer* ShirtRenderer = nullptr;
 	GameEngineRenderer* PantsRenderer = nullptr;
-	GameEngineRenderer* HatRenderer = nullptr;
+	GameEngineRenderer* ToolRenderer = nullptr;
 	GameEngineRenderer* ShadowRenderer = nullptr;
 
 	GameEngineCollision* BodyCollision = nullptr;
@@ -111,6 +111,7 @@ private:
 	int CurTileColor = 0;
 	ContentItem* CurItem = nullptr;
 	std::string CurState = "";
+	std::string ToolDir = "";
 
 	PlayerState State = PlayerState::Null;
 	int Dir = PlayerDir::Null;

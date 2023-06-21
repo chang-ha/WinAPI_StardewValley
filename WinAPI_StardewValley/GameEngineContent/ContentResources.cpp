@@ -40,7 +40,7 @@ void ContentResources::Init(const std::string& _FileName)
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 
 	// ShadowRenderer
-	ShadowRenderer = CreateRenderer("Shadow_" + _FileName, RenderOrder::BackGround);
+	ShadowRenderer = CreateRenderer("Shadow_" + _FileName, RenderOrder::Shadow);
 	ShadowRenderer->SetAlpha(120);
 	ShadowRenderer->SetRenderPos(TILESIZE.Half() * RENDERRATIO);
 	ShadowRenderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);

@@ -43,6 +43,7 @@ void Player::ToolStart()
 		// Tool Hoe
 	{
 		ToolCollisionCreate(CollisionOrder::Hoe);
+		ToolRenderer->SetSprite(ToolDir + "Hoe.bmp");
 		Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 		if (nullptr != _Farm)
 		{
@@ -454,11 +455,113 @@ void Player::RunUpdate(float _DeltaTime)
 
 void Player::ToolUpdate(float _DeltaTime)
 {
+	ToolRenderer->On();
+	switch (Dir)
+	{
+	case Null:
+		break;
+	case Up:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
+			ToolRenderer->SetYPivot(-5 * RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetRenderPos(float4{ 0, 5 } *RENDERRATIO);
+			ToolRenderer->SetTexture("Up2_" + CurItem->GetItemName());
+			break;
+		default:
+			ToolRenderer->Off();
+			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
+			ToolRenderer->SetYPivot(0);
+			break;
+		}
+		break;
+	case Down:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetRenderPos(float4{ -4, 1 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetAngle(-5.0f);
+			ToolRenderer->SetRenderPos(float4{ 0, 5 } *RENDERRATIO);
+			break;
+		case 2:
+			ToolRenderer->Off();
+			ToolRenderer->SetAngle(0.0f);
+			break;
+		case 3:
+			ToolRenderer->On();
+			ToolRenderer->SetTexture("Down2_" + CurItem->GetItemName());
+			ToolRenderer->SetRenderPos(float4{ 0, 23 } *RENDERRATIO);
+			break;
+		case 4:
+			ToolRenderer->SetRenderPos(float4{ 0, 24 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Right:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetAngle(-14.0f);
+			break;
+		case 1:
+			ToolRenderer->SetAngle(25.0f);
+			break;
+		case 2:
+			ToolRenderer->SetAngle(60.0f);
+			break;
+		case 3:
+			ToolRenderer->SetRenderPos(float4{ 0, -1 } *RENDERRATIO);
+			ToolRenderer->SetAngle(107.0f);
+			break;
+		case 4:
+			ToolRenderer->SetRenderPos(float4{ 0, 1 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Left:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetAngle(14.0f);
+			break;
+		case 1:
+			ToolRenderer->SetAngle(-25.0f);
+			break;
+		case 2:
+			ToolRenderer->SetAngle(-60.0f);
+			break;
+		case 3:
+			ToolRenderer->SetRenderPos(float4{ 0, -1 } *RENDERRATIO);
+			ToolRenderer->SetAngle(-107.0f);
+			break;
+		case 4:
+			ToolRenderer->SetRenderPos(float4{ 0, 1 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
 		ToolCollision->Death();
 		ArmRenderer->SetYPivot(5 * RENDERRATIO);
+		ToolRenderer->SetRenderPos({});
+		ToolRenderer->SetAngle({});
+		ToolRenderer->Off();
 	}
 }
 

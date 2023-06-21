@@ -51,7 +51,7 @@ void Tree::Init(const std::string& _FileName)
 	UpperPart->SetYPivot(- (TILESIZE.Half().Y - 38)* RENDERRATIO);
 
 	Texture = ResourcesManager::GetInst().FindTexture("Shadow_UpperPart_Tree.bmp");
-	UpperPartShadow = CreateRenderer("Shadow_UpperPart_Tree.bmp", RenderOrder::BackGround);
+	UpperPartShadow = CreateRenderer("Shadow_UpperPart_Tree.bmp", RenderOrder::Shadow);
 	UpperPartShadow->SetAlpha(120);
 	UpperPartShadow->SetRenderPos(TILESIZE.Half() + float4{4, 8} * RENDERRATIO);
 	UpperPartShadow->SetRenderScale(Texture->GetScale() * RENDERRATIO);
