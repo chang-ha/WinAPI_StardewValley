@@ -18,8 +18,8 @@ public:
 	BackGround& operator=(const BackGround& _Other) = delete;
 	BackGround& operator=(BackGround&& _Other) noexcept = delete;
 
-	void Init(const std::string& _FileName, float _RenderScale);
-	void Init(const std::string& _FileName, const std::string& _CollisionFileName, float _RenderScale);
+	void Init(const std::string& _FileName, float _RenderScaleRatio = 1.0f);
+	void Init(const std::string& _FileName, const std::string& _CollisionFileName, float _RenderScaleRatio = 1.0f);
 	
 	const float4 GetScale()
 	{

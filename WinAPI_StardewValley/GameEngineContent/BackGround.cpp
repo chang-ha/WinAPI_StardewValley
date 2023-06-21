@@ -29,7 +29,7 @@ void BackGround::Update(float _Delta)
 {
 }
 
-void BackGround::Init(const std::string& _FileName, float _RenderScale)
+void BackGround::Init(const std::string& _FileName, float _RenderScaleRatio)
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
@@ -41,12 +41,12 @@ void BackGround::Init(const std::string& _FileName, float _RenderScale)
 	}
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	Renderer->SetTexture(_FileName);
-	Renderer->SetRenderScale(Texture->GetScale() * _RenderScale);
+	Renderer->SetRenderScale(Texture->GetScale() * _RenderScaleRatio);
 	Scale = Texture->GetScale();
-	RenderScale = Texture->GetScale() * _RenderScale;
+	RenderScale = Texture->GetScale() * _RenderScaleRatio;
 }
 
-void BackGround::Init(const std::string& _FileName, const std::string& _CollisionFileName, float _RenderScale)
+void BackGround::Init(const std::string& _FileName, const std::string& _CollisionFileName, float _RenderScaleRatio)
 {
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
@@ -59,13 +59,13 @@ void BackGround::Init(const std::string& _FileName, const std::string& _Collisio
 	}
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	Renderer->SetTexture(_FileName);
-	Renderer->SetRenderScale(Texture->GetScale() * _RenderScale);
-	Scale = Texture->GetScale() * _RenderScale;
-	RenderScale = Texture->GetScale() * _RenderScale;
+	Renderer->SetRenderScale(Texture->GetScale() * _RenderScaleRatio);
+	Scale = Texture->GetScale() * _RenderScaleRatio;
+	RenderScale = Texture->GetScale() * _RenderScaleRatio;
 
 	CollisionTexture = ResourcesManager::GetInst().FindTexture(_CollisionFileName);
 	CollisionRenderer->SetTexture(_CollisionFileName);
-	CollisionRenderer->SetRenderScale(Texture->GetScale() * _RenderScale);
+	CollisionRenderer->SetRenderScale(Texture->GetScale() * _RenderScaleRatio);
 
 }
 
