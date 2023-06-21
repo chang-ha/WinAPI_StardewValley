@@ -77,6 +77,26 @@ GameEngineRenderer* TileMap::GetTile(int _X, int _Y)
 	return Tiles[_Y][_X];
 }
 
+bool TileMap::MoveTile(int X1, int Y1, int X2, int Y2, float4 _TilePos)
+{
+	if (nullptr == Tiles[Y1][X1])
+	{
+		return false;
+	}
+
+	if (nullptr != Tiles[Y2][X2])
+	{
+		return false;
+	}
+
+	GameEngineRenderer* Tile = Tiles[Y1][X1];
+	Tiles[Y1][X1] = nullptr;
+
+	Tiles[Y2][X2] = Tile;
+	Tile->SetRenderPos(IndexToPos(X2, Y2) + TileSize.Half() + _TilePos);
+	return true;
+}
+
 void TileMap::SetTile(float4 _Pos, int _Index, float4 _TilePos /*= float4::ZERO*/, bool _IsImageSize /*= false*/)
 {
 	float4 Index = PosToIndex(_Pos);

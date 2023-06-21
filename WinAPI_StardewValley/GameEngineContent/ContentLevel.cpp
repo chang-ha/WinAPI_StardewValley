@@ -123,10 +123,6 @@ void ContentLevel::Update(float _Delta)
 			UITileMap->DeathTile(PrevIndex.iX(), PrevIndex.iY());
 		}
 
-		//if (nullptr != PrevTile && PrevTile != CurTile)
-		//{
-		//	PrevTile->Off();
-		//}
 		PrevIndex = CurIndex;
 
 		if (nullptr != CurTile)

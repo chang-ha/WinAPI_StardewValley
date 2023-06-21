@@ -30,7 +30,9 @@ public:
 	void CreateTileMap(const std::string& _Sprite, int _X, int _Y, float4 _TileSize, int _Order);
 
 	GameEngineRenderer* GetTile(int _X, int _Y);
-		
+
+	bool MoveTile(int X1, int Y1, int X2, int Y2, float4 _TilePos);
+
 	void SetTile(int X, int Y, int _Index, float4 _TilePos = float4::ZERO, bool _IsImageSize = false);
 
 	void SetTile(float4 _Pos, int _Index, float4 _TilePos = float4::ZERO, bool _IsImageSize = false);

@@ -118,12 +118,9 @@ void GameEngineRenderer::Update(float _Delta)
 		if (0.0f >= CurAnimation->CurInter)
 		{
 			++CurAnimation->CurFrame;
-
-
 			if (CurAnimation->CurFrame > abs(static_cast<int>(CurAnimation->EndFrame - CurAnimation->StartFrame)))
 			{
 				CurAnimation->IsEnd = true;
-
 				if (true == CurAnimation->Loop)
 				{
 					CurAnimation->CurFrame = 0;
@@ -133,11 +130,15 @@ void GameEngineRenderer::Update(float _Delta)
 					--CurAnimation->CurFrame;
 				}
 			}
-
-			CurAnimation->CurInter
-				= CurAnimation->Inters[CurAnimation->CurFrame];
+			CurAnimation->CurInter = CurAnimation->Inters[CurAnimation->CurFrame];
 		}
+	}
+}
 
+void GameEngineRenderer::Render(float _DeltaTime)
+{
+	if (nullptr != CurAnimation)
+	{
 		size_t Frame = CurAnimation->Frames[CurAnimation->CurFrame];
 
 		Sprite = CurAnimation->Sprite;
@@ -152,10 +153,7 @@ void GameEngineRenderer::Update(float _Delta)
 			SetRenderScale(SpriteInfo.RenderScale * ScaleRatio);
 		}
 	}
-}
 
-void GameEngineRenderer::Render(float _DeltaTime) 
-{
 	if ("" != Text)
 	{
 		TextRender(_DeltaTime);
@@ -177,7 +175,7 @@ void GameEngineRenderer::Render(float _DeltaTime)
 	{
 		BackBuffer->PlgCopy(Texture, MaskTexture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale, Angle);
 	}
-	else if(255 != Alpha)
+	else if (255 != Alpha)
 	{
 		BackBuffer->AlphaCopy(Texture, GetActor()->GetPos() + RenderPos - Camera->GetPos(), RenderScale, CopyPos, CopyScale, Alpha);
 	}
