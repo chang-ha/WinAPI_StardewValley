@@ -29,36 +29,44 @@ void BackGround::Update(float _Delta)
 {
 }
 
-void BackGround::Init(const std::string& _FileName)
+void BackGround::Init(const std::string& _FileName, float _RenderScale)
 {
-	FileName = _FileName;
-	if (false == ResourcesManager::GetInst().IsLoadTexture(FileName))
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\BackGround\\");
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
 	}
-	Texture = ResourcesManager::GetInst().FindTexture(FileName);
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
+	Renderer->SetTexture(_FileName);
+	Renderer->SetRenderScale(Texture->GetScale() * _RenderScale);
 	Scale = Texture->GetScale();
+	RenderScale = Texture->GetScale() * _RenderScale;
 }
 
-void BackGround::Init(const std::string& _FileName, const std::string& _CollisionFileName)
+void BackGround::Init(const std::string& _FileName, const std::string& _CollisionFileName, float _RenderScale)
 {
-	FileName = _FileName;
-	if (false == ResourcesManager::GetInst().IsLoadTexture(FileName))
+	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\BackGround\\");
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(FileName));
-		CollisionTexture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_CollisionFileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_CollisionFileName));
 	}
-	Texture = ResourcesManager::GetInst().FindTexture(FileName);
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
+	Renderer->SetTexture(_FileName);
+	Renderer->SetRenderScale(Texture->GetScale() * _RenderScale);
+	Scale = Texture->GetScale() * _RenderScale;
+	RenderScale = Texture->GetScale() * _RenderScale;
+
 	CollisionTexture = ResourcesManager::GetInst().FindTexture(_CollisionFileName);
-	Scale = Texture->GetScale();
+	CollisionRenderer->SetTexture(_CollisionFileName);
+	CollisionRenderer->SetRenderScale(Texture->GetScale() * _RenderScale);
+
 }
 
 void BackGround::SwitchBackGroundRender()

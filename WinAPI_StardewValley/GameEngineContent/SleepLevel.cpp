@@ -42,9 +42,7 @@ void SleepLevel::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Ok_Button.bmp"));
 	}
 	Back = CreateActor<BackGround>(UpdateOrder::Map);
-	Back->Init("SleepTime.bmp");
-	Back->Renderer->SetTexture("SleepTime.bmp");
-	Back->Renderer->SetRenderScale(Back->GetScale() * 1.25f);
+	Back->Init("SleepTime.bmp", 1.25f);
 	Back->SetPos(GlobalValue::WinScale.Half());
 
 	PlayOver* OK_Button = CreateActor<PlayOver>();

@@ -29,9 +29,10 @@ void ContentResources::Init(const std::string& _FileName)
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Resources\\");
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
 	}
 	// Resources Renderer
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
 	Renderer = CreateRenderer(_FileName, RenderOrder::BackGround);
 	Renderer->SetTexture(_FileName);
 	Renderer->SetRenderPos(TILESIZE.Half() * RENDERRATIO);

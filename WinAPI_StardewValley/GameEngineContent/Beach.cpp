@@ -52,14 +52,8 @@ void Beach::Start()
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Beach.bmp"))
 	{
 		Back = CreateActor<BackGround>(UpdateOrder::Map);
-		Back->Init("Beach.bmp", "Collision_Beach.bmp");
-		Back->Renderer->SetTexture("Beach.bmp");
-		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->Init("Beach.bmp", "Collision_Beach.bmp", RENDERRATIO);
 		Back->SetPos(GetRenderScale().Half());
-
-		Back->CollisionRenderer->SetTexture("Collision_Beach.bmp");
-		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 
 	if (nullptr == GameEngineSound::FindSound("ocean.wav"))

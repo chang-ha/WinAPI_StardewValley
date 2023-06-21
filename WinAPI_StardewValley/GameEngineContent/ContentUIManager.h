@@ -7,7 +7,7 @@ class ShopItemData
 {
 	friend ContentUIManager;
 private:
-	int ItemPrice = 0;
+	int ItemBuyPrice = 0;
 	GameEngineRenderer* ItemRenderer = nullptr;
 	GameEngineRenderer* ItemPriceTextRenderer = nullptr;
 	GameEngineRenderer* ItemNameTextRenderer = nullptr;

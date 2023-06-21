@@ -459,7 +459,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 			&& true == ShopItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 		{
 			int CheckMoney = CurMoney;
-			CheckMoney -= ShopItem[x]->ItemPrice;
+			CheckMoney -= ShopItem[x]->ItemBuyPrice;
 			if (0 > CheckMoney)
 			{
 				EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
@@ -477,7 +477,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 					ContentMouse::MainMouse->GetPickItem()->PlusItemCount(1);
 					ContentMouse::MainMouse->SetItemCountRenderer(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
 					ContentMouse::MainMouse->GetItemCountRenderer()->On();
-					CurMoney -= ShopItem[x]->ItemPrice;
+					CurMoney -= ShopItem[x]->ItemBuyPrice;
 					EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
 				}
 				else
@@ -515,7 +515,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + _Item->GetItemName());
 				ContentMouse::MainMouse->GetItemRenderer()->On();
 				ContentMouse::MainMouse->SetPickItem(_Item);
-				CurMoney -= ShopItem[x]->ItemPrice;
+				CurMoney -= ShopItem[x]->ItemBuyPrice;
 				EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
 			}
 		}
@@ -536,29 +536,29 @@ void ContentUIManager::ShopItemSetting()
 		{
 		case 0:
 			_FileName = "Shop_Seed_Parsnip.bmp";
-			ShopItem[x]->ItemPrice = 20;
+			ShopItem[x]->ItemBuyPrice = 20;
 			ShopItem[x]->ItemNameTextRenderer->SetText("파스닙 씨앗", 45, "Sandoll 미생");
 			break;
 		case 1:
 			_FileName = "Shop_Seed_Cauliflower.bmp";
-			ShopItem[x]->ItemPrice = 30;
+			ShopItem[x]->ItemBuyPrice = 30;
 			ShopItem[x]->ItemNameTextRenderer->SetText("콜리플라워 씨앗", 45, "Sandoll 미생");
 			break;
 		case 2:
 			_FileName = "Shop_Seed_Garlic.bmp";
-			ShopItem[x]->ItemPrice = 40;
+			ShopItem[x]->ItemBuyPrice = 40;
 			ShopItem[x]->ItemNameTextRenderer->SetText("마늘 씨앗", 45, "Sandoll 미생");
 			break;
 		case 3:
 			_FileName = "Shop_Seed_Potato.bmp";
-			ShopItem[x]->ItemPrice = 50;
+			ShopItem[x]->ItemBuyPrice = 50;
 			ShopItem[x]->ItemNameTextRenderer->SetText("감자 씨앗", 45, "Sandoll 미생");
 			break;
 		default:
 			break;
 		}
 		ShopItem[x]->ItemRenderer->SetTexture(_FileName);
-		ShopItem[x]->ItemPriceTextRenderer->SetText(std::to_string(ShopItem[x]->ItemPrice), 45, "Sandoll 미생");
+		ShopItem[x]->ItemPriceTextRenderer->SetText(std::to_string(ShopItem[x]->ItemBuyPrice), 45, "Sandoll 미생");
 	}
 }
 

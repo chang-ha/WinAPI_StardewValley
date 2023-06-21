@@ -111,15 +111,8 @@ void FarmHouse::Start()
 	{
 		// BackGround
 		Back = CreateActor<BackGround>(UpdateOrder::Map);														  
-		Back->Init("farmhouse.bmp", "Collision_farmhouse.bmp");
-		Back->Renderer->SetTexture("farmhouse.bmp");
-		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->Init("farmhouse.bmp", "Collision_farmhouse.bmp", RENDERRATIO);
 		Back->SetPos(GetRenderScale().Half());
-
-		// BackGround Collision
-		Back->CollisionRenderer->SetTexture("Collision_farmhouse.bmp");
-		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 
 		// Player
 		Player::MainPlayer = CreateActor<Player>(UpdateOrder::Player);

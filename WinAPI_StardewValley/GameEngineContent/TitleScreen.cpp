@@ -111,10 +111,7 @@ void TitleScreen::Start()
 
 	// BackGround
 	Back = CreateActor<BackGround>(UpdateOrder::Map);
-	Back->Init("Title_background.bmp");
-	Back->Renderer->SetTexture("Title_background.bmp");
-	Back->Renderer->SetRenderScale(Back->GetScale() * 1.2f);
-	Back->SetRenderScale(Back->GetScale() * 1.2f);
+	Back->Init("Title_background.bmp", 1.2f);
 	Back->SetPos(GetRenderScale().Half());
 	GetMainCamera()->SetPos({Back->GetPos().X - GlobalValue::WinScale.Half().X, Back->GetRenderScale().Y - GlobalValue::WinScale.Y});
 

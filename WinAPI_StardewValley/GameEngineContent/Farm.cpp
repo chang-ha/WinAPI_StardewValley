@@ -122,14 +122,8 @@ void Farm::Start()
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Farm.bmp"))
 	{
 		Back = CreateActor<BackGround>(UpdateOrder::Map);
-		Back->Init("Farm.bmp", "Collision_Farm.bmp");
-		Back->Renderer->SetTexture("Farm.bmp");
-		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->Init("Farm.bmp", "Collision_Farm.bmp", RENDERRATIO);
 		Back->SetPos(GetRenderScale().Half());
-
-		Back->CollisionRenderer->SetTexture("Collision_Farm.bmp");
-		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 
 	if (nullptr == GameEngineSound::FindSound("hoeHit.wav"))

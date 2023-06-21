@@ -55,14 +55,8 @@ void GeneralStore::Start()
 	if (false == ResourcesManager::GetInst().IsLoadTexture("GeneralStore.bmp"))
 	{
 		Back = CreateActor<BackGround>(UpdateOrder::Map);
-		Back->Init("GeneralStore.bmp", "Collision_GeneralStore.bmp");
-		Back->Renderer->SetTexture("GeneralStore.bmp");
-		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->Init("GeneralStore.bmp", "Collision_GeneralStore.bmp", RENDERRATIO);
 		Back->SetPos(GetRenderScale().Half());
-
-		Back->CollisionRenderer->SetTexture("Collision_GeneralStore.bmp");
-		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 
 	Counter* _Counter = CreateActor<Counter>();

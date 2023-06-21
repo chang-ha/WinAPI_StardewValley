@@ -87,14 +87,8 @@ void PelicanTown::Start()
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Town.bmp"))
 	{
 		Back = CreateActor<BackGround>(UpdateOrder::Map);
-		Back->Init("Town.bmp", "Collision_Town.bmp");
-		Back->Renderer->SetTexture("Town.bmp");
-		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->Init("Town.bmp", "Collision_Town.bmp", RENDERRATIO);
 		Back->SetPos(GetRenderScale().Half());
-
-		Back->CollisionRenderer->SetTexture("Collision_Town.bmp");
-		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 
 	if (nullptr == GameEngineSound::FindSound("Town.mp3"))

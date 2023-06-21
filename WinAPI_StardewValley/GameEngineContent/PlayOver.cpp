@@ -40,6 +40,7 @@ void PlayOver::Update(float _Delta)
 
 void PlayOver::Init(const std::string& _FileName)
 {
+	FileName = _FileName;
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
 		GameEnginePath FilePath;

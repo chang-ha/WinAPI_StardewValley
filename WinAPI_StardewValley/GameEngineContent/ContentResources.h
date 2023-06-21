@@ -1,14 +1,8 @@
 #pragma once
 #include "ContentActor.h"
 
-enum class ResourcesType
-{
-
-};
-
-class GameEngineWindowTexture;
-class GameEngineCollision;
 class GameEngineRenderer;
+class GameEngineCollision;
 class ContentResources : public ContentActor
 {
 public:
@@ -29,12 +23,12 @@ public:
 protected:
 	void Start() override;
 
-	GameEngineRenderer* Renderer = nullptr;
-	GameEngineRenderer* ShadowRenderer = nullptr;
-	GameEngineWindowTexture* Texture = nullptr;
-	GameEngineCollision* Collision = nullptr;
 	bool IsHitten = false;
 	int HittenStep = 0;
+
+	GameEngineRenderer* Renderer = nullptr;
+	GameEngineRenderer* ShadowRenderer = nullptr;
+	GameEngineCollision* Collision = nullptr;
 
 private:
 };

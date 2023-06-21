@@ -77,15 +77,14 @@ protected:
 	void LevelEnd() override;
 
 private:
+	int ItemCount = 1;
 	float MoveTime = 1.0f;
 	float4 StartDir= {};
+	std::string ItemName = "";
+	ItemType Type = ItemType::NotItem;
 
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
 	GameEngineCollision* Collision = nullptr;	
-	std::vector<GameEngineCollision*> _CollisionResult;
-	std::string ItemName = "";
-	int ItemCount = 1;
-	ItemType Type = ItemType::NotItem;
 };
 

@@ -18,17 +18,12 @@ public:
 	BackGround& operator=(const BackGround& _Other) = delete;
 	BackGround& operator=(BackGround&& _Other) noexcept = delete;
 
-	void Init(const std::string& _FileName);
-	void Init(const std::string& _FileName, const std::string& _CollisionFileName);
+	void Init(const std::string& _FileName, float _RenderScale);
+	void Init(const std::string& _FileName, const std::string& _CollisionFileName, float _RenderScale);
 	
 	const float4 GetScale()
 	{
 		return Scale;
-	}
-	
-	void SetRenderScale(float4 _RenderScale)
-	{
-		RenderScale = _RenderScale;
 	}
 
 	float4 GetRenderScale()
@@ -40,17 +35,15 @@ public:
 
 	void ResetBackGroundRender();
 
-	GameEngineRenderer* Renderer = nullptr;
-	GameEngineRenderer* CollisionRenderer = nullptr;
 protected:
 
 private:
-	GameEngineWindowTexture* Texture = nullptr;
+	GameEngineRenderer* Renderer = nullptr;
+	GameEngineRenderer* CollisionRenderer = nullptr;
 	GameEngineWindowTexture* CollisionTexture = nullptr;
 
 	bool BackGroundTexture = true;
 
-	std::string FileName = "";
 	float4 Scale = float4::ZERO;
 	float4 RenderScale = float4::ZERO;
 

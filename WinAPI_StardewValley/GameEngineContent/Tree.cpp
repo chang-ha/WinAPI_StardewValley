@@ -31,7 +31,7 @@ void Tree::Init(const std::string& _FileName)
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Resources\\");
-		Texture = ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UpperPart_" + _FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UpperPart_" + _FileName));
 	}
 
 	if (nullptr == GameEngineSound::FindSound("axchop.wav"))
@@ -42,6 +42,7 @@ void Tree::Init(const std::string& _FileName)
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("axchop.wav"));
 	}
+	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("UpperPart_" + _FileName);
 	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::Play);
 	UpperPart->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	UpperPart->SetRenderPos((TILESIZE.Half() - float4{ 0, 38 }) * RENDERRATIO);

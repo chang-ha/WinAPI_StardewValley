@@ -74,14 +74,8 @@ void BusStation::Start()
 	if (false == ResourcesManager::GetInst().IsLoadTexture("BusStation.bmp"))
 	{
 		Back = CreateActor<BackGround>(UpdateOrder::Map);
-		Back->Init("BusStation.bmp", "Collision_BusStation.bmp");
-		Back->Renderer->SetTexture("BusStation.bmp");
-		Back->Renderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
-		Back->SetRenderScale(Back->GetScale() * RENDERRATIO);
+		Back->Init("BusStation.bmp", "Collision_BusStation.bmp", RENDERRATIO);
 		Back->SetPos(GetRenderScale().Half());
-
-		Back->CollisionRenderer->SetTexture("Collision_BusStation.bmp");
-		Back->CollisionRenderer->SetRenderScale(Back->GetScale() * RENDERRATIO);
 	}
 	// Detail
 	PlayOver* Over = CreateActor<PlayOver>(UpdateOrder::Map);
