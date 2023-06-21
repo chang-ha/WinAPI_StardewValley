@@ -445,11 +445,13 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 		ShopUIOff();
 	}
 
+	bool IsCollision = false;
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		if (true == ShopItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 		{
 			ItemSelectRenderer->SetRenderPos({ GlobalValue::WinScale.X * ITEMSELECT_START_X, GlobalValue::WinScale.Y * (ITEMSELECT_START_Y + ITEMSELECT_Y * x)});
+			IsCollision = true;
 			ItemSelectRenderer->On();
 		}
 
@@ -517,6 +519,11 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 				EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
 			}
 		}
+	}
+
+	if (false == IsCollision)
+	{
+		ItemSelectRenderer->Off();
 	}
 }
 
