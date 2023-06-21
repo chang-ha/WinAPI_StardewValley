@@ -159,7 +159,7 @@ void Farm::Start()
 	ShippingBin* ship = CreateActor<ShippingBin>(UpdateOrder::Map);
 	ship->SetPos({ Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f });
 
-	// Test Actor
+	// Actor
 	Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 	FarmTree->Init("Tree.bmp");
 	FarmTree->SetPos(FarmTileMap->IndexToPos(60, 20));
@@ -175,6 +175,10 @@ void Farm::Start()
 	ContentBuilding* House = CreateActor<ContentBuilding>();
 	House->Init("House.bmp");
 	House->SetPos({ Back->GetRenderScale().X * 0.7945f, Back->GetRenderScale().Y * 0.195f });
+
+	ContentBuilding* MailBox = CreateActor<ContentBuilding>();
+	MailBox->Init("MailBox.bmp");
+	MailBox->SetPos({Back->GetRenderScale().X * 0.858f, Back->GetRenderScale().Y * 0.246f});
 }
 
 void Farm::Update(float _Delta)

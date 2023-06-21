@@ -25,6 +25,7 @@ void Tree::Init(const std::string& _FileName)
 {
 	ContentResources::Init(_FileName);
 	Renderer->SetRenderPos((TILESIZE.Half() - float4{0, 2})* RENDERRATIO);
+	ShadowRenderer->SetRenderPos((TILESIZE.Half() - float4{ 0, 2 }) * RENDERRATIO);
 	if (false == ResourcesManager::GetInst().IsLoadTexture("UpperPart_" + _FileName))
 	{
 		GameEnginePath FilePath;
@@ -32,6 +33,7 @@ void Tree::Init(const std::string& _FileName)
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Resources\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UpperPart_" + _FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shadow_UpperPart_" + _FileName));
 	}
 
 	if (nullptr == GameEngineSound::FindSound("axchop.wav"))
@@ -47,6 +49,13 @@ void Tree::Init(const std::string& _FileName)
 	UpperPart->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	UpperPart->SetRenderPos((TILESIZE.Half() - float4{ 0, 38 }) * RENDERRATIO);
 	UpperPart->SetYPivot(- (TILESIZE.Half().Y - 38)* RENDERRATIO);
+
+	Texture = ResourcesManager::GetInst().FindTexture("Shadow_UpperPart_" + _FileName);
+	UpperPartShadow = CreateRenderer("Shadow_UpperPart_" + _FileName, RenderOrder::PlayBelow);
+	UpperPartShadow->SetAlpha(120);
+	UpperPartShadow->SetRenderPos(TILESIZE.Half() + float4{4, 8} * RENDERRATIO);
+	UpperPartShadow->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+
 }
 
 
@@ -58,6 +67,7 @@ void Tree::Update(float _Delta)
 {
 	Hitten();
 
+	std::vector<GameEngineCollision*> _CollisionResult;
 	static float PerTime = 0.5f;
 	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && 0.0f > PerTime)
 	{

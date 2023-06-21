@@ -30,6 +30,7 @@ void ContentResources::Init(const std::string& _FileName)
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Resources\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath(_FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shadow_" + _FileName));
 	}
 	// Resources Renderer
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
@@ -39,7 +40,11 @@ void ContentResources::Init(const std::string& _FileName)
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 
 	// ShadowRenderer
-	// ShadowRenderer = CreateRenderer(RenderOrder::PlayBelow);
+	ShadowRenderer = CreateRenderer("Shadow_" + _FileName, RenderOrder::PlayBelow);
+	ShadowRenderer->SetAlpha(120);
+	ShadowRenderer->SetRenderPos(TILESIZE.Half() * RENDERRATIO);
+	ShadowRenderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+	// ShadowRenderer->SetRenderPos(float4{ 0, 14 } *RENDERRATIO);
 
 	// Resources Collision
 	Collision = CreateCollision(CollisionOrder::Resources);

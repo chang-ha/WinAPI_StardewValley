@@ -24,6 +24,6 @@ private:
 	int ItemCount = 6;
 	int Hp = 3;
 	GameEngineRenderer* UpperPart = nullptr;
-	std::vector<GameEngineCollision*> _CollisionResult;
+	GameEngineRenderer* UpperPartShadow = nullptr;
 };
 
