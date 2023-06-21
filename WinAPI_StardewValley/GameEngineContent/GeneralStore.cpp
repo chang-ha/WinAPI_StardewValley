@@ -10,6 +10,7 @@
 #include "ContentsEnum.h"
 #include "Counter.h"
 #include "ContentNpc.h"
+#include "PlayOver.h"
 
 GeneralStore::GeneralStore()
 {
@@ -69,6 +70,11 @@ void GeneralStore::Start()
 
 	ContentNpc* _Npc = CreateActor<ContentNpc>();
 	_Npc->SetPos({ Back->GetRenderScale().X * 0.1f, Back->GetRenderScale().Y * 0.52f });
+
+	// Detail
+	PlayOver* Over = CreateActor<PlayOver>(UpdateOrder::Map);
+	Over->Init("Detail_GeneralStore.bmp");
+	Over->SetPos(GetRenderScale().Half());
 }
 void GeneralStore::Update(float _Delta)
 {

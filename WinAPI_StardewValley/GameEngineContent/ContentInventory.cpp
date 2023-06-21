@@ -153,6 +153,11 @@ void ContentInventory::SetPosInventoryShop()
 
 void ContentInventory::UseItem(ContentItem* _Item)
 {
+	if (AllItem[CurIndex]->Item->GetItemName() != _Item->GetItemName())
+	{
+		MsgBoxAssert("현재 인덱스와 사용하려는 아이템의 인덱스가 맞지 않습니다.");
+	}
+
 	int ItemIndex = 0;
 	ContentItem* Find = FindItem(_Item, &ItemIndex);
 	if (nullptr == Find)
@@ -160,19 +165,19 @@ void ContentInventory::UseItem(ContentItem* _Item)
 		MsgBoxAssert("인벤토리에 없는 아이템을 사용하려고 했습니다.");
 	}
 
-	if (1 == Find->GetItemCount())
+	if (1 == AllItem[CurIndex]->Item->GetItemCount())
 	{
-		PopItem(ItemIndex);
+		PopItem(CurIndex);
 	}
 	else
 	{
-		Find->MinusItemCount(1);
+		AllItem[CurIndex]->Item->MinusItemCount(1);
 	}
 }
 
 void ContentInventory::Start()
 {
-	// Resize Vector
+	// Init Inventory
 	AllItem.resize(MAXSIZE);
 
 	for (int x = 0; x < AllItem.size(); x++)
@@ -238,7 +243,6 @@ void ContentInventory::Start()
 	NameText->SetRenderPos({GlobalValue::WinScale.X * 0.325f, GlobalValue::WinScale.Y * 0.72f});
 	NameText->Off();
 
-
 	// Player Default Item
 	GameEngineLevel* CurLevel = GetLevel();
 	ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
@@ -255,23 +259,6 @@ void ContentInventory::Start()
 
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 	Item->Init("wateringcan.bmp", ItemType::WateringCan);
-	PushItem(Item);
-
-	// TestCode
-	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("Seed_Parsnip.bmp", ItemType::Seed, 20);
-	PushItem(Item);
-
-	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("Seed_Cauliflower.bmp", ItemType::Seed, 20);
-	PushItem(Item);
-
-	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("Seed_Garlic.bmp", ItemType::Seed, 20);
-	PushItem(Item);
-
-	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("Seed_Potato.bmp", ItemType::Seed, 20);
 	PushItem(Item);
 }
 
@@ -330,36 +317,10 @@ void ContentInventory::Update(float _Delta)
 
 		if (1 == AllItem[x]->Item->GetItemCount())
 		{
+			AllItem[x]->ItemCountRenderer->SetText(" ");
 			continue;
 		}
 		AllItem[x]->ItemCountRenderer->SetText(std::to_string(AllItem[x]->Item->GetItemCount()), 20, "Sandoll 미생");
-	}
-
-	// Inventory On/Off
-	if (true == GameEngineInput::IsDown('I') || true == GameEngineInput::IsDown(VK_ESCAPE))
-	{
-		if (true == InventoryRenderer->IsUpdate())
-		{
-			// Inventory Off
-			InventoryRenderer->Off();
-			NameText->Off();
-			ContentUIManager::MainUI->Inventory->On();
-			PosSettingValue = 0.0f;
-			SetPosInventoryItem();
-
-			Player::MainPlayer->SetIsUpdate(true);
-		}
-		else
-		{
-			// Inventory On
-			InventoryRenderer->On();
-			NameText->On();
-			ContentUIManager::MainUI->Inventory->Off();
-			PosSettingValue = 0.702f;
-			SetPosInventoryItem();
-
-			Player::MainPlayer->StopPlayer();
-		}
 	}
 
 	// Mouse Interaction
@@ -415,6 +376,38 @@ void ContentInventory::Update(float _Delta)
 				ContentMouse::MainMouse->GetItemRenderer()->Off();
 				ContentMouse::MainMouse->GetItemCountRenderer()->Off();
 			}
+		}
+	}
+
+	if (true == ContentUIManager::MainUI->ShopRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	// Inventory On/Off
+	if (true == GameEngineInput::IsDown('E') || true == GameEngineInput::IsDown(VK_ESCAPE))
+	{
+		if (true == InventoryRenderer->IsUpdate())
+		{
+			// Inventory Off
+			InventoryRenderer->Off();
+			NameText->Off();
+			ContentUIManager::MainUI->Inventory->On();
+			PosSettingValue = 0.0f;
+			SetPosInventoryItem();
+
+			Player::MainPlayer->SetIsUpdate(true);
+		}
+		else
+		{
+			// Inventory On
+			InventoryRenderer->On();
+			NameText->On();
+			ContentUIManager::MainUI->Inventory->Off();
+			PosSettingValue = 0.702f;
+			SetPosInventoryItem();
+
+			Player::MainPlayer->StopPlayer();
 		}
 	}
 }

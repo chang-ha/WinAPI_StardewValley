@@ -24,11 +24,10 @@ public:
 
 	float4 WindowActorPos();
 
-	GameEngineSoundPlayer EffectPlayer;
-
 protected:
 	void Start() override;
 	ContentLevel* PlayLevel = nullptr;
+	GameEngineSoundPlayer EffectPlayer;
 
 private:
 
