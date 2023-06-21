@@ -36,6 +36,7 @@ void Rock::Start()
 
 void Rock::Update(float _Delta)
 {
+	std::vector<GameEngineCollision*> _CollisionResult;
 	if (true == Collision->Collision(CollisionOrder::PickAxe, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
 		EffectPlayer = GameEngineSound::SoundPlay("rock.wav");

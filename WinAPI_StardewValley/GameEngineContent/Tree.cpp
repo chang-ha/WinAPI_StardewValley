@@ -33,7 +33,7 @@ void Tree::Init(const std::string& _FileName)
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Resources\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UpperPart_" + _FileName));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shadow_UpperPart_" + _FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shadow_UpperPart_Tree.bmp"));
 	}
 
 	if (nullptr == GameEngineSound::FindSound("axchop.wav"))
@@ -50,8 +50,8 @@ void Tree::Init(const std::string& _FileName)
 	UpperPart->SetRenderPos((TILESIZE.Half() - float4{ 0, 38 }) * RENDERRATIO);
 	UpperPart->SetYPivot(- (TILESIZE.Half().Y - 38)* RENDERRATIO);
 
-	Texture = ResourcesManager::GetInst().FindTexture("Shadow_UpperPart_" + _FileName);
-	UpperPartShadow = CreateRenderer("Shadow_UpperPart_" + _FileName, RenderOrder::PlayBelow);
+	Texture = ResourcesManager::GetInst().FindTexture("Shadow_UpperPart_Tree.bmp");
+	UpperPartShadow = CreateRenderer("Shadow_UpperPart_Tree.bmp", RenderOrder::BackGround);
 	UpperPartShadow->SetAlpha(120);
 	UpperPartShadow->SetRenderPos(TILESIZE.Half() + float4{4, 8} * RENDERRATIO);
 	UpperPartShadow->SetRenderScale(Texture->GetScale() * RENDERRATIO);
@@ -84,7 +84,7 @@ void Tree::Update(float _Delta)
 		{
 			ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 			Item->Init("Wood.bmp", ItemType::Resources);
-			Item->SetPos(GetPos() + float4{x * RENDERRATIO * 8, 0});
+			Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO);
 			Item->RandomVector();
 		}
 		Death();

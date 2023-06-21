@@ -21,8 +21,6 @@ protected:
 	void Update(float _Delta) override;
 
 private:
-	int ItemCount = 6;
-	std::vector<GameEngineCollision*> _CollisionResult;
-
+	int ItemCount = 1;
 };
 

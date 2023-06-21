@@ -17,10 +17,12 @@
 #include "BusStation.h"
 #include "ContentsEnum.h"
 #include "ContentInventory.h"
+#include "PlayOver.h"
 #include "ShippingBin.h"
 // Resources
 #include "Tree.h"
 #include "Rock.h"
+#include "SmallTree.h"
 // Crops
 #include "ContentCrops.h"
 #include "Parsnip.h"
@@ -159,6 +161,11 @@ void Farm::Start()
 	ShippingBin* ship = CreateActor<ShippingBin>(UpdateOrder::Map);
 	ship->SetPos({ Back->GetRenderScale().X * 0.901f, Back->GetRenderScale().Y * 0.2150f });
 
+	// Detail
+	PlayOver* Over = CreateActor<PlayOver>(UpdateOrder::Map);
+	Over->Init("Detail_Farm.bmp");
+	Over->SetPos(GetRenderScale().Half());
+
 	// Actor
 	Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 	FarmTree->Init("Tree.bmp");
@@ -171,6 +178,10 @@ void Farm::Start()
 	FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 	FarmRock->Init("Rock_Small02.bmp");
 	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
+
+	SmallTree* FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+	FarmSmallTree->Init("Tree_Small.bmp");
+	FarmSmallTree->SetPos(FarmTileMap->IndexToPos(63, 20));
 
 	ContentBuilding* House = CreateActor<ContentBuilding>();
 	House->Init("House.bmp");

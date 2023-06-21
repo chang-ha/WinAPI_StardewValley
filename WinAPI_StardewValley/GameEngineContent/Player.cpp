@@ -160,7 +160,7 @@ void Player::Start()
 	}
 
 	// Player Renderer 
-	ShadowRenderer = CreateRenderer(RenderOrder::PlayBelow);
+	ShadowRenderer = CreateRenderer(RenderOrder::BackGround);
 
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
 	BodyRenderer->SetScaleRatio(RENDERRATIO);

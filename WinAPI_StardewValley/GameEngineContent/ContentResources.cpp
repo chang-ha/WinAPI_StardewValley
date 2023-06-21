@@ -34,22 +34,21 @@ void ContentResources::Init(const std::string& _FileName)
 	}
 	// Resources Renderer
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture(_FileName);
-	Renderer = CreateRenderer(_FileName, RenderOrder::BackGround);
+	Renderer = CreateRenderer(_FileName, RenderOrder::PlayBelow);
 	Renderer->SetTexture(_FileName);
 	Renderer->SetRenderPos(TILESIZE.Half() * RENDERRATIO);
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 
 	// ShadowRenderer
-	ShadowRenderer = CreateRenderer("Shadow_" + _FileName, RenderOrder::PlayBelow);
+	ShadowRenderer = CreateRenderer("Shadow_" + _FileName, RenderOrder::BackGround);
 	ShadowRenderer->SetAlpha(120);
 	ShadowRenderer->SetRenderPos(TILESIZE.Half() * RENDERRATIO);
 	ShadowRenderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-	// ShadowRenderer->SetRenderPos(float4{ 0, 14 } *RENDERRATIO);
 
 	// Resources Collision
 	Collision = CreateCollision(CollisionOrder::Resources);
 	Collision->SetCollisionPos(TILESIZE.Half() * RENDERRATIO);
-	Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
+	Collision->SetCollisionScale((TILESIZE - float4{2,2}) *RENDERRATIO);
 }
 
 void ContentResources::Hitten()
