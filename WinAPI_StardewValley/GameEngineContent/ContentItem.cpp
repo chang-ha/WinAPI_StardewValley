@@ -40,6 +40,7 @@ void ContentItem::Init(const std::string& _FileName, ItemType _Type, int _ItemCo
 	ItemName = _FileName;
 	Type = _Type;
 	ItemCount = _ItemCount;
+	SetItemPrice();
 }
 
 void ContentItem::Start()
@@ -87,9 +88,52 @@ void ContentItem::Update(float _Delta)
 		}
 	}
 }
-void ContentItem::LevelStart()
+
+void ContentItem::SetItemPrice()
 {
-}
-void ContentItem::LevelEnd()
-{
+	if (ItemType::Axe == Type || ItemType::Hoe == Type || ItemType::PickAxe == Type || ItemType::WateringCan == Type)
+	{
+		return;
+	}
+
+	if ("Wood.bmp" == ItemName)
+	{
+		ItemSellPrice = 2;
+	}
+	else if ("Rock.bmp" == ItemName)
+	{
+		ItemSellPrice = 2;
+	}
+	else if ("Seed_Cauliflower.bmp" == ItemName)
+	{
+		ItemSellPrice = 40;
+	}
+	else if ("Cauliflower.bmp" == ItemName)
+	{
+		ItemSellPrice = 175;
+	}
+	else if ("Seed_Garlic.bmp" == ItemName)
+	{
+		ItemSellPrice = 20;
+	}
+	else if ("Garlic.bmp" == ItemName)
+	{
+		ItemSellPrice = 60;
+	}
+	else if ("Seed_Parsnip.bmp" == ItemName)
+	{
+		ItemSellPrice = 10;
+	}
+	else if ("Parsnip.bmp" == ItemName)
+	{
+		ItemSellPrice = 35;
+	}
+	else if ("Seed_Potato.bmp" == ItemName)
+	{
+		ItemSellPrice = 25;
+	}
+	else if ("Seed_Potato.bmp" == ItemName)
+	{
+		ItemSellPrice = 80;
+	}
 }

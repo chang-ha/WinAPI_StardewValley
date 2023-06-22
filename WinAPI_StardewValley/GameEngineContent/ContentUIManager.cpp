@@ -322,7 +322,7 @@ void ContentUIManager::ShopUIOn()
 		ShopItem[x]->ItemCollision->On();
 		ShopItem[x]->ItemNameTextRenderer->On();
 		ShopItem[x]->ItemPriceTextRenderer->On();
-}
+	}
 	ContentInventory::MainInventory->SetPosInventoryShop();
 }
 

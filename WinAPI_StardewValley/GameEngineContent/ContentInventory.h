@@ -52,8 +52,6 @@ public:
 	}
 
 protected:
-	void Start() override;
-	void Update(float _Delta) override;
 
 private:
 	int CurIndex = 0;
@@ -62,8 +60,11 @@ private:
 	GameEngineRenderer* InventoryRenderer = nullptr;
 	GameEngineRenderer* CurIndexRenderer = nullptr;
 	GameEngineRenderer* NameText = nullptr;
+	GameEngineSoundPlayer EffectPlayer;
 	std::vector<InventoryItemData*> AllItem;
 
-	GameEngineSoundPlayer EffectPlayer;
+	void Start() override;
+	void Update(float _Delta) override;
+	void CurIndexUpdate();
 };
 

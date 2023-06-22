@@ -66,6 +66,11 @@ public:
 		return Type;
 	}
 
+	int GetItemPrice()
+	{
+		return ItemSellPrice;
+	}
+
 	void RandomVector();
 
 	void Init(const std::string& _FileName, ItemType _Type, int _ItemCount = 1);
@@ -73,11 +78,11 @@ public:
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
-	void LevelStart() override;
-	void LevelEnd() override;
+	void SetItemPrice();
 
 private:
 	int ItemCount = 1;
+	int ItemSellPrice = 0;
 	float MoveTime = 1.0f;
 	float4 StartDir= {};
 	std::string ItemName = "";

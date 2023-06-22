@@ -177,9 +177,29 @@ void ContentInventory::UseItem(ContentItem* _Item)
 
 void ContentInventory::Start()
 {
+	// Texture Load
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Textures\\UI\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Inventory.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory_Select.bmp"));
+	}
+
+	// Sound Load
+	if (nullptr == GameEngineSound::FindSound("toolSwap.wav"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("toolSwap.wav"));
+	}
+
 	// Init Inventory
 	AllItem.resize(MAXSIZE);
-
 	for (int x = 0; x < AllItem.size(); x++)
 	{
 		AllItem[x] = new InventoryItemData();
@@ -200,27 +220,6 @@ void ContentInventory::Start()
 		AllItem[x]->ItemRenderer = _ItemRenderer;
 		AllItem[x]->ItemCollision = _ItemCollision;
 		AllItem[x]->ItemCountRenderer = _ItemCountRenderer;
-	}
-
-	// Texture Load
-	if (false == ResourcesManager::GetInst().IsLoadTexture("Inventory.bmp"))
-	{
-		GameEnginePath FilePath;
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\UI\\");
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Inventory.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory_Select.bmp"));
-	}
-
-	// Sound Load
-	if (nullptr == GameEngineSound::FindSound("toolSwap.wav"))
-	{
-		GameEnginePath FilePath;
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("toolSwap.wav"));
 	}
 
 	// Create Renderer
@@ -264,35 +263,7 @@ void ContentInventory::Start()
 
 void ContentInventory::Update(float _Delta)
 {
-	// Change CurIndex
-	for (int i = '0'; i <= '9'; i++)
-	{
-		if (true == GameEngineInput::IsDown('0'))
-		{
-			EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
-			CurIndex = 9;
-		}
-		else if (true == GameEngineInput::IsDown(i))
-		{
-			EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
-			CurIndex = static_cast<int>(i) - '0' - 1;
-		}
-	}
-
-	if (true == GameEngineInput::IsDown('-'))
-	{
-		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
-		CurIndex = 10;
-	}
-	else if (true == GameEngineInput::IsDown('='))
-	{
-		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
-		CurIndex = 11;
-	}
-
-
-	// CurIndexRenderer
-	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+	CurIndexUpdate();
 
 	// CollisionPos Update
 	if (true == ContentUIManager::MainUI->Inventory->IsUpdate())
@@ -332,6 +303,19 @@ void ContentInventory::Update(float _Delta)
 			if (true == ContentUIManager::MainUI->Inventory->IsUpdate())
 			{
 				CurIndex = x;
+			}
+			else if (true == ContentUIManager::MainUI->ShopRenderer->IsUpdate())
+			{
+				if (0 == AllItem[x]->Item->GetItemPrice())
+				{
+					EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
+					return;
+				}
+				// Sell사운드 찾아서 로드 후 사용
+				// EffectPlayer = GameEngineSound::SoundPlay("sell.wav");
+				int PlusMoney = AllItem[x]->Item->GetItemPrice() * AllItem[x]->Item->GetItemCount();
+				ContentUIManager::MainUI->CurMoney += PlusMoney;
+				PopItem(x);
 			}
 			else if (nullptr != AllItem[x]->Item && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
@@ -410,4 +394,42 @@ void ContentInventory::Update(float _Delta)
 			Player::MainPlayer->StopPlayer();
 		}
 	}
+}
+
+void ContentInventory::CurIndexUpdate()
+{
+	if (false == ContentUIManager::MainUI->Inventory->IsUpdate() && false == InventoryRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	// Change CurIndex
+	for (int i = '0'; i <= '9'; i++)
+	{
+		if (true == GameEngineInput::IsDown('0'))
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
+			CurIndex = 9;
+		}
+		else if (true == GameEngineInput::IsDown(i))
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
+			CurIndex = static_cast<int>(i) - '0' - 1;
+		}
+	}
+
+	if (true == GameEngineInput::IsDown('-'))
+	{
+		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
+		CurIndex = 10;
+	}
+	else if (true == GameEngineInput::IsDown('='))
+	{
+		EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
+		CurIndex = 11;
+	}
+
+
+	// CurIndexRenderer
+	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 }
