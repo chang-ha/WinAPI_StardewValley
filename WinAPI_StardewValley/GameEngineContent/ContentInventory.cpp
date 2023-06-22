@@ -196,6 +196,7 @@ void ContentInventory::Start()
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("toolSwap.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("sell.wav"));
 	}
 
 	// Init Inventory
@@ -303,63 +304,11 @@ void ContentInventory::Update(float _Delta)
 			if (true == ContentUIManager::MainUI->Inventory->IsUpdate())
 			{
 				CurIndex = x;
+				return;
 			}
-			else if (true == ContentUIManager::MainUI->ShopRenderer->IsUpdate())
-			{
-				if (0 == AllItem[x]->Item->GetItemPrice())
-				{
-					EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
-					return;
-				}
-				// Sell사운드 찾아서 로드 후 사용
-				// EffectPlayer = GameEngineSound::SoundPlay("sell.wav");
-				int PlusMoney = AllItem[x]->Item->GetItemPrice() * AllItem[x]->Item->GetItemCount();
-				ContentUIManager::MainUI->CurMoney += PlusMoney;
-				PopItem(x);
-			}
-			else if (nullptr != AllItem[x]->Item && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
-			{
-				// Inventory -> Mouse
-				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
-				ContentMouse::MainMouse->GetItemRenderer()->On();
-				ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
 
-				AllItem[x]->ItemCountRenderer->SetText(" ");
-				AllItem[x]->ItemRenderer->Off();
-				AllItem[x]->Item = nullptr;
-			}
-			else if (nullptr != AllItem[x]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
-			{
-				// Mouse -> Inventroy & Inventory -> Mouse
-				if (ContentMouse::MainMouse->GetPickItem()->GetItemName() == AllItem[x]->Item->ItemName)
-				{
-					AllItem[x]->Item->PlusItemCount(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
-					ContentMouse::MainMouse->GetItemRenderer()->Off();
-					ContentMouse::MainMouse->GetItemCountRenderer()->Off();
-				}
-				else
-				{
-					ContentItem* TempValue = ContentMouse::MainMouse->GetPickItem();
-
-					ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[x]->Item->ItemName);
-					ContentMouse::MainMouse->SetPickItem(AllItem[x]->Item);
-
-					AllItem[x]->ItemCountRenderer->SetText(" ");
-					AllItem[x]->ItemRenderer->SetTexture("Inventory_" + TempValue->GetItemName());
-					AllItem[x]->Item = TempValue;
-				}
-			}
-			else if (nullptr == AllItem[x]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
-			{
-				// Mouse -> Inventory
-				AllItem[x]->ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
-				AllItem[x]->ItemRenderer->On();
-
-				AllItem[x]->ItemCountRenderer->SetText(" ");
-				AllItem[x]->Item = ContentMouse::MainMouse->GetPickItem();
-				ContentMouse::MainMouse->GetItemRenderer()->Off();
-				ContentMouse::MainMouse->GetItemCountRenderer()->Off();
-			}
+			InventoryUpdate(x);
+			ShopInventoryUpdate(x);
 		}
 	}
 
@@ -432,4 +381,87 @@ void ContentInventory::CurIndexUpdate()
 
 	// CurIndexRenderer
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+}
+
+void ContentInventory::InventoryUpdate(int _CurIndex)
+{
+	if (false == InventoryRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	if (nullptr != AllItem[_CurIndex]->Item && false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+	{
+		// Inventory -> Mouse
+		ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[_CurIndex]->Item->ItemName);
+		ContentMouse::MainMouse->GetItemRenderer()->On();
+		ContentMouse::MainMouse->SetPickItem(AllItem[_CurIndex]->Item);
+
+		AllItem[_CurIndex]->ItemCountRenderer->SetText(" ");
+		AllItem[_CurIndex]->ItemRenderer->Off();
+		AllItem[_CurIndex]->Item = nullptr;
+	}
+	else if (nullptr != AllItem[_CurIndex]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+	{
+		// Mouse -> Inventroy & Inventory -> Mouse
+		if (ContentMouse::MainMouse->GetPickItem()->GetItemName() == AllItem[_CurIndex]->Item->ItemName)
+		{
+			AllItem[_CurIndex]->Item->PlusItemCount(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
+			ContentMouse::MainMouse->GetItemRenderer()->Off();
+			ContentMouse::MainMouse->GetItemCountRenderer()->Off();
+		}
+		else
+		{
+			ContentItem* TempValue = ContentMouse::MainMouse->GetPickItem();
+
+			ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + AllItem[_CurIndex]->Item->ItemName);
+			ContentMouse::MainMouse->SetPickItem(AllItem[_CurIndex]->Item);
+
+			AllItem[_CurIndex]->ItemCountRenderer->SetText(" ");
+			AllItem[_CurIndex]->ItemRenderer->SetTexture("Inventory_" + TempValue->GetItemName());
+			AllItem[_CurIndex]->Item = TempValue;
+		}
+	}
+	else if (nullptr == AllItem[_CurIndex]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
+	{
+		MouseToInventory(_CurIndex);
+	}
+}
+
+void ContentInventory::ShopInventoryUpdate(int _CurIndex)
+{
+	if (false == ContentUIManager::MainUI->ShopRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	if (false == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && nullptr != AllItem[_CurIndex]->Item)
+	{
+		// Sell InventoryItem
+		if (0 == AllItem[_CurIndex]->Item->GetItemPrice())
+		{
+			EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
+			return;
+		}
+		EffectPlayer = GameEngineSound::SoundPlay("sell.wav");
+		int PlusMoney = AllItem[_CurIndex]->Item->GetItemPrice() * AllItem[_CurIndex]->Item->GetItemCount();
+		ContentUIManager::MainUI->CurMoney += PlusMoney;
+		PopItem(_CurIndex);
+	}
+	else if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && nullptr == AllItem[_CurIndex]->Item)
+	{
+		MouseToInventory(_CurIndex);
+	}
+}
+
+void ContentInventory::MouseToInventory(int _CurIndex)
+{
+	AllItem[_CurIndex]->ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
+	AllItem[_CurIndex]->ItemRenderer->On();
+
+	AllItem[_CurIndex]->ItemCountRenderer->SetText(" ");
+	AllItem[_CurIndex]->Item = ContentMouse::MainMouse->GetPickItem();
+	ContentMouse::MainMouse->GetItemRenderer()->Off();
+	ContentMouse::MainMouse->GetItemCountRenderer()->Off();
+	ContentMouse::MainMouse->SetPickItem(nullptr);
 }

@@ -2,8 +2,6 @@
 #define RUNSPEED2 0.1f
 #define TOOL1SPEED 0.07f
 #define TOOL1LASTANI 0.1f
-// #define TOOL1SPEED 2.0f
-// #define TOOL1LASTANI 2.0f
 #define TOOL2SPEED 0.05f
 #define TOOL2LASTANI 0.6f
 #define HARVESTSPEED 0.1f
@@ -198,6 +196,22 @@ void Player::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_PickAxe.bmp", FilePath.PlusFilePath("Player_tool\\Up_PickAxe.bmp"), 1, 1);
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Up2_PickAxe.bmp"));
+
+		// WateringCan
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Right_WateringCan.bmp", FilePath.PlusFilePath("Player_tool\\Right_WateringCan.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Right2_WateringCan.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Right_WateringCan_Mask.bmp"));
+		Sprite0->SetMaskTexture("Right_WateringCan_Mask.bmp");
+
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Left_WateringCan.bmp", FilePath.PlusFilePath("Player_tool\\Left_WateringCan.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Left2_WateringCan.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Left_WateringCan_Mask.bmp"));
+		Sprite0->SetMaskTexture("Left_WateringCan_Mask.bmp");
+
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_WateringCan.bmp", FilePath.PlusFilePath("Player_tool\\Down_WateringCan.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Down2_WateringCan.bmp"));
+
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_WateringCan.bmp", FilePath.PlusFilePath("Player_tool\\Up_WateringCan.bmp"), 1, 1);
 	}
 
 	// Sound Load

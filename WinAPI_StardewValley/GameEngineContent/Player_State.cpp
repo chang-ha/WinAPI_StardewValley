@@ -71,6 +71,7 @@ void Player::Tool2Start()
 {
 	// Tool WateringCan
 	ChangeAnimationState("Tool2");
+	ToolRenderer->SetSprite(ToolDir + "WateringCan.bmp");
 
 	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 	if (nullptr != _Farm)
@@ -569,10 +570,101 @@ void Player::ToolUpdate(float _DeltaTime)
 
 void Player::Tool2Update(float _DeltaTime)
 {
+	ToolRenderer->On();
+
+	switch (Dir)
+	{
+	case Null:
+		break;
+	case Up:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::PlayBelow));
+			ToolRenderer->SetRenderPos(float4{ 0, 20 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetRenderPos(float4{ 0, 12 } *RENDERRATIO);
+			break;
+		case 2:
+			ToolRenderer->SetRenderPos(float4{ 0, 0 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Down:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
+			ToolRenderer->SetYPivot(-5 * RENDERRATIO);
+			ToolRenderer->SetRenderPos(float4{ 0, 20 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetRenderPos(float4{ 0, 18 } *RENDERRATIO);
+			break;
+		case 2:
+			ToolRenderer->SetRenderPos(float4{ 0, 22 } *RENDERRATIO);
+			ToolRenderer->SetTexture("Down2_" + CurItem->GetItemName());
+			break;
+		default:
+			break;
+		}
+		break;
+	case Right:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetRenderPos(float4{ 12, 17 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetRenderPos(float4{ 10, 15 } *RENDERRATIO);
+			ToolRenderer->SetAngle(10.0f);
+			break;
+		case 2:
+			ToolRenderer->SetRenderPos(float4{ 12, 8 } *RENDERRATIO);
+			ToolRenderer->SetAngle(0.0f);
+			ToolRenderer->SetTexture("Right2_" + CurItem->GetItemName());
+			break;
+		default:
+			break;
+		}
+		break;
+	case Left:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetRenderPos(float4{ -12, 17 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetRenderPos(float4{ -10, 15 } *RENDERRATIO);
+			ToolRenderer->SetAngle(-10.0f);
+			break;
+		case 2:
+			ToolRenderer->SetRenderPos(float4{ -12, 8 } *RENDERRATIO);
+			ToolRenderer->SetAngle(0.0f);
+			ToolRenderer->SetTexture("Left2_" + CurItem->GetItemName());
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
 		ArmRenderer->SetYPivot(5 * RENDERRATIO);
+		ToolRenderer->SetRenderPos({});
+		ToolRenderer->SetAngle({});
+		ToolRenderer->Off();
+		if (PlayerDir::Up == Dir)
+		{
+			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
+		}
 	}
 }
 

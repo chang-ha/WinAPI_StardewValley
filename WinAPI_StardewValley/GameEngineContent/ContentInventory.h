@@ -46,6 +46,12 @@ public:
 
 	void UseItem(ContentItem* _Item);
 
+	void InventoryUpdate(int _CurIndex);
+
+	void ShopInventoryUpdate(int _CurIndex);
+
+	void MouseToInventory(int _CurIndex);
+
 	ContentItem* GetCurItem()
 	{
 		return AllItem[CurIndex]->Item;
