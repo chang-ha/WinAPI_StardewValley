@@ -38,6 +38,7 @@ void Player::ToolStart()
 	case ItemType::Axe:
 		// Tool Axe
 		ToolCollisionCreate(CollisionOrder::Axe);
+		ToolRenderer->SetSprite(ToolDir + "Axe.bmp");
 		break;
 	case ItemType::Hoe:
 		// Tool Hoe
@@ -53,6 +54,7 @@ void Player::ToolStart()
 	break;
 	case ItemType::PickAxe:
 		// Tool PickAxe
+		ToolRenderer->SetSprite(ToolDir + "PickAxe.bmp");
 		ToolCollisionCreate(CollisionOrder::PickAxe);
 		break;
 	}

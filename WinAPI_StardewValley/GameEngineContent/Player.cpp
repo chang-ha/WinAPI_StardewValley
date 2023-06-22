@@ -148,6 +148,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Shadow.bmp", FilePath.PlusFilePath("Shadow.bmp"), 1, 1);
 
 		// Tool Sprite
+		//Hoe
 		GameEngineSprite* Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Right_Hoe.bmp", FilePath.PlusFilePath("Player_tool\\Right_Hoe.bmp"), 1, 1);
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Right_Hoe_Mask.bmp"));
 		Sprite0->SetMaskTexture("Right_Hoe_Mask.bmp");
@@ -163,6 +164,40 @@ void Player::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Hoe.bmp", FilePath.PlusFilePath("Player_tool\\Up_Hoe.bmp"), 1, 1);
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Up2_Hoe.bmp"));
+
+		// Axe
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Right_Axe.bmp", FilePath.PlusFilePath("Player_tool\\Right_Axe.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Right_Axe_Mask.bmp"));
+		Sprite0->SetMaskTexture("Right_Axe_Mask.bmp");
+
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Left_Axe.bmp", FilePath.PlusFilePath("Player_tool\\Left_Axe.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Left_Axe_Mask.bmp"));
+		Sprite0->SetMaskTexture("Left_Axe_Mask.bmp");
+
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Down_Axe.bmp", FilePath.PlusFilePath("Player_tool\\Down_Axe.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Down_Axe_Mask.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Down2_Axe.bmp"));
+		Sprite0->SetMaskTexture("Down_Axe_Mask.bmp");
+
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Axe.bmp", FilePath.PlusFilePath("Player_tool\\Up_Axe.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Up2_Axe.bmp"));
+
+		// PickAxe
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Right_PickAxe.bmp", FilePath.PlusFilePath("Player_tool\\Right_PickAxe.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Right_PickAxe_Mask.bmp"));
+		Sprite0->SetMaskTexture("Right_PickAxe_Mask.bmp");
+
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Left_PickAxe.bmp", FilePath.PlusFilePath("Player_tool\\Left_PickAxe.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Left_PickAxe_Mask.bmp"));
+		Sprite0->SetMaskTexture("Left_PickAxe_Mask.bmp");
+
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Down_PickAxe.bmp", FilePath.PlusFilePath("Player_tool\\Down_PickAxe.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Down_PickAxe_Mask.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Down2_PickAxe.bmp"));
+		Sprite0->SetMaskTexture("Down_PickAxe_Mask.bmp");
+
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_PickAxe.bmp", FilePath.PlusFilePath("Player_tool\\Up_PickAxe.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Up2_PickAxe.bmp"));
 	}
 
 	// Sound Load
