@@ -151,6 +151,20 @@ void ContentInventory::SetPosInventoryShop()
 	}
 }
 
+void ContentInventory::SetPosShippingBox()
+{
+	for (int x = 0; x < AllItem.size(); x++)
+	{
+		AllItem[x]->ItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * 0.715f });
+		AllItem[x]->ItemCountRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.29f + 0.04f * x), GlobalValue::WinScale.Y * 0.725f });
+
+		if (nullptr != AllItem[x]->ItemRenderer)
+		{
+			AllItem[x]->ItemRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * x), GlobalValue::WinScale.Y * 0.715f });
+		}
+	}
+}
+
 void ContentInventory::UseItem(ContentItem* _Item)
 {
 	if (AllItem[CurIndex]->Item->GetItemName() != _Item->GetItemName())
@@ -230,11 +244,9 @@ void ContentInventory::Start()
 	// Renderer Setting
 	InventoryRenderer->SetTexture("Inventory.bmp");
 	InventoryRenderer->SetRenderPos(GlobalValue::WinScale.Half());
-	InventoryRenderer->SetRenderScaleToTexture();
 	InventoryRenderer->Off();
 
 	CurIndexRenderer->SetTexture("UI_Inventory_Select.bmp");;
-	CurIndexRenderer->SetRenderScaleToTexture();
 
 	// Inventory Text
 	NameText = CreateUIRenderer(RenderOrder::UI);
@@ -312,12 +324,12 @@ void ContentInventory::Update(float _Delta)
 		}
 	}
 
-	if (true == ContentUIManager::MainUI->ShopRenderer->IsUpdate())
+	// Inventory On/Off
+	if (true == ContentUIManager::MainUI->ShopRenderer->IsUpdate() || true == ContentUIManager::MainUI->ShipInventoryRenderer->IsUpdate())
 	{
 		return;
 	}
 
-	// Inventory On/Off
 	if (true == GameEngineInput::IsDown('E') || true == GameEngineInput::IsDown(VK_ESCAPE))
 	{
 		if (true == InventoryRenderer->IsUpdate())
@@ -454,6 +466,15 @@ void ContentInventory::ShopInventoryUpdate(int _CurIndex)
 	}
 }
 
+void ContentInventory::ShippingInventoryUpdate(int _CurIndex)
+{
+	if (false == ContentUIManager::MainUI->ShipInventoryRenderer->IsUpdate())
+	{
+		return;
+	}
+}
+
+
 void ContentInventory::MouseToInventory(int _CurIndex)
 {
 	AllItem[_CurIndex]->ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
@@ -465,3 +486,5 @@ void ContentInventory::MouseToInventory(int _CurIndex)
 	ContentMouse::MainMouse->GetItemCountRenderer()->Off();
 	ContentMouse::MainMouse->SetPickItem(nullptr);
 }
+
+

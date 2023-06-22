@@ -47,6 +47,9 @@ public:
 	void ShopUIOff();
 	void ShopItemSetting();
 
+	void ShippingUIOn();
+	void ShippingUIOff();
+
 	void PlusDayValue()
 	{
 		++DayValue;
@@ -96,6 +99,15 @@ private:
 	// GameEngineRenderer* NextSelectRenderer = nullptr;
 	std::vector<ShopItemData*> ShopItem;
 
+	// ShippingBox UI
+	GameEngineRenderer* ShipInventoryRenderer = nullptr;
+	GameEngineRenderer* SellItemRenderer = nullptr;
+	GameEngineRenderer* SellInventoryRenderer = nullptr;
+	GameEngineRenderer* OkButtonRenderer = nullptr;
+	GameEngineCollision* SellInventoryCollision = nullptr;
+	GameEngineCollision* OkButtonCollision = nullptr;
+
+
 	// Debug Value
 	GameEngineRenderer* Text1Renderer = nullptr;
 	GameEngineRenderer* Text2Renderer = nullptr;
@@ -107,5 +119,6 @@ private:
 	void MoneyUIUpdate(float _Delta);
 	void SleepUIUpdate(float _Delta);
 	void ShopUIUpdate(float _Delta);
+	void ShippingUIUpdate(float _Delta);
 };
 

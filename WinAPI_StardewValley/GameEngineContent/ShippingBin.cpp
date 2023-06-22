@@ -12,8 +12,9 @@
 #include "ShippingBin.h"
 #include "ContentsEnum.h"
 #include "GlobalValue.h"
-
 #include "Player.h"
+#include "ContentUIManager.h"
+#include "ContentMouse.h"
 
 ShippingBin::ShippingBin()
 {
@@ -77,11 +78,19 @@ void ShippingBin::Update(float _Delta)
 		CaseRenderer->ChangeAnimation("Shipping_Bin_Case_Open");
 		IsOpen = true;
 		EffectPlayer = GameEngineSound::SoundPlay("doorCreak.wav");
+
 	}
 	else if(false == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && true == IsOpen)
 	{
 		CaseRenderer->ChangeAnimation("Shipping_Bin_Case_Close");
 		IsOpen = false;
 		EffectPlayer = GameEngineSound::SoundPlay("doorCreakReverse.wav");
+	}
+
+	if (true == Collision->Collision(CollisionOrder::Player, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && 
+		true == Collision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
+		&& true == GameEngineInput::IsDown(VK_RBUTTON))
+	{
+		ContentUIManager::MainUI->ShippingUIOn();
 	}
 }

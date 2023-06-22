@@ -44,11 +44,15 @@ public:
 
 	void SetPosInventoryShop();
 
+	void SetPosShippingBox();
+
 	void UseItem(ContentItem* _Item);
 
 	void InventoryUpdate(int _CurIndex);
 
 	void ShopInventoryUpdate(int _CurIndex);
+
+	void ShippingInventoryUpdate(int _CurIndex);
 
 	void MouseToInventory(int _CurIndex);
 

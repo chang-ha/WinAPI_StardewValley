@@ -29,6 +29,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCollision.h>
+#include <GameEngineCore/GameEngineCamera.h>
 
 #include "ContentUIManager.h"
 #include "ContentsEnum.h"
@@ -93,6 +94,10 @@ void ContentUIManager::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Cauliflower.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Garlic.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Potato.bmp"));
+		// ShippingBox UI
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_ShippingBox.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_ShippingBox_Inventory.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Ok_Button.bmp"));
 	}
 
 	// Sound Load
@@ -210,9 +215,33 @@ void ContentUIManager::Start()
 		ShopItem[x]->ItemCollision = _ItemCollision;
 	}
 	ShopItemSetting();
-
 	// PrevSelectRenderer = CreateUIRenderer(RenderOrder::UI);
 	// NextSelectRenderer = CreateUIRenderer(RenderOrder::UI);
+
+	// ShippingBox UI
+	ShipInventoryRenderer = CreateUIRenderer("UI_ShippingBox_Inventory.bmp", RenderOrder::UI);
+	ShipInventoryRenderer->Off();
+	SellInventoryRenderer = CreateUIRenderer("UI_ShippingBox.bmp", RenderOrder::UI);
+	SellInventoryRenderer->Off();
+	SellItemRenderer = CreateUIRenderer("Ok_Button.bmp", RenderOrder::UI);
+	SellItemRenderer->Off();
+	SellInventoryCollision = CreateCollision(CollisionOrder::Inventory_Item);
+	SellInventoryCollision->Off();
+	OkButtonRenderer = CreateUIRenderer("Ok_Button.bmp", RenderOrder::UI);
+	OkButtonRenderer->Off();
+	OkButtonCollision = CreateCollision(CollisionOrder::Button);
+	OkButtonCollision->Off();
+
+	ShipInventoryRenderer->SetRenderPos({GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.8f});
+	Texture = ResourcesManager::GetInst().FindTexture("UI_ShippingBox.bmp");
+	SellInventoryRenderer->SetRenderPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.6f });
+	SellInventoryRenderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
+	SellItemRenderer->SetRenderPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.6f });
+	SellItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
+	SellInventoryCollision->SetCollisionScale(TILESIZE);
+	OkButtonRenderer->SetRenderPos({ GlobalValue::WinScale.X * 0.8f, GlobalValue::WinScale.Y * 0.9f });
+	OkButtonCollision->SetCollisionScale(TILESIZE);
+
 
 	// Debug Renderer
 	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
@@ -267,6 +296,7 @@ void ContentUIManager::Update(float _Delta)
 	MoneyUIUpdate(_Delta);
 	SleepUIUpdate(_Delta);
 	ShopUIUpdate(_Delta);
+	ShippingUIUpdate(_Delta);
 }
 
 void ContentUIManager::BasicUIOn()
@@ -571,4 +601,46 @@ void ContentUIManager::InventoryUpRender()
 void ContentUIManager::InventoryDownRender()
 {
 	Inventory->SetRenderPos({ GlobalValue::WinScale.Half().X, GlobalValue::WinScale.Y - 50 });
+}
+
+void ContentUIManager::ShippingUIOn()
+{
+	SellInventoryCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.6f });
+	OkButtonCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * 0.8f, GlobalValue::WinScale.Y * 0.9f });
+	Inventory->Off();
+	Player::MainPlayer->StopPlayer();
+	ShipInventoryRenderer->On();
+	SellItemRenderer->On();
+	SellInventoryRenderer->On();
+	SellInventoryCollision->On();
+	OkButtonRenderer->On();
+	OkButtonCollision->On();
+	ContentInventory::MainInventory->SetPosShippingBox();
+}
+
+void ContentUIManager::ShippingUIOff()
+{
+	Inventory->On();
+	Player::MainPlayer->SetIsUpdate(true);
+	ShipInventoryRenderer->Off();
+	SellItemRenderer->Off();
+	SellInventoryRenderer->Off();
+	SellInventoryCollision->Off();
+	OkButtonRenderer->Off();
+	OkButtonCollision->Off();
+	ContentInventory::MainInventory->SetPosInventoryItem();
+}
+
+void ContentUIManager::ShippingUIUpdate(float _Delta)
+{
+	if (false == ShipInventoryRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	if (true == OkButtonCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
+		&& true == GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		ShippingUIOff();
+	}
 }

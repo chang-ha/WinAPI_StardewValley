@@ -214,13 +214,9 @@ void Player::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_WateringCan.bmp", FilePath.PlusFilePath("Player_tool\\Up_WateringCan.bmp"), 1, 1);
 
-
-		// Water Animation
-		WaterRenderer = CreateRenderer(RenderOrder::PlayBelow);
-		WaterRenderer->Off();
+		// Water
 		ResourcesManager::GetInst().CreateSpriteSheet("WaterAnimation", FilePath.PlusFilePath("Player_tool\\WaterAnimation.bmp"), 10, 1);
-		WaterRenderer->CreateAnimation("Water", "WaterAnimation", 0, 9, WATERSPEED, false);
-		WaterRenderer->ChangeAnimation("Water");
+
 	}
 
 	// Sound Load
@@ -241,7 +237,8 @@ void Player::Start()
 
 	// Player Renderer 
 	ShadowRenderer = CreateRenderer(RenderOrder::Shadow);
-
+	WaterRenderer = CreateRenderer(RenderOrder::PlayBelow);
+	WaterRenderer->Off();
 
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
 	BodyRenderer->SetScaleRatio(RENDERRATIO);
@@ -504,7 +501,9 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Left_Harvest", "Left_Player_hair_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
-
+		// Water
+		WaterRenderer->CreateAnimation("Water", "WaterAnimation", 0, 9, WATERSPEED, false);
+		WaterRenderer->ChangeAnimation("Water");
 	}
 
 	//{
