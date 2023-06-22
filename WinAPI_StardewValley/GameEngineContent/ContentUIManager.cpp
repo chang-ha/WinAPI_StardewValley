@@ -180,7 +180,6 @@ void ContentUIManager::Start()
 	ItemSelectRenderer->Off();
 
 	ShopItem.resize(4);
-
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		ShopItem[x] = new ShopItemData();
@@ -372,6 +371,7 @@ void ContentUIManager::MoneyUIUpdate(float _Delta)
 		}
 	}
 	
+	// Calcu Digit
 	int MoneyDigit = 0;
 	int CheckValue = CurTextMoney;
 	while (0 != CheckValue / 10)
@@ -380,6 +380,7 @@ void ContentUIManager::MoneyUIUpdate(float _Delta)
 		++MoneyDigit;
 	}
 
+	// Renderer On to Digit number
 	CheckValue = CurTextMoney;
 	for (int x = 0; x < AllMoney.size(); x++)
 	{
