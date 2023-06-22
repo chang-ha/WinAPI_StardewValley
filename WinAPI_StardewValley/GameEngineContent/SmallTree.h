@@ -14,8 +14,6 @@ public:
 	SmallTree& operator=(const SmallTree& _Other) = delete;
 	SmallTree& operator=(SmallTree&& _Other) noexcept = delete;
 
-	void Init(const std::string& _FileName) override;
-
 protected:
 	void Start() override;
 	void Update(float _Delta) override;

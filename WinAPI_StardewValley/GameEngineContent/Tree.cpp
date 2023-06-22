@@ -55,7 +55,6 @@ void Tree::Init(const std::string& _FileName)
 	UpperPartShadow->SetAlpha(120);
 	UpperPartShadow->SetRenderPos(TILESIZE.Half() + float4{4, 8} * RENDERRATIO);
 	UpperPartShadow->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-
 }
 
 

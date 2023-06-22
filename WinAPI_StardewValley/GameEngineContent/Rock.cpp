@@ -1,4 +1,6 @@
-﻿#include <GameEngineCore/GameEngineLevel.h>
+﻿#include <GameEngineBase/GameEngineRandom.h>
+
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "Rock.h"
@@ -16,8 +18,23 @@ Rock::~Rock()
 
 }
 
-void Rock::Init(const std::string& _FileName)
+void Rock::Start()
 {
+	// Rock_Small01.bmp
+	std::string _FileName = "";
+	int RandomValue = GameEngineRandom::MainRandom.RandomInt(0, 1);
+	switch (RandomValue)
+	{
+	case 0:
+		_FileName = "Rock_Small01.bmp";
+		break;
+	case 1:
+		_FileName = "Rock_Small02.bmp";
+		break;
+	default:
+		break;
+	}
+
 	ContentResources::Init(_FileName);
 	if (nullptr == GameEngineSound::FindSound("rock.wav"))
 	{
@@ -27,11 +44,6 @@ void Rock::Init(const std::string& _FileName)
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("rock.wav"));
 	}
-}
-
-void Rock::Start()
-{
-
 }
 
 void Rock::Update(float _Delta)

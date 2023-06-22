@@ -166,30 +166,61 @@ void Farm::Start()
 	Over->Init("Detail_Farm.bmp");
 	Over->SetPos(GetRenderScale().Half());
 
-	// Actor
-	Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-	FarmTree->Init("Tree.bmp");
-	FarmTree->SetPos(FarmTileMap->IndexToPos(60, 20));
+	// CreateActor
+	{
+		ContentBuilding* House = CreateActor<ContentBuilding>();
+		House->Init("House.bmp");
+		House->SetPos({ Back->GetRenderScale().X * 0.7945f, Back->GetRenderScale().Y * 0.195f });
 
-	Rock* FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-	FarmRock->Init("Rock_Small01.bmp");
-	FarmRock->SetPos(FarmTileMap->IndexToPos(65, 20));
+		ContentBuilding* MailBox = CreateActor<ContentBuilding>();
+		MailBox->Init("MailBox.bmp");
+		MailBox->SetPos({ Back->GetRenderScale().X * 0.858f, Back->GetRenderScale().Y * 0.246f });
 
-	FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-	FarmRock->Init("Rock_Small02.bmp");
-	FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
+		// Tree
+		Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(60, 20));
 
-	SmallTree* FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
-	FarmSmallTree->Init("Tree_Small.bmp");
-	FarmSmallTree->SetPos(FarmTileMap->IndexToPos(63, 20));
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(55, 17));
 
-	ContentBuilding* House = CreateActor<ContentBuilding>();
-	House->Init("House.bmp");
-	House->SetPos({ Back->GetRenderScale().X * 0.7945f, Back->GetRenderScale().Y * 0.195f });
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(53, 19));
 
-	ContentBuilding* MailBox = CreateActor<ContentBuilding>();
-	MailBox->Init("MailBox.bmp");
-	MailBox->SetPos({Back->GetRenderScale().X * 0.858f, Back->GetRenderScale().Y * 0.246f});
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(49, 23));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(55, 33));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(67, 31));
+
+		// Small Tree
+		SmallTree* FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(63, 20));
+
+		// Rock
+		Rock* FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(65, 20));
+
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
+
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(67, 20));
+
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(68, 20));
+
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(69, 20));
+	}
 }
 
 void Farm::Update(float _Delta)

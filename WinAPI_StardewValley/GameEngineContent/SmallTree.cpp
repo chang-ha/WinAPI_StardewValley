@@ -16,9 +16,9 @@ SmallTree::~SmallTree()
 
 }
 
-void SmallTree::Init(const std::string& _FileName)
+void SmallTree::Start()
 {
-	ContentResources::Init(_FileName);
+	ContentResources::Init("Tree_Small.bmp");
 	if (nullptr == GameEngineSound::FindSound("axchop.wav"))
 	{
 		GameEnginePath FilePath;
@@ -27,11 +27,6 @@ void SmallTree::Init(const std::string& _FileName)
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("axchop.wav"));
 	}
-}
-
-void SmallTree::Start()
-{
-
 }
 
 void SmallTree::Update(float _Delta)

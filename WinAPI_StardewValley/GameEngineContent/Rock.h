@@ -14,8 +14,6 @@ public:
 	Rock& operator=(const Rock& _Other) = delete;
 	Rock& operator=(Rock&& _Other) noexcept = delete;
 
-	void Init(const std::string& _FileName) override;
-
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
