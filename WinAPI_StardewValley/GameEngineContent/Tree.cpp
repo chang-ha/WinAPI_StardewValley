@@ -1,6 +1,4 @@
-﻿#define InterActionTime 0.6f
-
-#include <GameEnginePlatform/GameEngineWindowTexture.h>
+﻿#include <GameEnginePlatform/GameEngineWindowTexture.h>
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -69,12 +67,10 @@ void Tree::Update(float _Delta)
 	Hitten();
 
 	std::vector<GameEngineCollision*> _CollisionResult;
-	static float PerTime = InterActionTime;
-	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && 0.0f > PerTime)
+	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && false == IsHitten)
 	{
-		IsHitten = true;
 		EffectPlayer = GameEngineSound::SoundPlay("axchop.wav");
-		PerTime = InterActionTime;
+		IsHitten = true;
 		if (--Hp > 0)
 		{
 			return;
@@ -90,6 +86,8 @@ void Tree::Update(float _Delta)
 		}
 		Death();
 	}
-
-	PerTime -= _Delta;
+	else if (false == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	{
+		IsHitten = false;
+	}
 }

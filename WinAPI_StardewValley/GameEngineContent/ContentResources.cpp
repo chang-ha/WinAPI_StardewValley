@@ -72,7 +72,6 @@ void ContentResources::Hitten()
 		case 3:
 			AddPos({ -2, +2 });
 			HittenStep = 0;
-			IsHitten = false;
 			break;
 		default:
 			break;
