@@ -99,6 +99,7 @@ public:
 	GameEngineRenderer* PantsRenderer = nullptr;
 	GameEngineRenderer* ToolRenderer = nullptr;
 	GameEngineRenderer* ShadowRenderer = nullptr;
+	GameEngineRenderer* WaterRenderer = nullptr;
 
 	GameEngineCollision* BodyCollision = nullptr;
 	GameEngineCollision* ToolCollision = nullptr;

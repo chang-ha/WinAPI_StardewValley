@@ -33,6 +33,7 @@ void Player::ToolStart()
 {
 	ChangeAnimationState("Tool1");
 
+
 	switch (CurItem->GetItemType())
 	{
 	case ItemType::Axe:
@@ -72,6 +73,11 @@ void Player::Tool2Start()
 	// Tool WateringCan
 	ChangeAnimationState("Tool2");
 	ToolRenderer->SetSprite(ToolDir + "WateringCan.bmp");
+
+	WaterRenderer->On();
+	WaterRenderer->ChangeAnimation("Water", 0, true);
+	WaterRenderer->SetRenderPos(PlayLevel->GetUITileMap()->IndexToPos(TileLimit().iX(), TileLimit().iY()) + TILESIZE.Half() * RENDERRATIO - GetPos());
+	EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
 
 	Farm* _Farm = dynamic_cast<Farm*>(PlayLevel);
 	if (nullptr != _Farm)

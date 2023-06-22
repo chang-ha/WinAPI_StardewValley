@@ -136,8 +136,8 @@ void Farm::Start()
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("hoeHit.wav"));
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("wateringcan.wav"));
 	}
+
 
 	// Create TileMap
 	if (nullptr == FarmTileMap)
@@ -312,6 +312,8 @@ void Farm::GroundWatering()
 {
 	int Index_X = Player::MainPlayer->TileLimit().iX();
 	int Index_Y = Player::MainPlayer->TileLimit().iY();
+
+
 	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
 	{
 		FarmWateringTileMap->SetTile(Index_X, Index_Y, 0);
@@ -320,7 +322,6 @@ void Farm::GroundWatering()
 		TileSetting(Index_X, Index_Y + 1, true);
 		TileSetting(Index_X - 1, Index_Y, true);
 		TileSetting(Index_X + 1, Index_Y, true);
-		EffectPlayer = GameEngineSound::SoundPlay("wateringcan.wav");
 	}
 }
 

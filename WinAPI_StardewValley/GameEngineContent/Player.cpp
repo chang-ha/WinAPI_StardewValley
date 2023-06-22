@@ -2,9 +2,10 @@
 #define RUNSPEED2 0.1f
 #define TOOL1SPEED 0.07f
 #define TOOL1LASTANI 0.1f
-#define TOOL2SPEED 0.05f
+#define TOOL2SPEED 0.07f
 #define TOOL2LASTANI 0.6f
 #define HARVESTSPEED 0.1f
+#define WATERSPEED 0.1f
 
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -212,6 +213,14 @@ void Player::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Down2_WateringCan.bmp"));
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_WateringCan.bmp", FilePath.PlusFilePath("Player_tool\\Up_WateringCan.bmp"), 1, 1);
+
+
+		// Water Animation
+		WaterRenderer = CreateRenderer(RenderOrder::PlayBelow);
+		WaterRenderer->Off();
+		ResourcesManager::GetInst().CreateSpriteSheet("WaterAnimation", FilePath.PlusFilePath("Player_tool\\WaterAnimation.bmp"), 10, 1);
+		WaterRenderer->CreateAnimation("Water", "WaterAnimation", 0, 9, WATERSPEED, false);
+		WaterRenderer->ChangeAnimation("Water");
 	}
 
 	// Sound Load
@@ -227,10 +236,12 @@ void Player::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("sandyStep.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("stoneStep.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("thudStep.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("wateringcan.wav"));
 	}
 
 	// Player Renderer 
 	ShadowRenderer = CreateRenderer(RenderOrder::Shadow);
+
 
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
 	BodyRenderer->SetScaleRatio(RENDERRATIO);
@@ -247,7 +258,6 @@ void Player::Start()
 
 	HairRenderer = CreateRenderer(RenderOrder::Play);
 	HairRenderer->SetScaleRatio(RENDERRATIO);
-
 
 	ToolRenderer = CreateRenderer(RenderOrder::PlayOver);
 	ToolRenderer->SetRenderScale(float4{16, 50} * RENDERRATIO);
@@ -493,6 +503,8 @@ void Player::Start()
 			HairRenderer->FindAnimation("Left_Tool2")->Inters[2] = TOOL2LASTANI;
 			HairRenderer->CreateAnimation("Left_Harvest", "Left_Player_hair_Harvest", 0, 3, HARVESTSPEED, false);
 		}
+
+
 	}
 
 	//{
@@ -527,6 +539,11 @@ void Player::Update(float _Delta)
 		{
 			CollisionDebug = !CollisionDebug;
 		}
+	}
+
+	if (true == WaterRenderer->IsAnimationEnd())
+	{
+		WaterRenderer->Off();
 	}
 }
 
