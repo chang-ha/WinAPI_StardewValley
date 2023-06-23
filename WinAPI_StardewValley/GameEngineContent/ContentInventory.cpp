@@ -71,9 +71,22 @@ void ContentInventory::PopItem(const int _Index)
 
 	AllItem[_Index]->ItemCountRenderer->SetText(" ");
 	AllItem[_Index]->ItemRenderer->Off();
+	AllItem[_Index]->Item = nullptr;
+}
+
+void ContentInventory::DeathItem(const int _Index)
+{
+	if (nullptr == AllItem[_Index]->Item)
+	{
+		return;
+	}
+
+	AllItem[_Index]->ItemCountRenderer->SetText(" ");
+	AllItem[_Index]->ItemRenderer->Off();
 	AllItem[_Index]->Item->Death();
 	AllItem[_Index]->Item = nullptr;
 }
+
 	
 bool ContentInventory::IsFull(const ContentItem* _Item)
 {
@@ -181,7 +194,7 @@ void ContentInventory::UseItem(ContentItem* _Item)
 
 	if (1 == AllItem[CurIndex]->Item->GetItemCount())
 	{
-		PopItem(CurIndex);
+		DeathItem(CurIndex);
 	}
 	else
 	{
@@ -321,6 +334,7 @@ void ContentInventory::Update(float _Delta)
 
 			InventoryUpdate(x);
 			ShopInventoryUpdate(x);
+			ShippingInventoryUpdate(x);
 		}
 	}
 
@@ -361,7 +375,13 @@ void ContentInventory::CurIndexUpdate()
 {
 	if (false == ContentUIManager::MainUI->Inventory->IsUpdate() && false == InventoryRenderer->IsUpdate())
 	{
+		CurIndexRenderer->Off();
 		return;
+	}
+
+	if (false == CurIndexRenderer->IsUpdate())
+	{
+		CurIndexRenderer->On();
 	}
 
 	// Change CurIndex
@@ -390,7 +410,6 @@ void ContentInventory::CurIndexUpdate()
 		CurIndex = 11;
 	}
 
-
 	// CurIndexRenderer
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
 }
@@ -409,9 +428,7 @@ void ContentInventory::InventoryUpdate(int _CurIndex)
 		ContentMouse::MainMouse->GetItemRenderer()->On();
 		ContentMouse::MainMouse->SetPickItem(AllItem[_CurIndex]->Item);
 
-		AllItem[_CurIndex]->ItemCountRenderer->SetText(" ");
-		AllItem[_CurIndex]->ItemRenderer->Off();
-		AllItem[_CurIndex]->Item = nullptr;
+		PopItem(_CurIndex);
 	}
 	else if (nullptr != AllItem[_CurIndex]->Item && true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 	{
@@ -472,6 +489,42 @@ void ContentInventory::ShippingInventoryUpdate(int _CurIndex)
 	{
 		return;
 	}
+	
+	if (nullptr == AllItem[_CurIndex]->Item)
+	{
+		return;
+	}
+
+	if (true == GameEngineInput::IsDown(VK_LBUTTON) 
+		&& false == ContentUIManager::MainUI->SellItemRenderer->IsUpdate())
+	{
+		if (0 == AllItem[_CurIndex]->Item->GetItemPrice())
+		{
+			return; 
+		}
+		ContentUIManager::MainUI->SellItemRenderer->SetTexture("Inventory_" + AllItem[_CurIndex]->Item->ItemName);
+		ContentUIManager::MainUI->SellItemRenderer->On();
+		ContentUIManager::MainUI->SetSellItem(AllItem[_CurIndex]->Item);
+
+		PopItem(_CurIndex);
+		// EffectPlayer = ...
+	}
+	else if (true == GameEngineInput::IsDown(VK_LBUTTON)
+		&& true == ContentUIManager::MainUI->SellItemRenderer->IsUpdate())
+	{
+		if (0 == AllItem[_CurIndex]->Item->GetItemPrice())
+		{
+			return;
+		}
+		ContentUIManager::MainUI->SellCurItem();
+		ContentUIManager::MainUI->SellItemRenderer->SetTexture("Inventory_" + AllItem[_CurIndex]->Item->ItemName);
+		ContentUIManager::MainUI->SellItemRenderer->On();
+		ContentUIManager::MainUI->SetSellItem(AllItem[_CurIndex]->Item);
+
+		PopItem(_CurIndex);
+		// EffectPlayer = ...
+	}
+
 }
 
 
@@ -479,9 +532,9 @@ void ContentInventory::MouseToInventory(int _CurIndex)
 {
 	AllItem[_CurIndex]->ItemRenderer->SetTexture("Inventory_" + ContentMouse::MainMouse->GetPickItem()->GetItemName());
 	AllItem[_CurIndex]->ItemRenderer->On();
-
 	AllItem[_CurIndex]->ItemCountRenderer->SetText(" ");
 	AllItem[_CurIndex]->Item = ContentMouse::MainMouse->GetPickItem();
+
 	ContentMouse::MainMouse->GetItemRenderer()->Off();
 	ContentMouse::MainMouse->GetItemCountRenderer()->Off();
 	ContentMouse::MainMouse->SetPickItem(nullptr);

@@ -223,10 +223,10 @@ void ContentUIManager::Start()
 	ShipInventoryRenderer->Off();
 	SellInventoryRenderer = CreateUIRenderer("UI_ShippingBox.bmp", RenderOrder::UI);
 	SellInventoryRenderer->Off();
-	SellItemRenderer = CreateUIRenderer("Ok_Button.bmp", RenderOrder::UI);
+	SellItemRenderer = CreateUIRenderer(RenderOrder::UI);
 	SellItemRenderer->Off();
-	SellInventoryCollision = CreateCollision(CollisionOrder::Inventory_Item);
-	SellInventoryCollision->Off();
+	SellItemCollision = CreateCollision(CollisionOrder::Inventory_Item);
+	SellItemCollision->Off();
 	OkButtonRenderer = CreateUIRenderer("Ok_Button.bmp", RenderOrder::UI);
 	OkButtonRenderer->Off();
 	OkButtonCollision = CreateCollision(CollisionOrder::Button);
@@ -238,7 +238,7 @@ void ContentUIManager::Start()
 	SellInventoryRenderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	SellItemRenderer->SetRenderPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.6f });
 	SellItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
-	SellInventoryCollision->SetCollisionScale(TILESIZE);
+	SellItemCollision->SetCollisionScale(TILESIZE);
 	OkButtonRenderer->SetRenderPos({ GlobalValue::WinScale.X * 0.8f, GlobalValue::WinScale.Y * 0.9f });
 	OkButtonCollision->SetCollisionScale(TILESIZE);
 
@@ -603,16 +603,25 @@ void ContentUIManager::InventoryDownRender()
 	Inventory->SetRenderPos({ GlobalValue::WinScale.Half().X, GlobalValue::WinScale.Y - 50 });
 }
 
+void ContentUIManager::SellCurItem()
+{
+	if (nullptr == SellItem)
+	{
+		MsgBoxAssert("판매할 아이템이 없는데 판매하려고 했습니다.");
+	}
+
+	int SellPrice = SellItem->GetItemPrice() * SellItem->GetItemCount();
+}
+
 void ContentUIManager::ShippingUIOn()
 {
-	SellInventoryCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.6f });
+	SellItemCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.6f });
 	OkButtonCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * 0.8f, GlobalValue::WinScale.Y * 0.9f });
 	Inventory->Off();
 	Player::MainPlayer->StopPlayer();
 	ShipInventoryRenderer->On();
-	SellItemRenderer->On();
 	SellInventoryRenderer->On();
-	SellInventoryCollision->On();
+	SellItemCollision->On();
 	OkButtonRenderer->On();
 	OkButtonCollision->On();
 	ContentInventory::MainInventory->SetPosShippingBox();
@@ -625,7 +634,7 @@ void ContentUIManager::ShippingUIOff()
 	ShipInventoryRenderer->Off();
 	SellItemRenderer->Off();
 	SellInventoryRenderer->Off();
-	SellInventoryCollision->Off();
+	SellItemCollision->Off();
 	OkButtonRenderer->Off();
 	OkButtonCollision->Off();
 	ContentInventory::MainInventory->SetPosInventoryItem();
@@ -642,5 +651,18 @@ void ContentUIManager::ShippingUIUpdate(float _Delta)
 		&& true == GameEngineInput::IsDown(VK_LBUTTON))
 	{
 		ShippingUIOff();
+	}
+
+	if (true == SellItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
+		&& true == GameEngineInput::IsDown(VK_LBUTTON))
+	{
+		if (nullptr == SellItem)
+		{
+			return;
+		}
+
+		ContentInventory::MainInventory->PushItem(SellItem);
+		SellItemRenderer->Off();
+		SellItem = nullptr;
 	}
 }

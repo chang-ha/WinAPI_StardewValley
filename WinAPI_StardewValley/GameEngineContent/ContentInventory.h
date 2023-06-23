@@ -36,6 +36,8 @@ public:
 
 	void PopItem(const int _Index);
 
+	void DeathItem(const int _Index);
+
 	ContentItem* FindItem(const ContentItem* _Item, int* _ResultIndex = nullptr);
 
 	int BlankSpace();

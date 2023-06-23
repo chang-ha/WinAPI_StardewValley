@@ -3,6 +3,7 @@
 #include <GameEnginePlatform/GameEngineSound.h>
 
 class ContentUIManager;
+class ContentItem;
 class ShopItemData
 {
 	friend ContentUIManager;
@@ -47,8 +48,19 @@ public:
 	void ShopUIOff();
 	void ShopItemSetting();
 
+	void SellCurItem();
 	void ShippingUIOn();
 	void ShippingUIOff();
+
+	void SetSellItem(ContentItem* _SellItem)
+	{
+		SellItem = _SellItem;
+	}
+
+	ContentItem* GetSellItem()
+	{
+		return SellItem;
+	}
 
 	void PlusDayValue()
 	{
@@ -100,11 +112,12 @@ private:
 	std::vector<ShopItemData*> ShopItem;
 
 	// ShippingBox UI
+	ContentItem* SellItem = nullptr;
 	GameEngineRenderer* ShipInventoryRenderer = nullptr;
 	GameEngineRenderer* SellItemRenderer = nullptr;
 	GameEngineRenderer* SellInventoryRenderer = nullptr;
 	GameEngineRenderer* OkButtonRenderer = nullptr;
-	GameEngineCollision* SellInventoryCollision = nullptr;
+	GameEngineCollision* SellItemCollision = nullptr;
 	GameEngineCollision* OkButtonCollision = nullptr;
 
 
