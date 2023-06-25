@@ -103,6 +103,8 @@ void SleepLevel::Update(float _Delta)
 		if (true == OK_Button_Collision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
 			&& true == GameEngineInput::IsDown(VK_LBUTTON))
 		{
+			_MoneyData = ContentUIManager::MainUI->GetMoneyData(TotalMoney);
+			ContentUIManager::MainUI->PlusPlayerMoney(_MoneyData->GetCurMoney());
 			GameEngineCore::ChangeLevel("FarmHouse");
 		}
 	}

@@ -696,11 +696,7 @@ void ContentUIManager::MoneyUIUpdate(MoneyData* _CurMoney, float _Delta)
 		return;
 	}
 
-	if (_CurMoney->CurMoney == _CurMoney->CurTextMoney)
-	{
-
-	}
-	else if (_CurMoney->CurMoney > _CurMoney->CurTextMoney)
+	if (_CurMoney->CurMoney > _CurMoney->CurTextMoney)
 	{
 		_CurMoney->CurTextMoney += static_cast<int>(MoneyUpSpeed * _Delta);
 		if (_CurMoney->CurMoney < _CurMoney->CurTextMoney)

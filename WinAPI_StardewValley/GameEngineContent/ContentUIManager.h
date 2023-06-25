@@ -168,6 +168,10 @@ public:
 			return CurMoney == CurTextMoney;
 		}
 
+		int GetCurMoney() const
+		{
+			return CurMoney;
+		}
 	private:
 		void Init(const float4& _StartRenderRatio, const float _XDistance, const float4& _RenderScale);
 
@@ -187,11 +191,15 @@ public:
 
 	void SleepMoneyRenderOff();
 
+	void PlusPlayerMoney(int _Value)
+	{
+		PlayerMoney += _Value;
+	}
 private:
 	void MoneyUIUpdate(MoneyData* _CurMoney, float _Delta);
 
 	// MoneyUI 
-	int PlayerMoney = 1000;
+	int PlayerMoney = 500;
 	float MoneyUpSpeed = 300.0f;
 	std::map<MoneyEnum, MoneyData> AllMoney;
 };
