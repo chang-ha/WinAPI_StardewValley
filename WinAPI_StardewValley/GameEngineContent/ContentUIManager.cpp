@@ -135,9 +135,12 @@ void ContentUIManager::Start()
 	InventoryDownRender();
 	
 	// MoneyUI
-	MoneyData& Data = AllMoney[MoneyEnum::PlayerMoney];
 	Texture = ResourcesManager::GetInst().FindTexture("UI_Money_0.bmp");
-	Data.Init(float4{0.983f, 0.174f}, Texture->GetScale() * 2.0f);
+	MoneyData& PlayerMoney = AllMoney[MoneyEnum::PlayerMoney];
+	PlayerMoney.Init(float4{0.983f, 0.174f}, Texture->GetScale() * 2.0f);
+
+	MoneyData& ShopMoney = AllMoney[MoneyEnum::ShopPlayerMoney];
+	ShopMoney.Init(float4{ 0.5f, 0.7f }, Texture->GetScale() * 2.0f);
 	
 	// SleepUI
 	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
@@ -341,6 +344,9 @@ void ContentUIManager::ShopUIOn()
 	ShopRenderer->On();
 	CancelRenderer->On();
 	CancelCollision->On();
+	AllMoney[MoneyEnum::ShopPlayerMoney].IsUpdate = true;
+	AllMoney[MoneyEnum::ShopPlayerMoney].CurMoney = PlayerMoney;
+	AllMoney[MoneyEnum::ShopPlayerMoney].CurTextMoney = PlayerMoney - 1;
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		ShopItem[x]->ItemRenderer->On();
@@ -359,6 +365,8 @@ void ContentUIManager::ShopUIOff()
 	CancelRenderer->Off();
 	CancelCollision->Off();
 	ItemSelectRenderer->Off();
+	AllMoney[MoneyEnum::ShopPlayerMoney].IsUpdate = false;
+	AllMoney[MoneyEnum::ShopPlayerMoney].MoneyRendererOff();
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		ShopItem[x]->ItemRenderer->Off();
@@ -618,7 +626,7 @@ void ContentUIManager::MoneyData::Init(const float4& _StartRenderRatio, const fl
 	MoneyRenderer.resize(8);
 	for (int x = 0; x < MoneyRenderer.size(); x++)
 	{
-		MoneyRenderer[x] = ContentUIManager::MainUI->CreateUIRenderer("UI_Money_0.bmp", RenderOrder::UI);
+		MoneyRenderer[x] = ContentUIManager::MainUI->CreateUIRenderer("UI_Money_0.bmp", RenderOrder::UI_Money);
 		MoneyRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (_StartRenderRatio.X - x * 0.0117f), GlobalValue::WinScale.Y * _StartRenderRatio.Y });
 		MoneyRenderer[x]->SetRenderScale(_RenderScale);
 		MoneyRenderer[x]->Off();

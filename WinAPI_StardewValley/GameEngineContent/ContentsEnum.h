@@ -15,6 +15,7 @@ enum class RenderOrder
 	Play,
 	PlayOver,
 	UI,
+	UI_Money,
 	Inventory_Item,
 	UIMouse,
 };

@@ -12,7 +12,7 @@ class MoneyData;
 enum MoneyEnum
 {
 	PlayerMoney,
-
+	ShopPlayerMoney
 };
 class ShopItemData
 {
