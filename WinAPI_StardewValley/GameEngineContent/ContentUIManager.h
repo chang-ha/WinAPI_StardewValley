@@ -139,7 +139,7 @@ private:
 	{
 		friend ContentUIManager;
 	private:
-		void Init(const float4& _StartRenderRatio, const float4& _RenderScale);
+		void Init(const float4& _StartRenderRatio, const float _XDistance, const float4& _RenderScale);
 
 		void MoneyRendererOff();
 

@@ -1,4 +1,7 @@
 ﻿#pragma region
+#define PLAYERMONEY_DISTANCE 0.0117f
+#define SHOPMONEY_DISTANCE 0.0136f
+
 #define ITEMSELECT_START_X 0.609f
 #define ITEMSELECT_START_Y 0.211f
 #define ITEMSELECT_Y 0.1056f
@@ -137,10 +140,10 @@ void ContentUIManager::Start()
 	// MoneyUI
 	Texture = ResourcesManager::GetInst().FindTexture("UI_Money_0.bmp");
 	MoneyData& PlayerMoney = AllMoney[MoneyEnum::PlayerMoney];
-	PlayerMoney.Init(float4{0.983f, 0.174f}, Texture->GetScale() * 2.0f);
+	PlayerMoney.Init(float4{0.983f, 0.174f}, PLAYERMONEY_DISTANCE, Texture->GetScale() * 2.0f);
 
 	MoneyData& ShopMoney = AllMoney[MoneyEnum::ShopPlayerMoney];
-	ShopMoney.Init(float4{ 0.5f, 0.7f }, Texture->GetScale() * 2.0f);
+	ShopMoney.Init(float4{ 0.4235f, 0.637f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
 	
 	// SleepUI
 	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
@@ -295,6 +298,7 @@ void ContentUIManager::Update(float _Delta)
 	ShopUIUpdate(_Delta);
 	ShippingUIUpdate(_Delta);
 	AllMoney[MoneyEnum::PlayerMoney].CurMoney = PlayerMoney;
+	AllMoney[MoneyEnum::ShopPlayerMoney].CurMoney = PlayerMoney;
 	for (std::pair<const MoneyEnum, MoneyData>& _Data : AllMoney)
 	{
 		MoneyUIUpdate(&_Data.second, _Delta);
@@ -339,6 +343,11 @@ void ContentUIManager::SleepUIOn()
 
 void ContentUIManager::ShopUIOn()
 {
+	if (true == ShopRenderer->IsUpdate())
+	{
+		return;
+	}
+
 	Inventory->Off();
 	Player::MainPlayer->StopPlayer();
 	ShopRenderer->On();
@@ -346,7 +355,7 @@ void ContentUIManager::ShopUIOn()
 	CancelCollision->On();
 	AllMoney[MoneyEnum::ShopPlayerMoney].IsUpdate = true;
 	AllMoney[MoneyEnum::ShopPlayerMoney].CurMoney = PlayerMoney;
-	AllMoney[MoneyEnum::ShopPlayerMoney].CurTextMoney = PlayerMoney - 1;
+	AllMoney[MoneyEnum::ShopPlayerMoney].CurTextMoney = PlayerMoney + 1;
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		ShopItem[x]->ItemRenderer->On();
@@ -359,6 +368,10 @@ void ContentUIManager::ShopUIOn()
 
 void ContentUIManager::ShopUIOff()
 {
+	if (false == ShopRenderer->IsUpdate())
+	{
+		return;
+	}
 	Inventory->On();
 	Player::MainPlayer->SetIsUpdate(true);
 	ShopRenderer->Off();
@@ -523,7 +536,7 @@ void ContentUIManager::ShopItemSetting()
 			break;
 		case 1:
 			_FileName = "Shop_Seed_Cauliflower.bmp";
-			ShopItem[x]->ItemBuyPrice = 30;
+			ShopItem[x]->ItemBuyPrice = 80;
 			ShopItem[x]->ItemNameTextRenderer->SetText("콜리플라워 씨앗", 45, "Sandoll 미생");
 			break;
 		case 2:
@@ -620,14 +633,13 @@ void ContentUIManager::ShippingUIUpdate(float _Delta)
 
 
 // MoneyData Init
-
-void ContentUIManager::MoneyData::Init(const float4& _StartRenderRatio, const float4& _RenderScale)
+void ContentUIManager::MoneyData::Init(const float4& _StartRenderRatio, const float _XDistance, const float4& _RenderScale)
 {
 	MoneyRenderer.resize(8);
 	for (int x = 0; x < MoneyRenderer.size(); x++)
 	{
 		MoneyRenderer[x] = ContentUIManager::MainUI->CreateUIRenderer("UI_Money_0.bmp", RenderOrder::UI_Money);
-		MoneyRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (_StartRenderRatio.X - x * 0.0117f), GlobalValue::WinScale.Y * _StartRenderRatio.Y });
+		MoneyRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (_StartRenderRatio.X - x * _XDistance), GlobalValue::WinScale.Y * _StartRenderRatio.Y });
 		MoneyRenderer[x]->SetRenderScale(_RenderScale);
 		MoneyRenderer[x]->Off();
 	}
