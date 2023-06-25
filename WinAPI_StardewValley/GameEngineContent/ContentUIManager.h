@@ -4,6 +4,16 @@
 
 class ContentUIManager;
 class ContentItem;
+class GameEngineRenderer;
+class ContentLevel;
+class ContentInventory;
+class MoneyData;
+
+enum MoneyEnum
+{
+	PlayerMoney,
+
+};
 class ShopItemData
 {
 	friend ContentUIManager;
@@ -15,9 +25,6 @@ private:
 	GameEngineCollision* ItemCollision = nullptr;
 };
 
-class GameEngineRenderer;
-class ContentLevel;
-class ContentInventory;
 class ContentUIManager : public GameEngineActor
 {
 	friend ContentLevel;
@@ -38,7 +45,7 @@ public:
 	void BasicUIOn();
 	void BasicUIOff();
 
-	void ResetCurTextMoney();
+	// void ResetCurTextMoney();
 
 	void InventoryUpRender();
 	void InventoryDownRender();
@@ -87,13 +94,6 @@ private:
 	int DayValue = 1;
 	bool DayChange = false;
 
-	// MoneyUI 
-	bool MoneyUpdate = false;
-	int CurMoney = 1000;
-	int CurTextMoney = 0;
-	float MoneyUpSpeed = 300.0f;
-	std::vector<GameEngineRenderer*> AllMoney;
-
 	// FarmHouse's Sleep UI
 	GameEngineWindowTexture* SleepUITexture = nullptr;
 	GameEngineRenderer* SleepUIRenderer = nullptr;
@@ -129,9 +129,32 @@ private:
 
 	void Start() override;
 	void Update(float _Delta) override;
-	void MoneyUIUpdate(float _Delta);
 	void SleepUIUpdate(float _Delta);
 	void ShopUIUpdate(float _Delta);
 	void ShippingUIUpdate(float _Delta);
+
+//////////////// Money Renderer
+private:
+	class MoneyData
+	{
+		friend ContentUIManager;
+	private:
+		void Init(const float4& _StartRenderRatio, const float4& _RenderScale);
+
+		void MoneyRendererOff();
+
+	private:
+		bool IsUpdate = false;
+		int CurMoney = 0;
+		int CurTextMoney = 0;
+		std::vector<GameEngineRenderer*> MoneyRenderer;
+	};
+
+	void MoneyUIUpdate(MoneyData* _CurMoney, float _Delta);
+
+	// MoneyUI 
+	int PlayerMoney = 1000;
+	float MoneyUpSpeed = 300.0f;
+	std::map<MoneyEnum, MoneyData> AllMoney;
 };
 

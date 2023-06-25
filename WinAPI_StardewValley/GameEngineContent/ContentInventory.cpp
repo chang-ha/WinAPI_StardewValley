@@ -474,7 +474,7 @@ void ContentInventory::ShopInventoryUpdate(int _CurIndex)
 		}
 		EffectPlayer = GameEngineSound::SoundPlay("sell.wav");
 		int PlusMoney = AllItem[_CurIndex]->Item->GetItemPrice() * AllItem[_CurIndex]->Item->GetItemCount();
-		ContentUIManager::MainUI->CurMoney += PlusMoney;
+		ContentUIManager::MainUI->PlayerMoney += PlusMoney;
 		PopItem(_CurIndex);
 	}
 	else if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && nullptr == AllItem[_CurIndex]->Item)

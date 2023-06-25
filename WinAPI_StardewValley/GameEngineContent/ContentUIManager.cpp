@@ -43,6 +43,7 @@ ContentUIManager* ContentUIManager::MainUI = nullptr;
 
 ContentUIManager::ContentUIManager()
 {
+	MainUI = this;
 }
 
 ContentUIManager::~ContentUIManager()
@@ -134,16 +135,10 @@ void ContentUIManager::Start()
 	InventoryDownRender();
 	
 	// MoneyUI
-	AllMoney.resize(8);
+	MoneyData& Data = AllMoney[MoneyEnum::PlayerMoney];
 	Texture = ResourcesManager::GetInst().FindTexture("UI_Money_0.bmp");
-	for (int x = 0; x < AllMoney.size(); x++)
-	{
-		AllMoney[x] = CreateUIRenderer("UI_Money_0.bmp", RenderOrder::UI);
-		AllMoney[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.983f - x * 0.0117f), GlobalValue::WinScale.Y * 0.174f});
-		AllMoney[x]->SetRenderScale(Texture->GetScale() * 2);
-		AllMoney[x]->Off();
-	}
-
+	Data.Init(float4{0.983f, 0.174f}, Texture->GetScale() * 2.0f);
+	
 	// SleepUI
 	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
 	SleepUIRenderer = CreateUIRenderer(RenderOrder::UIMouse);
@@ -293,10 +288,14 @@ void ContentUIManager::Update(float _Delta)
 		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
 	}
 
-	MoneyUIUpdate(_Delta);
 	SleepUIUpdate(_Delta);
 	ShopUIUpdate(_Delta);
 	ShippingUIUpdate(_Delta);
+	AllMoney[MoneyEnum::PlayerMoney].CurMoney = PlayerMoney;
+	for (std::pair<const MoneyEnum, MoneyData>& _Data : AllMoney)
+	{
+		MoneyUIUpdate(&_Data.second, _Delta);
+	}
 }
 
 void ContentUIManager::BasicUIOn()
@@ -306,7 +305,7 @@ void ContentUIManager::BasicUIOn()
 	Energy->On();
 	Inventory->On();
 	DayTextRenderer->On();
-	MoneyUpdate = true;
+	AllMoney[MoneyEnum::PlayerMoney].IsUpdate = true;
 }
 
 void ContentUIManager::BasicUIOff()
@@ -316,17 +315,14 @@ void ContentUIManager::BasicUIOff()
 	Energy->Off();
 	Inventory->Off();
 	DayTextRenderer->Off();
-	for (int x = 0; x < AllMoney.size(); x++)
-	{
-		AllMoney[x]->Off();
-	}
-	MoneyUpdate = false;
+	AllMoney[MoneyEnum::PlayerMoney].MoneyRendererOff();
+	AllMoney[MoneyEnum::PlayerMoney].IsUpdate = false;
 }
 
-void ContentUIManager::ResetCurTextMoney()
-{
-	CurTextMoney = 0;
-}
+//void ContentUIManager::ResetCurTextMoney()
+//{
+//	CurTextMoney = 0;
+//}
 
 void ContentUIManager::SleepUIOn()
 {
@@ -371,59 +367,6 @@ void ContentUIManager::ShopUIOff()
 		ShopItem[x]->ItemPriceTextRenderer->Off();
 	}
 	ContentInventory::MainInventory->SetPosInventoryItem();
-}
-
-void ContentUIManager::MoneyUIUpdate(float _Delta)
-{
-	if (false == MoneyUpdate)
-	{
-		return;
-	}
-
-	if (CurMoney == CurTextMoney)
-	{
-		return;
-	}
-	else if (CurMoney > CurTextMoney)
-	{
-		CurTextMoney += static_cast<int>(MoneyUpSpeed * _Delta);
-		if (CurMoney < CurTextMoney)
-		{
-			CurTextMoney = CurMoney;
-		}
-	}
-	else
-	{
-		CurTextMoney -= static_cast<int>(MoneyUpSpeed * _Delta);
-		if (CurMoney > CurTextMoney)
-		{
-			CurTextMoney = CurMoney;
-		}
-	}
-	
-	// Calcu Digit
-	int MoneyDigit = 0;
-	int CheckValue = CurTextMoney;
-	while (0 != CheckValue / 10)
-	{
-		CheckValue /= 10;
-		++MoneyDigit;
-	}
-
-	// Renderer On to Digit number
-	CheckValue = CurTextMoney;
-	for (int x = 0; x < AllMoney.size(); x++)
-	{
-		if (x > MoneyDigit)
-		{
-			AllMoney[x]->Off();
-			continue;
-		}
-		int MoneyString = (CheckValue % 10);
-		CheckValue /= 10;
-		AllMoney[x]->SetTexture("UI_Money_" + std::to_string(MoneyString) + ".bmp");
-		AllMoney[x]->On();
-	}
 }
 
 void ContentUIManager::SleepUIUpdate(float _Delta)
@@ -489,7 +432,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 		if (true == GameEngineInput::IsDown(VK_LBUTTON)
 			&& true == ShopItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 		{
-			int CheckMoney = CurMoney;
+			int CheckMoney = PlayerMoney;
 			CheckMoney -= ShopItem[x]->ItemBuyPrice;
 			if (0 > CheckMoney)
 			{
@@ -508,7 +451,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 					ContentMouse::MainMouse->GetPickItem()->PlusItemCount(1);
 					ContentMouse::MainMouse->SetItemCountRenderer(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
 					ContentMouse::MainMouse->GetItemCountRenderer()->On();
-					CurMoney -= ShopItem[x]->ItemBuyPrice;
+					PlayerMoney -= ShopItem[x]->ItemBuyPrice;
 					EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
 				}
 				else
@@ -546,7 +489,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 				ContentMouse::MainMouse->GetItemRenderer()->SetTexture("Inventory_" + _Item->GetItemName());
 				ContentMouse::MainMouse->GetItemRenderer()->On();
 				ContentMouse::MainMouse->SetPickItem(_Item);
-				CurMoney -= ShopItem[x]->ItemBuyPrice;
+				PlayerMoney -= ShopItem[x]->ItemBuyPrice;
 				EffectPlayer = GameEngineSound::SoundPlay("purchase.wav");
 			}
 		}
@@ -664,5 +607,81 @@ void ContentUIManager::ShippingUIUpdate(float _Delta)
 		ContentInventory::MainInventory->PushItem(SellItem);
 		SellItemRenderer->Off();
 		SellItem = nullptr;
+	}
+}
+
+
+// MoneyData Init
+
+void ContentUIManager::MoneyData::Init(const float4& _StartRenderRatio, const float4& _RenderScale)
+{
+	MoneyRenderer.resize(8);
+	for (int x = 0; x < MoneyRenderer.size(); x++)
+	{
+		MoneyRenderer[x] = ContentUIManager::MainUI->CreateUIRenderer("UI_Money_0.bmp", RenderOrder::UI);
+		MoneyRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (_StartRenderRatio.X - x * 0.0117f), GlobalValue::WinScale.Y * _StartRenderRatio.Y });
+		MoneyRenderer[x]->SetRenderScale(_RenderScale);
+		MoneyRenderer[x]->Off();
+	}
+}
+
+void ContentUIManager::MoneyData::MoneyRendererOff()
+{
+	for (int x = 0; x < MoneyRenderer.size(); x++)
+	{
+		MoneyRenderer[x]->Off();
+	}
+}
+
+void ContentUIManager::MoneyUIUpdate(MoneyData* _CurMoney, float _Delta)
+{
+	if (false == _CurMoney->IsUpdate)
+	{
+		return;
+	}
+
+	if (_CurMoney->CurMoney == _CurMoney->CurTextMoney)
+	{
+		return;
+	}
+	else if (_CurMoney->CurMoney > _CurMoney->CurTextMoney)
+	{
+		_CurMoney->CurTextMoney += static_cast<int>(MoneyUpSpeed * _Delta);
+		if (_CurMoney->CurMoney < _CurMoney->CurTextMoney)
+		{
+			_CurMoney->CurTextMoney = _CurMoney->CurMoney;
+		}
+	}
+	else
+	{
+		_CurMoney->CurTextMoney -= static_cast<int>(MoneyUpSpeed * _Delta);
+		if (_CurMoney->CurMoney > _CurMoney->CurTextMoney)
+		{
+			_CurMoney->CurTextMoney = _CurMoney->CurMoney;
+		}
+	}
+
+	// Calcu Digit
+	int MoneyDigit = 0;
+	int CheckValue = _CurMoney->CurTextMoney;
+	while (0 != CheckValue / 10)
+	{
+		CheckValue /= 10;
+		++MoneyDigit;
+	}
+
+	// Renderer On to Digit number
+	CheckValue = _CurMoney->CurTextMoney;
+	for (int x = 0; x < _CurMoney->MoneyRenderer.size(); x++)
+	{
+		if (x > MoneyDigit)
+		{
+			_CurMoney->MoneyRenderer[x]->Off();
+			continue;
+		}
+		int MoneyString = (CheckValue % 10);
+		CheckValue /= 10;
+		_CurMoney->MoneyRenderer[x]->SetTexture("UI_Money_" + std::to_string(MoneyString) + ".bmp");
+		_CurMoney->MoneyRenderer[x]->On();
 	}
 }

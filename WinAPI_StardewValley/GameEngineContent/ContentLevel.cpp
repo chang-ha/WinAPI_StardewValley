@@ -36,7 +36,7 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<TitleScreen*>(this) || nullptr != dynamic_cast<SleepLevel*>(this))
 	{
 		ContentUIManager::MainUI->BasicUIOff();
-		ContentUIManager::MainUI->ResetCurTextMoney();
+		// ContentUIManager::MainUI->ResetCurTextMoney();
 	}
 	else
 	{
