@@ -115,6 +115,7 @@ void ContentUIManager::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("cancel.wav"));
 	}
 
+	// BasicUI
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Clock.bmp");
 	Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
 	Clock->SetRenderScale(Texture->GetScale() * RENDERRATIO);
@@ -144,6 +145,24 @@ void ContentUIManager::Start()
 
 	MoneyData& ShopMoney = AllMoney[MoneyEnum::ShopPlayerMoney];
 	ShopMoney.Init(float4{ 0.4235f, 0.637f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+
+	MoneyData& CropsMoney = AllMoney[MoneyEnum::CropsMoney];
+	CropsMoney.Init(float4{ 0.4235f, 0.3f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+
+	MoneyData& ResourcesMoney = AllMoney[MoneyEnum::ResourcesMoney];
+	ResourcesMoney.Init(float4{ 0.4235f, 0.4f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+
+	MoneyData& FishingMoney = AllMoney[MoneyEnum::FishingMoney];
+	FishingMoney.Init(float4{ 0.4235f, 0.5f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+
+	MoneyData& MiningMoney = AllMoney[MoneyEnum::MiningMoney];
+	MiningMoney.Init(float4{ 0.4235f, 0.6f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+
+	MoneyData& EtcMoney = AllMoney[MoneyEnum::EtcMoney];
+	EtcMoney.Init(float4{ 0.4235f, 0.7f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+
+	MoneyData& TotalMoney = AllMoney[MoneyEnum::TotalMoney];
+	TotalMoney.Init(float4{ 0.4235f, 0.8f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
 	
 	// SleepUI
 	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
@@ -574,7 +593,24 @@ void ContentUIManager::SellCurItem()
 		MsgBoxAssert("판매할 아이템이 없는데 판매하려고 했습니다.");
 	}
 
-	int SellPrice = SellItem->GetItemPrice() * SellItem->GetItemCount();
+	switch (SellItem->GetItemType())
+	{
+	case Resources:
+		AllMoney[MoneyEnum::ResourcesMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
+		AllMoney[MoneyEnum::TotalMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
+		break;
+	case Crops:
+		AllMoney[MoneyEnum::CropsMoney].CurMoney = SellItem->GetItemPrice() * SellItem->GetItemCount();
+		AllMoney[MoneyEnum::TotalMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
+		break;
+	case Seed:
+		AllMoney[MoneyEnum::EtcMoney].CurMoney = SellItem->GetItemPrice() * SellItem->GetItemCount();
+		AllMoney[MoneyEnum::TotalMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
+		break;
+	default:
+		MsgBoxAssert("판매할 수 없는 아이템을 판매하려고 했습니다.");
+		break;
+	}
 }
 
 void ContentUIManager::ShippingUIOn()
@@ -662,7 +698,7 @@ void ContentUIManager::MoneyUIUpdate(MoneyData* _CurMoney, float _Delta)
 
 	if (_CurMoney->CurMoney == _CurMoney->CurTextMoney)
 	{
-		return;
+
 	}
 	else if (_CurMoney->CurMoney > _CurMoney->CurTextMoney)
 	{
@@ -672,7 +708,7 @@ void ContentUIManager::MoneyUIUpdate(MoneyData* _CurMoney, float _Delta)
 			_CurMoney->CurTextMoney = _CurMoney->CurMoney;
 		}
 	}
-	else
+	else if (_CurMoney->CurMoney < _CurMoney->CurTextMoney)
 	{
 		_CurMoney->CurTextMoney -= static_cast<int>(MoneyUpSpeed * _Delta);
 		if (_CurMoney->CurMoney > _CurMoney->CurTextMoney)
@@ -703,5 +739,20 @@ void ContentUIManager::MoneyUIUpdate(MoneyData* _CurMoney, float _Delta)
 		CheckValue /= 10;
 		_CurMoney->MoneyRenderer[x]->SetTexture("UI_Money_" + std::to_string(MoneyString) + ".bmp");
 		_CurMoney->MoneyRenderer[x]->On();
+	}
+}
+
+void ContentUIManager::SleepMoneyRenderOff()
+{
+	std::map<MoneyEnum, MoneyData>::iterator StartIter = AllMoney.find(CropsMoney);
+	std::map<MoneyEnum, MoneyData>::iterator EndIter = AllMoney.end();
+
+	for (; StartIter != EndIter; ++StartIter)
+	{
+		MoneyData* _CurData = &StartIter->second;
+		_CurData->MoneyRendererOff();
+		_CurData->IsUpdate = false;
+		_CurData->CurMoney = 0;
+		_CurData->CurTextMoney = 0;
 	}
 }

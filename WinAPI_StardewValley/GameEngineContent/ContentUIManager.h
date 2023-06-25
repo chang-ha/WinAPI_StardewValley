@@ -12,7 +12,14 @@ class MoneyData;
 enum MoneyEnum
 {
 	PlayerMoney,
-	ShopPlayerMoney
+	ShopPlayerMoney,
+	// SleepLevel
+	CropsMoney,
+	ResourcesMoney,
+	FishingMoney,
+	MiningMoney,
+	EtcMoney,
+	TotalMoney
 };
 class ShopItemData
 {
@@ -134,10 +141,33 @@ private:
 	void ShippingUIUpdate(float _Delta);
 
 //////////////// Money Renderer
-private:
+public:
 	class MoneyData
 	{
 		friend ContentUIManager;
+	public:
+		MoneyData() {}
+
+		bool MoneyIsUpdate()
+		{
+			return IsUpdate;
+		}
+
+		void SetUpdate(bool _IsUpdate)
+		{
+			IsUpdate = _IsUpdate;
+		}
+
+		void SetCurMoney(int _CurMoney)
+		{
+			CurMoney = _CurMoney;
+		}
+
+		bool IsUpdateEnd() const
+		{
+			return CurMoney == CurTextMoney;
+		}
+
 	private:
 		void Init(const float4& _StartRenderRatio, const float _XDistance, const float4& _RenderScale);
 
@@ -150,6 +180,14 @@ private:
 		std::vector<GameEngineRenderer*> MoneyRenderer;
 	};
 
+	MoneyData* GetMoneyData(MoneyEnum _Index)
+	{
+		return &AllMoney[_Index];
+	}
+
+	void SleepMoneyRenderOff();
+
+private:
 	void MoneyUIUpdate(MoneyData* _CurMoney, float _Delta);
 
 	// MoneyUI 
