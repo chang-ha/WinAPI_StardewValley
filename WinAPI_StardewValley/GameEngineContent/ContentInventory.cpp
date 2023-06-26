@@ -286,6 +286,11 @@ void ContentInventory::Start()
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 	Item->Init("wateringcan.bmp", ItemType::WateringCan);
 	PushItem(Item);
+
+	// TestCode
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("Seed_Parsnip.bmp", ItemType::Seed, 1000);
+	PushItem(Item);
 }
 
 void ContentInventory::Update(float _Delta)
@@ -330,6 +335,7 @@ void ContentInventory::Update(float _Delta)
 			if (true == ContentUIManager::MainUI->Inventory->IsUpdate())
 			{
 				CurIndex = x;
+				EffectPlayer = GameEngineSound::SoundPlay("toolSwap.wav");
 				return;
 			}
 

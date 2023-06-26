@@ -24,11 +24,13 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 
-	GameEngineRenderer* CropsRenderer = nullptr;
-	GameEngineCollision* CropsCollision = nullptr;
-	std::string CropsName = "";
+	bool IsHarvest = false;
 	int GrowStep = 0;
 	int MaxGrowStep = 5;
+	std::string CropsName = "";
+
+	GameEngineRenderer* CropsRenderer = nullptr;
+	GameEngineCollision* CropsCollision = nullptr;
 private:
 
 };

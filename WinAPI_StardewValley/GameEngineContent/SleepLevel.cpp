@@ -69,7 +69,6 @@ void SleepLevel::Update(float _Delta)
 		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(TotalMoney);
-		// _MoneyData->SetUpdate(true);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
 	}

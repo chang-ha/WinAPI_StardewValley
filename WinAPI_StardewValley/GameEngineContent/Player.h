@@ -82,6 +82,11 @@ public:
 		return BodyCollision;
 	}
 
+	int GetDir()
+	{
+		return Dir;
+	}
+
 	float4 TileLimit();
 
 	void ChangeState(PlayerState State);
