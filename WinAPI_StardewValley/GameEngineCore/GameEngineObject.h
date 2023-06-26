@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class GameEngineLevel;
 class GameEngineCore;
@@ -72,9 +73,21 @@ public:
 	{
 		LiveTime = 0.0f;
 	}
+
+	void SetName(const std::string& _Name)
+	{
+		Name = _Name;
+	}
+
+	std::string GetName()
+	{
+		return Name;
+	}
+
 protected:
 
 private:
+	std::string Name = "";
 	int Order = 0;
 	bool IsUpdateValue = true; 
 	bool IsDeathValue = false; 

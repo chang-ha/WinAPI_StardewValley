@@ -418,3 +418,75 @@ bool GameEngineCollision::CollisionNext(const float4& _NextPos, int _Order, std:
 
 	return Check;
 }
+
+bool GameEngineCollision::CollisionCallBack(
+	int _Order,
+	CollisionType _ThisType,
+	CollisionType _OtherType,
+	void(*Enter)(GameEngineCollision* _this, GameEngineCollision* _Other),
+	void(*Stay)(GameEngineCollision* _this, GameEngineCollision* _Other),
+	void(*Exit)(GameEngineCollision* _this, GameEngineCollision* _Other)
+)
+{
+	if (false == IsUpdate())
+	{
+		return false;
+	}
+
+	std::list<GameEngineCollision*>& OtherCollision = GetActor()->GetLevel()->AllCollision[_Order];
+
+	if (0 == OtherCollision.size())
+	{
+		return false;
+	}
+
+	bool Check = false;
+
+	for (GameEngineCollision* Collision : OtherCollision)
+	{
+		if (nullptr == Collision)
+		{
+			MsgBoxAssert("존재하지 않는 콜리전이 있습니다.");
+			return false;
+		}
+
+		if (false == Collision->IsUpdate())
+		{
+			continue;
+		}
+
+		if (true == CollisionCheck(Collision, _ThisType, _OtherType))
+		{
+			if (ColSet.end() == ColSet.find(Collision))
+			{
+				ColSet.insert(Collision);
+				if (nullptr != Enter)
+				{
+					Enter(this, Collision);
+				}
+			}
+			else
+			{
+				if (nullptr != Stay)
+				{
+					Stay(this, Collision);
+				}
+			}
+
+			Check = true;
+		}
+		else
+		{
+			if (ColSet.end() != ColSet.find(Collision))
+			{
+				ColSet.erase(Collision);
+				if (nullptr != Exit)
+				{
+					Exit(this, Collision);
+				}
+			}
+		}
+	}
+
+	return Check;
+}

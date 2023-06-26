@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <set>
 
 #include <GameEngineBase/GameEngineMath.h>
 
@@ -152,6 +153,27 @@ public:
 
 	float4 GetActorPivotPos();
 
+	template<typename EnumType>
+	bool CollisionCallBack(
+		EnumType _Order,
+		CollisionType _ThisType = CollisionType::CirCle,
+		CollisionType _OtherType = CollisionType::CirCle,
+		void(*Enter)(GameEngineCollision* _this, GameEngineCollision* _Other) = nullptr,
+		void(*Stay)(GameEngineCollision* _this, GameEngineCollision* _Other) = nullptr,
+		void(*Exit)(GameEngineCollision* _this, GameEngineCollision* _Other) = nullptr
+	)
+	{
+		return CollisionCallBack(static_cast<int>(_Order), _ThisType, _OtherType, Enter, Stay, Exit);
+	}
+
+	bool CollisionCallBack(
+		int _Order,
+		CollisionType _ThisType = CollisionType::CirCle,
+		CollisionType _OtherType = CollisionType::CirCle,
+		void(*Enter)(GameEngineCollision* _this, GameEngineCollision* _Other) = nullptr,
+		void(*Stay)(GameEngineCollision* _this, GameEngineCollision* _Other) = nullptr,
+		void(*Exit)(GameEngineCollision* _this, GameEngineCollision* _Other) = nullptr
+	);
 protected:
 
 private:
@@ -159,6 +181,7 @@ private:
 	float4 CollisionPos;
 	float4 CollisionScale;
 	bool CollisionRenderValue = true;
+	std::set<GameEngineCollision*> ColSet;
 
 	void DebugRender();
 };
