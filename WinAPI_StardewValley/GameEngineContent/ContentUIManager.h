@@ -83,16 +83,27 @@ public:
 		DayChange = true;
 	}
 
+	void SetEnergyValue(float _EnergyValue)
+	{
+		EnergyValue = _EnergyValue;
+	}
+
+	void PlusEnergyValue(float _EnergyValue)
+	{
+		EnergyValue += _EnergyValue;
+	}
+
 protected:
 
 private:
 	GameEngineSoundPlayer EffectPlayer;
 
 	// Main UI
+	float EnergyValue = 83.0f;
 	GameEngineRenderer* Clock = nullptr;
 	GameEngineRenderer* ClockHand = nullptr;
 	GameEngineRenderer* Energy = nullptr;
-	// GameEngineRenderer* EnergyBar = nullptr;
+	GameEngineRenderer* EnergyBar = nullptr;
 	
 	// Inventroy UI
 	GameEngineRenderer* Inventory = nullptr;

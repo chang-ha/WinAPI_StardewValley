@@ -31,6 +31,7 @@ void Player::RunStart()
 
 void Player::ToolStart()
 {
+	ContentUIManager::MainUI->PlusEnergyValue(-2.0f);
 	ChangeAnimationState("Tool1");
 
 

@@ -81,6 +81,7 @@ void ContentUIManager::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand_Mask.bmp"));
 		// Energy UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("EnergyBar.bmp"));
 		// MiniInventory UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory.bmp"));
 		// Sleep UI
@@ -144,6 +145,10 @@ void ContentUIManager::Start()
 	Energy = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
 	Energy->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	Energy->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, GlobalValue::WinScale.Y - Texture->GetScale().Half().Y * RENDERRATIO });
+
+	EnergyBar = CreateUIRenderer("EnergyBar.bmp", RenderOrder::UI);
+	EnergyBar->SetRenderScale(float4{6, EnergyValue } * RENDERRATIO);
+	EnergyBar->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO, GlobalValue::WinScale.Y - 6});
 
 	DayTextRenderer = CreateUIRenderer(RenderOrder::UI);
 	DayTextRenderer->SetText("월.    1", 30, "Sandoll 미생");
@@ -306,7 +311,10 @@ void ContentUIManager::Update(float _Delta)
 	if (true == GameEngineInput::IsDown(VK_F6))
 	{
 		ClockHand->AddAngle(10.0f);
+		// EnergyValue -= 10.0f;
 	}
+	
+	EnergyBar->SetRenderScale(float4{ 6, EnergyValue } *RENDERRATIO);
 	// Day Code
 	if (true == DayChange)
 	{
@@ -356,6 +364,7 @@ void ContentUIManager::BasicUIOn()
 	Clock->On();
 	ClockHand->On();
 	Energy->On();
+	EnergyBar->On();
 	Inventory->On();
 	DayTextRenderer->On();
 	AllMoney[MoneyEnum::PlayerMoney].IsUpdate = true;
@@ -366,6 +375,7 @@ void ContentUIManager::BasicUIOff()
 	Clock->Off();
 	ClockHand->Off();
 	Energy->Off();
+	EnergyBar->Off();
 	Inventory->Off();
 	DayTextRenderer->Off();
 	AllMoney[MoneyEnum::PlayerMoney].MoneyRendererOff();
