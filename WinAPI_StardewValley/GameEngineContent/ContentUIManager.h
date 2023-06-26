@@ -53,8 +53,6 @@ public:
 	void BasicUIOn();
 	void BasicUIOff();
 
-	// void ResetCurTextMoney();
-
 	void InventoryUpRender();
 	void InventoryDownRender();
 	void SleepUIOn();
@@ -108,10 +106,14 @@ private:
 	// Inventroy UI
 	GameEngineRenderer* Inventory = nullptr;
 
-	// Day UI
-	GameEngineRenderer* DayTextRenderer = nullptr;
+	// Day & Time UI
+	int HourValue = 6;
+	int MinuteValue = 0;
+	bool Meridiem = false;
 	int DayValue = 1;
 	bool DayChange = false;
+	GameEngineRenderer* DayTextRenderer = nullptr;
+	GameEngineRenderer* TimeTextRenderer = nullptr;
 
 	// FarmHouse's Sleep UI
 	GameEngineWindowTexture* SleepUITexture = nullptr;
@@ -149,6 +151,7 @@ private:
 
 	void Start() override;
 	void Update(float _Delta) override;
+	void DayUIUpdate(float _Delta);
 	void SleepUIUpdate(float _Delta);
 	void ShopUIUpdate(float _Delta);
 	void ShippingUIUpdate(float _Delta);

@@ -154,6 +154,10 @@ void ContentUIManager::Start()
 	DayTextRenderer->SetText("월.    1", 30, "Sandoll 미생");
 	DayTextRenderer->SetRenderPos({ GlobalValue::WinScale.X - 100, 13 });
 
+	TimeTextRenderer = CreateUIRenderer(RenderOrder::UI);
+	TimeTextRenderer->SetText("6 : 00 오전", 30, "Sandoll 미생");
+	TimeTextRenderer->SetRenderPos({ GlobalValue::WinScale.X - 120, 82 });
+
 	Inventory = CreateUIRenderer("UI_Inventory.bmp", RenderOrder::UI);
 	InventoryDownRender();
 	
@@ -315,39 +319,7 @@ void ContentUIManager::Update(float _Delta)
 	}
 	
 	EnergyBar->SetRenderScale(float4{ 6, EnergyValue } *RENDERRATIO);
-	// Day Code
-	if (true == DayChange)
-	{
-		std::string Day = "";
-		switch (DayValue % 7)
-		{
-		case 0:
-			Day = "일";
-			break;
-		case 1:
-			Day = "월";
-			break;
-		case 2:
-			Day = "화";
-			break;
-		case 3:
-			Day = "수";
-			break;
-		case 4:
-			Day = "목";
-			break;
-		case 5:
-			Day = "금";
-			break;
-		case 6:
-			Day = "토";
-			break;
-		default:
-			break;
-		}
-		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
-	}
-
+	DayUIUpdate(_Delta);
 	SleepUIUpdate(_Delta);
 	ShopUIUpdate(_Delta);
 	ShippingUIUpdate(_Delta);
@@ -367,6 +339,7 @@ void ContentUIManager::BasicUIOn()
 	EnergyBar->On();
 	Inventory->On();
 	DayTextRenderer->On();
+	TimeTextRenderer->On();
 	AllMoney[MoneyEnum::PlayerMoney].IsUpdate = true;
 }
 
@@ -378,6 +351,7 @@ void ContentUIManager::BasicUIOff()
 	EnergyBar->Off();
 	Inventory->Off();
 	DayTextRenderer->Off();
+	TimeTextRenderer->Off();
 	AllMoney[MoneyEnum::PlayerMoney].MoneyRendererOff();
 	AllMoney[MoneyEnum::PlayerMoney].IsUpdate = false;
 }
@@ -440,6 +414,98 @@ void ContentUIManager::ShopUIOff()
 	}
 	ContentInventory::MainInventory->SetPosInventoryItem();
 }
+
+void ContentUIManager::DayUIUpdate(float _Delta)
+{
+	if (false == DayTextRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	// Day Code
+	if (true == DayChange)
+	{
+		std::string Day = "";
+		switch (DayValue % 7)
+		{
+		case 0:
+			Day = "일";
+			break;
+		case 1:
+			Day = "월";
+			break;
+		case 2:
+			Day = "화";
+			break;
+		case 3:
+			Day = "수";
+			break;
+		case 4:
+			Day = "목";
+			break;
+		case 5:
+			Day = "금";
+			break;
+		case 6:
+			Day = "토";
+			break;
+		default:
+			break;
+		}
+		DayTextRenderer->SetText(Day + ".    " + std::to_string(DayValue), 30, "Sandoll 미생");
+	}
+
+	// Time Code
+	static float PerTime = 1.0f;
+	if (0.0f >= PerTime)
+	{
+		std::string MinuteString = "";
+		MinuteValue += 10;
+		if (0 == MinuteValue)
+		{
+			MinuteString = "00";
+		}
+		else if (60 == MinuteValue)
+		{
+			HourValue += 1;
+			MinuteValue = 0;
+			MinuteString = "00";
+		}
+		else
+		{
+			MinuteString = std::to_string(MinuteValue);
+		}
+
+		if ( 12 == HourValue && false ==  Meridiem && 0 == MinuteValue)
+		{
+			Meridiem = true;
+		}
+		else if (12 == HourValue && true == Meridiem && 0 == MinuteValue)
+		{
+			Meridiem = false;
+		}
+		else if (13 == HourValue)
+		{
+			HourValue = 1;
+		}
+
+		std::string MeridiemString = "";
+		if (false == Meridiem)
+		{
+			MeridiemString = " 오전";
+		}
+		else
+		{
+			MeridiemString = " 오후";
+		}
+
+		TimeTextRenderer->SetText(std::to_string(HourValue) + " : " + MinuteString + MeridiemString, 30, "Sandoll 미생");
+		ClockHand->AddAngle(1.5f);
+		PerTime = 1.0f;
+	}
+	PerTime -= _Delta;
+}
+
 
 void ContentUIManager::SleepUIUpdate(float _Delta)
 {
