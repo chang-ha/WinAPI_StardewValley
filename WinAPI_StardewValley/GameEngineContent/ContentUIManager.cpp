@@ -1,7 +1,11 @@
 ﻿#pragma region
+// MoneyValue
 #define PLAYERMONEY_DISTANCE 0.0117f
 #define SHOPMONEY_DISTANCE 0.0136f
+#define SELLMONEY_DISTANCE 0.0153f
+#define SELLMONEY_X 0.617f
 
+// ShopValue
 #define ITEMSELECT_START_X 0.609f
 #define ITEMSELECT_START_Y 0.211f
 #define ITEMSELECT_Y 0.1056f
@@ -79,6 +83,8 @@ void ContentUIManager::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory.bmp"));
 		// Sleep UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
+		// SleepLevelUI
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_SellBackGround.bmp"));
 		// Money UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_0.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_1.bmp"));
@@ -113,8 +119,10 @@ void ContentUIManager::Start()
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("purchase.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("cancel.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("money_up.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("pick_item.wav"));
 	}
-
+	
 	// BasicUI
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Clock.bmp");
 	Clock = CreateUIRenderer("Clock.bmp", RenderOrder::UI);
@@ -147,22 +155,22 @@ void ContentUIManager::Start()
 	ShopMoney.Init(float4{ 0.4235f, 0.637f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
 
 	MoneyData& CropsMoney = AllMoney[MoneyEnum::CropsMoney];
-	CropsMoney.Init(float4{ 0.4235f, 0.3f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+	CropsMoney.Init(0.15f, SELLMONEY_DISTANCE, Texture->GetScale() * 2.3f, "농사");
 
 	MoneyData& ResourcesMoney = AllMoney[MoneyEnum::ResourcesMoney];
-	ResourcesMoney.Init(float4{ 0.4235f, 0.4f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+	ResourcesMoney.Init(0.3f, SELLMONEY_DISTANCE, Texture->GetScale() * 2.3f, "채집");
 
 	MoneyData& FishingMoney = AllMoney[MoneyEnum::FishingMoney];
-	FishingMoney.Init(float4{ 0.4235f, 0.5f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+	FishingMoney.Init(0.45f, SELLMONEY_DISTANCE, Texture->GetScale() * 2.3f, "낚시");
 
 	MoneyData& MiningMoney = AllMoney[MoneyEnum::MiningMoney];
-	MiningMoney.Init(float4{ 0.4235f, 0.6f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+	MiningMoney.Init(0.6f, SELLMONEY_DISTANCE, Texture->GetScale() * 2.3f, "채광");
 
 	MoneyData& EtcMoney = AllMoney[MoneyEnum::EtcMoney];
-	EtcMoney.Init(float4{ 0.4235f, 0.7f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+	EtcMoney.Init(0.75f, SELLMONEY_DISTANCE, Texture->GetScale() * 2.3f, "기타");
 
 	MoneyData& TotalMoney = AllMoney[MoneyEnum::TotalMoney];
-	TotalMoney.Init(float4{ 0.4235f, 0.8f }, SHOPMONEY_DISTANCE, Texture->GetScale() * 2.0f);
+	TotalMoney.Init(0.9f, SELLMONEY_DISTANCE, Texture->GetScale() * 2.3f, "총합");
 	
 	// SleepUI
 	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
@@ -664,22 +672,59 @@ void ContentUIManager::ShippingUIUpdate(float _Delta)
 		ContentInventory::MainInventory->PushItem(SellItem);
 		SellItemRenderer->Off();
 		SellItem = nullptr;
+		EffectPlayer = GameEngineSound::SoundPlay("pick_item.wav");
 	}
 }
 
 
 // MoneyData Init
-void ContentUIManager::MoneyData::Init(const float4& _StartRenderRatio, const float _XDistance, const float4& _RenderScale)
+
+void ContentUIManager::MoneyData::On()
+{
+	IsUpdate = true;
+	BackRenderer->On();
+	TextRenderer->On();
+}
+void ContentUIManager::MoneyData::Off()
+{
+	IsUpdate = false;
+	BackRenderer->Off();
+	TextRenderer->Off();
+}
+
+void ContentUIManager::MoneyData::Init(const float4& _MoneyRender, const float _XDistance, const float4& _RenderScale)
 {
 	MoneyRenderer.resize(8);
 	for (int x = 0; x < MoneyRenderer.size(); x++)
 	{
 		MoneyRenderer[x] = ContentUIManager::MainUI->CreateUIRenderer("UI_Money_0.bmp", RenderOrder::UI_Money);
-		MoneyRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (_StartRenderRatio.X - x * _XDistance), GlobalValue::WinScale.Y * _StartRenderRatio.Y });
+		MoneyRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (_MoneyRender.X - x * _XDistance), GlobalValue::WinScale.Y * _MoneyRender.Y });
 		MoneyRenderer[x]->SetRenderScale(_RenderScale);
 		MoneyRenderer[x]->Off();
 	}
 }
+
+void ContentUIManager::MoneyData::Init(const float _BackGround_Y, const float _XDistance, const float4& _RenderScale, const std::string& _Text)
+{
+	MoneyRenderer.resize(8);
+	for (int x = 0; x < MoneyRenderer.size(); x++)
+	{
+		MoneyRenderer[x] = ContentUIManager::MainUI->CreateUIRenderer("UI_Money_0.bmp", RenderOrder::UI_Money);
+		MoneyRenderer[x]->SetRenderPos({ GlobalValue::WinScale.X * (0.617f - x * _XDistance), GlobalValue::WinScale.Y * (_BackGround_Y + 0.005f) });
+		MoneyRenderer[x]->SetRenderScale(_RenderScale);
+		MoneyRenderer[x]->Off();
+	}
+
+	BackRenderer = ContentUIManager::MainUI->CreateUIRenderer(RenderOrder::UI);
+	BackRenderer->SetTexture("UI_SellBackGround.bmp");
+	BackRenderer->SetRenderPos({ GlobalValue::WinScale.X * 0.5f, GlobalValue::WinScale.Y * _BackGround_Y });
+	BackRenderer->Off();
+	TextRenderer = ContentUIManager::MainUI->CreateUIRenderer(RenderOrder::UI);
+	TextRenderer->SetText(_Text, 50, "Sandoll 미생");
+	TextRenderer->SetRenderPos({ GlobalValue::WinScale.X * 0.365f, GlobalValue::WinScale.Y * (_BackGround_Y - 0.03f) });
+	TextRenderer->Off();
+}
+
 
 void ContentUIManager::MoneyData::MoneyRendererOff()
 {
@@ -711,6 +756,17 @@ void ContentUIManager::MoneyUIUpdate(MoneyData* _CurMoney, float _Delta)
 		{
 			_CurMoney->CurTextMoney = _CurMoney->CurMoney;
 		}
+	}
+	else
+	{
+		_CurMoney->SoundValue = true;
+		_CurMoney->MoneySound.SetLoop(0);
+	}
+
+	if (true == _CurMoney->SoundValue && false == _CurMoney->IsUpdateEnd())
+	{
+		_CurMoney->MoneySound = GameEngineSound::SoundPlay("money_up.wav", 10000);
+		_CurMoney->SoundValue = false;
 	}
 
 	// Calcu Digit
@@ -750,5 +806,7 @@ void ContentUIManager::SleepMoneyRenderOff()
 		_CurData->IsUpdate = false;
 		_CurData->CurMoney = 0;
 		_CurData->CurTextMoney = 0;
+		_CurData->BackRenderer->Off();
+		_CurData->TextRenderer->Off();
 	}
 }

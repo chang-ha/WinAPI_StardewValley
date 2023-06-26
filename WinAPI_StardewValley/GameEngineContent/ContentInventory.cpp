@@ -224,6 +224,7 @@ void ContentInventory::Start()
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("toolSwap.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("sell.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("shipping_in.wav"));
 	}
 
 	// Init Inventory
@@ -495,7 +496,8 @@ void ContentInventory::ShippingInventoryUpdate(int _CurIndex)
 		return;
 	}
 
-	if (true == GameEngineInput::IsDown(VK_LBUTTON) 
+	// Inventory To ShippingBox
+	if (true == GameEngineInput::IsDown(VK_LBUTTON)
 		&& false == ContentUIManager::MainUI->SellItemRenderer->IsUpdate())
 	{
 		if (0 == AllItem[_CurIndex]->Item->GetItemPrice())
@@ -507,7 +509,7 @@ void ContentInventory::ShippingInventoryUpdate(int _CurIndex)
 		ContentUIManager::MainUI->SetSellItem(AllItem[_CurIndex]->Item);
 
 		PopItem(_CurIndex);
-		// EffectPlayer = ...
+		EffectPlayer = GameEngineSound::SoundPlay("shipping_in.wav");
 	}
 	else if (true == GameEngineInput::IsDown(VK_LBUTTON)
 		&& true == ContentUIManager::MainUI->SellItemRenderer->IsUpdate())
@@ -522,7 +524,7 @@ void ContentInventory::ShippingInventoryUpdate(int _CurIndex)
 		ContentUIManager::MainUI->SetSellItem(AllItem[_CurIndex]->Item);
 
 		PopItem(_CurIndex);
-		// EffectPlayer = ...
+		EffectPlayer = GameEngineSound::SoundPlay("shipping_in.wav");
 	}
 
 }

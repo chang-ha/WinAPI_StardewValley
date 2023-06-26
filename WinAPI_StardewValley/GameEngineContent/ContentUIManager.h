@@ -21,6 +21,7 @@ enum MoneyEnum
 	EtcMoney,
 	TotalMoney
 };
+
 class ShopItemData
 {
 	friend ContentUIManager;
@@ -108,6 +109,20 @@ private:
 	GameEngineCollision* SleepNoCollision = nullptr;
 	float UIRenderRatio = 0.1f;
 
+	// SleepLevel UI
+	GameEngineRenderer* CropsMoneyBackRenderer = nullptr;
+	GameEngineRenderer* CropsMoneyTextRenderer = nullptr;
+	GameEngineRenderer* ResourcesMoneyBackRenderer = nullptr;
+	GameEngineRenderer* ResourcesMoneyTextRenderer = nullptr;
+	GameEngineRenderer* FishingMoneyBackRenderer = nullptr;
+	GameEngineRenderer* FishingMoneyTextRenderer = nullptr;
+	GameEngineRenderer* MiningMoneyBackRenderer = nullptr;
+	GameEngineRenderer* MiningMoneyTextRenderer = nullptr;
+	GameEngineRenderer* EtcMoneyBackRenderer = nullptr;
+	GameEngineRenderer* EtcMoneyTextRenderer = nullptr;
+	GameEngineRenderer* TotalMoneyBackRenderer = nullptr;
+	GameEngineRenderer* TotalMoneyTextRenderer = nullptr;
+
 	// Pierre's Shop UI
 	int ItemSelectIndex = -1;
 	GameEngineRenderer* ShopRenderer = nullptr;
@@ -156,6 +171,7 @@ public:
 		void SetUpdate(bool _IsUpdate)
 		{
 			IsUpdate = _IsUpdate;
+			MoneySound.SetLoop(0);
 		}
 
 		void SetCurMoney(int _CurMoney)
@@ -172,15 +188,26 @@ public:
 		{
 			return CurMoney;
 		}
+
+		void On();
+
+		void Off();
 	private:
-		void Init(const float4& _StartRenderRatio, const float _XDistance, const float4& _RenderScale);
+		void Init(const float4& _MoneyRender, const float _XDistance, const float4& _RenderScale);
+
+		void Init(const float _BackGround_Y, const float _XDistance, const float4& _RenderScale, const std::string& _Text);
 
 		void MoneyRendererOff();
 
 	private:
 		bool IsUpdate = false;
+		bool SoundValue = true;
 		int CurMoney = 0;
 		int CurTextMoney = 0;
+
+		GameEngineSoundPlayer MoneySound;
+		GameEngineRenderer* BackRenderer = nullptr;
+		GameEngineRenderer* TextRenderer = nullptr;
 		std::vector<GameEngineRenderer*> MoneyRenderer;
 	};
 

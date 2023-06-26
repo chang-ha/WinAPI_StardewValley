@@ -1,4 +1,6 @@
-﻿#include <GameEnginePlatform/GameEngineInput.h>
+﻿#define RENDERTIME 0.5f
+
+#include <GameEnginePlatform/GameEngineInput.h>
 
 #include <GameEngineCore/GameEngineCore.h>
 #include <GameEngineCore/GameEngineRenderer.h>
@@ -52,7 +54,7 @@ void SleepLevel::Start()
 
 	PlayOver* OK_Button = CreateActor<PlayOver>();
 	OK_Button->Init("Ok_Button.bmp");
-	OK_Button->SetPos({GlobalValue::WinScale.X * 0.7f, GlobalValue::WinScale.Y * 0.8f });
+	OK_Button->SetPos({GlobalValue::WinScale.X * 0.7f, GlobalValue::WinScale.Y * 0.9f });
 	OK_Button->Renderer->SetRenderScaleToTexture();
 	OK_Button_Collision = OK_Button->CreateCollision(CollisionOrder::Button);
 	OK_Button_Collision->SetCollisionScale(TILESIZE * RENDERRATIO);
@@ -60,41 +62,60 @@ void SleepLevel::Start()
 
 void SleepLevel::Update(float _Delta)
 {
+	static float PerTime = RENDERTIME;
 	ContentUIManager::MoneyData* _MoneyData;
 	if (true == ContentUIManager::MainUI->GetMoneyData(EtcMoney)->MoneyIsUpdate()
-		&& true == ContentUIManager::MainUI->GetMoneyData(EtcMoney)->IsUpdateEnd())
+		&& true == ContentUIManager::MainUI->GetMoneyData(EtcMoney)->IsUpdateEnd()
+		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(TotalMoney);
-		_MoneyData->SetUpdate(true);
+		// _MoneyData->SetUpdate(true);
+		_MoneyData->On();
+		PerTime = RENDERTIME;
 	}
 	else if (true == ContentUIManager::MainUI->GetMoneyData(MiningMoney)->MoneyIsUpdate()
-		&& true == ContentUIManager::MainUI->GetMoneyData(MiningMoney)->IsUpdateEnd())
+		&& true == ContentUIManager::MainUI->GetMoneyData(MiningMoney)->IsUpdateEnd()
+		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(EtcMoney);
 		_MoneyData->SetUpdate(true);
+		_MoneyData->On();
+		PerTime = RENDERTIME;
 	}
 	else if (true == ContentUIManager::MainUI->GetMoneyData(FishingMoney)->MoneyIsUpdate()
-		&& true == ContentUIManager::MainUI->GetMoneyData(FishingMoney)->IsUpdateEnd())
+		&& true == ContentUIManager::MainUI->GetMoneyData(FishingMoney)->IsUpdateEnd()
+		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(MiningMoney);
 		_MoneyData->SetUpdate(true);
+		_MoneyData->On();
+		PerTime = RENDERTIME;
 	}
 	else if (true == ContentUIManager::MainUI->GetMoneyData(ResourcesMoney)->MoneyIsUpdate()
-		&& true == ContentUIManager::MainUI->GetMoneyData(ResourcesMoney)->IsUpdateEnd())
+		&& true == ContentUIManager::MainUI->GetMoneyData(ResourcesMoney)->IsUpdateEnd()
+		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(FishingMoney);
 		_MoneyData->SetUpdate(true);
+		_MoneyData->On();
+		PerTime = RENDERTIME;
 	}
 	else if (true == ContentUIManager::MainUI->GetMoneyData(CropsMoney)->MoneyIsUpdate()
-		&& true == ContentUIManager::MainUI->GetMoneyData(CropsMoney)->IsUpdateEnd())
+		&& true == ContentUIManager::MainUI->GetMoneyData(CropsMoney)->IsUpdateEnd()
+		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(ResourcesMoney);
 		_MoneyData->SetUpdate(true);
+		_MoneyData->On();
+		PerTime = RENDERTIME;
 	}
-	else if (false == ContentUIManager::MainUI->GetMoneyData(CropsMoney)->MoneyIsUpdate())
+	else if (false == ContentUIManager::MainUI->GetMoneyData(CropsMoney)->MoneyIsUpdate()
+		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(CropsMoney);
 		_MoneyData->SetUpdate(true);
+		_MoneyData->On();
+		PerTime = RENDERTIME;
 	}
 
 	if (true == ContentUIManager::MainUI->GetMoneyData(EtcMoney)->MoneyIsUpdate() 
@@ -108,4 +129,5 @@ void SleepLevel::Update(float _Delta)
 			GameEngineCore::ChangeLevel("FarmHouse");
 		}
 	}
+	PerTime -= _Delta;
 }

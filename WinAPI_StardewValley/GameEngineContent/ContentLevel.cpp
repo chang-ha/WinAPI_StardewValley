@@ -36,11 +36,13 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<TitleScreen*>(this) || nullptr != dynamic_cast<SleepLevel*>(this))
 	{
 		ContentUIManager::MainUI->BasicUIOff();
+		ContentUIManager::MainUI->GetMoneyData(PlayerMoney)->SetUpdate(false);
 		// ContentUIManager::MainUI->ResetCurTextMoney();
 	}
 	else
 	{
 		ContentUIManager::MainUI->BasicUIOn();
+		ContentUIManager::MainUI->GetMoneyData(PlayerMoney)->SetUpdate(true);
 
 
 		if (nullptr == Player::MainPlayer)
