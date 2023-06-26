@@ -14,6 +14,24 @@ TileMap::~TileMap()
 void TileMap::Update(float _DeltaTime)
 {
 	SetPos(float4::ZERO);
+
+	if (nullptr == LerpTileRenderer)
+	{
+		return;
+	}
+
+	LerpTime += _DeltaTime * LerpSpeed;
+	float4 Pos = float4::LerpClimp(StartPos, EndPos, LerpTime);
+	LerpTileRenderer->SetRenderPos(Pos);
+
+	if (1 <= LerpTime)
+	{
+		float4 Pos = PosToIndex(EndPos - TileSize.Half() - LerpTilePos);
+
+		Tiles[Pos.iY()][Pos.iX()] = LerpTileRenderer;
+
+		LerpTileRenderer = nullptr;
+	}
 }
 
 bool TileMap::IsOver(int _X, int _Y)
@@ -97,18 +115,18 @@ bool TileMap::MoveTile(int X1, int Y1, int X2, int Y2, float4 _TilePos)
 	return true;
 }
 
-void TileMap::SetTile(float4 _Pos, int _Index, float4 _TilePos /*= float4::ZERO*/, bool _IsImageSize /*= false*/)
+GameEngineRenderer* TileMap::SetTile(float4 _Pos, int _Index, float4 _TilePos /*= float4::ZERO*/, bool _IsImageSize /*= false*/)
 {
 	float4 Index = PosToIndex(_Pos);
 
-	SetTile(Index.iX(), Index.iY(), _Index, _TilePos, _IsImageSize/* = false*/);
+	return SetTile(Index.iX(), Index.iY(), _Index, _TilePos, _IsImageSize/* = false*/);
 }
 
-void TileMap::SetTile(int X, int Y, int _Index, float4 _TilePos, bool _IsImageSize/* = false*/)
+GameEngineRenderer* TileMap::SetTile(int X, int Y, int _Index, float4 _TilePos, bool _IsImageSize/* = false*/)
 {
 	if (true == IsOver(X, Y))
 	{
-		return;
+		return nullptr;
 	}
 
 	if (nullptr == Tiles[Y][X])
@@ -127,6 +145,7 @@ void TileMap::SetTile(int X, int Y, int _Index, float4 _TilePos, bool _IsImageSi
 	{
 		Tiles[Y][X]->SetRenderScaleToTexture();
 	}
+	return Tiles[Y][X];
 }
 
 void TileMap::DeathTile(float4 _Pos)
@@ -151,4 +170,33 @@ void TileMap::DeathTile(int X, int Y)
 	Tiles[Y][X]->Death();
 	Tiles[Y][X] = nullptr;
 
+}
+
+bool TileMap::LerpTile(int X1, int Y1, int X2, int Y2, float4 _TilePos)
+{
+	if (nullptr != LerpTileRenderer)
+	{
+		return false;
+	}
+
+	if (nullptr == Tiles[Y1][X1])
+	{
+		return false;
+	}
+
+	if (nullptr != Tiles[Y2][X2])
+	{
+		return false;
+	}
+
+	LerpTileRenderer = Tiles[Y1][X1];
+	Tiles[Y1][X1] = nullptr;
+	Tiles[Y2][X2] = nullptr;
+	LerpTilePos = _TilePos;
+
+	StartPos = IndexToPos(X1, Y1) + TileSize.Half() + _TilePos;
+	EndPos = IndexToPos(X2, Y2) + TileSize.Half() + _TilePos;
+	LerpTime = 0.0f;
+
+	return true;
 }

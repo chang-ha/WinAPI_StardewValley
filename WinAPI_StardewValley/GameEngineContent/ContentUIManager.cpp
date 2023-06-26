@@ -37,6 +37,7 @@
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCollision.h>
 #include <GameEngineCore/GameEngineCamera.h>
+#include <GameEngineCore/GameEngineSprite.h>
 
 #include "ContentUIManager.h"
 #include "ContentsEnum.h"
@@ -77,6 +78,7 @@ void ContentUIManager::Start()
 		// Clock UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand_Mask.bmp"));
 		// Energy UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
 		// MiniInventory UI
@@ -132,7 +134,9 @@ void ContentUIManager::Start()
 	Texture = ResourcesManager::GetInst().FindTexture("Clock_hand.bmp");
 	ClockHand = CreateUIRenderer("Clock_hand.bmp", RenderOrder::UI);
 	ClockHand->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-	ClockHand->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO - 135, Texture->GetScale().Half().Y * RENDERRATIO + 10 });
+	ClockHand->SetRenderPos({ GlobalValue::WinScale.X - Texture->GetScale().Half().X * RENDERRATIO - 135, Texture->GetScale().Half().Y * RENDERRATIO + 5 });
+	ClockHand->SetMaskTexture("Clock_hand_Mask.bmp");
+	ClockHand->SetAngle(181.0f);
 
 	Texture = ResourcesManager::GetInst().FindTexture("Energy.bmp");
 	Energy = CreateUIRenderer("Energy.bmp", RenderOrder::UI);
@@ -288,6 +292,10 @@ void ContentUIManager::Start()
 
 void ContentUIManager::Update(float _Delta)
 {
+	if (true == GameEngineInput::IsDown(VK_F6))
+	{
+		ClockHand->AddAngle(10.0f);
+	}
 	// Day Code
 	if (true == DayChange)
 	{

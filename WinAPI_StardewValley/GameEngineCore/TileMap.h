@@ -33,15 +33,39 @@ public:
 
 	bool MoveTile(int X1, int Y1, int X2, int Y2, float4 _TilePos);
 
-	void SetTile(int X, int Y, int _Index, float4 _TilePos = float4::ZERO, bool _IsImageSize = false);
+	bool LerpTile(int X1, int Y1, int X2, int Y2, float4 _TilePos);
 
-	void SetTile(float4 _Pos, int _Index, float4 _TilePos = float4::ZERO, bool _IsImageSize = false);
+	GameEngineRenderer* SetTile(int X, int Y, int _Index, float4 _TilePos = float4::ZERO, bool _IsImageSize = false);
+
+	GameEngineRenderer* SetTile(float4 _Pos, int _Index, float4 _TilePos = float4::ZERO, bool _IsImageSize = false);
 
 	void DeathTile(float4 _Pos);
 
 	void DeathTile(int X, int Y);
 
+	float4 GetTileSize()
+	{
+		return TileSize;
+	}
+
+	bool IsLerpMove()
+	{
+		return nullptr != LerpTileRenderer;
+	}
+
+	void SetLerpSpeed(float _Speed)
+	{
+		LerpSpeed = _Speed;
+	}
+
 protected:
+	float LerpSpeed = 5.0f;
+
+	GameEngineRenderer* LerpTileRenderer;
+	float4 StartPos;
+	float4 EndPos;
+	float4 LerpTilePos;
+	float LerpTime = 0.0f;
 
 private:
 	int TileX = 0;
