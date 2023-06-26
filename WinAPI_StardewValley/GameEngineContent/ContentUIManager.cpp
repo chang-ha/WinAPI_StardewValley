@@ -85,6 +85,8 @@ void ContentUIManager::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory.bmp"));
 		// Sleep UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Yes.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_No.bmp"));
 		// SleepLevelUI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_SellBackGround.bmp"));
 		// Money UI
@@ -178,11 +180,20 @@ void ContentUIManager::Start()
 	
 	// SleepUI
 	SleepUITexture = ResourcesManager::GetInst().FindTexture("UI_Sleep.bmp");
-	SleepUIRenderer = CreateUIRenderer(RenderOrder::UIMouse);
-	SleepUIRenderer->SetTexture("UI_Sleep.bmp");
+	SleepUIRenderer = CreateUIRenderer("UI_Sleep.bmp", RenderOrder::UIMouse);
 	SleepUIRenderer->SetRenderPos({GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y - SleepUITexture->GetScale().hY()});
 	SleepUIRenderer->SetRenderScale(SleepUITexture->GetScale() * UIRenderRatio);
 	SleepUIRenderer->Off();
+
+	Texture = ResourcesManager::GetInst().FindTexture("UI_Yes.bmp");
+	SleepYesRenderer = CreateUIRenderer("UI_Yes.bmp", RenderOrder::UIMouse);
+	SleepYesRenderer->SetRenderPos({ GlobalValue::WinScale.hX() - 2, GlobalValue::WinScale.Y * 0.81f });
+	SleepYesRenderer->SetRenderScale(Texture->GetScale() * 0.8145f);
+	SleepYesRenderer->Off();
+	SleepNoRenderer = CreateUIRenderer("UI_No.bmp", RenderOrder::UIMouse);
+	SleepNoRenderer->SetRenderPos({ GlobalValue::WinScale.hX() - 2, GlobalValue::WinScale.Y * 0.895f });
+	SleepNoRenderer->SetRenderScale(Texture->GetScale() * 0.8145f);
+	SleepNoRenderer->Off();
 
 	SleepYesCollision = CreateCollision(CollisionOrder::Button);
 	SleepYesCollision->SetCollisionPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.78f });
@@ -361,11 +372,6 @@ void ContentUIManager::BasicUIOff()
 	AllMoney[MoneyEnum::PlayerMoney].IsUpdate = false;
 }
 
-//void ContentUIManager::ResetCurTextMoney()
-//{
-//	CurTextMoney = 0;
-//}
-
 void ContentUIManager::SleepUIOn()
 {
 	ContentInventory::MainInventory->Off();
@@ -439,27 +445,48 @@ void ContentUIManager::SleepUIUpdate(float _Delta)
 		SleepUIRenderer->SetRenderScale(SleepUITexture->GetScale() * UIRenderRatio);
 	}
 
-	if (false == SleepUIRenderer->IsUpdate())
+	if (false == SleepUIRenderer->IsUpdate() || 0.8f > UIRenderRatio)
 	{
 		return;
 	}
 
-	if (true == SleepYesCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect) && true == GameEngineInput::IsDown(VK_LBUTTON))
+	if (true == SleepYesCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 	{
-		BasicUIOff();
-		SleepUIRenderer->Off();
-		SleepYesCollision->Off();
-		SleepNoCollision->Off();
-		GameEngineCore::ChangeLevel("SleepLevel");
+		SleepYesRenderer->On();
+		if (true == GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			BasicUIOff();
+			SleepUIRenderer->Off();
+			SleepYesCollision->Off();
+			SleepNoCollision->Off();
+			SleepYesRenderer->Off();
+			GameEngineCore::ChangeLevel("SleepLevel");
+		}
 	}
-	else if (true == SleepNoCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect) && true == GameEngineInput::IsDown(VK_LBUTTON))
+	else if (true == SleepYesRenderer->IsUpdate() 
+		&& false == SleepYesCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
 	{
-		ContentInventory::MainInventory->On();
-		Inventory->On();
-		Player::MainPlayer->SetIsUpdate(true);
-		SleepUIRenderer->Off();
-		SleepYesCollision->Off();
-		SleepNoCollision->Off();
+		SleepYesRenderer->Off();
+	}
+	
+	if (true == SleepNoCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+	{
+		SleepNoRenderer->On();
+		if (true == GameEngineInput::IsDown(VK_LBUTTON))
+		{
+			ContentInventory::MainInventory->On();
+			Inventory->On();
+			Player::MainPlayer->SetIsUpdate(true);
+			SleepUIRenderer->Off();
+			SleepYesCollision->Off();
+			SleepNoCollision->Off();
+			SleepNoRenderer->Off();
+		}
+	}
+	else if (true == SleepNoRenderer->IsUpdate()
+		&& false == SleepNoCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+	{
+		SleepNoRenderer->Off();
 	}
 }
 void ContentUIManager::ShopUIUpdate(float _Delta)

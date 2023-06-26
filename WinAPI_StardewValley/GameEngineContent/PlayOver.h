@@ -41,6 +41,10 @@ public:
 		return FileName;
 	}
 
+	GameEngineRenderer* GetRenderer()
+	{
+		return Renderer;
+	}
 protected:
 
 private:

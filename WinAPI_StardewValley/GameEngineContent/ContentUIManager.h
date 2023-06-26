@@ -105,23 +105,11 @@ private:
 	// FarmHouse's Sleep UI
 	GameEngineWindowTexture* SleepUITexture = nullptr;
 	GameEngineRenderer* SleepUIRenderer = nullptr;
+	GameEngineRenderer* SleepYesRenderer = nullptr;
+	GameEngineRenderer* SleepNoRenderer = nullptr;
 	GameEngineCollision* SleepYesCollision = nullptr;
 	GameEngineCollision* SleepNoCollision = nullptr;
 	float UIRenderRatio = 0.1f;
-
-	// SleepLevel UI
-	GameEngineRenderer* CropsMoneyBackRenderer = nullptr;
-	GameEngineRenderer* CropsMoneyTextRenderer = nullptr;
-	GameEngineRenderer* ResourcesMoneyBackRenderer = nullptr;
-	GameEngineRenderer* ResourcesMoneyTextRenderer = nullptr;
-	GameEngineRenderer* FishingMoneyBackRenderer = nullptr;
-	GameEngineRenderer* FishingMoneyTextRenderer = nullptr;
-	GameEngineRenderer* MiningMoneyBackRenderer = nullptr;
-	GameEngineRenderer* MiningMoneyTextRenderer = nullptr;
-	GameEngineRenderer* EtcMoneyBackRenderer = nullptr;
-	GameEngineRenderer* EtcMoneyTextRenderer = nullptr;
-	GameEngineRenderer* TotalMoneyBackRenderer = nullptr;
-	GameEngineRenderer* TotalMoneyTextRenderer = nullptr;
 
 	// Pierre's Shop UI
 	int ItemSelectIndex = -1;
@@ -141,7 +129,6 @@ private:
 	GameEngineRenderer* OkButtonRenderer = nullptr;
 	GameEngineCollision* SellItemCollision = nullptr;
 	GameEngineCollision* OkButtonCollision = nullptr;
-
 
 	// Debug Value
 	GameEngineRenderer* Text1Renderer = nullptr;

@@ -15,6 +15,7 @@
 #include "ContentsEnum.h"
 #include "Beach.h"
 #include "GeneralStore.h"
+#include "PlayOver.h"
 
 PelicanTown::PelicanTown()
 {
@@ -99,6 +100,25 @@ void PelicanTown::Start()
 		FilePath.MoveChild("Resources\\Sounds\\BGM");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Town.mp3"));
 	}
+
+	PlayOver* Over = CreateActor<PlayOver>();
+	Over->Init("Fence.bmp");
+	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->SetPos({ Back->GetRenderScale().X * 0.068f, Back->GetRenderScale().Y * 0.5088f });
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("Fence2.bmp");
+	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->SetPos({ Back->GetRenderScale().X * 0.1346f, Back->GetRenderScale().Y * 0.5088f });
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("Tree_Type1.bmp");
+	Over->SetPos({ 45, Back->GetRenderScale().Y * 0.531f });
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("MiniTree_Type1.bmp");
+	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->SetPos({ Back->GetRenderScale().X * 0.105f, Back->GetRenderScale().Y * 0.523f });
 }
 void PelicanTown::Update(float _Delta)
 {

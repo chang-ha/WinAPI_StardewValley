@@ -31,6 +31,7 @@ void BusStation::LevelStart(GameEngineLevel* _PrevLevel)
 {
 	ContentLevel::LevelStart(_PrevLevel);
 	Player::MainPlayer->SetCollisionTexture("Collision_BusStation.bmp");
+	GetMainCamera()->SetYSort(RenderOrder::Play, true);
 
 	// _PrevLevel == Farm
 	if (nullptr != dynamic_cast<Farm*>(_PrevLevel))
@@ -81,6 +82,11 @@ void BusStation::Start()
 	PlayOver* Over = CreateActor<PlayOver>(UpdateOrder::Map);
 	Over->Init("Detail_BusStation.bmp");
 	Over->SetPos(GetRenderScale().Half());
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("Sign.bmp");
+	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->SetPos({ Back->GetRenderScale().X * 0.329f, Back->GetRenderScale().Y * 0.73f });
 }
 
 void BusStation::Update(float _Delta)

@@ -79,6 +79,7 @@ void SleepLevel::Update(float _Delta)
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(EtcMoney);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
+		EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
 	}
 	else if (true == ContentUIManager::MainUI->GetMoneyData(FishingMoney)->MoneyIsUpdate()
 		&& true == ContentUIManager::MainUI->GetMoneyData(FishingMoney)->IsUpdateEnd()
@@ -87,6 +88,7 @@ void SleepLevel::Update(float _Delta)
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(MiningMoney);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
+		EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
 	}
 	else if (true == ContentUIManager::MainUI->GetMoneyData(ResourcesMoney)->MoneyIsUpdate()
 		&& true == ContentUIManager::MainUI->GetMoneyData(ResourcesMoney)->IsUpdateEnd()
@@ -95,6 +97,7 @@ void SleepLevel::Update(float _Delta)
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(FishingMoney);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
+		EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
 	}
 	else if (true == ContentUIManager::MainUI->GetMoneyData(CropsMoney)->MoneyIsUpdate()
 		&& true == ContentUIManager::MainUI->GetMoneyData(CropsMoney)->IsUpdateEnd()
@@ -103,6 +106,7 @@ void SleepLevel::Update(float _Delta)
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(ResourcesMoney);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
+		EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
 	}
 	else if (false == ContentUIManager::MainUI->GetMoneyData(CropsMoney)->MoneyIsUpdate()
 		&& 0.0f > PerTime)
@@ -110,6 +114,7 @@ void SleepLevel::Update(float _Delta)
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(CropsMoney);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
+		EffectPlayer = GameEngineSound::SoundPlay("cancel.wav");
 	}
 
 	if (true == ContentUIManager::MainUI->GetMoneyData(EtcMoney)->MoneyIsUpdate() 
