@@ -16,6 +16,22 @@ public:
 
 	void Init(const std::string& _FileName) override;
 
+	void Hitten(float _Delta);
+
+	void SetIsHitten(bool _IsHitten)
+	{
+		IsHitten = _IsHitten;
+	}
+
+	int GetHp()
+	{
+		return Hp;
+	}
+
+	void PlusHp(int _Value)
+	{
+		Hp += _Value;
+	}
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
@@ -23,6 +39,8 @@ protected:
 private:
 	int ItemCount = 6;
 	int Hp = 3;
+	bool IsHitten = false;
+	int HittenStep = 0;
 	GameEngineRenderer* UpperPart = nullptr;
 	GameEngineRenderer* UpperPartShadow = nullptr;
 };

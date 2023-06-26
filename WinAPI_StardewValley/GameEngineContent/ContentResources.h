@@ -18,13 +18,8 @@ public:
 
 	virtual void Init(const std::string& _FileName);
 
-	void Hitten();
-
 protected:
 	void Start() override;
-
-	bool IsHitten = false;
-	int HittenStep = 0;
 
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineRenderer* ShadowRenderer = nullptr;

@@ -33,6 +33,7 @@ void Tree::Init(const std::string& _FileName)
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Textures\\Resources\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UpperPart_" + _FileName));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mask_UpperPart_" + _FileName));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shadow_UpperPart_Tree.bmp"));
 	}
 
@@ -47,8 +48,9 @@ void Tree::Init(const std::string& _FileName)
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("UpperPart_" + _FileName);
 	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::Play);
 	UpperPart->SetRenderScale(Texture->GetScale() * RENDERRATIO);
-	UpperPart->SetRenderPos((TILESIZE.Half() - float4{ 0, 38 }) * RENDERRATIO);
-	UpperPart->SetYPivot(- (TILESIZE.Half().Y - 38)* RENDERRATIO);
+	UpperPart->SetRenderPos((TILESIZE.Half() + float4{ 0, 7 }) * RENDERRATIO);
+	UpperPart->SetYPivot(- (TILESIZE.Half().Y + 7)* RENDERRATIO);
+	UpperPart->SetMaskTexture("Mask_UpperPart_" + _FileName);
 
 	Texture = ResourcesManager::GetInst().FindTexture("Shadow_UpperPart_Tree.bmp");
 	UpperPartShadow = CreateRenderer("Shadow_UpperPart_Tree.bmp", RenderOrder::Shadow);
@@ -64,30 +66,56 @@ void Tree::Start()
 
 void Tree::Update(float _Delta)
 {
-	Hitten();
-
-	std::vector<GameEngineCollision*> _CollisionResult;
-	if (true == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect) && false == IsHitten)
-	{
-		EffectPlayer = GameEngineSound::SoundPlay("axchop.wav");
-		IsHitten = true;
-		if (--Hp > 0)
+	Collision->CollisionCallBack(CollisionOrder::Axe, CollisionType::Rect, CollisionType::Rect, [](GameEngineCollision* _this, GameEngineCollision* _Other)
 		{
-			return;
-		}
+			Tree* _CurTree = dynamic_cast<Tree*>(_this->GetActor());
+			_CurTree->SetIsHitten(true);
+			_CurTree->EffectPlayer = GameEngineSound::SoundPlay("axchop.wav");
+			_CurTree->PlusHp(-1);
+			if (_CurTree->GetHp() > 0)
+			{
+				return;
+			}
 
-		GameEngineLevel* CurLevel = GetLevel();
-		for (int x = 0; x < ItemCount; x++)
-		{
-			ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-			Item->Init("Wood.bmp", ItemType::Resources);
-			Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO);
-			Item->RandomVector();
+			GameEngineLevel* CurLevel = _CurTree->GetLevel();
+			for (int x = 0; x < _CurTree->ItemCount; x++)
+			{
+				ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+				Item->Init("Wood.bmp", ItemType::Resources);
+				Item->SetPos(_CurTree->GetPos() + TILESIZE.Half() * RENDERRATIO);
+				Item->RandomVector();
+			}
+			_CurTree->Death();
 		}
-		Death();
-	}
-	else if (false == Collision->Collision(CollisionOrder::Axe, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	);
+
+	Hitten(_Delta);
+}
+
+void Tree::Hitten(float _Delta)
+{
+	static float PerTime = 0.5f;
+	if (true == IsHitten && 0.0f >= PerTime)
 	{
-		IsHitten = false;
+		switch (HittenStep)
+		{
+		case 0:
+			++HittenStep;
+			UpperPart->SetAngle(-1.0f);
+			break;
+		case 1:
+			++HittenStep;
+			UpperPart->SetAngle(1.0f);
+			break;
+		case 2:
+			++HittenStep;
+			UpperPart->SetAngle(0.0f);
+			HittenStep = 0;
+			IsHitten = false;
+		default:
+			break;
+		}
+		PerTime = 0.5f;
 	}
+	PerTime -= _Delta;
 }
