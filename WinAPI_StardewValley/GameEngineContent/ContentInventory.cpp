@@ -289,7 +289,7 @@ void ContentInventory::Start()
 
 	// TestCode
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("Seed_Parsnip.bmp", ItemType::Seed, 1000);
+	Item->Init("Seed_Parsnip.bmp", ItemType::Seed, 50);
 	PushItem(Item);
 }
 

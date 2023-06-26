@@ -757,7 +757,7 @@ void ContentUIManager::MoneyUIUpdate(MoneyData* _CurMoney, float _Delta)
 			_CurMoney->CurTextMoney = _CurMoney->CurMoney;
 		}
 	}
-	else
+	else if (false == _CurMoney->SoundValue && _CurMoney->CurMoney == _CurMoney->CurTextMoney)
 	{
 		_CurMoney->SoundValue = true;
 		_CurMoney->MoneySound.SetLoop(0);

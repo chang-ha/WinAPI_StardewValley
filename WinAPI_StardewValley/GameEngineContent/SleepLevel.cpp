@@ -77,7 +77,6 @@ void SleepLevel::Update(float _Delta)
 		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(EtcMoney);
-		_MoneyData->SetUpdate(true);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
 	}
@@ -86,7 +85,6 @@ void SleepLevel::Update(float _Delta)
 		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(MiningMoney);
-		_MoneyData->SetUpdate(true);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
 	}
@@ -95,7 +93,6 @@ void SleepLevel::Update(float _Delta)
 		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(FishingMoney);
-		_MoneyData->SetUpdate(true);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
 	}
@@ -104,7 +101,6 @@ void SleepLevel::Update(float _Delta)
 		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(ResourcesMoney);
-		_MoneyData->SetUpdate(true);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
 	}
@@ -112,7 +108,6 @@ void SleepLevel::Update(float _Delta)
 		&& 0.0f > PerTime)
 	{
 		_MoneyData = ContentUIManager::MainUI->GetMoneyData(CropsMoney);
-		_MoneyData->SetUpdate(true);
 		_MoneyData->On();
 		PerTime = RENDERTIME;
 	}
