@@ -1,4 +1,6 @@
 ﻿#pragma region
+// TimeValue
+#define TIME 5.0f
 // MoneyValue
 #define PLAYERMONEY_DISTANCE 0.0117f
 #define SHOPMONEY_DISTANCE 0.0136f
@@ -456,7 +458,7 @@ void ContentUIManager::DayUIUpdate(float _Delta)
 	}
 
 	// Time Code
-	static float PerTime = 1.0f;
+	static float PerTime = TIME;
 	if (0.0f >= PerTime)
 	{
 		std::string MinuteString = "";
@@ -501,7 +503,7 @@ void ContentUIManager::DayUIUpdate(float _Delta)
 
 		TimeTextRenderer->SetText(std::to_string(HourValue) + " : " + MinuteString + MeridiemString, 30, "Sandoll 미생");
 		ClockHand->AddAngle(1.5f);
-		PerTime = 1.0f;
+		PerTime = TIME;
 	}
 	PerTime -= _Delta;
 }

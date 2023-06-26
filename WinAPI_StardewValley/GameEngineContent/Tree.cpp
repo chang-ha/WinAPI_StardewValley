@@ -1,4 +1,6 @@
-﻿#include <GameEnginePlatform/GameEngineWindowTexture.h>
+﻿#define HITTIME 0.5f
+
+#include <GameEnginePlatform/GameEngineWindowTexture.h>
 
 #include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/ResourcesManager.h>
@@ -94,7 +96,7 @@ void Tree::Update(float _Delta)
 
 void Tree::Hitten(float _Delta)
 {
-	static float PerTime = 0.5f;
+	static float PerTime = HITTIME;
 	if (true == IsHitten && 0.0f >= PerTime)
 	{
 		switch (HittenStep)
@@ -115,7 +117,7 @@ void Tree::Hitten(float _Delta)
 		default:
 			break;
 		}
-		PerTime = 0.5f;
+		PerTime = HITTIME;
 	}
 	PerTime -= _Delta;
 }
