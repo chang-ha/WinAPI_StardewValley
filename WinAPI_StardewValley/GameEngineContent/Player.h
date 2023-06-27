@@ -116,9 +116,10 @@ private:
 	float Speed = 350.0f;
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
-	ContentItem* CurItem = nullptr;
 	std::string CurState = "";
 	std::string ToolDir = "";
+	ContentItem* CurItem = nullptr;
+	GameEngineRenderer* CurItemRenderer = nullptr;
 
 	PlayerState State = PlayerState::Null;
 	int Dir = PlayerDir::Null;

@@ -126,6 +126,12 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm_Harvest", FilePath.PlusFilePath("Player_arm\\Left_Player_arm_Harvest.bmp"), 4, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm_Harvest", FilePath.PlusFilePath("Player_arm\\Up_Player_arm_Harvest.bmp"), 4, 1);
 
+		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm_Item", FilePath.PlusFilePath("Player_arm\\Up_Player_arm_Item.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm_Item", FilePath.PlusFilePath("Player_arm\\Down_Player_arm_Item.bmp"), 9, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_arm_Item", FilePath.PlusFilePath("Player_arm\\Right_Player_arm_Item.bmp"), 7, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm_Item", FilePath.PlusFilePath("Player_arm\\Left_Player_arm_Item.bmp"), 7, 1);
+
+
 		// Hair Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_hair", FilePath.PlusFilePath("Player_hair\\Up_Player_hair1.bmp"), 9, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_hair", FilePath.PlusFilePath("Player_hair\\Down_Player_hair1.bmp"), 9, 1);
@@ -259,6 +265,11 @@ void Player::Start()
 	ToolRenderer->SetRenderScale(float4{16, 50} * RENDERRATIO);
 	ToolRenderer->Off();
 
+	CurItemRenderer = CreateRenderer(RenderOrder::Play);
+	CurItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
+	CurItemRenderer->SetRenderPos(float4{0, -15} * RENDERRATIO);
+	CurItemRenderer->SetYPivot(15 * RENDERRATIO);
+	CurItemRenderer->Off();
 	// Shadow
 	ShadowRenderer->SetAlpha(120);
 	ShadowRenderer->CreateAnimation("Idle", "Shadow.bmp", 0, 0);
@@ -276,7 +287,6 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Up_Tool2", "Up_Player_body_Tool2", 0, 2, TOOL2SPEED, false);
 			BodyRenderer->FindAnimation("Up_Tool1")->Inters[4] = TOOL1LASTANI;
 			BodyRenderer->FindAnimation("Up_Tool2")->Inters[2] = TOOL2LASTANI;
-			BodyRenderer->CreateAnimation("Up_Harvest", "Up_Player_body_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		// Down
@@ -421,6 +431,8 @@ void Player::Start()
 			ArmRenderer->FindAnimation("Up_Tool1")->Inters[4] = TOOL1LASTANI;
 			ArmRenderer->FindAnimation("Up_Tool2")->Inters[2] = TOOL2LASTANI;
 			ArmRenderer->CreateAnimation("Up_Harvest", "Up_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
+			ArmRenderer->CreateAnimation("Up_Idle_Item", "Up_Player_arm_Item", 0, 0);
+			ArmRenderer->CreateAnimation("Up_Run_Item", "Up_Player_arm_Item", 1, 8, RUNSPEED1);
 		}
 
 		// Down
@@ -433,6 +445,8 @@ void Player::Start()
 			ArmRenderer->FindAnimation("Down_Tool2")->Inters[2] = TOOL2LASTANI;
 			ArmRenderer->CreateAnimation("Down_Harvest", "Down_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
 			ArmRenderer->CreateAnimation("Down_OpenBox", "Down_Player_arm_Harvest", 3, 3, 5.0f, false);
+			ArmRenderer->CreateAnimation("Down_Idle_Item", "Down_Player_arm_Item", 0, 0);
+			ArmRenderer->CreateAnimation("Down_Run_Item", "Down_Player_arm_Item", 1, 8, RUNSPEED1);
 		}
 
 		// Right
@@ -444,6 +458,8 @@ void Player::Start()
 			ArmRenderer->FindAnimation("Right_Tool1")->Inters[4] = TOOL1LASTANI;
 			ArmRenderer->FindAnimation("Right_Tool2")->Inters[2] = TOOL2LASTANI;
 			ArmRenderer->CreateAnimation("Right_Harvest", "Right_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
+			ArmRenderer->CreateAnimation("Right_Idle_Item", "Right_Player_arm_Item", 0, 0);
+			ArmRenderer->CreateAnimation("Right_Run_Item", "Right_Player_arm_Item", 1, 6, RUNSPEED2);
 		}
 
 		// Left
@@ -455,6 +471,8 @@ void Player::Start()
 			ArmRenderer->FindAnimation("Left_Tool1")->Inters[4] = TOOL1LASTANI;
 			ArmRenderer->FindAnimation("Left_Tool2")->Inters[2] = TOOL2LASTANI;
 			ArmRenderer->CreateAnimation("Left_Harvest", "Left_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
+			ArmRenderer->CreateAnimation("Left_Idle_Item", "Left_Player_arm_Item", 0, 0);
+			ArmRenderer->CreateAnimation("Left_Run_Item", "Left_Player_arm_Item", 1, 6, RUNSPEED2);
 		}
 	}
 
@@ -509,14 +527,6 @@ void Player::Start()
 		WaterRenderer->CreateAnimation("Water", "WaterAnimation", 0, 9, WATERSPEED, false);
 		WaterRenderer->ChangeAnimation("Water");
 	}
-
-	//{
-	//	HatRenderer = CreateRenderer("Player_hat_05.bmp", RenderOrder::Equip);
-	//	HatRenderer->SetTexture("Player_hat_05.bmp");
-	//	HatRenderer->SetRenderPos({0,-32});
-	//	HatRenderer->SetRenderScale(HatRenderer->GetTextureScale() * 3.7f);
-	//}
-
 	
 	// Player Collision
 	BodyCollision = CreateCollision(CollisionOrder::Player);
@@ -547,6 +557,35 @@ void Player::Update(float _Delta)
 	if (true == WaterRenderer->IsAnimationEnd())
 	{
 		WaterRenderer->Off();
+	}
+
+	if (nullptr != CurItem)
+	{
+		if (ItemType::Resources == CurItem->GetItemType() || ItemType::Crops == CurItem->GetItemType() || ItemType::Seed == CurItem->GetItemType())
+		{
+			if (PlayerState::Idle == State)
+			{
+				ChangeAnimationState("Idle");	
+			}
+			CurItemRenderer->SetTexture("Inventory_" + CurItem->GetItemName());
+			CurItemRenderer->On();
+		}
+		else
+		{
+			if (PlayerState::Idle == State)
+			{
+				ChangeAnimationState("Idle");
+			}
+			CurItemRenderer->Off();
+		}
+	}
+	else
+	{
+		if (PlayerState::Idle == State)
+		{
+			ChangeAnimationState("Idle");
+		}
+		CurItemRenderer->Off();
 	}
 }
 
@@ -749,14 +788,25 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	{
 		AnimationName = "Down_";
 	}
+
+
 	// Animation Change
 	AnimationName += _StateName;
 	CurState = _StateName;
 	BodyRenderer->ChangeAnimation(AnimationName);
 	PantsRenderer->ChangeAnimation(AnimationName);
 	ShirtRenderer->ChangeAnimation(AnimationName);
-	ArmRenderer->ChangeAnimation(AnimationName);
 	HairRenderer->ChangeAnimation(AnimationName);
+
+	if (nullptr != CurItem && ("Idle" == _StateName || "Run" == _StateName))
+	{
+		if (ItemType::Resources == CurItem->GetItemType() || ItemType::Crops == CurItem->GetItemType() || ItemType::Seed == CurItem->GetItemType())
+		{
+			ArmRenderer->ChangeAnimation(AnimationName + "_Item");
+			return;
+		}
+	}
+	ArmRenderer->ChangeAnimation(AnimationName);
 }
 
 void Player::SetCollisionTexture(const std::string& _CollisionTexture)
