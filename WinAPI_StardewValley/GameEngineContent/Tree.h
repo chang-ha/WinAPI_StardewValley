@@ -45,6 +45,7 @@ protected:
 private:
 	bool IsHitten = false;
 	bool IsFall = false;
+	bool firstFall = false;
 	int ItemCount = 6;
 	int Hp = 9;
 	int HittenStep = 0;

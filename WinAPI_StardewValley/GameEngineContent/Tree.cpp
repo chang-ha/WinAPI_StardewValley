@@ -47,6 +47,8 @@ void Tree::Init(const std::string& _FileName)
 		FilePath.MoveParentToExistsChild("Resources");
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("axchop.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("tree_falldown.wav"));
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("tree_thud.wav"));
 	}
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("UpperPart_" + _FileName);
 	UpperPart = CreateRenderer("UpperPart_" + _FileName, RenderOrder::Play);
@@ -141,6 +143,13 @@ void Tree::FallDown(float _Delta)
 	{
 		return;
 	}
+	
+	if (false == firstFall)
+	{
+		EffectPlayer = GameEngineSound::SoundPlay("tree_falldown.wav"); 
+		firstFall = true;
+	}
+
 	UpperPart->SetRenderPos((TILESIZE.Half() + float4{ 0, 3 }) * RENDERRATIO);
 	IsHitten = false;
 
@@ -184,6 +193,7 @@ void Tree::FallDown(float _Delta)
 		UpperPart = nullptr;
 		UpperPartShadow = nullptr;
 		IsFall = false;
+		EffectPlayer = GameEngineSound::SoundPlay("tree_thud.wav");
 	}
 }
 
