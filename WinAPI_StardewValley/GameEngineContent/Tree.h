@@ -16,7 +16,6 @@ public:
 
 	void Init(const std::string& _FileName) override;
 
-	void Hitten(float _Delta);
 
 	void SetIsHitten(bool _IsHitten)
 	{
@@ -32,15 +31,28 @@ public:
 	{
 		Hp += _Value;
 	}
+
+	void SetIsFall(bool _IsFall)
+	{
+		IsFall = _IsFall;
+	}
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
+	void Hitten(float _Delta);
+	void FallDown(float _Delta);
 
 private:
-	int ItemCount = 6;
-	int Hp = 3;
 	bool IsHitten = false;
+	bool IsFall = false;
+	int ItemCount = 6;
+	int Hp = 9;
 	int HittenStep = 0;
+	float AngleValue = 0.0f;
+	float CurAngle = 0.0f;
+	float AngleSpeed = 0.0f;
+	float ItemPos = 0.0f;
+
 	GameEngineRenderer* UpperPart = nullptr;
 	GameEngineRenderer* UpperPartShadow = nullptr;
 };

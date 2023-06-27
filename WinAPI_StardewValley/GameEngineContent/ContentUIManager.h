@@ -91,6 +91,13 @@ public:
 		EnergyValue += _EnergyValue;
 	}
 
+	void ResetTimeValue()
+	{
+		HourValue = 6;
+		MinuteValue = 0;
+		Meridiem = false;
+		TimeTextRenderer->SetText("6 : 00 오전", 30, "Sandoll 미생");
+	}
 protected:
 
 private:

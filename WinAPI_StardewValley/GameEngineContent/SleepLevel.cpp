@@ -36,6 +36,7 @@ void SleepLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	ContentLevel::LevelEnd(_NextLevel);
 	ContentUIManager::MainUI->SleepMoneyRenderOff();
+	ContentUIManager::MainUI->ResetTimeValue();
 }
 
 void SleepLevel::Start()

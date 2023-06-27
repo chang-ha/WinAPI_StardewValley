@@ -1,4 +1,5 @@
-﻿#define HITTIME 0.5f
+﻿#define FALLSPEED 1.0f
+#define HITTENANGLE 0.25f
 
 #include <GameEnginePlatform/GameEngineWindowTexture.h>
 
@@ -74,50 +75,115 @@ void Tree::Update(float _Delta)
 			_CurTree->SetIsHitten(true);
 			_CurTree->EffectPlayer = GameEngineSound::SoundPlay("axchop.wav");
 			_CurTree->PlusHp(-1);
-			if (_CurTree->GetHp() > 0)
+			if (_CurTree->GetHp() > 3)
 			{
+				if (Player::MainPlayer->GetPos().X > _CurTree->GetPos().X)
+				{
+					_CurTree->AngleValue = -2.0f;
+				}
+				else
+				{
+					_CurTree->AngleValue = 2.0f;
+				}
 				return;
 			}
-
-			GameEngineLevel* CurLevel = _CurTree->GetLevel();
-			for (int x = 0; x < _CurTree->ItemCount; x++)
-			{
-				ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-				Item->Init("Wood.bmp", ItemType::Resources);
-				Item->SetPos(_CurTree->GetPos() + TILESIZE.Half() * RENDERRATIO);
-				Item->RandomVector();
-			}
-			_CurTree->Death();
+			_CurTree->SetIsFall(true);
 		}
 	);
 
 	Hitten(_Delta);
+	FallDown(_Delta);
+
+	if (0 >= Hp)
+	{
+		ContentItem* Item = GetLevel()->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		Item->Init("Wood.bmp", ItemType::Resources);
+		Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO);
+		Item->RandomVector();
+		this->Death();
+	}
+
 }
 
 void Tree::Hitten(float _Delta)
 {
-	static float PerTime = HITTIME;
-	if (true == IsHitten && 0.0f >= PerTime)
+	if (nullptr == UpperPart)
 	{
-		switch (HittenStep)
-		{
-		case 0:
-			++HittenStep;
-			UpperPart->SetAngle(-1.0f);
-			break;
-		case 1:
-			++HittenStep;
-			UpperPart->SetAngle(1.0f);
-			break;
-		case 2:
-			++HittenStep;
-			UpperPart->SetAngle(0.0f);
-			HittenStep = 0;
-			IsHitten = false;
-		default:
-			break;
-		}
-		PerTime = HITTIME;
+		return;
 	}
-	PerTime -= _Delta;
+
+	if (true == IsHitten)
+	{
+		if (AngleValue == CurAngle)
+		{
+			AngleValue = -AngleValue / 2.0f;
+			if (HITTENANGLE > abs(AngleValue))
+			{
+				AngleValue = 0.0f;
+			}
+		}
+		else if (0 > AngleValue && AngleValue != CurAngle)
+		{
+			CurAngle -= HITTENANGLE;
+			UpperPart->SetAngle(CurAngle);
+		}
+		else if (0 < AngleValue && AngleValue != CurAngle)
+		{
+			CurAngle += HITTENANGLE;
+			UpperPart->SetAngle(CurAngle);
+		}
+	}
 }
+
+void Tree::FallDown(float _Delta)
+{
+	if (false == IsFall || nullptr == UpperPart)
+	{
+		return;
+	}
+	UpperPart->SetRenderPos((TILESIZE.Half() + float4{ 0, 3 }) * RENDERRATIO);
+	IsHitten = false;
+
+	if (Player::MainPlayer->GetPos().X > GetPos().X)
+	{
+		AngleValue = -90.0f;
+		ItemPos = - TILESIZE.X * RENDERRATIO * 3;
+	}
+	else
+	{
+		AngleValue = 90.0f;
+		ItemPos = TILESIZE.X * RENDERRATIO * 3;
+	}
+
+	if (0 > AngleValue && AngleValue != CurAngle)
+	{
+		AngleSpeed -= FALLSPEED * _Delta;
+		CurAngle += AngleSpeed;
+		UpperPart->SetAngle(CurAngle);
+	}
+	else if (0 < AngleValue && AngleValue != CurAngle)
+	{
+		AngleSpeed += FALLSPEED * _Delta;
+		CurAngle += AngleSpeed;
+		UpperPart->SetAngle(CurAngle);
+	}
+
+	if (90 <= abs(CurAngle) && nullptr != UpperPart)
+	{
+		GameEngineLevel* CurLevel = GetLevel();
+		for (int x = 0; x < ItemCount; x++)
+		{
+			ContentItem* Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+			Item->Init("Wood.bmp", ItemType::Resources);
+			Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO + float4{ItemPos, 0});
+			Item->RandomVector();
+		}
+		UpperPart->Death();
+		UpperPartShadow->Death();
+		CurAngle = 0;
+		UpperPart = nullptr;
+		UpperPartShadow = nullptr;
+		IsFall = false;
+	}
+}
+
