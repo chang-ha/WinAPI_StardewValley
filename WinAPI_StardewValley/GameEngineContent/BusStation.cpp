@@ -87,6 +87,16 @@ void BusStation::Start()
 	Over->Init("Sign.bmp");
 	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
 	Over->SetPos({ Back->GetRenderScale().X * 0.329f, Back->GetRenderScale().Y * 0.73f });
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("Bus.bmp");
+	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->SetPos({ Back->GetRenderScale().X * 0.4275f, Back->GetRenderScale().Y * 0.2345f });
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("TicketOffice.bmp");
+	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->SetPos({ Back->GetRenderScale().X * 0.215f, Back->GetRenderScale().Y * 0.365f });
 }
 
 void BusStation::Update(float _Delta)

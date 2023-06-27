@@ -112,6 +112,9 @@
     <ClInclude Include="SmallTree.h">
       <Filter>Level\05. FarmMap\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="GiftBox.h">
+      <Filter>Level\04. FarmHouse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -224,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="SmallTree.cpp">
       <Filter>Level\05. FarmMap\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="GiftBox.cpp">
+      <Filter>Level\04. FarmHouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 #include <GameEngineCore/GameEngineCore.h>
+#include <GameEngineCore/TileMap.h>
 
 #include "FarmHouse.h"
 #include "BackGround.h"
@@ -19,6 +20,7 @@
 #include "ContentInventory.h"
 #include "ContentsEnum.h"
 #include "SleepLevel.h"
+#include "GiftBox.h"
 
 FarmHouse::FarmHouse()
 {
@@ -47,6 +49,10 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 	if (nullptr != dynamic_cast<TitleScreen*>(_PrevLevel))
 	{
 		BGMPlayer = GameEngineSound::SoundPlay("Farm.mp3", 10000);
+
+		GiftBox* _GiftBox = CreateActor<GiftBox>();
+		_GiftBox->SetPos(UITileMap->IndexToPos(14,11));
+		_GiftBox->SetPlayLevel(this);
 	}
 
 	// _PrevLevel == Farm
@@ -132,6 +138,7 @@ void FarmHouse::Start()
 		BedDie->Init("Detail_BedDie.bmp");
 		BedDie->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.60f });
 	}
+
 }
 
 void FarmHouse::Update(float _Delta)
