@@ -28,6 +28,7 @@
 #include "ContentsEnum.h"
 #include "ContentUIManager.h"
 #include "ContentItem.h"
+#include "ContentInventory.h"
 
 Player* Player::MainPlayer = nullptr;
 
@@ -268,7 +269,7 @@ void Player::Start()
 	CurItemRenderer = CreateRenderer(RenderOrder::Play);
 	CurItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
 	CurItemRenderer->SetRenderPos(float4{0, -15} * RENDERRATIO);
-	CurItemRenderer->SetYPivot(15 * RENDERRATIO);
+	CurItemRenderer->SetYPivot(16 * RENDERRATIO);
 	CurItemRenderer->Off();
 	// Shadow
 	ShadowRenderer->SetAlpha(120);
@@ -545,6 +546,8 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
+	CurItem = ContentInventory::MainInventory->GetCurItem();
+
 	if (true == IsUpdate)
 	{
 		StateUpdate(_Delta);
@@ -559,33 +562,36 @@ void Player::Update(float _Delta)
 		WaterRenderer->Off();
 	}
 
-	if (nullptr != CurItem)
-	{
-		if (ItemType::Resources == CurItem->GetItemType() || ItemType::Crops == CurItem->GetItemType() || ItemType::Seed == CurItem->GetItemType())
-		{
-			if (PlayerState::Idle == State)
-			{
-				ChangeAnimationState("Idle");	
-			}
-			CurItemRenderer->SetTexture("Inventory_" + CurItem->GetItemName());
-			CurItemRenderer->On();
-		}
-		else
-		{
-			if (PlayerState::Idle == State)
-			{
-				ChangeAnimationState("Idle");
-			}
-			CurItemRenderer->Off();
-		}
-	}
-	else
+	if (nullptr == CurItem)
 	{
 		if (PlayerState::Idle == State)
 		{
 			ChangeAnimationState("Idle");
 		}
 		CurItemRenderer->Off();
+		return;
+	}
+
+	if (PlayerState::Idle == State || PlayerState::Run == State)
+	{
+		if (ItemType::Resources == CurItem->GetItemType() || ItemType::Crops == CurItem->GetItemType() || ItemType::Seed == CurItem->GetItemType())
+		{
+			CurItemRenderer->SetTexture("Inventory_" + CurItem->GetItemName());
+			CurItemRenderer->On();
+		}
+		else
+		{
+			CurItemRenderer->Off();
+		}
+	}
+	else
+	{
+		CurItemRenderer->Off();
+	}
+
+	if (PlayerState::Idle == State)
+	{
+		ChangeAnimationState("Idle");
 	}
 }
 
@@ -789,7 +795,6 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 		AnimationName = "Down_";
 	}
 
-
 	// Animation Change
 	AnimationName += _StateName;
 	CurState = _StateName;
@@ -802,11 +807,11 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	{
 		if (ItemType::Resources == CurItem->GetItemType() || ItemType::Crops == CurItem->GetItemType() || ItemType::Seed == CurItem->GetItemType())
 		{
-			ArmRenderer->ChangeAnimation(AnimationName + "_Item");
+			ArmRenderer->ChangeAnimation(AnimationName + "_Item", static_cast<int>(BodyRenderer->GetCurFrame()), true);
 			return;
 		}
 	}
-	ArmRenderer->ChangeAnimation(AnimationName);
+	ArmRenderer->ChangeAnimation(AnimationName, static_cast<int>(BodyRenderer->GetCurFrame()), true);
 }
 
 void Player::SetCollisionTexture(const std::string& _CollisionTexture)
