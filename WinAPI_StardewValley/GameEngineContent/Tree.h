@@ -40,6 +40,7 @@ protected:
 	void Start() override;
 	void Update(float _Delta) override;
 	void Hitten(float _Delta);
+	void HittenStump();
 	void FallDown(float _Delta);
 
 private:

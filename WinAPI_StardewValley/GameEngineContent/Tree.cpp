@@ -95,16 +95,7 @@ void Tree::Update(float _Delta)
 
 	Hitten(_Delta);
 	FallDown(_Delta);
-
-	if (0 >= Hp)
-	{
-		ContentItem* Item = GetLevel()->CreateActor<ContentItem>(UpdateOrder::Inventory);
-		Item->Init("Wood.bmp", ItemType::Resources);
-		Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO);
-		Item->RandomVector();
-		this->Death();
-	}
-
+	HittenStump();
 }
 
 void Tree::Hitten(float _Delta)
@@ -137,6 +128,41 @@ void Tree::Hitten(float _Delta)
 	}
 }
 
+void Tree::HittenStump()
+{
+	if (nullptr != UpperPart || false == IsHitten)
+	{
+		return;
+	}
+
+	switch (HittenStep++)
+	{
+	case 0:
+		Renderer->SetRenderPos((TILESIZE.Half() - float4{ 0, 2 }) * RENDERRATIO + float4{2,0});
+		break;
+	case 1:
+		Renderer->SetRenderPos((TILESIZE.Half() - float4{ 0, 2 }) * RENDERRATIO + float4{ -2,0 });
+		break;
+	case 2:
+		Renderer->SetRenderPos((TILESIZE.Half() - float4{ 0, 2 }) * RENDERRATIO);
+		HittenStep = 0;
+		IsHitten = false;
+		break;
+	default:
+		break;
+	}
+
+	if (0 >= Hp)
+	{
+		ContentItem* Item = GetLevel()->CreateActor<ContentItem>(UpdateOrder::Inventory);
+		Item->Init("Wood.bmp", ItemType::Resources);
+		Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO);
+		Item->RandomVector();
+		this->Death();
+	}
+}
+
+
 void Tree::FallDown(float _Delta)
 {
 	if (false == IsFall || nullptr == UpperPart)
@@ -148,21 +174,20 @@ void Tree::FallDown(float _Delta)
 	{
 		EffectPlayer = GameEngineSound::SoundPlay("tree_falldown.wav"); 
 		firstFall = true;
+		if (Player::MainPlayer->GetPos().X > GetPos().X)
+		{
+			AngleValue = -90.0f;
+			ItemPos = -TILESIZE.X * RENDERRATIO * 3;
+		}
+		else if (Player::MainPlayer->GetPos().X <= GetPos().X)
+		{
+			AngleValue = 90.0f;
+			ItemPos = TILESIZE.X * RENDERRATIO * 3;
+		}
 	}
 
 	UpperPart->SetRenderPos((TILESIZE.Half() + float4{ 0, 3 }) * RENDERRATIO);
 	IsHitten = false;
-
-	if (Player::MainPlayer->GetPos().X > GetPos().X)
-	{
-		AngleValue = -90.0f;
-		ItemPos = - TILESIZE.X * RENDERRATIO * 3;
-	}
-	else
-	{
-		AngleValue = 90.0f;
-		ItemPos = TILESIZE.X * RENDERRATIO * 3;
-	}
 
 	if (0 > AngleValue && AngleValue != CurAngle)
 	{
@@ -193,6 +218,7 @@ void Tree::FallDown(float _Delta)
 		UpperPart = nullptr;
 		UpperPartShadow = nullptr;
 		IsFall = false;
+		Hp = 3;
 		EffectPlayer = GameEngineSound::SoundPlay("tree_thud.wav");
 	}
 }
