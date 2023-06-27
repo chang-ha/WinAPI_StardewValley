@@ -178,28 +178,40 @@ void Farm::Start()
 
 		// Tree
 		Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		FarmTree->Init("Tree.bmp");
+		FarmTree->Init("Tree2.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(60, 20));
 
 		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		FarmTree->Init("Tree.bmp");
+		FarmTree->Init("Tree2.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(55, 17));
 
 		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		FarmTree->Init("Tree.bmp");
+		FarmTree->Init("Tree2.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(53, 19));
 
 		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		FarmTree->Init("Tree.bmp");
+		FarmTree->Init("Tree3.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(49, 23));
 
 		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		FarmTree->Init("Tree.bmp");
+		FarmTree->Init("Tree3.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(55, 33));
 
 		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree3.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(53, 31));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 		FarmTree->Init("Tree.bmp");
-		FarmTree->SetPos(FarmTileMap->IndexToPos(67, 31));
+		FarmTree->SetPos(FarmTileMap->IndexToPos(50, 13));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(61, 30));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(51, 22));
 
 		// Small Tree
 		SmallTree* FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);

@@ -37,6 +37,14 @@ void Tree::Init(const std::string& _FileName)
 		FilePath.MoveChild("Resources\\Textures\\Resources\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UpperPart_" + _FileName));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Mask_UpperPart_" + _FileName));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Shadow_UpperPart_Tree.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Textures\\Resources\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shadow_UpperPart_Tree.bmp"));
 	}
 
@@ -172,8 +180,10 @@ void Tree::FallDown(float _Delta)
 	
 	if (false == firstFall)
 	{
-		EffectPlayer = GameEngineSound::SoundPlay("tree_falldown.wav"); 
+		UpperPartShadow->Death();
+		UpperPartShadow = nullptr;
 		firstFall = true;
+		EffectPlayer = GameEngineSound::SoundPlay("tree_falldown.wav");
 		if (Player::MainPlayer->GetPos().X > GetPos().X)
 		{
 			AngleValue = -90.0f;
@@ -211,12 +221,15 @@ void Tree::FallDown(float _Delta)
 			Item->Init("Wood.bmp", ItemType::Resources);
 			Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO + float4{ItemPos, 0});
 			Item->RandomVector();
+
+			Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+			Item->Init("Sap.bmp", ItemType::Resources);
+			Item->SetPos(GetPos() + TILESIZE.Half() * RENDERRATIO + float4{ ItemPos, 0 });
+			Item->RandomVector();
 		}
 		UpperPart->Death();
-		UpperPartShadow->Death();
 		CurAngle = 0;
 		UpperPart = nullptr;
-		UpperPartShadow = nullptr;
 		IsFall = false;
 		Hp = 3;
 		EffectPlayer = GameEngineSound::SoundPlay("tree_thud.wav");

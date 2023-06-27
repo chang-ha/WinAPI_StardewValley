@@ -136,4 +136,8 @@ void ContentItem::SetItemPrice()
 	{
 		ItemSellPrice = 80;
 	}
+	else if ("Sap.bmp" == ItemName)
+	{
+		ItemSellPrice = 2;
+	}
 }
