@@ -62,6 +62,7 @@ void GiftBox::Update(float _Delta)
 	if (true == Collision->Collision(CollisionOrder::PlayerAction, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
 		Renderer->ChangeAnimation("GiftBox_Use");
+		Collision->Death();
 
 		ContentItem* Item = PlayLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 		Item->Init("Seed_Parsnip.bmp", ItemType::Seed, 15);

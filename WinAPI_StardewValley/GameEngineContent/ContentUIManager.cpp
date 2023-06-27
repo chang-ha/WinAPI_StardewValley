@@ -406,6 +406,7 @@ void ContentUIManager::ShopUIOff()
 	CancelCollision->Off();
 	ItemSelectRenderer->Off();
 	AllMoney[MoneyEnum::ShopPlayerMoney].IsUpdate = false;
+	AllMoney[MoneyEnum::ShopPlayerMoney].MoneySound.SetLoop(0);
 	AllMoney[MoneyEnum::ShopPlayerMoney].MoneyRendererOff();
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
