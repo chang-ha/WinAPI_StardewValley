@@ -114,6 +114,10 @@ void Player::HarvestStart()
 	}
 }
 
+void Player::OpenBoxStart()
+{
+}
+
 void Player::IdleUpdate(float _DeltaTime)
 {
 	// EffectPlayer.Stop();
@@ -683,4 +687,23 @@ void Player::HarvestUpdate(float _DeltaTime)
 		ToolCollision->Death();
 		ArmRenderer->SetYPivot(5 * RENDERRATIO);
 	}
+}
+
+void Player::OpenBoxUpdate(float _Delta)
+{
+	ChangeAnimationState("OpenBox");
+	ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+
+	static GameEngineRenderer* _TempRenderer = CreateRenderer(RenderOrder::PlayOver);
+	_TempRenderer->SetTexture("Seed_Parsnip.bmp");
+	_TempRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
+	_TempRenderer->SetRenderPos(float4{0, -17} * RENDERRATIO);
+
+	static float PerTime = 3.0f;
+	if (0.0f >= PerTime)
+	{
+		_TempRenderer->Death();
+		ChangeState(PlayerState::Idle);
+	}
+	PerTime -= _Delta;
 }

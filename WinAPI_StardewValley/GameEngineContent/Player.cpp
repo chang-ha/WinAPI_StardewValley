@@ -216,7 +216,6 @@ void Player::Start()
 
 		// Water
 		ResourcesManager::GetInst().CreateSpriteSheet("WaterAnimation", FilePath.PlusFilePath("Player_tool\\WaterAnimation.bmp"), 10, 1);
-
 	}
 
 	// Sound Load
@@ -289,6 +288,7 @@ void Player::Start()
 			BodyRenderer->FindAnimation("Down_Tool1")->Inters[4] = TOOL1LASTANI;
 			BodyRenderer->FindAnimation("Down_Tool2")->Inters[2] = TOOL2LASTANI;
 			BodyRenderer->CreateAnimation("Down_Harvest", "Down_Player_body_Harvest", 0, 3, HARVESTSPEED, false);
+			BodyRenderer->CreateAnimation("Down_OpenBox", "Down_Player_body_Harvest", 3, 3, 5.0f, false);
 		}
 		
 		// Right
@@ -336,6 +336,7 @@ void Player::Start()
 			PantsRenderer->FindAnimation("Down_Tool1")->Inters[4] = TOOL1LASTANI;
 			PantsRenderer->FindAnimation("Down_Tool2")->Inters[2] = TOOL2LASTANI;
 			PantsRenderer->CreateAnimation("Down_Harvest", "Down_Player_Pants_Harvest", 0, 3, HARVESTSPEED, false);
+			PantsRenderer->CreateAnimation("Down_OpenBox", "Down_Player_Pants_Harvest", 3, 3, 5.0f, false);
 		}
 
 		//Right
@@ -383,6 +384,7 @@ void Player::Start()
 			ShirtRenderer->FindAnimation("Down_Tool1")->Inters[4] = TOOL1LASTANI;
 			ShirtRenderer->FindAnimation("Down_Tool2")->Inters[2] = TOOL2LASTANI;
 			ShirtRenderer->CreateAnimation("Down_Harvest", "Down_Player_Shirt_Harvest", 0, 3, HARVESTSPEED, false);
+			ShirtRenderer->CreateAnimation("Down_OpenBox", "Down_Player_Shirt_Harvest", 3, 3, 5.0f, false);
 		}
 
 		//Right
@@ -430,6 +432,7 @@ void Player::Start()
 			ArmRenderer->FindAnimation("Down_Tool1")->Inters[4] = TOOL1LASTANI;
 			ArmRenderer->FindAnimation("Down_Tool2")->Inters[2] = TOOL2LASTANI;
 			ArmRenderer->CreateAnimation("Down_Harvest", "Down_Player_arm_Harvest", 0, 3, HARVESTSPEED, false);
+			ArmRenderer->CreateAnimation("Down_OpenBox", "Down_Player_arm_Harvest", 3, 3, 5.0f, false);
 		}
 
 		// Right
@@ -477,6 +480,7 @@ void Player::Start()
 			HairRenderer->FindAnimation("Down_Tool1")->Inters[4] = TOOL1LASTANI;
 			HairRenderer->FindAnimation("Down_Tool2")->Inters[2] = TOOL2LASTANI;
 			HairRenderer->CreateAnimation("Down_Harvest", "Down_Player_hair_Harvest", 0, 3, HARVESTSPEED, false);
+			HairRenderer->CreateAnimation("Down_OpenBox", "Down_Player_hair_Harvest", 3, 3, 5.0f, false);
 		}
 
 		//Right
@@ -560,6 +564,8 @@ void Player::StateUpdate(float _Delta)
 		return Tool2Update(_Delta);
 	case PlayerState::Harvest:
 		return HarvestUpdate(_Delta);
+	case PlayerState::OpenBox:
+		return OpenBoxUpdate(_Delta);
 	default:
 		break;
 	}
@@ -585,6 +591,9 @@ void Player::ChangeState(PlayerState _State)
 			break;
 		case PlayerState::Harvest:
 			HarvestStart();
+			break;
+		case PlayerState::OpenBox:
+			OpenBoxStart();
 			break;
 		default:
 			break;
@@ -736,6 +745,10 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	// ShirtPos Setting
 	ShirtRenderer->SetRenderPos({ 0, 2 * RENDERRATIO });
 
+	if (PlayerState::OpenBox == State)
+	{
+		AnimationName = "Down_";
+	}
 	// Animation Change
 	AnimationName += _StateName;
 	CurState = _StateName;

@@ -68,6 +68,7 @@ void GiftBox::Update(float _Delta)
 		Item->Init("Seed_Parsnip.bmp", ItemType::Seed, 15);
 		ContentInventory::MainInventory->PushItem(Item);
 
+		Player::MainPlayer->ChangeState(PlayerState::OpenBox);
 		EffectPlayer = GameEngineSound::SoundPlay("getnewitem.wav");
 	}
 

@@ -186,7 +186,7 @@ public:
 	}
 
 private:
-	std::string Face;
-	int TextScale;
+	std::string Face = "";
+	int TextScale = 0;
 };
 
