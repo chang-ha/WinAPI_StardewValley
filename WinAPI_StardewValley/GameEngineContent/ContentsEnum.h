@@ -30,6 +30,7 @@ enum class CollisionOrder
 	Axe,
 	PickAxe,
 	Hoe,
+	Sickle,
 	WateringCan,
 	Resources,
 	Item,

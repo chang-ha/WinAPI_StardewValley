@@ -242,6 +242,15 @@ void Player::Start()
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_WateringCan.bmp", FilePath.PlusFilePath("Player_tool\\Up_WateringCan.bmp"), 1, 1);
 
+		// Sickle
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Sickle.bmp", FilePath.PlusFilePath("Player_tool\\Tool_Sickle.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Tool_Sickle_Mask.bmp"));
+		Sprite0->SetMaskTexture("Tool_Sickle_Mask.bmp");
+
+		Sprite0 = ResourcesManager::GetInst().CreateSpriteSheet("Left_Sickle.bmp", FilePath.PlusFilePath("Player_tool\\Left_Tool_Sickle.bmp"), 1, 1);
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Player_tool\\Left_Tool_Sickle_Mask.bmp"));
+		Sprite0->SetMaskTexture("Left_Tool_Sickle_Mask.bmp");
+
 		// Water
 		ResourcesManager::GetInst().CreateSpriteSheet("WaterAnimation", FilePath.PlusFilePath("Player_tool\\WaterAnimation.bmp"), 10, 1);
 	}

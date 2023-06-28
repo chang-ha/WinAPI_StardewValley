@@ -101,6 +101,8 @@ void Player::Tool2Start()
 void Player::Tool3Start()
 {
 	ChangeAnimationState("Tool3");
+	ToolRenderer->SetSprite("Sickle.bmp");
+	ToolCollisionCreate(CollisionOrder::Sickle);
 	if (PlayerDir::Down == Dir)
 	{
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
@@ -701,11 +703,153 @@ void Player::Tool2Update(float _DeltaTime)
 
 void Player::Tool3Update(float _Delta)
 {
+	ToolRenderer->On();
+	switch (Dir)
+	{
+	case Null:
+		break;
+	case Up:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
+			ToolRenderer->SetAngle(-135.0f);
+			ToolRenderer->SetRenderPos(float4{ 3, -13 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetAngle(-90.0f);
+			ToolRenderer->SetRenderPos(float4{ 9, -13 } *RENDERRATIO);
+			break;
+		case 2:
+			ToolRenderer->SetAngle(-60.0f);
+			ToolRenderer->SetRenderPos(float4{ 16, -7 } *RENDERRATIO);
+			break;
+		case 3:
+			ToolRenderer->SetAngle(-10.0f);
+			ToolRenderer->SetRenderPos(float4{ 12, 2 } *RENDERRATIO);
+			break;
+		case 4:
+			ToolRenderer->SetAngle(0.0f);
+			ToolRenderer->SetRenderPos(float4{ 14, 7 } *RENDERRATIO);
+			break;
+		case 5:
+			ToolRenderer->SetAngle(15.0f);
+			ToolRenderer->SetRenderPos(float4{ 12, 11 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Down:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetAngle(30.0f);
+			ToolRenderer->SetRenderPos(float4{ 7, 15 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetAngle(80.0f);
+			ToolRenderer->SetRenderPos(float4{ -5, 15 } *RENDERRATIO);
+			break;
+		case 2:
+			ToolRenderer->SetRenderPos(float4{ -7, 17 } *RENDERRATIO);
+			break;
+		case 3:
+			ToolRenderer->SetAngle(140.0f);
+			ToolRenderer->SetRenderPos(float4{ -15, 7 } *RENDERRATIO);
+			break;
+		case 4:
+			ToolRenderer->SetAngle(175.0f);
+			ToolRenderer->SetRenderPos(float4{ -14, 0 } *RENDERRATIO);
+			break;
+		case 5:
+			ToolRenderer->SetAngle(190.0f);
+			ToolRenderer->SetRenderPos(float4{ -12, -2 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Right:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
+			ToolRenderer->SetYPivot(5);
+			ToolRenderer->SetAngle(-45.0f);
+			ToolRenderer->SetRenderPos(float4{ 14 ,-5 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetAngle(0.0f);
+			ToolRenderer->SetRenderPos(float4{ 13 ,9 } *RENDERRATIO);
+			break;
+		case 2:
+			ToolRenderer->SetAngle(45.0f);
+			ToolRenderer->SetRenderPos(float4{ 4 ,16 } *RENDERRATIO);
+			break;
+		case 3:
+			ToolRenderer->SetAngle(90.0f);
+			ToolRenderer->SetRenderPos(float4{ -4 ,13 } *RENDERRATIO);
+			break;
+		case 4:
+			ToolRenderer->SetAngle(120.0f);
+			ToolRenderer->SetRenderPos(float4{ -12 ,9 } *RENDERRATIO);
+			break;
+		case 5:
+			ToolRenderer->SetAngle(145.0f);
+			ToolRenderer->SetRenderPos(float4{ -16 ,3 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Left:
+		switch (ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			ToolRenderer->SetSprite("Left_Sickle.bmp");
+			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
+			ToolRenderer->SetYPivot(5);
+			ToolRenderer->SetAngle(45.0f);
+			ToolRenderer->SetRenderPos(float4{ -14 ,-5 } *RENDERRATIO);
+			break;
+		case 1:
+			ToolRenderer->SetAngle(0.0f);
+			ToolRenderer->SetRenderPos(float4{ -13 ,9 } *RENDERRATIO);
+			break;
+		case 2:
+			ToolRenderer->SetAngle(-45.0f);
+			ToolRenderer->SetRenderPos(float4{ -4 ,16 } *RENDERRATIO);
+			break;
+		case 3:
+			ToolRenderer->SetAngle(-90.0f);
+			ToolRenderer->SetRenderPos(float4{ 4 ,13 } *RENDERRATIO);
+			break;
+		case 4:
+			ToolRenderer->SetAngle(-120.0f);
+			ToolRenderer->SetRenderPos(float4{ 12 ,9 } *RENDERRATIO);
+			break;
+		case 5:
+			ToolRenderer->SetAngle(-145.0f);
+			ToolRenderer->SetRenderPos(float4{ 16 ,3 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+
 	if (true == ArmRenderer->IsAnimationEnd())
 	{
 		ChangeState(PlayerState::Idle);
-		// ToolCollision->Death();
-		// ArmRenderer->SetYPivot(5 * RENDERRATIO);
+		ToolCollision->Death();
+		ArmRenderer->SetYPivot(5 * RENDERRATIO);
+		ToolRenderer->SetRenderPos({});
+		ToolRenderer->SetAngle({});
+		ToolRenderer->Off();
+		ToolRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
 	}
 }
 
