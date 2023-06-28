@@ -182,60 +182,74 @@ void Farm::Start()
 		FarmTree->SetPos(FarmTileMap->IndexToPos(57, 20));
 
 		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		FarmTree->Init("Tree.bmp");
+		FarmTree->Init("Tree3.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(55, 23));
 
 		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 		FarmTree->Init("Tree3.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(65, 26));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree3.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(55, 30));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(70, 22));
 		 
 		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
 		FarmTree->Init("Tree2.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(60, 25));
-		// 
-		// FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		// FarmTree->Init("Tree3.bmp");
-		// FarmTree->SetPos(FarmTileMap->IndexToPos(49, 23));
-		// 
-		// FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		// FarmTree->Init("Tree3.bmp");
-		// FarmTree->SetPos(FarmTileMap->IndexToPos(55, 33));
-		// 
-		// FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		// FarmTree->Init("Tree3.bmp");
-		// FarmTree->SetPos(FarmTileMap->IndexToPos(53, 31));
-		// 
-		// FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		// FarmTree->Init("Tree.bmp");
-		// FarmTree->SetPos(FarmTileMap->IndexToPos(50, 13));
-		// 
-		// FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		// FarmTree->Init("Tree.bmp");
-		// FarmTree->SetPos(FarmTileMap->IndexToPos(61, 30));
-		// 
-		// FarmTree = CreateActor<Tree>(UpdateOrder::Player);
-		// FarmTree->Init("Tree.bmp");
-		// FarmTree->SetPos(FarmTileMap->IndexToPos(51, 22));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree2.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(50, 15));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(51, 21));
+
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree2.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(48, 25));
 
 		// Small Tree
 		SmallTree* FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
-		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(63, 20));
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(63, 21));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(58, 20));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(53, 19));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(51, 22));
 
 		// Rock
 		Rock* FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-		FarmRock->SetPos(FarmTileMap->IndexToPos(65, 20));
-
-		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 		FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
 
 		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-		FarmRock->SetPos(FarmTileMap->IndexToPos(67, 20));
+		FarmRock->SetPos(FarmTileMap->IndexToPos(53, 15));
 
 		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-		FarmRock->SetPos(FarmTileMap->IndexToPos(68, 20));
+		FarmRock->SetPos(FarmTileMap->IndexToPos(58, 23));
 
 		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-		FarmRock->SetPos(FarmTileMap->IndexToPos(69, 20));
+		FarmRock->SetPos(FarmTileMap->IndexToPos(67, 23));
+
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(59, 27));
+
+		//FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		//FarmRock->SetPos(FarmTileMap->IndexToPos(67, 20));
+
+		//FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		//FarmRock->SetPos(FarmTileMap->IndexToPos(68, 20));
+
+		//FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		//FarmRock->SetPos(FarmTileMap->IndexToPos(69, 20));
 	}
 }
 
