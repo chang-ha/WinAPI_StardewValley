@@ -118,9 +118,6 @@
     <ClInclude Include="Rhubarb.h">
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClInclude>
-    <ClInclude Include="Bean.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -238,9 +235,6 @@
       <Filter>Level\04. FarmHouse</Filter>
     </ClCompile>
     <ClCompile Include="Rhubarb.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
-    </ClCompile>
-    <ClCompile Include="Bean.cpp">
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClCompile>
   </ItemGroup>

@@ -98,6 +98,21 @@ void Player::Tool2Start()
 	}
 }
 
+void Player::Tool3Start()
+{
+	ChangeAnimationState("Tool3");
+	if (PlayerDir::Down == Dir)
+	{
+		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+	}
+
+	if (PlayerDir::Up == Dir)
+	{
+		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+		ArmRenderer->SetYPivot(-1);
+	}
+}
+
 void Player::HarvestStart()
 {
 	// Harvest
@@ -188,6 +203,12 @@ void Player::IdleUpdate(float _DeltaTime)
 				_Farm->GroundSeeding(CurItem);
 				ToolCollision->Death();
 			}
+			return;
+		}
+		else if (ItemType::Sickle == CurItem->GetItemType())
+		{
+			ToolDirCheck();
+			ChangeState(PlayerState::Tool3);
 			return;
 		}
 		else if (ItemType::WateringCan == CurItem->GetItemType())
@@ -675,6 +696,16 @@ void Player::Tool2Update(float _DeltaTime)
 		{
 			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
 		}
+	}
+}
+
+void Player::Tool3Update(float _Delta)
+{
+	if (true == ArmRenderer->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::Idle);
+		// ToolCollision->Death();
+		// ArmRenderer->SetYPivot(5 * RENDERRATIO);
 	}
 }
 

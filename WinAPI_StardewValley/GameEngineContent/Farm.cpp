@@ -31,7 +31,6 @@
 #include "Garlic.h"
 #include "Potato.h"
 #include "Rhubarb.h"
-#include "Bean.h"
 // Building
 #include "ContentBuilding.h"
 
@@ -390,10 +389,6 @@ void Farm::GroundSeeding(ContentItem* _SeedItem)
 		else if (_SeedItem->GetItemName() == "Seed_Rhubarb.bmp")
 		{
 			Crops = CreateActor<Rhubarb>();
-		}
-		else if (_SeedItem->GetItemName() == "Seed_Bean.bmp")
-		{
-			Crops = CreateActor<Bean>();
 		}
 
 		if (nullptr == Crops)

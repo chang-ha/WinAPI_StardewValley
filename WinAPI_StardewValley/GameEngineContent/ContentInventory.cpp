@@ -123,6 +123,10 @@ void ContentInventory::Start()
 	Item->Init("wateringcan.bmp", ItemType::WateringCan);
 	PushItem(Item);
 
+	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	Item->Init("sickle.bmp", ItemType::Sickle);
+	PushItem(Item);
+
 	//Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 	//Item->Init("Seed_Rhubarb.bmp", ItemType::Seed, 5);
 	//PushItem(Item);

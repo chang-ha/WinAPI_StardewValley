@@ -163,10 +163,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Bean.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="BusStation.h">
       <SubType>
       </SubType>
@@ -316,10 +312,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Beach.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="Bean.cpp">
       <SubType>
       </SubType>
     </ClCompile>

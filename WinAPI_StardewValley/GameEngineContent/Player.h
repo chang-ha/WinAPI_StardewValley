@@ -9,6 +9,7 @@ enum class PlayerState
 	Run,
 	Tool,
 	Tool2,
+	Tool3,
 	Harvest,
 	OpenBox,
 };
@@ -137,6 +138,7 @@ private:
 	void RunStart();
 	void ToolStart();
 	void Tool2Start();
+	void Tool3Start();
 	void HarvestStart();
 	void OpenBoxStart();
 
@@ -145,6 +147,7 @@ private:
 	void RunUpdate(float _Delta);
 	void ToolUpdate(float _Delta);
 	void Tool2Update(float _Delta);
+	void Tool3Update(float _Delta);
 	void HarvestUpdate(float _Delta);
 	void OpenBoxUpdate(float _Delta);
 

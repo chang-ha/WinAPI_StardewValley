@@ -10,6 +10,7 @@ enum ItemType
 	PickAxe,
 	Hoe,
 	WateringCan,
+	Sickle,
 	Resources,
 	Crops,
 	Seed,
