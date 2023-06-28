@@ -141,7 +141,7 @@ void ContentUIManager::Start()
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveParentToExistsChild("Resources");	
 		FilePath.MoveChild("Resources\\Sounds\\Effect\\");
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("purchase.wav"));
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("cancel.wav"));
@@ -685,49 +685,6 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 			{
 				ContentItem* _Item = GetLevel()->CreateActor<ContentItem>();
 				_Item->Init(ShopItem[x]->ItemName, ItemType::Seed);
-
-				//if (1 == ShopPage)
-				//{
-				//	switch (x)
-				//	{
-				//	case 0:
-				//		_Item->Init("Seed_Parsnip.bmp", ItemType::Seed);
-				//		break;
-				//	case 1:
-				//		_Item->Init("Seed_Cauliflower.bmp", ItemType::Seed);
-				//		break;
-				//	case 2:
-				//		_Item->Init("Seed_Garlic.bmp", ItemType::Seed);
-				//		break;
-				//	case 3:
-				//		_Item->Init("Seed_Potato.bmp", ItemType::Seed);
-				//		break;
-				//	default:
-				//		break;
-				//	}
-				//}
-				//else if (2 == ShopPage)
-				//{
-				//	switch (x)
-				//	{
-				//	case 0:
-				//		_Item->Init("Seed_Cauliflower.bmp", ItemType::Seed);
-				//		break;
-				//	case 1:
-				//		_Item->Init("Seed_Parsnip.bmp", ItemType::Seed);
-				//		break;
-				//	case 2:
-				//		_Item->Init("Seed_Garlic.bmp", ItemType::Seed);
-				//		break;
-				//	case 3:
-				//		_Item->Init("Seed_Potato.bmp", ItemType::Seed);
-				//		break;
-				//	default:
-				//		break;
-				//	}
-				//}
-
-
 				if (true == ContentInventory::MainInventory->IsFull(_Item))
 				{
 					_Item->Death();
@@ -839,11 +796,11 @@ void ContentUIManager::SellCurItem()
 		AllMoney[MoneyEnum::TotalMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
 		break;
 	case Crops:
-		AllMoney[MoneyEnum::CropsMoney].CurMoney = SellItem->GetItemPrice() * SellItem->GetItemCount();
+		AllMoney[MoneyEnum::CropsMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
 		AllMoney[MoneyEnum::TotalMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
 		break;
 	case Seed:
-		AllMoney[MoneyEnum::EtcMoney].CurMoney = SellItem->GetItemPrice() * SellItem->GetItemCount();
+		AllMoney[MoneyEnum::EtcMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
 		AllMoney[MoneyEnum::TotalMoney].CurMoney += SellItem->GetItemPrice() * SellItem->GetItemCount();
 		break;
 	default:
