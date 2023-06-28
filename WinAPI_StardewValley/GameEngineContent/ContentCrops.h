@@ -14,15 +14,16 @@ public:
 	ContentCrops& operator=(const ContentCrops& _Other) = delete;
 	ContentCrops& operator=(ContentCrops&& _Other) noexcept = delete;
 
-	bool Harvest();
+	virtual bool Harvest();
 
 	bool IsGrownUp();
 
-	void Grow();
+	virtual void Grow();
 
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
+	void Harvesting();
 
 	bool IsHarvest = false;
 	int GrowStep = 0;

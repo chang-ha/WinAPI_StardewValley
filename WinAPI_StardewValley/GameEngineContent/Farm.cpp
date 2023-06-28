@@ -30,6 +30,8 @@
 #include "Cauliflower.h"
 #include "Garlic.h"
 #include "Potato.h"
+#include "Rhubarb.h"
+#include "Bean.h"
 // Building
 #include "ContentBuilding.h"
 
@@ -269,6 +271,7 @@ void Farm::Update(float _Delta)
 			continue;
 		}
 		StartIter = AllCrops.erase(StartIter);
+		_Crops->Death();
 	}
 }
 
@@ -383,6 +386,14 @@ void Farm::GroundSeeding(ContentItem* _SeedItem)
 		else if (_SeedItem->GetItemName() == "Seed_Potato.bmp")
 		{
 			Crops = CreateActor<Potato>();
+		}
+		else if (_SeedItem->GetItemName() == "Seed_Rhubarb.bmp")
+		{
+			Crops = CreateActor<Rhubarb>();
+		}
+		else if (_SeedItem->GetItemName() == "Seed_Bean.bmp")
+		{
+			Crops = CreateActor<Bean>();
 		}
 
 		if (nullptr == Crops)

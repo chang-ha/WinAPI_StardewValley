@@ -140,4 +140,20 @@ void ContentItem::SetItemPrice()
 	{
 		ItemSellPrice = 2;
 	}
+	else if ("Rhubarb.bmp" == ItemName)
+	{
+		ItemSellPrice = 220;
+	}
+	else if ("Seed_Rhubarb.bmp" == ItemName)
+	{
+		ItemSellPrice = 50;
+	}
+	else if ("Bean.bmp" == ItemName)
+	{
+		ItemSellPrice = 40;
+	}
+	else if ("Seed_Bean.bmp" == ItemName)
+	{
+		ItemSellPrice = 30;
+	}
 }

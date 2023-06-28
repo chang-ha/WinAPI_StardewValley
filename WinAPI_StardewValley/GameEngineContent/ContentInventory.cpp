@@ -19,6 +19,7 @@
 #include "ContentUIManager.h"
 #include "ContentMouse.h"
 
+
 ContentInventory* ContentInventory::MainInventory = nullptr;
 
 ContentInventory::ContentInventory()
@@ -121,6 +122,10 @@ void ContentInventory::Start()
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 	Item->Init("wateringcan.bmp", ItemType::WateringCan);
 	PushItem(Item);
+
+	//Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
+	//Item->Init("Seed_Rhubarb.bmp", ItemType::Seed, 5);
+	//PushItem(Item);
 }
 
 void ContentInventory::PushItem(ContentItem* _Item)

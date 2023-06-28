@@ -163,6 +163,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Bean.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BusStation.h">
       <SubType>
       </SubType>
@@ -269,6 +273,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Rhubarb.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Rock.h">
       <SubType>
       </SubType>
@@ -308,6 +316,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Beach.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Bean.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -414,6 +426,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Potato.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Rhubarb.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -115,6 +115,12 @@
     <ClInclude Include="GiftBox.h">
       <Filter>Level\04. FarmHouse</Filter>
     </ClInclude>
+    <ClInclude Include="Rhubarb.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
+    <ClInclude Include="Bean.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -230,6 +236,12 @@
     </ClCompile>
     <ClCompile Include="GiftBox.cpp">
       <Filter>Level\04. FarmHouse</Filter>
+    </ClCompile>
+    <ClCompile Include="Rhubarb.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClCompile>
+    <ClCompile Include="Bean.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

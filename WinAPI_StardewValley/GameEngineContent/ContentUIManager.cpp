@@ -135,6 +135,16 @@ void ContentUIManager::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Potato.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Potato.bmp"));
 	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Seed_Rhubarb.bmp"))
+	{
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Rhubarb.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Rhubarb.bmp"));
+	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Seed_Bean.bmp"))
+	{
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Bean.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Bean.bmp"));
+	}
 
 	// Sound Load
 	if (nullptr == GameEngineSound::FindSound("purchase.wav"))
@@ -744,14 +754,14 @@ void ContentUIManager::ShopItemSetting()
 			switch (x)
 			{
 			case 0:
-				ShopItem[x]->ItemName = "Seed_Cauliflower.bmp";
-				ShopItem[x]->ItemBuyPrice = 80;
-				ShopItem[x]->ItemNameTextRenderer->SetText("콜리플라워 씨앗", 45, "Sandoll 미생");
+				ShopItem[x]->ItemName = "Seed_Rhubarb.bmp";
+				ShopItem[x]->ItemBuyPrice = 100;
+				ShopItem[x]->ItemNameTextRenderer->SetText("대황 씨앗", 45, "Sandoll 미생");
 				break;
 			case 1:
-				ShopItem[x]->ItemName = "Seed_Parsnip.bmp";
-				ShopItem[x]->ItemBuyPrice = 20;
-				ShopItem[x]->ItemNameTextRenderer->SetText("파스닙 씨앗", 45, "Sandoll 미생");
+				ShopItem[x]->ItemName = "Seed_Bean.bmp";
+				ShopItem[x]->ItemBuyPrice = 60;
+				ShopItem[x]->ItemNameTextRenderer->SetText("콩 종자", 45, "Sandoll 미생");
 				break;
 			case 2:
 				ShopItem[x]->ItemName = "Seed_Garlic.bmp";

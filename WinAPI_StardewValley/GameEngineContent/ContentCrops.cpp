@@ -66,94 +66,7 @@ void ContentCrops::Update(float _Delta)
 		CropsCollision->Off();
 	}
 
-	CropsRenderer->SetTexture(CropsName);
-	CropsRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
-	switch (Player::MainPlayer->GetDir())
-	{
-	case Null:
-		break;
-	case Up:
-		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
-		{
-		case 0:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),5 } * RENDERRATIO);
-			break;
-		case 1:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),4 } *RENDERRATIO);
-			break;
-		case 2:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),-17 } *RENDERRATIO);
-			break;
-		case 3:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),-16 } *RENDERRATIO);
-			break;
-		default:
-			break;
-		}
-		break;
-	case Down:
-		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
-		{
-		case 0:
-			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), 8 } *RENDERRATIO);
-			break;
-		case 1:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), 7 } *RENDERRATIO);
-			break;
-		case 2:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -17 } *RENDERRATIO);
-			break;
-		case 3:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -16 } *RENDERRATIO);
-			break;
-		default:
-			break;
-		}
-		break;
-	case Right:
-		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
-		{
-		case 0:
-			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
-			SetPos(Player::MainPlayer->GetPos() + float4{ 7 - TILESIZE.hX(), 1 } *RENDERRATIO);
-			break;
-		case 1:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 5 - TILESIZE.hX(), -4 } *RENDERRATIO);
-			break;
-		case 2:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), - 17 } *RENDERRATIO);
-			break;
-		case 3:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -16 } *RENDERRATIO);
-			break;
-		default:
-			break;
-		}
-		break;
-	case Left:
-		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
-		{
-		case 0:
-			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
-			SetPos(Player::MainPlayer->GetPos() + float4{ -7 - TILESIZE.hX(),1 } *RENDERRATIO);
-			break;
-		case 1:
-			SetPos(Player::MainPlayer->GetPos() + float4{ -5 - TILESIZE.hX(),-4 } *RENDERRATIO);
-			break;
-		case 2:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -17 } *RENDERRATIO);
-			break;
-		case 3:
-			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -16 } *RENDERRATIO);
-			break;
-		default:
-			break;
-		}
-		break;
-	default:
-		break;
-	}
+	Harvesting();
 }
 
 void ContentCrops::Grow()
@@ -208,4 +121,94 @@ bool ContentCrops::Harvest()
 	return false;
 }
 
-
+void ContentCrops::Harvesting()
+{
+	CropsRenderer->SetTexture(CropsName);
+	CropsRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
+	switch (Player::MainPlayer->GetDir())
+	{
+	case Null:
+		break;
+	case Up:
+		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),5 } *RENDERRATIO);
+			break;
+		case 1:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),4 } *RENDERRATIO);
+			break;
+		case 2:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),-17 } *RENDERRATIO);
+			break;
+		case 3:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),-16 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Down:
+		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), 8 } *RENDERRATIO);
+			break;
+		case 1:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), 7 } *RENDERRATIO);
+			break;
+		case 2:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -17 } *RENDERRATIO);
+			break;
+		case 3:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -16 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Right:
+		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
+			SetPos(Player::MainPlayer->GetPos() + float4{ 7 - TILESIZE.hX(), 1 } *RENDERRATIO);
+			break;
+		case 1:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 5 - TILESIZE.hX(), -4 } *RENDERRATIO);
+			break;
+		case 2:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -17 } *RENDERRATIO);
+			break;
+		case 3:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -16 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	case Left:
+		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
+		{
+		case 0:
+			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
+			SetPos(Player::MainPlayer->GetPos() + float4{ -7 - TILESIZE.hX(),1 } *RENDERRATIO);
+			break;
+		case 1:
+			SetPos(Player::MainPlayer->GetPos() + float4{ -5 - TILESIZE.hX(),-4 } *RENDERRATIO);
+			break;
+		case 2:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -17 } *RENDERRATIO);
+			break;
+		case 3:
+			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(), -16 } *RENDERRATIO);
+			break;
+		default:
+			break;
+		}
+		break;
+	default:
+		break;
+	}
+}
