@@ -235,7 +235,7 @@ private:
 
 	// MoneyUI 
 	int PlayerMoney = 500;
-	float MoneyUpSpeed = 300.0f;
+	float MoneyUpSpeed = 400.0f;
 	std::map<MoneyEnum, MoneyData> AllMoney;
 };
 
