@@ -484,6 +484,16 @@ void ContentInventory::ShopInventoryUpdate(int _CurIndex)
 	{
 		MouseToInventory(_CurIndex);
 	}
+	else if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && nullptr != AllItem[_CurIndex]->Item)
+	{
+		if (AllItem[_CurIndex]->Item->GetItemName() == ContentMouse::MainMouse->GetPickItem()->GetItemName())
+		{
+			AllItem[_CurIndex]->Item->PlusItemCount(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
+			ContentMouse::MainMouse->GetItemRenderer()->Off();
+			ContentMouse::MainMouse->GetItemCountRenderer()->Off();
+			ContentMouse::MainMouse->SetPickItem(nullptr);
+		}
+	}
 }
 
 void ContentInventory::ShippingInventoryUpdate(int _CurIndex)
