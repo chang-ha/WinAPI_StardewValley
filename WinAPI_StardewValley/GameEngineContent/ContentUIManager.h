@@ -27,6 +27,7 @@ class ShopItemData
 	friend ContentUIManager;
 private:
 	int ItemBuyPrice = 0;
+	std::string ItemName = "";
 	GameEngineRenderer* ItemRenderer = nullptr;
 	GameEngineRenderer* ItemPriceTextRenderer = nullptr;
 	GameEngineRenderer* ItemNameTextRenderer = nullptr;
@@ -133,12 +134,15 @@ private:
 
 	// Pierre's Shop UI
 	int ItemSelectIndex = -1;
+	int ShopPage = 1;
 	GameEngineRenderer* ShopRenderer = nullptr;
 	GameEngineRenderer* ItemSelectRenderer = nullptr;
 	GameEngineRenderer* CancelRenderer = nullptr;
+	GameEngineRenderer* PrevSelectRenderer = nullptr;
+	GameEngineRenderer* NextSelectRenderer = nullptr;
+	GameEngineCollision* PrevSelectCollision = nullptr;
+	GameEngineCollision* NextSelectCollision = nullptr;
 	GameEngineCollision* CancelCollision = nullptr;
-	// GameEngineRenderer* PrevSelectRenderer = nullptr;
-	// GameEngineRenderer* NextSelectRenderer = nullptr;
 	std::vector<ShopItemData*> ShopItem;
 
 	// ShippingBox UI

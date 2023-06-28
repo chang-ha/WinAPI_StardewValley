@@ -70,51 +70,70 @@ ContentUIManager::~ContentUIManager()
 
 void ContentUIManager::Start()
 {
+	GameEnginePath FilePath;
+	FilePath.SetCurrentPath();
+	FilePath.MoveParentToExistsChild("Resources");
+	FilePath.MoveChild("Resources\\Textures\\");
 	// Texture Load
 	if (false == ResourcesManager::GetInst().IsLoadTexture("Clock.bmp"))
 	{
-		GameEnginePath FilePath;
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\UI\\");
 		// Clock UI
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Clock_hand_Mask.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Clock.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Clock_hand.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Clock_hand_Mask.bmp"));
 		// Energy UI
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Energy.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("EnergyBar.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Energy.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar.bmp"));
 		// MiniInventory UI
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Inventory.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Inventory.bmp"));
 		// Sleep UI
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Sleep.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Yes.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_No.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Sleep.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Yes.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_No.bmp"));
 		// SleepLevelUI
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_SellBackGround.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_SellBackGround.bmp"));
 		// Money UI
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_0.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_1.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_2.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_3.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_4.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_5.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_6.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_7.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_8.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Money_9.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_0.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_1.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_2.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_3.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_4.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_5.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_6.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_7.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_8.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Money_9.bmp"));
 		// Shop UI
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Pierre.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Cancel.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_Shop_Select.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Parsnip.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Cauliflower.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Garlic.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Shop_Seed_Potato.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Shop_Pierre.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Cancel.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Shop_Select.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Select_Prev.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Select_Next.bmp"));
 		// ShippingBox UI
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_ShippingBox.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI_ShippingBox_Inventory.bmp"));
-		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Ok_Button.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_ShippingBox.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_ShippingBox_Inventory.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Ok_Button.bmp"));
+	}
+
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Seed_Parsnip.bmp"))
+	{
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Parsnip.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Parsnip.bmp"));
+	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Seed_Cauliflower.bmp"))
+	{
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Cauliflower.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Cauliflower.bmp"));
+	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Seed_Garlic.bmp"))
+	{
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Garlic.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Garlic.bmp"));
+	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Seed_Potato.bmp"))
+	{
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Potato.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Potato.bmp"));
 	}
 
 	// Sound Load
@@ -233,6 +252,23 @@ void ContentUIManager::Start()
 	CancelCollision->SetCollisionScale(float4{ 11, 11 } *RENDERRATIO);
 	CancelCollision->Off();
 
+	Texture = ResourcesManager::GetInst().FindTexture("UI_Select_Prev.bmp");
+	PrevSelectRenderer = CreateUIRenderer("UI_Select_Prev.bmp", RenderOrder::UI);
+	PrevSelectRenderer->SetRenderScale(Texture->GetScale() * 4.0f);
+	PrevSelectRenderer->SetRenderPos({ GlobalValue::WinScale.X * 0.35f, GlobalValue::WinScale.Y * 0.7f });
+	PrevSelectRenderer->Off();
+	NextSelectRenderer = CreateUIRenderer("UI_Select_Next.bmp", RenderOrder::UI);
+	NextSelectRenderer->SetRenderScale(Texture->GetScale() * 4.0f);
+	NextSelectRenderer->SetRenderPos({ GlobalValue::WinScale.X * 0.4f, GlobalValue::WinScale.Y * 0.7f });
+	NextSelectRenderer->Off();
+
+	PrevSelectCollision = CreateCollision(CollisionOrder::Button);
+	PrevSelectCollision->SetCollisionScale(Texture->GetScale() * 3.0f);
+	PrevSelectCollision->Off();
+	NextSelectCollision = CreateCollision(CollisionOrder::Button);
+	NextSelectCollision->SetCollisionScale(Texture->GetScale() * 3.0f);
+	NextSelectCollision->Off();
+
 	Texture = ResourcesManager::GetInst().FindTexture("UI_Shop_Select.bmp");
 	ItemSelectRenderer = CreateUIRenderer("UI_Shop_Select.bmp", RenderOrder::UI);
 	ItemSelectRenderer->SetRenderScale(Texture->GetScale() * 0.9f);
@@ -268,9 +304,6 @@ void ContentUIManager::Start()
 		ShopItem[x]->ItemPriceTextRenderer = _ItemPriceTextRenderer;
 		ShopItem[x]->ItemCollision = _ItemCollision;
 	}
-	ShopItemSetting();
-	// PrevSelectRenderer = CreateUIRenderer(RenderOrder::UI);
-	// NextSelectRenderer = CreateUIRenderer(RenderOrder::UI);
 
 	// ShippingBox UI
 	ShipInventoryRenderer = CreateUIRenderer("UI_ShippingBox_Inventory.bmp", RenderOrder::UI);
@@ -295,7 +328,6 @@ void ContentUIManager::Start()
 	SellItemCollision->SetCollisionScale(TILESIZE);
 	OkButtonRenderer->SetRenderPos({ GlobalValue::WinScale.X * 0.8f, GlobalValue::WinScale.Y * 0.9f });
 	OkButtonCollision->SetCollisionScale(TILESIZE);
-
 
 	// Debug Renderer
 	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
@@ -380,6 +412,12 @@ void ContentUIManager::ShopUIOn()
 	ShopRenderer->On();
 	CancelRenderer->On();
 	CancelCollision->On();
+	PrevSelectRenderer->On();
+	NextSelectRenderer->On();
+	PrevSelectCollision->On();
+	NextSelectCollision->On();
+	PrevSelectCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * 0.35f, GlobalValue::WinScale.Y * 0.7f });
+	NextSelectCollision->SetCollisionPos(GetLevel()->GetMainCamera()->GetPos() + float4{ GlobalValue::WinScale.X * 0.4f, GlobalValue::WinScale.Y * 0.7f });
 	AllMoney[MoneyEnum::ShopPlayerMoney].IsUpdate = true;
 	AllMoney[MoneyEnum::ShopPlayerMoney].CurMoney = PlayerMoney;
 	AllMoney[MoneyEnum::ShopPlayerMoney].CurTextMoney = PlayerMoney + 1;
@@ -391,6 +429,7 @@ void ContentUIManager::ShopUIOn()
 		ShopItem[x]->ItemPriceTextRenderer->On();
 	}
 	ContentInventory::MainInventory->SetPosInventoryShop();
+	ShopItemSetting();
 }
 
 void ContentUIManager::ShopUIOff()
@@ -399,12 +438,17 @@ void ContentUIManager::ShopUIOff()
 	{
 		return;
 	}
+	ShopPage = 1;
 	Inventory->On();
 	Player::MainPlayer->SetIsUpdate(true);
 	ShopRenderer->Off();
 	CancelRenderer->Off();
 	CancelCollision->Off();
 	ItemSelectRenderer->Off();
+	PrevSelectRenderer->Off();
+	NextSelectRenderer->Off();
+	PrevSelectCollision->Off();
+	NextSelectCollision->Off();
 	AllMoney[MoneyEnum::ShopPlayerMoney].IsUpdate = false;
 	AllMoney[MoneyEnum::ShopPlayerMoney].MoneySound.SetLoop(0);
 	AllMoney[MoneyEnum::ShopPlayerMoney].MoneyRendererOff();
@@ -581,6 +625,25 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 		ShopUIOff();
 	}
 
+	if (true == GameEngineInput::IsDown(VK_LBUTTON)
+		&& true == PrevSelectCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+	{
+		if (2 == ShopPage)
+		{
+			ShopPage = 1;
+			ShopItemSetting();
+		}
+	}
+	else if (true == GameEngineInput::IsDown(VK_LBUTTON)
+		&& true == NextSelectCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+	{
+		if (1 == ShopPage)
+		{
+			ShopPage = 2;
+			ShopItemSetting();
+		}
+	}
+
 	bool IsCollision = false;
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
@@ -605,10 +668,7 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 			if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate())
 			{
 				std::string CurItemName = ContentMouse::MainMouse->GetPickItem()->GetItemName();
-				if (("Seed_Parsnip.bmp" == CurItemName && 0 == x)
-					|| ("Seed_Cauliflower.bmp" == CurItemName && 1 == x)
-					|| ("Seed_Garlic.bmp" == CurItemName && 2 == x)
-					|| ("Seed_Potato.bmp" == CurItemName && 3 == x))
+				if (ShopItem[x]->ItemName == CurItemName)
 				{
 					ContentMouse::MainMouse->GetPickItem()->PlusItemCount(1);
 					ContentMouse::MainMouse->SetItemCountRenderer(ContentMouse::MainMouse->GetPickItem()->GetItemCount());
@@ -624,23 +684,49 @@ void ContentUIManager::ShopUIUpdate(float _Delta)
 			else
 			{
 				ContentItem* _Item = GetLevel()->CreateActor<ContentItem>();
-				switch (x)
-				{
-				case 0:
-					_Item->Init("Seed_Parsnip.bmp", ItemType::Seed);
-					break;
-				case 1:
-					_Item->Init("Seed_Cauliflower.bmp", ItemType::Seed);
-					break;
-				case 2:
-					_Item->Init("Seed_Garlic.bmp", ItemType::Seed);
-					break;
-				case 3:
-					_Item->Init("Seed_Potato.bmp", ItemType::Seed);
-					break;
-				default:
-					break;
-				}
+				_Item->Init(ShopItem[x]->ItemName, ItemType::Seed);
+
+				//if (1 == ShopPage)
+				//{
+				//	switch (x)
+				//	{
+				//	case 0:
+				//		_Item->Init("Seed_Parsnip.bmp", ItemType::Seed);
+				//		break;
+				//	case 1:
+				//		_Item->Init("Seed_Cauliflower.bmp", ItemType::Seed);
+				//		break;
+				//	case 2:
+				//		_Item->Init("Seed_Garlic.bmp", ItemType::Seed);
+				//		break;
+				//	case 3:
+				//		_Item->Init("Seed_Potato.bmp", ItemType::Seed);
+				//		break;
+				//	default:
+				//		break;
+				//	}
+				//}
+				//else if (2 == ShopPage)
+				//{
+				//	switch (x)
+				//	{
+				//	case 0:
+				//		_Item->Init("Seed_Cauliflower.bmp", ItemType::Seed);
+				//		break;
+				//	case 1:
+				//		_Item->Init("Seed_Parsnip.bmp", ItemType::Seed);
+				//		break;
+				//	case 2:
+				//		_Item->Init("Seed_Garlic.bmp", ItemType::Seed);
+				//		break;
+				//	case 3:
+				//		_Item->Init("Seed_Potato.bmp", ItemType::Seed);
+				//		break;
+				//	default:
+				//		break;
+				//	}
+				//}
+
 
 				if (true == ContentInventory::MainInventory->IsFull(_Item))
 				{
@@ -668,32 +754,63 @@ void ContentUIManager::ShopItemSetting()
 	for (int x = 0; x < ShopItem.size(); x++)
 	{
 		std::string _FileName = "";
-		switch (x)
+		if (1 == ShopPage)
 		{
-		case 0:
-			_FileName = "Shop_Seed_Parsnip.bmp";
-			ShopItem[x]->ItemBuyPrice = 20;
-			ShopItem[x]->ItemNameTextRenderer->SetText("파스닙 씨앗", 45, "Sandoll 미생");
-			break;
-		case 1:
-			_FileName = "Shop_Seed_Cauliflower.bmp";
-			ShopItem[x]->ItemBuyPrice = 80;
-			ShopItem[x]->ItemNameTextRenderer->SetText("콜리플라워 씨앗", 45, "Sandoll 미생");
-			break;
-		case 2:
-			_FileName = "Shop_Seed_Garlic.bmp";
-			ShopItem[x]->ItemBuyPrice = 40;
-			ShopItem[x]->ItemNameTextRenderer->SetText("마늘 씨앗", 45, "Sandoll 미생");
-			break;
-		case 3:
-			_FileName = "Shop_Seed_Potato.bmp";
-			ShopItem[x]->ItemBuyPrice = 50;
-			ShopItem[x]->ItemNameTextRenderer->SetText("감자 씨앗", 45, "Sandoll 미생");
-			break;
-		default:
-			break;
+			switch (x)
+			{
+			case 0:
+				ShopItem[x]->ItemName = "Seed_Parsnip.bmp";
+				ShopItem[x]->ItemBuyPrice = 20;
+				ShopItem[x]->ItemNameTextRenderer->SetText("파스닙 씨앗", 45, "Sandoll 미생");
+				break;
+			case 1:
+				ShopItem[x]->ItemName = "Seed_Cauliflower.bmp";
+				ShopItem[x]->ItemBuyPrice = 80;
+				ShopItem[x]->ItemNameTextRenderer->SetText("콜리플라워 씨앗", 45, "Sandoll 미생");
+				break;
+			case 2:
+				ShopItem[x]->ItemName = "Seed_Garlic.bmp";
+				ShopItem[x]->ItemBuyPrice = 40;
+				ShopItem[x]->ItemNameTextRenderer->SetText("마늘 씨앗", 45, "Sandoll 미생");
+				break;
+			case 3:
+				ShopItem[x]->ItemName = "Seed_Potato.bmp";
+				ShopItem[x]->ItemBuyPrice = 50;
+				ShopItem[x]->ItemNameTextRenderer->SetText("감자 씨앗", 45, "Sandoll 미생");
+				break;
+			default:
+				break;
+			}
 		}
-		ShopItem[x]->ItemRenderer->SetTexture(_FileName);
+		else if (2 == ShopPage)
+		{
+			switch (x)
+			{
+			case 0:
+				ShopItem[x]->ItemName = "Seed_Cauliflower.bmp";
+				ShopItem[x]->ItemBuyPrice = 80;
+				ShopItem[x]->ItemNameTextRenderer->SetText("콜리플라워 씨앗", 45, "Sandoll 미생");
+				break;
+			case 1:
+				ShopItem[x]->ItemName = "Seed_Parsnip.bmp";
+				ShopItem[x]->ItemBuyPrice = 20;
+				ShopItem[x]->ItemNameTextRenderer->SetText("파스닙 씨앗", 45, "Sandoll 미생");
+				break;
+			case 2:
+				ShopItem[x]->ItemName = "Seed_Garlic.bmp";
+				ShopItem[x]->ItemBuyPrice = 40;
+				ShopItem[x]->ItemNameTextRenderer->SetText("마늘 씨앗", 45, "Sandoll 미생");
+				break;
+			case 3:
+				ShopItem[x]->ItemName = "Seed_Potato.bmp";
+				ShopItem[x]->ItemBuyPrice = 50;
+				ShopItem[x]->ItemNameTextRenderer->SetText("감자 씨앗", 45, "Sandoll 미생");
+				break;
+			default:
+				break;
+			}
+		}
+		ShopItem[x]->ItemRenderer->SetTexture(ShopItem[x]->ItemName);
 		ShopItem[x]->ItemPriceTextRenderer->SetText(std::to_string(ShopItem[x]->ItemBuyPrice), 45, "Sandoll 미생");
 	}
 }
