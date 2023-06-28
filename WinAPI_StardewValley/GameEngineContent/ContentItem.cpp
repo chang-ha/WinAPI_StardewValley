@@ -91,7 +91,7 @@ void ContentItem::Update(float _Delta)
 
 void ContentItem::SetItemPrice()
 {
-	if (ItemType::Axe == Type || ItemType::Hoe == Type || ItemType::PickAxe == Type || ItemType::WateringCan == Type)
+	if (ItemType::Axe == Type || ItemType::Hoe == Type || ItemType::PickAxe == Type || ItemType::WateringCan == Type || ItemType::Sickle == Type)
 	{
 		return;
 	}
@@ -147,5 +147,9 @@ void ContentItem::SetItemPrice()
 	else if ("Seed_Rhubarb.bmp" == ItemName)
 	{
 		ItemSellPrice = 50;
+	}
+	else if ("Fiber.bmp" == ItemName)
+	{
+		ItemSellPrice = 1;
 	}
 }

@@ -102,7 +102,8 @@ void Player::Tool3Start()
 {
 	ChangeAnimationState("Tool3");
 	ToolRenderer->SetSprite("Sickle.bmp");
-	ToolCollisionCreate(CollisionOrder::Sickle);
+	ToolCollision = CreateCollision(CollisionOrder::Sickle);
+	EffectPlayer = GameEngineSound::SoundPlay("swipe.wav");
 	if (PlayerDir::Down == Dir)
 	{
 		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
@@ -715,6 +716,8 @@ void Player::Tool3Update(float _Delta)
 			ToolRenderer->SetOrder(static_cast<int>(RenderOrder::Play));
 			ToolRenderer->SetAngle(-135.0f);
 			ToolRenderer->SetRenderPos(float4{ 3, -13 } *RENDERRATIO);
+			ToolCollision->SetCollisionScale(float4{48, 16} *RENDERRATIO * 0.8f);
+			ToolCollision->SetCollisionPos(float4{0, - 8} * RENDERRATIO);
 			break;
 		case 1:
 			ToolRenderer->SetAngle(-90.0f);
@@ -746,6 +749,8 @@ void Player::Tool3Update(float _Delta)
 		case 0:
 			ToolRenderer->SetAngle(30.0f);
 			ToolRenderer->SetRenderPos(float4{ 7, 15 } *RENDERRATIO);
+			ToolCollision->SetCollisionScale(float4{ 48, 16 } *RENDERRATIO * 0.8f);
+			ToolCollision->SetCollisionPos(float4{ 0, 24 } *RENDERRATIO);
 			break;
 		case 1:
 			ToolRenderer->SetAngle(80.0f);
@@ -778,6 +783,8 @@ void Player::Tool3Update(float _Delta)
 			ToolRenderer->SetYPivot(5);
 			ToolRenderer->SetAngle(-45.0f);
 			ToolRenderer->SetRenderPos(float4{ 14 ,-5 } *RENDERRATIO);
+			ToolCollision->SetCollisionScale(float4{ 16, 48 } *RENDERRATIO * 0.8f);
+			ToolCollision->SetCollisionPos(float4{ 16, 8 } *RENDERRATIO);
 			break;
 		case 1:
 			ToolRenderer->SetAngle(0.0f);
@@ -812,6 +819,8 @@ void Player::Tool3Update(float _Delta)
 			ToolRenderer->SetYPivot(5);
 			ToolRenderer->SetAngle(45.0f);
 			ToolRenderer->SetRenderPos(float4{ -14 ,-5 } *RENDERRATIO);
+			ToolCollision->SetCollisionScale(float4{ 16, 48 } *RENDERRATIO * 0.8f);
+			ToolCollision->SetCollisionPos(float4{ -16, 8 } *RENDERRATIO);
 			break;
 		case 1:
 			ToolRenderer->SetAngle(0.0f);

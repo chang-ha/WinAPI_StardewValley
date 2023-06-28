@@ -23,6 +23,7 @@
 #include "Tree.h"
 #include "Rock.h"
 #include "SmallTree.h"
+#include "Weed.h"
 // Crops
 #include "ContentCrops.h"
 #include "Parsnip.h"
@@ -243,14 +244,14 @@ void Farm::Start()
 		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 		FarmRock->SetPos(FarmTileMap->IndexToPos(59, 27));
 
-		//FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-		//FarmRock->SetPos(FarmTileMap->IndexToPos(67, 20));
+		Weed* FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(67, 20));
 
-		//FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-		//FarmRock->SetPos(FarmTileMap->IndexToPos(68, 20));
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(68, 20));
 
-		//FarmRock = CreateActor<Rock>(UpdateOrder::Player);
-		//FarmRock->SetPos(FarmTileMap->IndexToPos(69, 20));
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(69, 20));
 	}
 }
 
