@@ -288,6 +288,7 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Up_Tool2", "Up_Player_body_Tool2", 0, 2, TOOL2SPEED, false);
 			BodyRenderer->FindAnimation("Up_Tool1")->Inters[4] = TOOL1LASTANI;
 			BodyRenderer->FindAnimation("Up_Tool2")->Inters[2] = TOOL2LASTANI;
+			BodyRenderer->CreateAnimation("Up_Harvest", "Up_Player_body_Harvest", 0, 3, HARVESTSPEED, false);
 		}
 
 		// Down
