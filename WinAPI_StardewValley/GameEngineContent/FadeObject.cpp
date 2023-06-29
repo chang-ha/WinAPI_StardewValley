@@ -1,6 +1,4 @@
-﻿#define FADESPEED 100.0f
-
-#include <GameEnginePlatform/GameEngineWindow.h>
+﻿#include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/ResourcesManager.h>
 
@@ -27,7 +25,7 @@ void FadeObject::Start()
 	Renderer->Off();
 }
 
-void FadeObject::Init(bool _Black)
+void FadeObject::Init(bool _Black, float _FadeUpSpeed)
 {
 	if (true == _Black)
 	{
@@ -53,12 +51,23 @@ void FadeObject::Init(bool _Black)
 		}
 		Renderer->SetTexture("Fade_White.bmp");
 	}
+
+	FadeUpSpeed = _FadeUpSpeed;
 }
 
 void FadeObject::Update(float _Delta)
 {
 	FadeIn(_Delta);
 	FadeOut(_Delta);
+
+	if (true == FadeDeathValue)
+	{
+		if (0.0f >= DeathTime)
+		{
+			Death();
+		}
+		DeathTime -= _Delta;
+	}
 }
 
 
@@ -68,7 +77,7 @@ void FadeObject::FadeIn(float _Delta)
 	{
 		return;
 	}
-	FadeSpeed += FADESPEED *_Delta;
+	FadeSpeed += FadeUpSpeed *_Delta;
 	Renderer->On();
 	CurAlpha -= static_cast<int>(FadeSpeed * _Delta);
 	
@@ -87,7 +96,7 @@ void FadeObject::FadeOut(float _Delta)
 	{
 		return;
 	}
-	FadeSpeed += FADESPEED * _Delta;
+	FadeSpeed += FadeUpSpeed * _Delta;
 	Renderer->On();
 	CurAlpha += static_cast<int>(FadeSpeed * _Delta);
 
@@ -98,4 +107,9 @@ void FadeObject::FadeOut(float _Delta)
 	}
 
 	Renderer->SetAlpha(CurAlpha);
+}
+
+void FadeObject::FadeDeath()
+{
+	FadeDeathValue = true;
 }

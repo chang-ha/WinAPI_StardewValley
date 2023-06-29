@@ -23,6 +23,7 @@
 #include <GameEngineCore/GameEngineRenderer.h>
 #include <GameEngineCore/GameEngineSprite.h>
 #include <GameEngineCore/TileMap.h>
+#include <GameEngineCore/GameEngineCore.h>
 
 #include "Player.h"
 #include "ContentLevel.h"
@@ -30,6 +31,7 @@
 #include "ContentUIManager.h"
 #include "ContentItem.h"
 #include "ContentInventory.h"
+#include "FadeObject.h"
 
 Player* Player::MainPlayer = nullptr;
 
@@ -643,6 +645,8 @@ void Player::Update(float _Delta)
 	{
 		ChangeAnimationState("Idle");
 	}
+
+	ChangeMap();
 }
 
 void Player::StateUpdate(float _Delta)
@@ -929,3 +933,43 @@ void Player::StopPlayer()
 	Player::MainPlayer->ChangeState(PlayerState::Idle);
 	EffectPlayer.Stop();
 }
+
+void Player::ChangeMap()
+{
+	if (Tile::PrevMap != MapColor && Tile::NextMap != MapColor && Tile::Building != MapColor)
+	{
+		return;
+	}
+
+
+
+	StopPlayer();
+	if (nullptr == PlayLevel->GetFadeObject() && true == CreateFade)
+	{
+		if (Tile::PrevMap == MapColor)
+		{
+			GameEngineCore::ChangeLevel(PlayLevel->GetPrevLevel());
+		}
+		else if (Tile::NextMap == MapColor)
+		{
+			GameEngineCore::ChangeLevel(PlayLevel->GetNextLevel());
+		}
+		else if (Tile::Building == MapColor)
+		{
+			GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
+		}
+		MapColor = RGB(0, 0, 0);
+		CreateFade = false;
+		return;
+	}
+
+	if (nullptr == PlayLevel->GetFadeObject())
+	{
+		FadeObject* _CurFade = PlayLevel->CreateActor<FadeObject>();
+		_CurFade->Init(true);
+		_CurFade->FadeOutOn();
+		PlayLevel->SetFadeObject(_CurFade);
+		CreateFade = true;
+	}
+}
+

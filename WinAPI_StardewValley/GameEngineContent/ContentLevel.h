@@ -47,6 +47,16 @@ public:
 	{
 		return UITileMap;
 	}
+
+	FadeObject* GetFadeObject()
+	{
+		return _CurFade;
+	}
+
+	void SetFadeObject(FadeObject* _Object)
+	{
+		_CurFade = _Object;
+	}
 	
 protected:
 	float4 CurIndex = {};

@@ -99,6 +99,8 @@ public:
 
 	void StopPlayer();
 
+	void ChangeMap();
+
 	GameEngineRenderer* BodyRenderer = nullptr;
 	GameEngineRenderer* ArmRenderer = nullptr;
 	GameEngineRenderer* HairRenderer = nullptr;
@@ -114,9 +116,11 @@ protected:
 
 private:
 	bool IsUpdate = true;
+	bool CreateFade = false;
 	float Speed = 350.0f;
 	int PrevTileColor = 0;
 	int CurTileColor = 0;
+	int MapColor = 0;
 	std::string CurState = "";
 	std::string ToolDir = "";
 	ContentItem* CurItem = nullptr;

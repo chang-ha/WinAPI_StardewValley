@@ -423,18 +423,7 @@ void Player::RunUpdate(float _DeltaTime)
 
 	// Change Map
 	Color = GetTileColor(RGB(0, 0, 0), CheckPos + MovePos);
-	if (Tile::PrevMap == Color)
-	{
-		GameEngineCore::ChangeLevel(PlayLevel->GetPrevLevel());
-	}
-	else if (Tile::NextMap == Color)
-	{
-		GameEngineCore::ChangeLevel(PlayLevel->GetNextLevel());
-	}
-	else if (Tile::Building == Color)
-	{
-		GameEngineCore::ChangeLevel(PlayLevel->GetBuildingLevel());
-	}
+	MapColor = Color;
 
 	static bool SleepUIOnce = false;
 	if (Tile::SleepTile == Color && false == SleepUIOnce)
