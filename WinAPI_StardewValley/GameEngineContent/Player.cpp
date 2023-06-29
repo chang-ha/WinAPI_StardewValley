@@ -600,6 +600,8 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
+	ChangeMap();
+
 	if (true == IsUpdate)
 	{
 		StateUpdate(_Delta);
@@ -645,8 +647,6 @@ void Player::Update(float _Delta)
 	{
 		ChangeAnimationState("Idle");
 	}
-
-	ChangeMap();
 }
 
 void Player::StateUpdate(float _Delta)
