@@ -1,4 +1,6 @@
-﻿#include <GameEngineCore/GameEngineLevel.h>
+﻿#include <GameEngineBase/GameEngineRandom.h>
+
+#include <GameEngineCore/GameEngineLevel.h>
 #include <GameEngineCore/GameEngineCollision.h>
 
 #include "SmallTree.h"
@@ -18,7 +20,18 @@ SmallTree::~SmallTree()
 
 void SmallTree::Start()
 {
-	ContentResources::Init("Tree_Small.bmp");
+	int RandomValue = GameEngineRandom::MainRandom.RandomInt(0, 1);
+	switch (RandomValue)
+	{
+	case 0:
+		ContentResources::Init("Tree_Small.bmp");
+		break;
+	case 1:
+		ContentResources::Init("Tree_Small2.bmp");
+		break;
+	default:
+		break;
+	}
 	if (nullptr == GameEngineSound::FindSound("axchop.wav"))
 	{
 		GameEnginePath FilePath;
