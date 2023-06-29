@@ -309,7 +309,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Tulip.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Weed.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="WildCrops.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -469,7 +477,15 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Tulip.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="Weed.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="WildCrops.cpp">
       <SubType>
       </SubType>
     </ClCompile>

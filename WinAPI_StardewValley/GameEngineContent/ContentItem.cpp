@@ -160,4 +160,32 @@ void ContentItem::SetItemPrice()
 	{
 		ItemSellPrice = 35;
 	}
+	else if ("Seed_Wild.bmp" == ItemName)
+	{
+		ItemSellPrice = 35;
+	}
+	else if ("Daffodil.bmp" == ItemName)
+	{
+		ItemSellPrice = 30;
+	}
+	else if ("Dandelion.bmp" == ItemName)
+	{
+		ItemSellPrice = 40;
+	}
+	else if ("Wasabi.bmp" == ItemName)
+	{
+		ItemSellPrice = 50;
+	}
+	else if ("Leeks.bmp" == ItemName)
+	{
+		ItemSellPrice = 50;
+	}
+	else if ("Tulip.bmp" == ItemName)
+	{
+		ItemSellPrice = 30;
+	}
+	else if ("Seed_Tulip.bmp" == ItemName)
+	{
+		ItemSellPrice = 10;
+	}
 }

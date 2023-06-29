@@ -124,6 +124,12 @@
     <ClInclude Include="Kale.h">
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClInclude>
+    <ClInclude Include="WildCrops.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
+    <ClInclude Include="Tulip.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -247,6 +253,12 @@
       <Filter>Level\05. FarmMap\Resources</Filter>
     </ClCompile>
     <ClCompile Include="Kale.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClCompile>
+    <ClCompile Include="WildCrops.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClCompile>
+    <ClCompile Include="Tulip.cpp">
       <Filter>Level\05. FarmMap\Crops</Filter>
     </ClCompile>
   </ItemGroup>
