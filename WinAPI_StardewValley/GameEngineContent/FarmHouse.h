@@ -31,9 +31,11 @@ protected:
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 
 private:
-	void Start() override;
-	void Update(float _Delta) override;
 	bool IsSleepValue = false;
 	PlayOver* BedDie = nullptr;
+	PlayOver* TutorialRenderer = nullptr;
+
+	void Start() override;
+	void Update(float _Delta) override;
 };
 

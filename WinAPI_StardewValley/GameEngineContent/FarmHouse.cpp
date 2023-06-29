@@ -1,4 +1,6 @@
-﻿#include <GameEngineBase/GameEngineDebug.h>
+﻿#define TUTORIALSPEED 20.0f
+
+#include <GameEngineBase/GameEngineDebug.h>
 
 #include <GameEnginePlatform/GameEngineWindow.h>
 #include <GameEnginePlatform/GameEngineInput.h>
@@ -73,6 +75,12 @@ void FarmHouse::LevelStart(GameEngineLevel* _PrevLevel)
 void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	ContentLevel::LevelEnd(_NextLevel);
+	if (nullptr != TutorialRenderer)
+	{
+		TutorialRenderer->Death();
+		TutorialRenderer = nullptr;
+	}
+
 	// _NexxtLevel == TitleScreen
 	if (nullptr != dynamic_cast<TitleScreen*>(_NextLevel))
 	{
@@ -100,16 +108,7 @@ void FarmHouse::Start()
 {
 	PrevLevel = "TitleScreen";
 	NextLevel = "Farm";
-	// Sound Load
-	if (nullptr == GameEngineSound::FindSound("Farm.mp3"))
-	{
-		GameEnginePath FilePath;
-		FilePath.SetCurrentPath();
-		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Sounds\\BGM");
-		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Farm.mp3"));
-	}
-
+	
 	// Texture
 	if (nullptr == Back)
 	{
@@ -135,11 +134,38 @@ void FarmHouse::Start()
 		BedDie->Renderer->SetOrder(static_cast<int>(RenderOrder::Play));
 		BedDie->Init("Detail_BedDie.bmp");
 		BedDie->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.60f });
+
+		TutorialRenderer = CreateActor<PlayOver>(UpdateOrder::Map);
+		TutorialRenderer->Init("Tutorial.bmp");
+		TutorialRenderer->SetPos({ -42 * RENDERRATIO, GlobalValue::WinScale.hY()});
 	}
 
+	// Sound Load
+	if (nullptr == GameEngineSound::FindSound("Farm.mp3"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Sounds\\BGM");
+		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Farm.mp3"));
+	}
 }
 
 void FarmHouse::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);
+
+	if (nullptr != TutorialRenderer)
+	{
+		if (42 * RENDERRATIO == TutorialRenderer->GetPos().X)
+		{
+			return;
+		}
+
+		TutorialRenderer->AddPos(float4::RIGHT * RENDERRATIO * TUTORIALSPEED * _Delta);
+		if (42 * RENDERRATIO <= TutorialRenderer->GetPos().X)
+		{
+			TutorialRenderer->SetPos({ 42 * RENDERRATIO, GlobalValue::WinScale.hY() });
+		}
+	}
 }

@@ -358,7 +358,7 @@ void ContentUIManager::Start()
 	GameEngineRenderer* Text5Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	GameEngineRenderer* Text6Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	Text1Renderer->SetText("콜리젼디버그 : F1", 30, "Sandoll 미생");
-	Text1Renderer->SetRenderPos({ 0, 0 });
+	Text1Renderer->SetRenderPos({ 0, 0 });	
 	Text2Renderer->SetText("맵 콜리전디버그 : F2", 30, "Sandoll 미생");
 	Text2Renderer->SetRenderPos({ 0, 30 });
 	Text3Renderer->SetText("이전레벨이동 : F3", 30, "Sandoll 미생");
