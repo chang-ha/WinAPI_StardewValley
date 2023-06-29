@@ -138,6 +138,8 @@ void Player::OpenBoxStart()
 
 void Player::IdleUpdate(float _DeltaTime)
 {
+	CurItem = ContentInventory::MainInventory->GetCurItem();
+
 	// EffectPlayer.Stop();
 	if (nullptr != ToolCollision && false == ToolCollision->IsDeath())
 	{
@@ -232,6 +234,8 @@ void Player::IdleUpdate(float _DeltaTime)
 
 void Player::RunUpdate(float _DeltaTime)
 {
+	CurItem = ContentInventory::MainInventory->GetCurItem();
+
 	// Change To Idle
 	if (true == GameEngineInput::IsFree('A')
 		&& true == GameEngineInput::IsFree('W')

@@ -91,6 +91,7 @@ void Weed::DeathAnimationUpdate()
 		return;
 	}
 	Renderer->ChangeAnimation("Death_Weed");
+	Collision->Death();
 
 	if (true == Renderer->IsAnimationEnd())
 	{

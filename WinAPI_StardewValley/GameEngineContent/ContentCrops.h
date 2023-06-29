@@ -18,7 +18,7 @@ public:
 
 	bool IsGrownUp();
 
-	virtual void Grow();
+	void Grow();
 
 protected:
 	void Start() override;

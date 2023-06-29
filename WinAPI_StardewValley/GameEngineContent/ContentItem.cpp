@@ -152,4 +152,12 @@ void ContentItem::SetItemPrice()
 	{
 		ItemSellPrice = 1;
 	}
+	else if ("Kale.bmp" == ItemName)
+	{
+		ItemSellPrice = 110;
+	}
+	else if ("Seed_Kale.bmp" == ItemName)
+	{
+		ItemSellPrice = 35;
+	}
 }

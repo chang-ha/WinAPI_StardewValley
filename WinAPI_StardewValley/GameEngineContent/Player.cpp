@@ -598,8 +598,6 @@ void Player::Start()
 
 void Player::Update(float _Delta)
 {
-	CurItem = ContentInventory::MainInventory->GetCurItem();
-
 	if (true == IsUpdate)
 	{
 		StateUpdate(_Delta);

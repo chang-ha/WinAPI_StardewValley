@@ -140,6 +140,11 @@ void ContentUIManager::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Rhubarb.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Rhubarb.bmp"));
 	}
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Seed_Kale.bmp"))
+	{
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Seed_Kale.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Item\\Inventory_Seed_Kale.bmp"));
+	}
 
 
 	// Sound Load
@@ -755,9 +760,9 @@ void ContentUIManager::ShopItemSetting()
 				ShopItem[x]->ItemNameTextRenderer->SetText("대황 씨앗", 45, "Sandoll 미생");
 				break;
 			case 1:
-				ShopItem[x]->ItemName = "Seed_Cauliflower.bmp";
-				ShopItem[x]->ItemBuyPrice = 80;
-				ShopItem[x]->ItemNameTextRenderer->SetText("콜리플라워 씨앗", 45, "Sandoll 미생");
+				ShopItem[x]->ItemName = "Seed_Kale.bmp";
+				ShopItem[x]->ItemBuyPrice = 70;
+				ShopItem[x]->ItemNameTextRenderer->SetText("케일 씨앗", 45, "Sandoll 미생");
 				break;
 			case 2:
 				ShopItem[x]->ItemName = "Seed_Garlic.bmp";

@@ -121,6 +121,9 @@
     <ClInclude Include="Weed.h">
       <Filter>Level\05. FarmMap\Resources</Filter>
     </ClInclude>
+    <ClInclude Include="Kale.h">
+      <Filter>Level\05. FarmMap\Crops</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="Weed.cpp">
       <Filter>Level\05. FarmMap\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Kale.cpp">
+      <Filter>Level\05. FarmMap\Crops</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
