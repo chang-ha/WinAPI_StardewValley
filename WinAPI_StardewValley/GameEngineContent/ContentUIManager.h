@@ -87,6 +87,11 @@ public:
 		EnergyValue = _EnergyValue;
 	}
 
+	float GetEnergyValue()
+	{
+		return EnergyValue;
+	}
+
 	void PlusEnergyValue(float _EnergyValue)
 	{
 		EnergyValue += _EnergyValue;
@@ -153,12 +158,6 @@ private:
 	GameEngineRenderer* OkButtonRenderer = nullptr;
 	GameEngineCollision* SellItemCollision = nullptr;
 	GameEngineCollision* OkButtonCollision = nullptr;
-
-	// Debug Value
-	GameEngineRenderer* Text1Renderer = nullptr;
-	GameEngineRenderer* Text2Renderer = nullptr;
-	GameEngineRenderer* Text3Renderer = nullptr;
-	GameEngineRenderer* Text4Renderer = nullptr;
 
 	void Start() override;
 	void Update(float _Delta) override;

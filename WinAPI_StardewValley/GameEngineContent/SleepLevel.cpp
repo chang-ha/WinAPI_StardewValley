@@ -12,6 +12,9 @@
 #include "BackGround.h"
 #include "PlayOver.h"
 #include "ContentUIManager.h"
+#include "Player.h"
+#include "ContentInventory.h"
+#include "FarmHouse.h"
 
 SleepLevel::SleepLevel()
 {
@@ -31,12 +34,27 @@ void SleepLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		ContentUIManager::MainUI->SellCurItem();
 	}
+
+	if (nullptr != dynamic_cast<FarmHouse*>(_PrevLevel))
+	{
+		ContentUIManager::MainUI->SetEnergyValue(FULLENERGY);
+	}
+	else
+	{
+		if (HALFENERGY > ContentUIManager::MainUI->GetEnergyValue())
+		{
+			ContentUIManager::MainUI->SetEnergyValue(HALFENERGY);
+		}
+	}
 }
 void SleepLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	ContentLevel::LevelEnd(_NextLevel);
 	ContentUIManager::MainUI->SleepMoneyRenderOff();
 	ContentUIManager::MainUI->ResetTimeValue();
+	Player::MainPlayer->On();
+	ContentInventory::MainInventory->On();
+
 }
 
 void SleepLevel::Start()

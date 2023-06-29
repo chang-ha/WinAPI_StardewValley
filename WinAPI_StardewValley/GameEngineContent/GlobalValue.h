@@ -3,6 +3,8 @@
 
 #define RENDERRATIO 3.0f
 #define TILESIZE float4{16, 16}
+#define FULLENERGY 83.0f
+#define HALFENERGY 42.0f
 
 class GlobalValue
 {

@@ -181,7 +181,6 @@ void GameEngineWindow::DoubleBuffering()
     float4 CopyRightBot = BackBuffer->GetScale();
     
     WindowBuffer->TransCopy(BackBuffer, Scale.Half(), BackBuffer->GetScale() * CopyRatio, CopyLeftTop, CopyRightBot, RGB(255, 0, 255));
-    // WindowBuffer->BitCopy(BackBuffer, Scale.Half(), BackBuffer->GetScale());
 }
 
 void GameEngineWindow::ClearBackBuffer()

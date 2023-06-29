@@ -6,9 +6,10 @@
 #define TOOL2LASTANI 0.6f
 #define TOOL3SPEED 0.03f
 #define HARVESTSPEED 0.1f
-#define DIESPEED 1.5f
-#define DIELASTANI 1.5f
+#define DIESPEED 1.2f
+#define DIELASTANI 0.5f
 #define WATERSPEED 0.1f
+#define EMOTESPEED 0.15f
 
 #include <GameEngineBase/GameEngineDebug.h>
 #include <GameEngineBase/GameEngineTime.h>
@@ -181,7 +182,11 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_hair_Tool3", FilePath.PlusFilePath("Player_hair\\Left_Player_hair1_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_hair_Die", FilePath.PlusFilePath("Player_hair\\Down_Player_hair1_Die.bmp"), 4, 1);
 
+		// Shadow
 		ResourcesManager::GetInst().CreateSpriteSheet("Shadow.bmp", FilePath.PlusFilePath("Shadow.bmp"), 1, 1);
+		
+		// Emote Animation
+		ResourcesManager::GetInst().CreateSpriteSheet("Sleep_Emote", FilePath.PlusFilePath("Player_Emote\\Sleep_Emote.bmp"), 8, 1);
 
 		// Tool Sprite
 		//Hoe
@@ -282,10 +287,6 @@ void Player::Start()
 	}
 
 	// Player Renderer 
-	ShadowRenderer = CreateRenderer(RenderOrder::Shadow);
-	WaterRenderer = CreateRenderer(RenderOrder::PlayBelow);
-	WaterRenderer->Off();
-
 	BodyRenderer = CreateRenderer(RenderOrder::Play);
 	BodyRenderer->SetScaleRatio(RENDERRATIO);
 
@@ -302,16 +303,29 @@ void Player::Start()
 	HairRenderer = CreateRenderer(RenderOrder::Play);
 	HairRenderer->SetScaleRatio(RENDERRATIO);
 
-	ToolRenderer = CreateRenderer(RenderOrder::PlayOver);
+	ToolRenderer = CreateRenderer(RenderOrder::Play
+	);
 	ToolRenderer->SetRenderScale(float4{16, 50} * RENDERRATIO);
 	ToolRenderer->Off();
+
+	EmoteRenderer = CreateRenderer(RenderOrder::Play);
+	EmoteRenderer->CreateAnimation("Sleeping_Emote", "Sleep_Emote", 0, 7, EMOTESPEED, false);
+	EmoteRenderer->CreateAnimation("End_Emote", "Sleep_Emote", 3, 0, EMOTESPEED, false);
+	EmoteRenderer->SetRenderPos(float4{0, -16} * RENDERRATIO);
+	EmoteRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
+	EmoteRenderer->Off();
 
 	CurItemRenderer = CreateRenderer(RenderOrder::Play);
 	CurItemRenderer->SetRenderScale(TILESIZE * RENDERRATIO);
 	CurItemRenderer->SetRenderPos(float4{0, -15} * RENDERRATIO);
 	CurItemRenderer->SetYPivot(16 * RENDERRATIO);
 	CurItemRenderer->Off();
+
+	WaterRenderer = CreateRenderer(RenderOrder::PlayBelow);
+	WaterRenderer->Off();
+
 	// Shadow
+	ShadowRenderer = CreateRenderer(RenderOrder::Shadow);
 	ShadowRenderer->SetAlpha(120);
 	ShadowRenderer->CreateAnimation("Idle", "Shadow.bmp", 0, 0);
 	ShadowRenderer->ChangeAnimation("Idle");
@@ -619,8 +633,7 @@ void Player::Update(float _Delta)
 {
 	ChangeMap();
 
-	// Test Code
-	if (true == GameEngineInput::IsDown('T'))
+	if (0 >= ContentUIManager::MainUI->GetEnergyValue())
 	{
 		ChangeState(PlayerState::Die);
 	}
@@ -968,8 +981,6 @@ void Player::ChangeMap()
 	{
 		return;
 	}
-
-
 
 	StopPlayer();
 	if (nullptr == PlayLevel->GetFadeObject() && true == CreateFade)

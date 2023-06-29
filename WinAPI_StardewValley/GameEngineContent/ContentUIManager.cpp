@@ -351,10 +351,12 @@ void ContentUIManager::Start()
 	OkButtonCollision->SetCollisionScale(TILESIZE);
 
 	// Debug Renderer
-	Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
-	Text2Renderer = CreateUIRenderer(RenderOrder::PlayOver);
-	Text3Renderer = CreateUIRenderer(RenderOrder::PlayOver);
-	Text4Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	GameEngineRenderer* Text1Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	GameEngineRenderer* Text2Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	GameEngineRenderer* Text3Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	GameEngineRenderer* Text4Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	GameEngineRenderer* Text5Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	GameEngineRenderer* Text6Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	Text1Renderer->SetText("콜리젼디버그 : F1", 30, "Sandoll 미생");
 	Text1Renderer->SetRenderPos({ 0, 0 });
 	Text2Renderer->SetText("맵 콜리전디버그 : F2", 30, "Sandoll 미생");
@@ -363,14 +365,17 @@ void ContentUIManager::Start()
 	Text3Renderer->SetRenderPos({ 0, 60 });
 	Text4Renderer->SetText("다음레벨이동 : F4", 30, "Sandoll 미생");
 	Text4Renderer->SetRenderPos({ 0, 90 });
+	Text5Renderer->SetText("작물 자라게 하기 : F5", 30, "Sandoll 미생");
+	Text5Renderer->SetRenderPos({ 0, 120 });
+	Text6Renderer->SetText("돈 500원 증가 : F6", 30, "Sandoll 미생");
+	Text6Renderer->SetRenderPos({ 0, 150 });
 }
 
 void ContentUIManager::Update(float _Delta)
 {
 	if (true == GameEngineInput::IsDown(VK_F6))
 	{
-		ClockHand->AddAngle(10.0f);
-		// EnergyValue -= 10.0f;
+		PlayerMoney += 500;
 	}
 	
 	EnergyBar->SetRenderScale(float4{ 6, EnergyValue } *RENDERRATIO);

@@ -110,6 +110,7 @@ public:
 	GameEngineRenderer* ToolRenderer = nullptr;
 	GameEngineRenderer* ShadowRenderer = nullptr;
 	GameEngineRenderer* WaterRenderer = nullptr;
+	GameEngineRenderer* EmoteRenderer = nullptr;
 
 	GameEngineCollision* BodyCollision = nullptr;
 	GameEngineCollision* ToolCollision = nullptr;

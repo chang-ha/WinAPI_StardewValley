@@ -93,8 +93,6 @@ void FarmHouse::LevelEnd(GameEngineLevel* _NextLevel)
 	if (nullptr != dynamic_cast<SleepLevel*>(_NextLevel))
 	{
 		BGMPlayer.Stop();
-		Player::MainPlayer->OverOff();
-		ContentInventory::MainInventory->OverOff();
 	}
 }
 

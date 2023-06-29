@@ -126,10 +126,6 @@ void ContentInventory::Start()
 	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
 	Item->Init("sickle.bmp", ItemType::Sickle);
 	PushItem(Item);
-
-	Item = CurLevel->CreateActor<ContentItem>(UpdateOrder::Inventory);
-	Item->Init("Seed_Wild.bmp", ItemType::Seed, 50);
-	PushItem(Item);
 }
 
 void ContentInventory::PushItem(ContentItem* _Item)

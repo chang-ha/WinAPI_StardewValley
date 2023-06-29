@@ -910,10 +910,27 @@ void Player::DieUpdate(float _Delta)
 		break;
 	}
 
-	if (true == PantsRenderer->IsAnimationEnd())
+	if (true == PantsRenderer->IsAnimationEnd() && false == EmoteRenderer->IsUpdate())
 	{
-		ChangeState(PlayerState::Idle);
-		ShirtRenderer->SetRenderPos({});
+		EmoteRenderer->On();
+		EmoteRenderer->ChangeAnimation("Sleeping_Emote");
+	}
+
+	if (false == EmoteRenderer->IsUpdate())
+	{
+		return;
+	}
+
+	if (true == EmoteRenderer->IsAnimationEnd())
+	{
+		EmoteRenderer->ChangeAnimation("End_Emote");
+	}
+
+	if (true == EmoteRenderer->IsAnimation("End_Emote") && true == EmoteRenderer->IsAnimationEnd())
+	{
 		PantsRenderer->SetYPivot(0);
+		EmoteRenderer->Off();
+		EffectPlayer.SetLoop(0);
+		GameEngineCore::ChangeLevel("SleepLevel");
 	}
 }

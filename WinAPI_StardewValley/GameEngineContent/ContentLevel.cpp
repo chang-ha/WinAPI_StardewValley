@@ -17,6 +17,7 @@
 #include "ContentsEnum.h"
 #include "SleepLevel.h"
 #include "FadeObject.h"
+#include "ContentInventory.h"
 
 ContentLevel::ContentLevel()
 {
@@ -89,6 +90,15 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 
 void ContentLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
+	if (nullptr != dynamic_cast<SleepLevel*>(_NextLevel))
+	{
+		BGMPlayer.Stop();
+		Player::MainPlayer->OverOn();
+		Player::MainPlayer->Off();
+		ContentInventory::MainInventory->OverOn();
+		ContentInventory::MainInventory->Off();
+	}
+
 	Back->ResetBackGroundRender();
 }
 
