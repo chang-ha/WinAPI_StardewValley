@@ -875,9 +875,7 @@ void ContentUIManager::ShippingUIUpdate(float _Delta)
 	}
 }
 
-
 // MoneyData Init
-
 void ContentUIManager::MoneyData::On()
 {
 	IsUpdate = true;

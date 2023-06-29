@@ -18,6 +18,7 @@ enum class RenderOrder
 	UI_Money,
 	Inventory_Item,
 	UIMouse,
+	FadeObject,
 };
 
 enum class CollisionOrder

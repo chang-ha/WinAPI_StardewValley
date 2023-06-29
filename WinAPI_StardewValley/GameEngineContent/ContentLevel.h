@@ -9,6 +9,7 @@
 
 class BackGround;
 class TileMap;
+class FadeObject;
 class ContentLevel : public GameEngineLevel
 {
 public:
@@ -48,19 +49,20 @@ public:
 	}
 	
 protected:
-	BackGround* Back = nullptr;
-	TileMap* UITileMap = nullptr;
 	float4 CurIndex = {};
 	float4 PrevIndex = {};
+	BackGround* Back = nullptr;
+	TileMap* UITileMap = nullptr;
+	FadeObject* _CurFade = nullptr;
+
+	std::string PrevLevel = "";
+	std::string NextLevel = "";
+	std::string Building = "";
 
 	void Start() override;
 	void Update(float _Delta) override;
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
-
-	std::string PrevLevel = "";
-	std::string NextLevel = "";
-	std::string Building = "";
 private:
 };
 

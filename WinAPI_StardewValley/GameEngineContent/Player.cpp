@@ -4,8 +4,8 @@
 #define TOOL1LASTANI 0.1f
 #define TOOL2SPEED 0.07f
 #define TOOL2LASTANI 0.6f
-#define TOOL3SPEED 0.05f
-#define HARVESTSPEED 0.06f
+#define TOOL3SPEED 0.03f
+#define HARVESTSPEED 0.1f
 #define WATERSPEED 0.1f
 
 #include <GameEngineBase/GameEngineDebug.h>

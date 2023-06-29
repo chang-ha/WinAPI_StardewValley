@@ -24,7 +24,7 @@ GiftBox::~GiftBox()
 
 void GiftBox::Start()
 {
-	if (nullptr == ResourcesManager::GetInst().FindSprite("GiftBox.bmp"))
+	if (nullptr == ResourcesManager::GetInst().FindSprite("GiftBox"))
 	{
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();

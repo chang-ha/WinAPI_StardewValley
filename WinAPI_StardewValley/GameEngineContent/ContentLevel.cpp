@@ -16,6 +16,7 @@
 #include "ContentMouse.h"
 #include "ContentsEnum.h"
 #include "SleepLevel.h"
+#include "FadeObject.h"
 
 ContentLevel::ContentLevel()
 {
@@ -33,23 +34,39 @@ float4 ContentLevel::GetRenderScale()
 
 void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 {
-	if (nullptr != dynamic_cast<TitleScreen*>(this) || nullptr != dynamic_cast<SleepLevel*>(this))
+	if (nullptr == _CurFade)
+	{
+		_CurFade = CreateActor<FadeObject>();
+	}
+
+	if (nullptr != dynamic_cast<TitleScreen*>(this))
 	{
 		ContentUIManager::MainUI->BasicUIOff();
 		ContentUIManager::MainUI->GetMoneyData(PlayerMoney)->SetUpdate(false);
-		// ContentUIManager::MainUI->ResetCurTextMoney();
+		_CurFade->Init(false);
+		_CurFade->FadeInOn();
+	}
+	else if (nullptr != dynamic_cast<SleepLevel*>(this))
+	{
+		ContentUIManager::MainUI->BasicUIOff();
+		ContentUIManager::MainUI->GetMoneyData(PlayerMoney)->SetUpdate(false);
+		_CurFade->Init(true);
+		_CurFade->FadeInOn();
 	}
 	else
 	{
 		ContentUIManager::MainUI->BasicUIOn();
 		ContentUIManager::MainUI->GetMoneyData(PlayerMoney)->SetUpdate(true);
-
+		_CurFade->Init(true);
+		_CurFade->FadeInOn();
 
 		if (nullptr == Player::MainPlayer)
 		{
 			MsgBoxAssert("플레이어를 세팅해주지 않았습니다");
 		}
 		Player::MainPlayer->SetPlayLevel(this);
+		Player::MainPlayer->SetIsUpdate(false);
+		Player::MainPlayer->ChangeState(PlayerState::Idle);
 
 		if (nullptr == UITileMap)
 		{
@@ -110,6 +127,13 @@ void ContentLevel::Update(float _Delta)
 	if (true == GameEngineInput::IsDown(VK_F4) && "" != NextLevel)
 	{
 		GameEngineCore::ChangeLevel(NextLevel);
+	}
+
+	if (nullptr != _CurFade && true == _CurFade->IsFadeEnd())
+	{
+		_CurFade->Death();
+		_CurFade = nullptr;
+		Player::MainPlayer->SetIsUpdate(true);
 	}
 
 	if (nullptr != UITileMap)

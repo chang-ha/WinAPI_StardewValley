@@ -124,13 +124,13 @@ private:
 	GameEngineRenderer* TimeTextRenderer = nullptr;
 
 	// FarmHouse's Sleep UI
+	float UIRenderRatio = 0.1f;
 	GameEngineWindowTexture* SleepUITexture = nullptr;
 	GameEngineRenderer* SleepUIRenderer = nullptr;
 	GameEngineRenderer* SleepYesRenderer = nullptr;
 	GameEngineRenderer* SleepNoRenderer = nullptr;
 	GameEngineCollision* SleepYesCollision = nullptr;
 	GameEngineCollision* SleepNoCollision = nullptr;
-	float UIRenderRatio = 0.1f;
 
 	// Pierre's Shop UI
 	int ItemSelectIndex = -1;
