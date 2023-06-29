@@ -6,6 +6,8 @@
 #define TOOL2LASTANI 0.6f
 #define TOOL3SPEED 0.03f
 #define HARVESTSPEED 0.1f
+#define DIESPEED 1.5f
+#define DIELASTANI 1.5f
 #define WATERSPEED 0.1f
 
 #include <GameEngineBase/GameEngineDebug.h>
@@ -79,6 +81,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_body_Tool3", FilePath.PlusFilePath("Player_body\\Down_Player_body_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_body_Tool3", FilePath.PlusFilePath("Player_body\\Right_Player_body_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_body_Tool3", FilePath.PlusFilePath("Player_body\\Left_Player_body_Tool3.bmp"), 6, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_body_Die", FilePath.PlusFilePath("Player_body\\Down_Player_body_Die.bmp"), 4, 1);
 
 		// Pants Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Pants", FilePath.PlusFilePath("Player_pants\\Up_Player_pants1.bmp"), 9, 1);
@@ -101,6 +104,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Pants_Tool3", FilePath.PlusFilePath("Player_pants\\Down_Player_pants1_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Pants_Tool3", FilePath.PlusFilePath("Player_pants\\Right_Player_pants1_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Pants_Tool3", FilePath.PlusFilePath("Player_pants\\Left_Player_pants1_Tool3.bmp"), 6, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Pants_Die", FilePath.PlusFilePath("Player_pants\\Down_Player_pants1_Die.bmp"), 4, 1);
 
 		// Shirt Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_Shirt", FilePath.PlusFilePath("Player_shirt\\Up_Player_shirt1.bmp"), 9, 1);
@@ -123,6 +127,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Shirt_Tool3", FilePath.PlusFilePath("Player_shirt\\Down_Player_shirt1_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_Shirt_Tool3", FilePath.PlusFilePath("Player_shirt\\Right_Player_shirt1_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_Shirt_Tool3", FilePath.PlusFilePath("Player_shirt\\Left_Player_shirt1_Tool3.bmp"), 6, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_Shirt_Die", FilePath.PlusFilePath("Player_shirt\\Down_Player_shirt1_Die.bmp"), 4, 1);
 
 		// Arm Animation
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm", FilePath.PlusFilePath("Player_arm\\Up_Player_arm.bmp"), 9, 1);
@@ -145,6 +150,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm_Tool3", FilePath.PlusFilePath("Player_arm\\Down_Player_arm_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_arm_Tool3", FilePath.PlusFilePath("Player_arm\\Right_Player_arm_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_arm_Tool3", FilePath.PlusFilePath("Player_arm\\Left_Player_arm_Tool3.bmp"), 6, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm_Die", FilePath.PlusFilePath("Player_arm\\Down_Player_arm_Die.bmp"), 4, 1);
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Up_Player_arm_Item", FilePath.PlusFilePath("Player_arm\\Up_Player_arm_Item.bmp"), 9, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_arm_Item", FilePath.PlusFilePath("Player_arm\\Down_Player_arm_Item.bmp"), 9, 1);
@@ -173,6 +179,7 @@ void Player::Start()
 		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_hair_Tool3", FilePath.PlusFilePath("Player_hair\\Down_Player_hair1_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Right_Player_hair_Tool3", FilePath.PlusFilePath("Player_hair\\Right_Player_hair1_Tool3.bmp"), 6, 1);
 		ResourcesManager::GetInst().CreateSpriteSheet("Left_Player_hair_Tool3", FilePath.PlusFilePath("Player_hair\\Left_Player_hair1_Tool3.bmp"), 6, 1);
+		ResourcesManager::GetInst().CreateSpriteSheet("Down_Player_hair_Die", FilePath.PlusFilePath("Player_hair\\Down_Player_hair1_Die.bmp"), 4, 1);
 
 		ResourcesManager::GetInst().CreateSpriteSheet("Shadow.bmp", FilePath.PlusFilePath("Shadow.bmp"), 1, 1);
 
@@ -336,6 +343,8 @@ void Player::Start()
 			BodyRenderer->CreateAnimation("Down_Harvest", "Down_Player_body_Harvest", 0, 3, HARVESTSPEED, false);
 			BodyRenderer->CreateAnimation("Down_OpenBox", "Down_Player_body_Harvest", 3, 3, 5.0f, false);
 			BodyRenderer->CreateAnimation("Down_Tool3", "Down_Player_body_Tool3", 0, 5, TOOL3SPEED, false);
+			BodyRenderer->CreateAnimation("Down_Die", "Down_Player_body_Die", 0, 3, DIESPEED, false);
+			BodyRenderer->FindAnimation("Down_Die")->Inters[3] = DIELASTANI;
 		}
 		
 		// Right
@@ -388,6 +397,8 @@ void Player::Start()
 			PantsRenderer->CreateAnimation("Down_Harvest", "Down_Player_Pants_Harvest", 0, 3, HARVESTSPEED, false);
 			PantsRenderer->CreateAnimation("Down_OpenBox", "Down_Player_Pants_Harvest", 3, 3, 5.0f, false);
 			PantsRenderer->CreateAnimation("Down_Tool3", "Down_Player_Pants_Tool3", 0, 5, TOOL3SPEED, false);
+			PantsRenderer->CreateAnimation("Down_Die", "Down_Player_Pants_Die", 0, 3, DIESPEED, false);
+			PantsRenderer->FindAnimation("Down_Die")->Inters[3] = DIELASTANI;
 		}
 
 		//Right
@@ -440,6 +451,8 @@ void Player::Start()
 			ShirtRenderer->CreateAnimation("Down_Harvest", "Down_Player_Shirt_Harvest", 0, 3, HARVESTSPEED, false);
 			ShirtRenderer->CreateAnimation("Down_OpenBox", "Down_Player_Shirt_Harvest", 3, 3, 5.0f, false);
 			ShirtRenderer->CreateAnimation("Down_Tool3", "Down_Player_Shirt_Tool3", 0, 5, TOOL3SPEED, false);
+			ShirtRenderer->CreateAnimation("Down_Die", "Down_Player_Shirt_Die", 0, 3, DIESPEED, false);
+			ShirtRenderer->FindAnimation("Down_Die")->Inters[3] = DIELASTANI;
 		}
 
 		//Right
@@ -496,6 +509,8 @@ void Player::Start()
 			ArmRenderer->CreateAnimation("Down_Idle_Item", "Down_Player_arm_Item", 0, 0);
 			ArmRenderer->CreateAnimation("Down_Run_Item", "Down_Player_arm_Item", 1, 8, RUNSPEED1);
 			ArmRenderer->CreateAnimation("Down_Tool3", "Down_Player_arm_Tool3", 0, 5, TOOL3SPEED, false);
+			ArmRenderer->CreateAnimation("Down_Die", "Down_Player_arm_Die", 0, 3, DIESPEED, false);
+			ArmRenderer->FindAnimation("Down_Die")->Inters[3] = DIELASTANI;
 		}
 
 		// Right
@@ -552,6 +567,8 @@ void Player::Start()
 			HairRenderer->CreateAnimation("Down_Harvest", "Down_Player_hair_Harvest", 0, 3, HARVESTSPEED, false);
 			HairRenderer->CreateAnimation("Down_OpenBox", "Down_Player_hair_Harvest", 3, 3, 5.0f, false);
 			HairRenderer->CreateAnimation("Down_Tool3", "Down_Player_hair_Tool3", 0, 5, TOOL3SPEED, false);
+			HairRenderer->CreateAnimation("Down_Die", "Down_Player_hair_Die", 0, 3, DIESPEED, false);
+			HairRenderer->FindAnimation("Down_Die")->Inters[3] = DIELASTANI;
 		}
 
 		//Right
@@ -601,6 +618,12 @@ void Player::Start()
 void Player::Update(float _Delta)
 {
 	ChangeMap();
+
+	// Test Code
+	if (true == GameEngineInput::IsDown('T'))
+	{
+		ChangeState(PlayerState::Die);
+	}
 
 	if (true == IsUpdate)
 	{
@@ -667,6 +690,8 @@ void Player::StateUpdate(float _Delta)
 		return HarvestUpdate(_Delta);
 	case PlayerState::OpenBox:
 		return OpenBoxUpdate(_Delta);
+	case PlayerState::Die:
+		return DieUpdate(_Delta);
 	default:
 		break;
 	}
@@ -698,6 +723,9 @@ void Player::ChangeState(PlayerState _State)
 			break;
 		case PlayerState::OpenBox:
 			OpenBoxStart();
+			break;
+		case PlayerState::Die:
+			DieStart();
 			break;
 		default:
 			break;
@@ -849,7 +877,7 @@ void Player::ChangeAnimationState(const std::string& _StateName)
 	// ShirtPos Setting
 	ShirtRenderer->SetRenderPos({ 0, 2 * RENDERRATIO });
 
-	if (PlayerState::OpenBox == State)
+	if (PlayerState::OpenBox == State || PlayerState::Die == State)
 	{
 		AnimationName = "Down_";
 	}

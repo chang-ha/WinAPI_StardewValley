@@ -12,6 +12,7 @@ enum class PlayerState
 	Tool3,
 	Harvest,
 	OpenBox,
+	Die,
 };
 
 enum Tile
@@ -145,6 +146,7 @@ private:
 	void Tool3Start();
 	void HarvestStart();
 	void OpenBoxStart();
+	void DieStart();
 
 	// State Update
 	void IdleUpdate(float _Delta);
@@ -154,6 +156,7 @@ private:
 	void Tool3Update(float _Delta);
 	void HarvestUpdate(float _Delta);
 	void OpenBoxUpdate(float _Delta);
+	void DieUpdate(float _Delta);
 
 	void StateUpdate(float _Delta);
 	void ChangeAnimationState(const std::string& _AnimationName);

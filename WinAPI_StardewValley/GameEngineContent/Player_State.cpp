@@ -136,6 +136,11 @@ void Player::OpenBoxStart()
 {
 }
 
+void Player::DieStart()
+{
+}
+
+
 void Player::IdleUpdate(float _DeltaTime)
 {
 	CurItem = ContentInventory::MainInventory->GetCurItem();
@@ -866,6 +871,7 @@ void Player::HarvestUpdate(float _DeltaTime)
 
 void Player::OpenBoxUpdate(float _Delta)
 {
+
 	ChangeAnimationState("OpenBox");
 	ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
 
@@ -881,4 +887,33 @@ void Player::OpenBoxUpdate(float _Delta)
 		ChangeState(PlayerState::Idle);
 	}
 	PerTime -= _Delta;
+}
+
+void Player::DieUpdate(float _Delta)
+{
+	ChangeAnimationState("Die");
+
+	switch (ArmRenderer->GetCurFrame())
+	{
+	case 0:
+		break;
+	case 1:
+		break;
+	case 2:
+		ShirtRenderer->SetRenderPos({ 0,4 * RENDERRATIO });
+		break;
+	case 3:
+		PantsRenderer->SetYPivot(16);
+		ShirtRenderer->SetRenderPos({ 0,5 * RENDERRATIO });
+		break;
+	default:
+		break;
+	}
+
+	if (true == PantsRenderer->IsAnimationEnd())
+	{
+		ChangeState(PlayerState::Idle);
+		ShirtRenderer->SetRenderPos({});
+		PantsRenderer->SetYPivot(0);
+	}
 }
