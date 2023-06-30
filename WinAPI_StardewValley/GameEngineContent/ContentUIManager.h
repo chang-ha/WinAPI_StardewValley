@@ -161,6 +161,7 @@ private:
 
 	void Start() override;
 	void Update(float _Delta) override;
+	void EnergyBarUpdate(float _Delta);
 	void DayUIUpdate(float _Delta);
 	void SleepUIUpdate(float _Delta);
 	void ShopUIUpdate(float _Delta);

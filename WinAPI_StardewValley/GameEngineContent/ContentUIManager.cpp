@@ -84,6 +84,9 @@ void ContentUIManager::Start()
 		// Energy UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Energy.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar_1.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar_2.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar_3.bmp"));
 		// MiniInventory UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\UI_Inventory.bmp"));
 		// Sleep UI
@@ -378,7 +381,7 @@ void ContentUIManager::Update(float _Delta)
 		PlayerMoney += 500;
 	}
 	
-	EnergyBar->SetRenderScale(float4{ 6, EnergyValue } *RENDERRATIO);
+	EnergyBarUpdate(_Delta);
 	DayUIUpdate(_Delta);
 	SleepUIUpdate(_Delta);
 	ShopUIUpdate(_Delta);
@@ -486,6 +489,24 @@ void ContentUIManager::ShopUIOff()
 		ShopItem[x]->ItemPriceTextRenderer->Off();
 	}
 	ContentInventory::MainInventory->SetPosInventoryItem();
+}
+
+void ContentUIManager::EnergyBarUpdate(float _Delta)
+{
+	EnergyBar->SetRenderScale(float4{ 6, EnergyValue } *RENDERRATIO);
+
+	if (10 >=  EnergyValue)
+	{
+		EnergyBar->SetTexture("EnergyBar_3.bmp");
+	}
+	else if (10 < EnergyValue && HALFENERGY >= EnergyValue)
+	{
+		EnergyBar->SetTexture("EnergyBar_2.bmp");
+	}
+	else if (HALFENERGY < EnergyValue && FULLENERGY * 0.7f >= EnergyValue)
+	{
+		EnergyBar->SetTexture("EnergyBar_1.bmp");
+	}
 }
 
 void ContentUIManager::DayUIUpdate(float _Delta)

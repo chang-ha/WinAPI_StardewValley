@@ -84,7 +84,7 @@ protected:
 private:
 	int ItemCount = 1;
 	int ItemSellPrice = 0;
-	float MoveTime = 1.0f;
+	float MoveTime = 0.8f;
 	float4 StartDir= {};
 	std::string ItemName = "";
 	ItemType Type = ItemType::NotItem;
