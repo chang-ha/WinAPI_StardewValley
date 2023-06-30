@@ -84,6 +84,7 @@ void ContentUIManager::Start()
 		// Energy UI
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\Energy.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar_0.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar_1.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar_2.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("UI\\EnergyBar_3.bmp"));
@@ -499,13 +500,17 @@ void ContentUIManager::EnergyBarUpdate(float _Delta)
 	{
 		EnergyBar->SetTexture("EnergyBar_3.bmp");
 	}
-	else if (10 < EnergyValue && HALFENERGY >= EnergyValue)
+	else if (10 < EnergyValue && FULLENERGY * 0.25f >= EnergyValue)
 	{
 		EnergyBar->SetTexture("EnergyBar_2.bmp");
 	}
-	else if (HALFENERGY < EnergyValue && FULLENERGY * 0.7f >= EnergyValue)
+	else if (FULLENERGY * 0.25f < EnergyValue && HALFENERGY >= EnergyValue)
 	{
 		EnergyBar->SetTexture("EnergyBar_1.bmp");
+	}
+	else if (HALFENERGY < EnergyValue && FULLENERGY * 0.75f >= EnergyValue)
+	{
+		EnergyBar->SetTexture("EnergyBar_0.bmp");
 	}
 }
 

@@ -38,9 +38,15 @@ void PlayOver::Update(float _Delta)
 	}
 }
 
-void PlayOver::Init(const std::string& _FileName)
+void PlayOver::Init(const std::string& _FileName, bool _YSorting)
 {
 	FileName = _FileName;
+	if (true == _YSorting)
+	{
+		Renderer->SetOrder(static_cast<int>(RenderOrder::Play));
+	}
+
+
 	if (false == ResourcesManager::GetInst().IsLoadTexture(_FileName))
 	{
 		GameEnginePath FilePath;
@@ -54,4 +60,6 @@ void PlayOver::Init(const std::string& _FileName)
 	Renderer->SetRenderScale(Texture->GetScale() * RENDERRATIO);
 	RenderScale = Texture->GetScale() * RENDERRATIO;
 	Scale = Texture->GetScale();
+
+
 }

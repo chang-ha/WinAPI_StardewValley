@@ -16,6 +16,7 @@
 #include "Beach.h"
 #include "GeneralStore.h"
 #include "PlayOver.h"
+#include "ContentBuilding.h"
 
 PelicanTown::PelicanTown()
 {
@@ -101,14 +102,17 @@ void PelicanTown::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Town.mp3"));
 	}
 
+	// Detail
+	ContentBuilding* Building = CreateActor<ContentBuilding>();
+	Building->Init("GeneralShop.bmp");
+	Building->SetPos({ Back->GetRenderScale().X * 0.337f, Back->GetRenderScale().Y * 0.472f });
+
 	PlayOver* Over = CreateActor<PlayOver>();
-	Over->Init("Fence.bmp");
-	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->Init("Fence.bmp", true);
 	Over->SetPos({ Back->GetRenderScale().X * 0.068f, Back->GetRenderScale().Y * 0.5088f });
 
 	Over = CreateActor<PlayOver>();
-	Over->Init("Fence2.bmp");
-	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->Init("Fence2.bmp", true);
 	Over->SetPos({ Back->GetRenderScale().X * 0.1346f, Back->GetRenderScale().Y * 0.5088f });
 
 	Over = CreateActor<PlayOver>();
@@ -116,9 +120,23 @@ void PelicanTown::Start()
 	Over->SetPos({ 45, Back->GetRenderScale().Y * 0.531f });
 
 	Over = CreateActor<PlayOver>();
-	Over->Init("MiniTree_Type1.bmp");
-	Over->GetRenderer()->SetOrder(static_cast<int>(RenderOrder::Play));
+	Over->Init("MiniTree_Type1.bmp", true);
 	Over->SetPos({ Back->GetRenderScale().X * 0.105f, Back->GetRenderScale().Y * 0.523f });
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("Tree_Type1.bmp", true);
+	Over->SetPos({ Back->GetRenderScale().X * 0.058f, Back->GetRenderScale().Y * 0.558f });
+	Over->GetRenderer()->SetYPivot(64);
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("StreetLamp.bmp", true);
+	Over->SetPos({ Back->GetRenderScale().X * 0.2042f, Back->GetRenderScale().Y * 0.4722f });
+	Over->GetRenderer()->SetYPivot(32);
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("Tree_Type1.bmp", true);
+	Over->SetPos({ Back->GetRenderScale().X * 0.258f, Back->GetRenderScale().Y * 0.476f });
+	Over->GetRenderer()->SetYPivot(64);
 }
 void PelicanTown::Update(float _Delta)
 {

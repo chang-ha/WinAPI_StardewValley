@@ -173,13 +173,13 @@ void Farm::Start()
 
 	// CreateActor
 	{
-		ContentBuilding* House = CreateActor<ContentBuilding>();
-		House->Init("House.bmp");
-		House->SetPos({ Back->GetRenderScale().X * 0.7945f, Back->GetRenderScale().Y * 0.195f });
+		ContentBuilding* Building = CreateActor<ContentBuilding>();
+		Building->Init("House.bmp");
+		Building->SetPos({ Back->GetRenderScale().X * 0.7945f, Back->GetRenderScale().Y * 0.195f });
 
-		ContentBuilding* MailBox = CreateActor<ContentBuilding>();
-		MailBox->Init("MailBox.bmp");
-		MailBox->SetPos({ Back->GetRenderScale().X * 0.858f, Back->GetRenderScale().Y * 0.246f });
+		Building = CreateActor<ContentBuilding>();
+		Building->Init("MailBox.bmp");
+		Building->SetPos({ Back->GetRenderScale().X * 0.858f, Back->GetRenderScale().Y * 0.246f });
 
 		// Tree
 		Tree* FarmTree = CreateActor<Tree>(UpdateOrder::Player);

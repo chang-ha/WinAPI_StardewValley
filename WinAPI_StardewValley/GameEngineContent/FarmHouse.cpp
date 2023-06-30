@@ -131,8 +131,7 @@ void FarmHouse::Start()
 		Over->SetPos(GlobalValue::WinScale.Half());
 
 		BedDie = CreateActor<PlayOver>(UpdateOrder::Map);
-		BedDie->Renderer->SetOrder(static_cast<int>(RenderOrder::Play));
-		BedDie->Init("Detail_BedDie.bmp");
+		BedDie->Init("Detail_BedDie.bmp", true);
 		BedDie->SetPos({ GetRenderScale().X * 0.607f, GetRenderScale().Y * 0.60f });
 
 		TutorialRenderer = CreateActor<PlayOver>(UpdateOrder::Map);
