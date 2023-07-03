@@ -50,12 +50,6 @@ public:
 
 	void UseItem(ContentItem* _Item);
 
-	void InventoryUpdate(int _CurIndex);
-
-	void ShopInventoryUpdate(int _CurIndex);
-
-	void ShippingInventoryUpdate(int _CurIndex);
-
 	void MouseToInventory(int _CurIndex);
 
 	ContentItem* GetCurItem()
@@ -78,5 +72,9 @@ private:
 	void Start() override;
 	void Update(float _Delta) override;
 	void CurIndexUpdate();
+	void ItemPriceUpdate(int _CurIndex);
+	void InventoryUpdate(int _CurIndex);
+	void ShopInventoryUpdate(int _CurIndex);
+	void ShippingInventoryUpdate(int _CurIndex);
 };
 

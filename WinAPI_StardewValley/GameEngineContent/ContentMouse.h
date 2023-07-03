@@ -65,6 +65,12 @@ public:
 	{
 		PickItem = _PickItem;
 	}
+
+	void SetItemPrice(int _ItemPrice);
+
+	void ItemPriceOn();
+
+	void ItemPriceOff();
 protected:
 
 private:
@@ -76,7 +82,7 @@ private:
 	GameEngineRenderer* ItemCountRenderer = nullptr;
 	ContentItem* PickItem = nullptr;
 
-	// ContentInventory* InteractionInventory;
-	// int PrevIndex;
+	GameEngineRenderer* ItemPriceRenderer = nullptr;
+	GameEngineRenderer* ItemPriceTextRenderer = nullptr;
 };
 

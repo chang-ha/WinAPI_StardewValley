@@ -328,8 +328,20 @@ void ContentInventory::Update(float _Delta)
 	}
 
 	// Mouse Interaction
+	bool IsCollision = false;
 	for (int x = 0; x < AllItem.size(); x++)
 	{
+		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect))
+		{
+			ItemPriceUpdate(x);
+			IsCollision = true;
+		}
+
+		if (false == IsCollision)
+		{
+			ContentMouse::MainMouse->ItemPriceOff();
+		}
+
 		if (true == AllItem[x]->ItemCollision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
 			&& true == GameEngineInput::IsDown(VK_LBUTTON))
 		{
@@ -420,6 +432,20 @@ void ContentInventory::CurIndexUpdate()
 
 	// CurIndexRenderer
 	CurIndexRenderer->SetRenderPos({ GlobalValue::WinScale.X * (0.28f + 0.04f * CurIndex), GlobalValue::WinScale.Y * (0.945f - PosSettingValue) });
+}
+
+void ContentInventory::ItemPriceUpdate(int _CurIndex)
+{
+	if (false == ContentUIManager::MainUI->ShopRenderer->IsUpdate() 
+		|| nullptr == AllItem[_CurIndex]->Item 
+		|| true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate()
+		|| 0 == AllItem[_CurIndex]->Item->GetItemPrice())
+	{
+		return;
+	}
+
+	ContentMouse::MainMouse->ItemPriceOn();
+	ContentMouse::MainMouse->SetItemPrice(AllItem[_CurIndex]->Item->GetItemPrice() * AllItem[_CurIndex]->Item->GetItemCount());
 }
 
 void ContentInventory::InventoryUpdate(int _CurIndex)

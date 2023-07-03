@@ -4,29 +4,26 @@
     <ClInclude Include="TitleScreen.h">
       <Filter>Level\01. TitleScreen</Filter>
     </ClInclude>
-    <ClInclude Include="IntroScreen.h">
-      <Filter>Level\03. IntroScreen</Filter>
-    </ClInclude>
     <ClInclude Include="FarmHouse.h">
-      <Filter>Level\04. FarmHouse</Filter>
+      <Filter>Level\02. FarmHouse</Filter>
     </ClInclude>
     <ClInclude Include="Farm.h">
-      <Filter>Level\05. FarmMap</Filter>
+      <Filter>Level\03. FarmMap</Filter>
     </ClInclude>
     <ClInclude Include="CindersapForest.h">
-      <Filter>Level\06. CindersapForest</Filter>
+      <Filter>Level\04. CindersapForest</Filter>
     </ClInclude>
     <ClInclude Include="BusStation.h">
-      <Filter>Level\07.BusStation</Filter>
+      <Filter>Level\05.BusStation</Filter>
     </ClInclude>
     <ClInclude Include="PelicanTown.h">
-      <Filter>Level\08. PelicanTown</Filter>
+      <Filter>Level\06. PelicanTown</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="Beach.h">
-      <Filter>Level\10. Beach</Filter>
+      <Filter>Level\08. Beach</Filter>
     </ClInclude>
     <ClInclude Include="ContentActor.h">
       <Filter>ContentCore</Filter>
@@ -38,7 +35,7 @@
       <Filter>ContentCore</Filter>
     </ClInclude>
     <ClInclude Include="ShippingBin.h">
-      <Filter>Level\05. FarmMap</Filter>
+      <Filter>Level\03. FarmMap</Filter>
     </ClInclude>
     <ClInclude Include="GlobalValue.h">
       <Filter>Global</Filter>
@@ -59,7 +56,7 @@
       <Filter>Global\UI</Filter>
     </ClInclude>
     <ClInclude Include="GeneralStore.h">
-      <Filter>Level\09. Store</Filter>
+      <Filter>Level\07. Store</Filter>
     </ClInclude>
     <ClInclude Include="PlayOver.h">
       <Filter>Global\Actor</Filter>
@@ -71,90 +68,87 @@
       <Filter>Global\UI</Filter>
     </ClInclude>
     <ClInclude Include="ContentCrops.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="ContentItem.h">
       <Filter>Global\Item</Filter>
     </ClInclude>
     <ClInclude Include="ContentResources.h">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Rock.h">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Tree.h">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClInclude>
     <ClInclude Include="ContentNpc.h">
       <Filter>Global\Actor</Filter>
     </ClInclude>
     <ClInclude Include="SleepLevel.h">
-      <Filter>Level\11. Sleep</Filter>
+      <Filter>Level\09. Sleep</Filter>
     </ClInclude>
     <ClInclude Include="Parsnip.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="Garlic.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="Cauliflower.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="Potato.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="ContentBuilding.h">
       <Filter>Global\Building</Filter>
     </ClInclude>
     <ClInclude Include="Counter.h">
-      <Filter>Level\09. Store</Filter>
+      <Filter>Level\07. Store</Filter>
     </ClInclude>
     <ClInclude Include="SmallTree.h">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClInclude>
     <ClInclude Include="GiftBox.h">
-      <Filter>Level\04. FarmHouse</Filter>
+      <Filter>Level\02. FarmHouse</Filter>
     </ClInclude>
     <ClInclude Include="Rhubarb.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="Weed.h">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClInclude>
     <ClInclude Include="Kale.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="WildCrops.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="Tulip.h">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
       <Filter>Level\01. TitleScreen</Filter>
     </ClCompile>
-    <ClCompile Include="IntroScreen.cpp">
-      <Filter>Level\03. IntroScreen</Filter>
-    </ClCompile>
     <ClCompile Include="FarmHouse.cpp">
-      <Filter>Level\04. FarmHouse</Filter>
+      <Filter>Level\02. FarmHouse</Filter>
     </ClCompile>
     <ClCompile Include="Farm.cpp">
-      <Filter>Level\05. FarmMap</Filter>
+      <Filter>Level\03. FarmMap</Filter>
     </ClCompile>
     <ClCompile Include="CindersapForest.cpp">
-      <Filter>Level\06. CindersapForest</Filter>
+      <Filter>Level\04. CindersapForest</Filter>
     </ClCompile>
     <ClCompile Include="BusStation.cpp">
-      <Filter>Level\07.BusStation</Filter>
+      <Filter>Level\05.BusStation</Filter>
     </ClCompile>
     <ClCompile Include="PelicanTown.cpp">
-      <Filter>Level\08. PelicanTown</Filter>
+      <Filter>Level\06. PelicanTown</Filter>
     </ClCompile>
     <ClCompile Include="Beach.cpp">
-      <Filter>Level\10. Beach</Filter>
+      <Filter>Level\08. Beach</Filter>
     </ClCompile>
     <ClCompile Include="ContentActor.cpp">
       <Filter>ContentCore</Filter>
@@ -166,7 +160,7 @@
       <Filter>ContentCore</Filter>
     </ClCompile>
     <ClCompile Include="ShippingBin.cpp">
-      <Filter>Level\05. FarmMap</Filter>
+      <Filter>Level\03. FarmMap</Filter>
     </ClCompile>
     <ClCompile Include="ContentMouse.cpp">
       <Filter>Global\UI</Filter>
@@ -187,7 +181,7 @@
       <Filter>Global\UI</Filter>
     </ClCompile>
     <ClCompile Include="GeneralStore.cpp">
-      <Filter>Level\09. Store</Filter>
+      <Filter>Level\07. Store</Filter>
     </ClCompile>
     <ClCompile Include="PlayOver.cpp">
       <Filter>Global\Actor</Filter>
@@ -202,93 +196,75 @@
       <Filter>Global\UI</Filter>
     </ClCompile>
     <ClCompile Include="ContentCrops.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="ContentItem.cpp">
       <Filter>Global\Item</Filter>
     </ClCompile>
     <ClCompile Include="ContentResources.cpp">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClCompile>
     <ClCompile Include="Rock.cpp">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClCompile>
     <ClCompile Include="Tree.cpp">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClCompile>
     <ClCompile Include="ContentNpc.cpp">
       <Filter>Global\Actor</Filter>
     </ClCompile>
     <ClCompile Include="SleepLevel.cpp">
-      <Filter>Level\11. Sleep</Filter>
+      <Filter>Level\09. Sleep</Filter>
     </ClCompile>
     <ClCompile Include="Parsnip.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="Garlic.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="Cauliflower.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="Potato.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="ContentBuilding.cpp">
       <Filter>Global\Building</Filter>
     </ClCompile>
     <ClCompile Include="Counter.cpp">
-      <Filter>Level\09. Store</Filter>
+      <Filter>Level\07. Store</Filter>
     </ClCompile>
     <ClCompile Include="SmallTree.cpp">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClCompile>
     <ClCompile Include="GiftBox.cpp">
-      <Filter>Level\04. FarmHouse</Filter>
+      <Filter>Level\02. FarmHouse</Filter>
     </ClCompile>
     <ClCompile Include="Rhubarb.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="Weed.cpp">
-      <Filter>Level\05. FarmMap\Resources</Filter>
+      <Filter>Level\03. FarmMap\Resources</Filter>
     </ClCompile>
     <ClCompile Include="Kale.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="WildCrops.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="Tulip.cpp">
-      <Filter>Level\05. FarmMap\Crops</Filter>
+      <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
       <UniqueIdentifier>{7fff1d70-300a-41e7-94fc-45f720fab4cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\03. IntroScreen">
-      <UniqueIdentifier>{986e60a6-0e97-47d8-b92b-b75e8e0a15f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Level\01. TitleScreen">
       <UniqueIdentifier>{def3136a-ad1f-449f-91fe-32fcb8bcfcff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\04. FarmHouse">
-      <UniqueIdentifier>{fc7c13eb-f2e1-4a4a-80c4-289cc2b9062b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\05. FarmMap">
-      <UniqueIdentifier>{38e9433d-89ca-43e3-8dac-731fcf5a7e12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\06. CindersapForest">
-      <UniqueIdentifier>{a25e9a46-886e-4921-a896-d4e633f2f356}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\08. PelicanTown">
-      <UniqueIdentifier>{6cf1cf5a-d524-4cf6-9604-ff46f2feb823}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Global">
       <UniqueIdentifier>{2a0a5ad8-9118-48fd-8937-346a2fca2176}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\07.BusStation">
-      <UniqueIdentifier>{05e95ecb-62ac-4e9e-9f7b-1207b70e2885}</UniqueIdentifier>
     </Filter>
     <Filter Include="ContentCore">
       <UniqueIdentifier>{85f90abd-2187-4ffd-b30f-486ea474acd9}</UniqueIdentifier>
@@ -299,26 +275,41 @@
     <Filter Include="Global\Actor">
       <UniqueIdentifier>{ceabab67-d5d4-4f71-a59d-c8f7f2b09c9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\10. Beach">
-      <UniqueIdentifier>{5f2e8660-bece-4759-8e92-34217bda3222}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\09. Store">
-      <UniqueIdentifier>{10857342-6304-485a-a60f-f1fb7cf01a7d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\05. FarmMap\Resources">
-      <UniqueIdentifier>{1b52eb4c-e5ad-4328-b8cb-45b8689bf9d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\05. FarmMap\Crops">
-      <UniqueIdentifier>{c46e94a3-986f-41ae-8810-ea54d79feeaa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Global\Item">
       <UniqueIdentifier>{ca863b1a-0713-481b-967c-64051ad8ee94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\11. Sleep">
-      <UniqueIdentifier>{e7d44064-638f-4873-ab5d-dbb2a0c62530}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Global\Building">
       <UniqueIdentifier>{7f113873-3d4b-464a-9a5c-1c2f780bcf94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\02. FarmHouse">
+      <UniqueIdentifier>{fc7c13eb-f2e1-4a4a-80c4-289cc2b9062b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. FarmMap">
+      <UniqueIdentifier>{38e9433d-89ca-43e3-8dac-731fcf5a7e12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. FarmMap\Resources">
+      <UniqueIdentifier>{1b52eb4c-e5ad-4328-b8cb-45b8689bf9d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\03. FarmMap\Crops">
+      <UniqueIdentifier>{c46e94a3-986f-41ae-8810-ea54d79feeaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\04. CindersapForest">
+      <UniqueIdentifier>{a25e9a46-886e-4921-a896-d4e633f2f356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\05.BusStation">
+      <UniqueIdentifier>{05e95ecb-62ac-4e9e-9f7b-1207b70e2885}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\06. PelicanTown">
+      <UniqueIdentifier>{6cf1cf5a-d524-4cf6-9604-ff46f2feb823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\07. Store">
+      <UniqueIdentifier>{10857342-6304-485a-a60f-f1fb7cf01a7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\08. Beach">
+      <UniqueIdentifier>{5f2e8660-bece-4759-8e92-34217bda3222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\09. Sleep">
+      <UniqueIdentifier>{e7d44064-638f-4873-ab5d-dbb2a0c62530}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

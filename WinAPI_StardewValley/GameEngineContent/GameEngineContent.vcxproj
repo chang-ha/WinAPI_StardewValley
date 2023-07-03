@@ -245,10 +245,6 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GlobalValue.h" />
-    <ClInclude Include="IntroScreen.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="Kale.h">
       <SubType>
       </SubType>
@@ -412,10 +408,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GlobalValue.cpp" />
-    <ClCompile Include="IntroScreen.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
     <ClCompile Include="Kale.cpp">
       <SubType>
       </SubType>

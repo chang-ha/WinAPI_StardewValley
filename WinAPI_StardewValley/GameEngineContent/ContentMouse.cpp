@@ -40,6 +40,7 @@ void ContentMouse::Start()
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor03.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor04.bmp"));
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Cursor07.bmp"));
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("ItemPrice.bmp"));
 	}
 	// Mouse Renderer
 	Texture = ResourcesManager::GetInst().FindTexture("Cursor01.bmp");
@@ -62,6 +63,15 @@ void ContentMouse::Start()
 	ItemCountRenderer->SetText(" ");
 	ItemCountRenderer->SetRenderPos((TILESIZE + float4{5, 4}) *RENDERRATIO);
 	ItemCountRenderer->Off();
+
+	ItemPriceRenderer = CreateUIRenderer(RenderOrder::UIMouse);
+	ItemPriceRenderer->SetTexture("ItemPrice.bmp");
+	ItemPriceRenderer->SetRenderPos(float4{32, 22} *RENDERRATIO);
+	ItemPriceRenderer->Off();
+	ItemPriceTextRenderer = CreateUIRenderer(RenderOrder::UIMouse);
+	ItemPriceTextRenderer->SetText(" ");
+	ItemPriceTextRenderer->SetRenderPos(float4{ 22, 17 } * RENDERRATIO);
+	ItemPriceTextRenderer->Off();
 }
 
 void ContentMouse::Update(float _Delta)
@@ -123,4 +133,20 @@ float4 ContentMouse::GetMousePos()
 void ContentMouse::SetItemCountRenderer(int _ItemCountRenderer)
 {
 	ItemCountRenderer->SetText(std::to_string(_ItemCountRenderer), 20, "Sandoll 미생");
+}
+void ContentMouse::SetItemPrice(int _ItemPrice)
+{
+	ItemPriceTextRenderer->SetText(std::to_string(_ItemPrice) , 35, "Sandoll 미생");
+}
+
+void ContentMouse::ItemPriceOn()
+{
+	ItemPriceRenderer->On();
+	ItemPriceTextRenderer->On();
+}
+
+void ContentMouse::ItemPriceOff()
+{
+	ItemPriceRenderer->Off();
+	ItemPriceTextRenderer->Off();
 }
