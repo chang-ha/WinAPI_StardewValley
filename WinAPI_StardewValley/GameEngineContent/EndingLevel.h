@@ -3,6 +3,7 @@
 
 class ContentActor;
 class PlayOver;
+class EndingActor;
 class EndingLevel : public ContentLevel
 {
 public:
@@ -22,7 +23,23 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 private:
+	bool RValueBool = true;
+	unsigned char RValue = 0b11111111;
+	bool GValueBool = false;
+	unsigned char GValue = 0b00000000;
+	bool BValueBool = false;
+	unsigned char BValue = 0b00000000;
+
+	// UI
+	GameEngineWindowTexture* Texture = nullptr;
+	BackGround* BackBelow = nullptr;
 	PlayOver* CategoryActor = nullptr;
 	GameEngineCollision* SkipButtonCollision = nullptr;
+
+	// Actor
+	EndingActor* Dog = nullptr;
+	EndingActor* Cat = nullptr;
+
+	void ColorValueUpdate(unsigned char& _RGBValue, bool _BoolValue);
 };
 

@@ -26,7 +26,7 @@ void ContentNpc::Start()
 		GameEnginePath FilePath;
 		FilePath.SetCurrentPath();
 		FilePath.MoveParentToExistsChild("Resources");
-		FilePath.MoveChild("Resources\\Textures\\Npc\\Pierre\\");
+		FilePath.MoveChild("Resources\\Textures\\Npc\\");
 		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Npc_Pierre_01.bmp"));
 	}
 	GameEngineWindowTexture* Texture = ResourcesManager::GetInst().FindTexture("Npc_Pierre_01.bmp");
