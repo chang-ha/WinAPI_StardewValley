@@ -81,9 +81,30 @@ void EndingLevel::Start()
 	SkipButtonCollision->SetCollisionScale(SkipButton->GetRenderScale());
 
 	// Ending Actor
+
+	// Neighbor
+
 	EndingActor* EndActor = CreateActor<EndingActor>();
-	EndActor->SetPos({GlobalValue::WinScale.X, GlobalValue::WinScale.hY()});
-	EndActor->InitAnimation("Npc1");
+	EndActor->SetPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.hY()});
+	EndActor->InitAnimation("Npc" + std::to_string(1), "»Ú ¥ﬂ");
+	
+	float4 TempPos = { GlobalValue::WinScale.X, GlobalValue::WinScale.hY() };
+	for (int i = 0; i < 30; i++)
+	{
+		EndingActor* EndActor = CreateActor<EndingActor>();
+		EndActor->SetPos(TempPos + float4{TILESIZE.X * 3.0f, 0});
+		TempPos = EndActor->GetPos();
+		EndActor->InitAnimation("Npc" + std::to_string(1));
+	}
+
+	TempPos.X += TILESIZE.X * 15.0f;
+	for (int i = 0; i < 4; i++)
+	{
+		EndingActor* EndActor = CreateActor<EndingActor>();
+		EndActor->SetPos(TempPos + float4{TILESIZE.X * 3.0f, 0});
+		TempPos = EndActor->GetPos();
+		EndActor->InitAnimation("Npc" + std::to_string(1));
+	}
 }
 
 void EndingLevel::Update(float _Delta)
