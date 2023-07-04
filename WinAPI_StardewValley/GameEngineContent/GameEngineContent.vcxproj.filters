@@ -130,6 +130,9 @@
     <ClInclude Include="EndingLevel.h">
       <Filter>Level\10. Ending</Filter>
     </ClInclude>
+    <ClInclude Include="EndingActor.h">
+      <Filter>Level\10. Ending</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -259,6 +262,9 @@
       <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="EndingLevel.cpp">
+      <Filter>Level\10. Ending</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingActor.cpp">
       <Filter>Level\10. Ending</Filter>
     </ClCompile>
   </ItemGroup>

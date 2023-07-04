@@ -11,6 +11,7 @@
 #include "GlobalValue.h"
 #include "PlayOver.h"
 #include "ContentUIManager.h"
+#include "EndingActor.h"
 
 EndingLevel::EndingLevel()
 {
@@ -65,6 +66,7 @@ void EndingLevel::Start()
 		GameEngineSound::SoundLoad(FilePath.PlusFilePath("Ending.wav"));
 	}
 
+	// Ending UI
 	CatrgoryActor = CreateActor<PlayOver>();
 	CatrgoryActor->GetRenderer()->SetText("ÀÌ¿ô", 40, "Sandoll ¹Ì»ý");
 	CatrgoryActor->GetRenderer()->ChangeTextColor(RGB(255, 255, 255));
@@ -77,6 +79,11 @@ void EndingLevel::Start()
 
 	SkipButtonCollision = SkipButton->CreateCollision(CollisionOrder::Button);
 	SkipButtonCollision->SetCollisionScale(SkipButton->GetRenderScale());
+
+	// Ending Actor
+	EndingActor* EndActor = CreateActor<EndingActor>();
+	EndActor->SetPos({GlobalValue::WinScale.X, GlobalValue::WinScale.hY()});
+	EndActor->InitAnimation("Npc1");
 }
 
 void EndingLevel::Update(float _Delta)
