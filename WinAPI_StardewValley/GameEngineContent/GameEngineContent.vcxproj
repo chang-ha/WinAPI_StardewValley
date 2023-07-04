@@ -220,6 +220,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="EndingLevel.h" />
     <ClInclude Include="FadeObject.h">
       <SubType>
       </SubType>
@@ -383,6 +384,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="EndingLevel.cpp" />
     <ClCompile Include="FadeObject.cpp">
       <SubType>
       </SubType>

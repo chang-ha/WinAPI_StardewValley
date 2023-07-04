@@ -16,6 +16,7 @@
 #include "ContentMouse.h"
 #include "ContentsEnum.h"
 #include "SleepLevel.h"
+#include "EndingLevel.h"
 #include "FadeObject.h"
 #include "ContentInventory.h"
 
@@ -98,7 +99,6 @@ void ContentLevel::LevelEnd(GameEngineLevel* _NextLevel)
 		ContentInventory::MainInventory->OverOn();
 		ContentInventory::MainInventory->Off();
 	}
-
 	Back->ResetBackGroundRender();
 }
 

@@ -104,6 +104,11 @@ public:
 		Meridiem = false;
 		TimeTextRenderer->SetText("6 : 00 오전", 30, "Sandoll 미생");
 	}
+
+	int GetDayValue()
+	{
+		return DayValue;
+	}
 protected:
 
 private:

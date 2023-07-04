@@ -381,6 +381,12 @@ void ContentUIManager::Update(float _Delta)
 	{
 		PlayerMoney += 500;
 	}
+
+	if (true == GameEngineInput::IsDown(VK_F7))
+	{
+		DayValue = 6;
+		DayChange = true;
+	}
 	
 	EnergyBarUpdate(_Delta);
 	DayUIUpdate(_Delta);

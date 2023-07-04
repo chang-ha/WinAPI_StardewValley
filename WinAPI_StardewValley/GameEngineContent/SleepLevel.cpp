@@ -15,6 +15,7 @@
 #include "Player.h"
 #include "ContentInventory.h"
 #include "FarmHouse.h"
+#include "EndingLevel.h"
 
 SleepLevel::SleepLevel()
 {
@@ -50,11 +51,20 @@ void SleepLevel::LevelStart(GameEngineLevel* _PrevLevel)
 void SleepLevel::LevelEnd(GameEngineLevel* _NextLevel)
 {
 	ContentLevel::LevelEnd(_NextLevel);
-	ContentUIManager::MainUI->SleepMoneyRenderOff();
-	ContentUIManager::MainUI->ResetTimeValue();
-	Player::MainPlayer->On();
-	ContentInventory::MainInventory->On();
-
+	if (nullptr != dynamic_cast<FarmHouse*>(_NextLevel))
+	{
+		ContentUIManager::MainUI->SleepMoneyRenderOff();
+		ContentUIManager::MainUI->ResetTimeValue();
+		Player::MainPlayer->On();
+		ContentInventory::MainInventory->On();
+	}
+	else if (nullptr != dynamic_cast<EndingLevel*>(_NextLevel))
+	{
+		Player::MainPlayer->Off();
+		ContentInventory::MainInventory->Off();
+		ContentUIManager::MainUI->Off();
+		ContentUIManager::MainUI->SleepMoneyRenderOff();
+	}
 }
 
 void SleepLevel::Start()
@@ -142,6 +152,13 @@ void SleepLevel::Update(float _Delta)
 		if (true == OK_Button_Collision->CollisionCheck(ContentMouse::MainMouse->GetMouseCollision(), CollisionType::Rect, CollisionType::Rect)
 			&& true == GameEngineInput::IsDown(VK_LBUTTON))
 		{
+			int CurDayValue = ContentUIManager::MainUI->GetDayValue();
+			if (7 >= CurDayValue)
+			{
+				GameEngineCore::ChangeLevel("EndingLevel");
+				return;
+			}
+
 			_MoneyData = ContentUIManager::MainUI->GetMoneyData(TotalMoney);
 			ContentUIManager::MainUI->PlusPlayerMoney(_MoneyData->GetCurMoney());
 			GameEngineCore::ChangeLevel("FarmHouse");

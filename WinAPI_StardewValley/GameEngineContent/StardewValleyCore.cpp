@@ -9,6 +9,7 @@
 #include "PelicanTown.h"
 #include "GeneralStore.h"
 #include "SleepLevel.h"
+#include "EndingLevel.h"
 #include "GlobalValue.h"
 
 StardewValleyCore::StardewValleyCore()
@@ -33,6 +34,7 @@ void StardewValleyCore::Start()
 	GameEngineCore::CreateLevel<GeneralStore>("GeneralStore");
 	GameEngineCore::CreateLevel<Beach>("Beach");
 	GameEngineCore::CreateLevel<SleepLevel>("SleepLevel");
+	GameEngineCore::CreateLevel<EndingLevel>("EndingLevel");
 	GameEngineCore::ChangeLevel("TitleScreen");
 }
 void StardewValleyCore::Update(float _Delta)

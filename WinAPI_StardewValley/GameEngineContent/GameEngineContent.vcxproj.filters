@@ -127,6 +127,9 @@
     <ClInclude Include="Tulip.h">
       <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
+    <ClInclude Include="EndingLevel.h">
+      <Filter>Level\10. Ending</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TitleScreen.cpp">
@@ -255,6 +258,9 @@
     <ClCompile Include="Tulip.cpp">
       <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
+    <ClCompile Include="EndingLevel.cpp">
+      <Filter>Level\10. Ending</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Level">
@@ -310,6 +316,9 @@
     </Filter>
     <Filter Include="Level\09. Sleep">
       <UniqueIdentifier>{e7d44064-638f-4873-ab5d-dbb2a0c62530}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\10. Ending">
+      <UniqueIdentifier>{0f09a5d1-525f-43fc-a28d-1a94af22887d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
