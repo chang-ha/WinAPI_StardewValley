@@ -99,11 +99,25 @@ void ContentInventory::Start()
 	CurIndexRenderer->SetTexture("UI_Inventory_Select.bmp");;
 
 	// Inventory Text
-	NameText = CreateUIRenderer(RenderOrder::UI);
-	NameText->SetText("Player", 40, "Sandoll 미생");
-	NameText->SetRenderScale({ 100, 40 });
-	NameText->SetRenderPos({ GlobalValue::WinScale.X * 0.325f, GlobalValue::WinScale.Y * 0.72f });
-	NameText->Off();
+	PlayerNameText = CreateUIRenderer(RenderOrder::UI);
+	PlayerNameText->SetText("Player", 40, "Sandoll 미생");
+	PlayerNameText->SetRenderPos({ GlobalValue::WinScale.X * 0.325f, GlobalValue::WinScale.Y * 0.73f });
+	PlayerNameText->Off();
+
+	FarmNameText = CreateUIRenderer(RenderOrder::UI);
+	FarmNameText->SetText("Player의 농장", 48, "Sandoll 미생");
+	FarmNameText->SetRenderPos({ GlobalValue::WinScale.X * 0.53f, GlobalValue::WinScale.Y * 0.53f });
+	FarmNameText->Off();
+
+	PlayerMoneyText = CreateUIRenderer(RenderOrder::UI);
+	PlayerMoneyText->SetText("현재 소지금 : 500 골드", 48, "Sandoll 미생");
+	PlayerMoneyText->SetRenderPos({ GlobalValue::WinScale.X * 0.5f, GlobalValue::WinScale.Y * 0.6f });
+	PlayerMoneyText->Off();
+
+	TotalMoneyText = CreateUIRenderer(RenderOrder::UI);
+	TotalMoneyText->SetText("총 소득금 : 0 골드", 48, "Sandoll 미생");
+	TotalMoneyText->SetRenderPos({ GlobalValue::WinScale.X * 0.52f, GlobalValue::WinScale.Y * 0.65f });
+	TotalMoneyText->Off();
 
 	// Player Default Item
 	GameEngineLevel* CurLevel = GetLevel();
@@ -364,13 +378,22 @@ void ContentInventory::Update(float _Delta)
 		return;
 	}
 
+	if (true == InventoryRenderer->IsUpdate())
+	{
+		PlayerMoneyText->SetText("현재 소지금 : " + std::to_string(ContentUIManager::MainUI->PlayerMoney) + " 골드", 48, "Sandoll 미생");
+		TotalMoneyText->SetText("총 소득금 : " + std::to_string(ContentUIManager::MainUI->TotalGetMoney) + " 골드", 48, "Sandoll 미생");
+	}
+
 	if (true == GameEngineInput::IsDown('E') || true == GameEngineInput::IsDown(VK_ESCAPE))
 	{
 		if (true == InventoryRenderer->IsUpdate())
 		{
 			// Inventory Off
 			InventoryRenderer->Off();
-			NameText->Off();
+			PlayerNameText->Off();
+			FarmNameText->Off();
+			PlayerMoneyText->Off();
+			TotalMoneyText->Off();
 			ContentUIManager::MainUI->Inventory->On();
 			PosSettingValue = 0.0f;
 			SetPosInventoryItem();
@@ -381,7 +404,12 @@ void ContentInventory::Update(float _Delta)
 		{
 			// Inventory On
 			InventoryRenderer->On();
-			NameText->On();
+			PlayerNameText->On();
+			FarmNameText->On();
+			PlayerMoneyText->On();
+			PlayerMoneyText->SetText("현재 소지금 : " + std::to_string(ContentUIManager::MainUI->PlayerMoney) +" 골드", 48, "Sandoll 미생");
+			TotalMoneyText->On();
+			TotalMoneyText->SetText("총 소득금 : "+ std::to_string(ContentUIManager::MainUI->TotalGetMoney) + " 골드", 48, "Sandoll 미생");
 			ContentUIManager::MainUI->Inventory->Off();
 			PosSettingValue = 0.702f;
 			SetPosInventoryItem();
@@ -509,6 +537,7 @@ void ContentInventory::ShopInventoryUpdate(int _CurIndex)
 		EffectPlayer = GameEngineSound::SoundPlay("sell.wav");
 		int PlusMoney = AllItem[_CurIndex]->Item->GetItemPrice() * AllItem[_CurIndex]->Item->GetItemCount();
 		ContentUIManager::MainUI->PlayerMoney += PlusMoney;
+		ContentUIManager::MainUI->TotalGetMoney += PlusMoney;
 		PopItem(_CurIndex);
 	}
 	else if (true == ContentMouse::MainMouse->GetItemRenderer()->IsUpdate() && nullptr == AllItem[_CurIndex]->Item)

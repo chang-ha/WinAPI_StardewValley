@@ -153,7 +153,7 @@ void SleepLevel::Update(float _Delta)
 			&& true == GameEngineInput::IsDown(VK_LBUTTON))
 		{
 			int CurDayValue = ContentUIManager::MainUI->GetDayValue();
-			if (7 >= CurDayValue)
+			if (7 <= CurDayValue)
 			{
 				GameEngineCore::ChangeLevel("EndingLevel");
 				return;

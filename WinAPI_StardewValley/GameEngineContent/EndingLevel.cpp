@@ -29,7 +29,7 @@ void EndingLevel::Start()
 	{
 		// BackGround
 		Back = CreateActor<BackGround>(UpdateOrder::Map);
-		Back->Init("EndCredit.bmp", RENDERRATIO);
+		Back->Init("EndCredit.bmp", 1.5f);
 		Back->SetPos(GetRenderScale().Half());
 	}
 

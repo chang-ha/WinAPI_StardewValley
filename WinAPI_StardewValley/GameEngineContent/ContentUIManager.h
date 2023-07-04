@@ -233,17 +233,20 @@ public:
 		return &AllMoney[_Index];
 	}
 
-	void SleepMoneyRenderOff();
-
 	void PlusPlayerMoney(int _Value)
 	{
 		PlayerMoney += _Value;
+		TotalGetMoney += _Value;
 	}
+
+	void SleepMoneyRenderOff();
+
 private:
 	void MoneyUIUpdate(MoneyData* _CurMoney, float _Delta);
 
 	// MoneyUI 
 	int PlayerMoney = 500;
+	int TotalGetMoney = 0;
 	float MoneyUpSpeed = 400.0f;
 	std::map<MoneyEnum, MoneyData> AllMoney;
 };

@@ -65,7 +65,10 @@ private:
 
 	GameEngineRenderer* InventoryRenderer = nullptr;
 	GameEngineRenderer* CurIndexRenderer = nullptr;
-	GameEngineRenderer* NameText = nullptr;
+	GameEngineRenderer* PlayerNameText = nullptr;
+	GameEngineRenderer* FarmNameText = nullptr;
+	GameEngineRenderer* PlayerMoneyText = nullptr;
+	GameEngineRenderer* TotalMoneyText = nullptr;
 	GameEngineSoundPlayer EffectPlayer;
 	std::vector<InventoryItemData*> AllItem;
 

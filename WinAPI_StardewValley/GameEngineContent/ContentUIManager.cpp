@@ -361,6 +361,7 @@ void ContentUIManager::Start()
 	GameEngineRenderer* Text4Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	GameEngineRenderer* Text5Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	GameEngineRenderer* Text6Renderer = CreateUIRenderer(RenderOrder::PlayOver);
+	GameEngineRenderer* Text7Renderer = CreateUIRenderer(RenderOrder::PlayOver);
 	Text1Renderer->SetText("콜리젼디버그 : F1", 30, "Sandoll 미생");
 	Text1Renderer->SetRenderPos({ 0, 0 });	
 	Text2Renderer->SetText("맵 콜리전디버그 : F2", 30, "Sandoll 미생");
@@ -373,6 +374,8 @@ void ContentUIManager::Start()
 	Text5Renderer->SetRenderPos({ 0, 120 });
 	Text6Renderer->SetText("돈 500원 증가 : F6", 30, "Sandoll 미생");
 	Text6Renderer->SetRenderPos({ 0, 150 });
+	Text7Renderer->SetText("6일로 변경 : F7", 30, "Sandoll 미생");
+	Text7Renderer->SetRenderPos({ 0, 180 });
 }
 
 void ContentUIManager::Update(float _Delta)
@@ -380,12 +383,18 @@ void ContentUIManager::Update(float _Delta)
 	if (true == GameEngineInput::IsDown(VK_F6))
 	{
 		PlayerMoney += 500;
+		TotalGetMoney += 500;
 	}
 
 	if (true == GameEngineInput::IsDown(VK_F7))
 	{
 		DayValue = 6;
 		DayChange = true;
+	}
+
+	if (true == GameEngineInput::IsDown(VK_F8))
+	{
+		GameEngineCore::ChangeLevel("EndingLevel");
 	}
 	
 	EnergyBarUpdate(_Delta);
