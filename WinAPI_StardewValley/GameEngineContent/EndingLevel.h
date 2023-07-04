@@ -1,6 +1,8 @@
 #pragma once
 #include "ContentLevel.h"
 
+class ContentActor;
+class PlayOver;
 class EndingLevel : public ContentLevel
 {
 public:
@@ -20,6 +22,7 @@ protected:
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
 private:
-
+	PlayOver* CatrgoryActor = nullptr;
+	GameEngineCollision* SkipButtonCollision = nullptr;
 };
 

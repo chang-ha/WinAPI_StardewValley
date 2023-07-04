@@ -66,7 +66,6 @@ void BackGround::Init(const std::string& _FileName, const std::string& _Collisio
 	CollisionTexture = ResourcesManager::GetInst().FindTexture(_CollisionFileName);
 	CollisionRenderer->SetTexture(_CollisionFileName);
 	CollisionRenderer->SetRenderScale(Texture->GetScale() * _RenderScaleRatio);
-
 }
 
 void BackGround::SwitchBackGroundRender()

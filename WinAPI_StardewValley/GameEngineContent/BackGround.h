@@ -31,6 +31,11 @@ public:
 		return RenderScale;
 	}
 
+	GameEngineRenderer* GetRenderer()
+	{
+		return Renderer;
+	}
+
 	void SwitchBackGroundRender();
 
 	void ResetBackGroundRender();

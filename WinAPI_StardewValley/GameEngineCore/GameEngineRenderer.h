@@ -185,8 +185,13 @@ public:
 		Face = _Face;
 	}
 
+	void ChangeTextColor(unsigned int _Color = RGB(0, 0, 0))
+	{
+		Color = _Color;
+	}
+
 private:
 	std::string Face = "";
 	int TextScale = 0;
+	unsigned int Color = RGB(0, 0, 0);
 };
-
