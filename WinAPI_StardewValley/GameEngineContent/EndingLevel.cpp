@@ -67,11 +67,11 @@ void EndingLevel::Start()
 	}
 
 	// Ending UI
-	CatrgoryActor = CreateActor<PlayOver>();
-	CatrgoryActor->GetRenderer()->SetText("ÀÌ¿ô", 40, "Sandoll ¹Ì»ý");
-	CatrgoryActor->GetRenderer()->ChangeTextColor(RGB(255, 255, 255));
-	CatrgoryActor->SetPos({GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.8f});
-	CatrgoryActor->Off();
+	CategoryActor = CreateActor<PlayOver>();
+	CategoryActor->GetRenderer()->SetText("ÀÌ¿ô", 40, "Sandoll ¹Ì»ý");
+	CategoryActor->GetRenderer()->ChangeTextColor(RGB(255, 255, 255));
+	CategoryActor->SetPos({GlobalValue::WinScale.hX(), GlobalValue::WinScale.Y * 0.8f});
+	CategoryActor->Off();
 
 	PlayOver* SkipButton = CreateActor<PlayOver>();
 	SkipButton->Init("UI_Skip.bmp");
@@ -83,11 +83,6 @@ void EndingLevel::Start()
 	// Ending Actor
 
 	// Neighbor
-
-	EndingActor* EndActor = CreateActor<EndingActor>();
-	EndActor->SetPos({ GlobalValue::WinScale.hX(), GlobalValue::WinScale.hY()});
-	EndActor->InitAnimation("Npc" + std::to_string(1), "Èò ´ß");
-	
 	float4 TempPos = { GlobalValue::WinScale.X, GlobalValue::WinScale.hY() };
 	for (int i = 0; i < 30; i++)
 	{
@@ -104,6 +99,31 @@ void EndingLevel::Start()
 		EndActor->SetPos(TempPos + float4{TILESIZE.X * 3.0f, 0});
 		TempPos = EndActor->GetPos();
 		EndActor->InitAnimation("Npc" + std::to_string(1));
+	}
+
+	TempPos.X += TILESIZE.X * 15.0f;
+	TempPos.Y += TILESIZE.Y * 2.0f;
+	std::vector<std::string> NameText;
+	NameText.resize(13);
+	NameText[0] = ("Èò ´ß");
+	NameText[1] = ("°¥»ö ´ß");
+	NameText[2] = ("ÆÄ¶õ ´ß");
+	NameText[3] = ("°øÇã ´ß");
+	NameText[4] = ("È²±Ý ´ß");
+	NameText[5] = ("¿À¸®");
+	NameText[6] = ("Åä³¢");
+	NameText[7] = ("°ø·æ");
+	NameText[8] = ("Èò ¼Ò");
+	NameText[9] = ("¿°¼Ò");
+	NameText[10] = ("µÅÁö");
+	NameText[11] = ("¾ç");
+	NameText[12] = ("Å¸Á¶");
+	for (int i = 0; i < 13; i++)
+	{
+		EndingActor* EndActor = CreateActor<EndingActor>();
+		EndActor->SetPos(TempPos + float4{TILESIZE.X * 10.0f, 0});
+		TempPos = EndActor->GetPos();
+		EndActor->InitAnimation("Npc" + std::to_string(1), NameText[i]);
 	}
 }
 
