@@ -303,8 +303,7 @@ void Player::Start()
 	HairRenderer = CreateRenderer(RenderOrder::Play);
 	HairRenderer->SetScaleRatio(RENDERRATIO);
 
-	ToolRenderer = CreateRenderer(RenderOrder::Play
-	);
+	ToolRenderer = CreateRenderer(RenderOrder::Play);
 	ToolRenderer->SetRenderScale(float4{16, 50} * RENDERRATIO);
 	ToolRenderer->Off();
 
@@ -632,6 +631,11 @@ void Player::Start()
 void Player::Update(float _Delta)
 {
 	ChangeMap();
+
+	if (true == GameEngineInput::IsDown(VK_F9))
+	{
+		IsCheatOn = !IsCheatOn;
+	}
 
 	if (0 >= ContentUIManager::MainUI->GetEnergyValue())
 	{

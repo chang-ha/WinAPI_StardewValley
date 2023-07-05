@@ -31,7 +31,10 @@ void Player::RunStart()
 
 void Player::ToolStart()
 {
-	ContentUIManager::MainUI->PlusEnergyValue(-2.0f);
+	if (false == IsCheatOn)
+	{
+		ContentUIManager::MainUI->PlusEnergyValue(-2.0f);
+	}
 	ChangeAnimationState("Tool1");
 
 

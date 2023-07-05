@@ -118,6 +118,7 @@ protected:
 
 private:
 	bool IsUpdate = true;
+	bool IsCheatOn = false;
 	bool CreateFade = false;
 	float Speed = 350.0f;
 	int PrevTileColor = 0;
