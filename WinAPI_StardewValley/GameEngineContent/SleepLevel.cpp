@@ -53,10 +53,10 @@ void SleepLevel::LevelEnd(GameEngineLevel* _NextLevel)
 	ContentLevel::LevelEnd(_NextLevel);
 	if (nullptr != dynamic_cast<FarmHouse*>(_NextLevel))
 	{
-		ContentUIManager::MainUI->SleepMoneyRenderOff();
-		ContentUIManager::MainUI->ResetTimeValue();
 		Player::MainPlayer->On();
 		ContentInventory::MainInventory->On();
+		ContentUIManager::MainUI->ResetTimeValue();
+		ContentUIManager::MainUI->SleepMoneyRenderOff();
 	}
 	else if (nullptr != dynamic_cast<EndingLevel*>(_NextLevel))
 	{

@@ -169,19 +169,19 @@ void EndingLevel::Start()
 	EndActor->InitAnimation("Rabbit2", 0.1f, ACTORSPEED1, 6);
 
 	EndActor = CreateActor<EndingActor>();
-	EndActor->SetPos(TempPos + float4{ TILESIZE.X * 57.0f, - TILESIZE.Y * 9.0f });
+	EndActor->SetPos(TempPos + float4{ TILESIZE.X * 62.0f, - TILESIZE.Y * 9.0f });
 	EndActor->InitAnimation("Bird1", 0.1f, ACTORSPEED1, 4);
 
 	EndActor = CreateActor<EndingActor>();
-	EndActor->SetPos(TempPos + float4{ TILESIZE.X * 61.0f, -TILESIZE.Y * 8.0f });
+	EndActor->SetPos(TempPos + float4{ TILESIZE.X * 66.0f, -TILESIZE.Y * 8.0f });
 	EndActor->InitAnimation("Bird1", 0.1f, ACTORSPEED1, 4);
 
 	EndActor = CreateActor<EndingActor>();
-	EndActor->SetPos(TempPos + float4{ TILESIZE.X * 67.0f, -TILESIZE.Y * 11.0f });
+	EndActor->SetPos(TempPos + float4{ TILESIZE.X * 72.0f, -TILESIZE.Y * 11.0f });
 	EndActor->InitAnimation("Bird2", 0.1f, ACTORSPEED1, 4);
 
 	EndActor = CreateActor<EndingActor>();
-	EndActor->SetPos(TempPos + float4{ TILESIZE.X * 63.0f, -TILESIZE.Y * 11.0f });
+	EndActor->SetPos(TempPos + float4{ TILESIZE.X * 68.0f, -TILESIZE.Y * 11.0f });
 	EndActor->InitAnimation("Bird3", 0.1f, ACTORSPEED1, 4);
 
 	EndActor = CreateActor<EndingActor>();

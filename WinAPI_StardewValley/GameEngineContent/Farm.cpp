@@ -218,6 +218,10 @@ void Farm::Start()
 		FarmTree->Init("Tree2.bmp");
 		FarmTree->SetPos(FarmTileMap->IndexToPos(48, 25));
 
+		FarmTree = CreateActor<Tree>(UpdateOrder::Player);
+		FarmTree->Init("Tree.bmp");
+		FarmTree->SetPos(FarmTileMap->IndexToPos(73, 26));
+
 		// Small Tree
 		SmallTree* FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
 		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(63, 21));
@@ -231,12 +235,39 @@ void Farm::Start()
 		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
 		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(51, 22));
 
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(53, 24));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(51, 25));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(56, 24));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(64, 30));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(62, 29));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(70, 25));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(69, 27));
+
+		FarmSmallTree = CreateActor<SmallTree>(UpdateOrder::Player);
+		FarmSmallTree->SetPos(FarmTileMap->IndexToPos(52, 17));
+
 		// Rock
 		Rock* FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 		FarmRock->SetPos(FarmTileMap->IndexToPos(66, 20));
 
 		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 		FarmRock->SetPos(FarmTileMap->IndexToPos(53, 15));
+
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(52, 13));
 
 		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 		FarmRock->SetPos(FarmTileMap->IndexToPos(58, 23));
@@ -247,6 +278,15 @@ void Farm::Start()
 		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
 		FarmRock->SetPos(FarmTileMap->IndexToPos(59, 27));
 
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(52, 29));
+
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(61, 28));
+
+		FarmRock = CreateActor<Rock>(UpdateOrder::Player);
+		FarmRock->SetPos(FarmTileMap->IndexToPos(56, 27));
+
 		Weed* FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
 		FarmWeed->SetPos(FarmTileMap->IndexToPos(67, 20));
 
@@ -254,7 +294,46 @@ void Farm::Start()
 		FarmWeed->SetPos(FarmTileMap->IndexToPos(68, 20));
 
 		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
-		FarmWeed->SetPos(FarmTileMap->IndexToPos(69, 20));
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(74, 20));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(73, 20));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(74, 21));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(60, 18));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(60, 19));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(55, 15));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(55, 16));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(55, 17));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(56, 15));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(56, 16));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(51, 27));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(53, 27));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(62, 28));
+
+		FarmWeed = CreateActor<Weed>(UpdateOrder::Player);
+		FarmWeed->SetPos(FarmTileMap->IndexToPos(64, 27));
 	}
 }
 

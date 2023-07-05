@@ -124,6 +124,10 @@ void PelicanTown::Start()
 	Over->SetPos({ Back->GetRenderScale().X * 0.105f, Back->GetRenderScale().Y * 0.523f });
 
 	Over = CreateActor<PlayOver>();
+	Over->Init("MiniTree_Type1.bmp", true);
+	Over->SetPos({ Back->GetRenderScale().X * 0.19f, Back->GetRenderScale().Y * 0.54f });
+
+	Over = CreateActor<PlayOver>();
 	Over->Init("Tree_Type1.bmp", true);
 	Over->SetPos({ Back->GetRenderScale().X * 0.058f, Back->GetRenderScale().Y * 0.558f });
 	Over->GetRenderer()->SetYPivot(64);
@@ -137,7 +141,23 @@ void PelicanTown::Start()
 	Over->Init("Tree_Type1.bmp", true);
 	Over->SetPos({ Back->GetRenderScale().X * 0.258f, Back->GetRenderScale().Y * 0.476f });
 	Over->GetRenderer()->SetYPivot(64);
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("StreetLamp.bmp", true);
+	Over->SetPos({ Back->GetRenderScale().X * 0.2042f, Back->GetRenderScale().Y * 0.545f });
+	Over->GetRenderer()->SetYPivot(32);
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("StreetLamp.bmp", true);
+	Over->SetPos({ Back->GetRenderScale().X * 0.4375f, Back->GetRenderScale().Y * 0.9088f });
+	Over->GetRenderer()->SetYPivot(32);
+
+	Over = CreateActor<PlayOver>();
+	Over->Init("StreetLamp.bmp", true);
+	Over->SetPos({ Back->GetRenderScale().X * 0.4708f, Back->GetRenderScale().Y * 0.9088f });
+	Over->GetRenderer()->SetYPivot(32);
 }
+
 void PelicanTown::Update(float _Delta)
 {
 	ContentLevel::Update(_Delta);

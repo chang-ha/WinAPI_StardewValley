@@ -365,15 +365,16 @@ void ContentUIManager::Update(float _Delta)
 
 	if (true == GameEngineInput::IsDown(VK_F7))
 	{
-		DayValue = 6;
+		DayValue = 1;
 		DayChange = true;
 	}
 
 	if (true == GameEngineInput::IsDown(VK_F8))
 	{
-		GameEngineCore::ChangeLevel("EndingLevel");
+		DayValue = 6;
+		DayChange = true;
 	}
-	
+
 	EnergyBarUpdate(_Delta);
 	DayUIUpdate(_Delta);
 	SleepUIUpdate(_Delta);
@@ -503,6 +504,10 @@ void ContentUIManager::EnergyBarUpdate(float _Delta)
 	else if (HALFENERGY < EnergyValue && FULLENERGY * 0.75f >= EnergyValue)
 	{
 		EnergyBar->SetTexture("EnergyBar_0.bmp");
+	}
+	else if (FULLENERGY * 0.75f < EnergyValue)
+	{
+		EnergyBar->SetTexture("EnergyBar.bmp");
 	}
 }
 
@@ -851,6 +856,8 @@ void ContentUIManager::SellCurItem()
 		MsgBoxAssert("판매할 수 없는 아이템을 판매하려고 했습니다.");
 		break;
 	}
+
+	SellItem = nullptr;
 }
 
 void ContentUIManager::ShippingUIOn()
