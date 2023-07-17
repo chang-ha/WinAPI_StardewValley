@@ -103,6 +103,7 @@ public:
 		MinuteValue = 0;
 		Meridiem = false;
 		TimeTextRenderer->SetText("6 : 00 오전", 30, "Sandoll 미생");
+		ClockHand->SetAngle(181.0f);
 	}
 
 	int GetDayValue()
