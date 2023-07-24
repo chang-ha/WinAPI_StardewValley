@@ -60,7 +60,7 @@ void ContentCrops::Update(float _Delta)
 		return;
 	}
 
-	if (true == Player::MainPlayer->ArmRenderer->IsAnimationEnd())
+	if (true == Player::MainPlayer->GetArmRenderer()->IsAnimationEnd())
 	{	
 		this->Off();
 		CropsCollision->Off();
@@ -88,7 +88,7 @@ void ContentCrops::Grow()
 	CropsRenderer->SetSprite("Crops_" + CropsName, GrowStep);
 }
 
-bool ContentCrops::IsGrownUp()
+const bool ContentCrops::IsGrownUp()
 {
 	if (GrowStep < MaxGrowStep)
 	{
@@ -97,7 +97,7 @@ bool ContentCrops::IsGrownUp()
 	return true;
 }
 
-bool ContentCrops::Harvest()
+const bool ContentCrops::Harvest()
 {
 	if (false == IsGrownUp())
 	{
@@ -130,7 +130,7 @@ void ContentCrops::Harvesting()
 	case Null:
 		break;
 	case Up:
-		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
+		switch (Player::MainPlayer->GetArmRenderer()->GetCurFrame())
 		{
 		case 0:
 			SetPos(Player::MainPlayer->GetPos() + float4{ 0 - TILESIZE.hX(),5 } *RENDERRATIO);
@@ -149,7 +149,7 @@ void ContentCrops::Harvesting()
 		}
 		break;
 	case Down:
-		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
+		switch (Player::MainPlayer->GetArmRenderer()->GetCurFrame())
 		{
 		case 0:
 			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
@@ -169,7 +169,7 @@ void ContentCrops::Harvesting()
 		}
 		break;
 	case Right:
-		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
+		switch (Player::MainPlayer->GetArmRenderer()->GetCurFrame())
 		{
 		case 0:
 			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));
@@ -189,7 +189,7 @@ void ContentCrops::Harvesting()
 		}
 		break;
 	case Left:
-		switch (Player::MainPlayer->ArmRenderer->GetCurFrame())
+		switch (Player::MainPlayer->GetArmRenderer()->GetCurFrame())
 		{
 		case 0:
 			CropsRenderer->SetOrder(static_cast<int>(RenderOrder::PlayOver));

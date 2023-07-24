@@ -10,20 +10,17 @@
     <ClInclude Include="Farm.h">
       <Filter>Level\03. FarmMap</Filter>
     </ClInclude>
-    <ClInclude Include="CindersapForest.h">
-      <Filter>Level\04. CindersapForest</Filter>
-    </ClInclude>
     <ClInclude Include="BusStation.h">
-      <Filter>Level\05.BusStation</Filter>
+      <Filter>Level\04. BusStation</Filter>
     </ClInclude>
     <ClInclude Include="PelicanTown.h">
-      <Filter>Level\06. PelicanTown</Filter>
+      <Filter>Level\05. PelicanTown</Filter>
     </ClInclude>
     <ClInclude Include="ContentsEnum.h">
       <Filter>Global</Filter>
     </ClInclude>
     <ClInclude Include="Beach.h">
-      <Filter>Level\08. Beach</Filter>
+      <Filter>Level\07. Beach</Filter>
     </ClInclude>
     <ClInclude Include="ContentActor.h">
       <Filter>ContentCore</Filter>
@@ -56,7 +53,7 @@
       <Filter>Global\UI</Filter>
     </ClInclude>
     <ClInclude Include="GeneralStore.h">
-      <Filter>Level\07. Store</Filter>
+      <Filter>Level\06. Store</Filter>
     </ClInclude>
     <ClInclude Include="PlayOver.h">
       <Filter>Global\Actor</Filter>
@@ -86,7 +83,7 @@
       <Filter>Global\Actor</Filter>
     </ClInclude>
     <ClInclude Include="SleepLevel.h">
-      <Filter>Level\09. Sleep</Filter>
+      <Filter>Level\08. Sleep</Filter>
     </ClInclude>
     <ClInclude Include="Parsnip.h">
       <Filter>Level\03. FarmMap\Crops</Filter>
@@ -104,7 +101,7 @@
       <Filter>Global\Building</Filter>
     </ClInclude>
     <ClInclude Include="Counter.h">
-      <Filter>Level\07. Store</Filter>
+      <Filter>Level\06. Store</Filter>
     </ClInclude>
     <ClInclude Include="SmallTree.h">
       <Filter>Level\03. FarmMap\Resources</Filter>
@@ -128,10 +125,10 @@
       <Filter>Level\03. FarmMap\Crops</Filter>
     </ClInclude>
     <ClInclude Include="EndingLevel.h">
-      <Filter>Level\10. Ending</Filter>
+      <Filter>Level\09. Ending</Filter>
     </ClInclude>
     <ClInclude Include="EndingActor.h">
-      <Filter>Level\10. Ending</Filter>
+      <Filter>Level\09. Ending</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,17 +141,14 @@
     <ClCompile Include="Farm.cpp">
       <Filter>Level\03. FarmMap</Filter>
     </ClCompile>
-    <ClCompile Include="CindersapForest.cpp">
-      <Filter>Level\04. CindersapForest</Filter>
-    </ClCompile>
     <ClCompile Include="BusStation.cpp">
-      <Filter>Level\05.BusStation</Filter>
+      <Filter>Level\04. BusStation</Filter>
     </ClCompile>
     <ClCompile Include="PelicanTown.cpp">
-      <Filter>Level\06. PelicanTown</Filter>
+      <Filter>Level\05. PelicanTown</Filter>
     </ClCompile>
     <ClCompile Include="Beach.cpp">
-      <Filter>Level\08. Beach</Filter>
+      <Filter>Level\07. Beach</Filter>
     </ClCompile>
     <ClCompile Include="ContentActor.cpp">
       <Filter>ContentCore</Filter>
@@ -187,7 +181,7 @@
       <Filter>Global\UI</Filter>
     </ClCompile>
     <ClCompile Include="GeneralStore.cpp">
-      <Filter>Level\07. Store</Filter>
+      <Filter>Level\06. Store</Filter>
     </ClCompile>
     <ClCompile Include="PlayOver.cpp">
       <Filter>Global\Actor</Filter>
@@ -220,7 +214,7 @@
       <Filter>Global\Actor</Filter>
     </ClCompile>
     <ClCompile Include="SleepLevel.cpp">
-      <Filter>Level\09. Sleep</Filter>
+      <Filter>Level\08. Sleep</Filter>
     </ClCompile>
     <ClCompile Include="Parsnip.cpp">
       <Filter>Level\03. FarmMap\Crops</Filter>
@@ -238,7 +232,7 @@
       <Filter>Global\Building</Filter>
     </ClCompile>
     <ClCompile Include="Counter.cpp">
-      <Filter>Level\07. Store</Filter>
+      <Filter>Level\06. Store</Filter>
     </ClCompile>
     <ClCompile Include="SmallTree.cpp">
       <Filter>Level\03. FarmMap\Resources</Filter>
@@ -262,10 +256,10 @@
       <Filter>Level\03. FarmMap\Crops</Filter>
     </ClCompile>
     <ClCompile Include="EndingLevel.cpp">
-      <Filter>Level\10. Ending</Filter>
+      <Filter>Level\09. Ending</Filter>
     </ClCompile>
     <ClCompile Include="EndingActor.cpp">
-      <Filter>Level\10. Ending</Filter>
+      <Filter>Level\09. Ending</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -305,25 +299,22 @@
     <Filter Include="Level\03. FarmMap\Crops">
       <UniqueIdentifier>{c46e94a3-986f-41ae-8810-ea54d79feeaa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\04. CindersapForest">
-      <UniqueIdentifier>{a25e9a46-886e-4921-a896-d4e633f2f356}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Level\05.BusStation">
+    <Filter Include="Level\04. BusStation">
       <UniqueIdentifier>{05e95ecb-62ac-4e9e-9f7b-1207b70e2885}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\06. PelicanTown">
+    <Filter Include="Level\05. PelicanTown">
       <UniqueIdentifier>{6cf1cf5a-d524-4cf6-9604-ff46f2feb823}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\07. Store">
+    <Filter Include="Level\06. Store">
       <UniqueIdentifier>{10857342-6304-485a-a60f-f1fb7cf01a7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\08. Beach">
+    <Filter Include="Level\07. Beach">
       <UniqueIdentifier>{5f2e8660-bece-4759-8e92-34217bda3222}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\09. Sleep">
+    <Filter Include="Level\08. Sleep">
       <UniqueIdentifier>{e7d44064-638f-4873-ab5d-dbb2a0c62530}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Level\10. Ending">
+    <Filter Include="Level\09. Ending">
       <UniqueIdentifier>{0f09a5d1-525f-43fc-a28d-1a94af22887d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

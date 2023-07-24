@@ -90,6 +90,16 @@ public:
 		return Dir;
 	}
 
+	GameEngineCollision* GetToolCollision() const
+	{
+		return ToolCollision;
+	}
+
+	GameEngineRenderer* GetArmRenderer() const
+	{
+		return ArmRenderer;
+	}
+
 	float4 TileLimit();
 
 	void ChangeState(PlayerState State);
@@ -102,6 +112,25 @@ public:
 
 	void ChangeMap();
 
+
+protected:
+
+private:
+	bool IsUpdate = true;
+	bool IsCheatOn = false;
+	bool CreateFade = false;
+	float Speed = 350.0f;
+	int PrevTileColor = 0;
+	int CurTileColor = 0;
+	int MapColor = 0;
+	char Dir = PlayerDir::Null;
+	PlayerState State = PlayerState::Null;
+	std::string CurState = "";
+	std::string ToolDir = "";
+
+	ContentItem* CurItem = nullptr;
+
+	GameEngineRenderer* CurItemRenderer = nullptr;
 	GameEngineRenderer* BodyRenderer = nullptr;
 	GameEngineRenderer* ArmRenderer = nullptr;
 	GameEngineRenderer* HairRenderer = nullptr;
@@ -114,23 +143,6 @@ public:
 
 	GameEngineCollision* BodyCollision = nullptr;
 	GameEngineCollision* ToolCollision = nullptr;
-protected:
-
-private:
-	bool IsUpdate = true;
-	bool IsCheatOn = false;
-	bool CreateFade = false;
-	float Speed = 350.0f;
-	int PrevTileColor = 0;
-	int CurTileColor = 0;
-	int MapColor = 0;
-	std::string CurState = "";
-	std::string ToolDir = "";
-	ContentItem* CurItem = nullptr;
-	GameEngineRenderer* CurItemRenderer = nullptr;
-
-	PlayerState State = PlayerState::Null;
-	int Dir = PlayerDir::Null;
 
 	GameEngineWindowTexture* CollisionTexture = nullptr;
 

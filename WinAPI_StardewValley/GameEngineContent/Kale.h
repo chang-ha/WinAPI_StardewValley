@@ -17,7 +17,7 @@ public:
 protected:
 	void Start() override;
 	void Update(float _Delta) override;
-	bool Harvest() override;
+	const bool Harvest() override;
 
 private:
 

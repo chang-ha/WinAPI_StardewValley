@@ -33,7 +33,7 @@ public:
 	ContentItem& operator=(const ContentItem& _Other) = delete;
 	ContentItem& operator=(ContentItem&& _Other) noexcept = delete;
 
-	std::string GetItemName() const
+	const std::string GetItemName() const
 	{
 		return ItemName;
 	}
@@ -57,24 +57,24 @@ public:
 		ItemCount = _ItemCount;
 	}
 
-	int GetItemCount()
+	const int GetItemCount()
 	{
 		return ItemCount;
 	}
 
-	ItemType GetItemType()
+	const ItemType GetItemType()
 	{
 		return Type;
 	}
 
-	int GetItemPrice()
+	const int GetItemPrice()
 	{
 		return ItemSellPrice;
 	}
 
 	void RandomVector();
 
-	void Init(const std::string& _FileName, ItemType _Type, int _ItemCount = 1);
+	void Init(const std::string& _FileName, const ItemType _Type, const int _ItemCount = 1);
 
 protected:
 	void Start() override;

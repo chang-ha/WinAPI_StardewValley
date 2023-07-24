@@ -17,7 +17,7 @@ public:
 	void Init(const std::string& _FileName) override;
 
 
-	void SetIsHitten(bool _IsHitten)
+	void SetIsHitten(const bool _IsHitten)
 	{
 		IsHitten = _IsHitten;
 	}
@@ -27,12 +27,12 @@ public:
 		return Hp;
 	}
 
-	void PlusHp(int _Value)
+	void PlusHp(const int _Value)
 	{
 		Hp += _Value;
 	}
 
-	void SetIsFall(bool _IsFall)
+	void SetIsFall(const bool _IsFall)
 	{
 		IsFall = _IsFall;
 	}

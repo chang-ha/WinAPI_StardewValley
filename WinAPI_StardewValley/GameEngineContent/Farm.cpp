@@ -357,42 +357,37 @@ void Farm::Update(float _Delta)
 	}
 }
 
-void Farm::TileSetting(int _X, int _Y, bool IsWatering)
+void Farm::TileSetting(const int _X,const int _Y)
 {
 	int TileImage[2][2][2][2] = { 0, 13, 15, 14, 4, 1, 3, 2, 12, 9, 11, 10, 8, 5, 7, 6 };
 
-	switch (IsWatering)
+	GameEngineRenderer* CurTile = FarmTileMap->GetTile(_X, _Y);
+	if (nullptr == CurTile)
 	{
-	case false:
-	{
-		GameEngineRenderer* CurTile = FarmTileMap->GetTile(_X, _Y);
-		if (nullptr == CurTile)
-		{
-			return;
-		}
+		return;
+	}
 
-		int W = nullptr == FarmTileMap->GetTile(_X, _Y - 1) ? 0 : 1;
-		int X = nullptr == FarmTileMap->GetTile(_X, _Y + 1) ? 0 : 1;
-		int Y = nullptr == FarmTileMap->GetTile(_X - 1, _Y) ? 0 : 1;
-		int Z = nullptr == FarmTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
-		FarmTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
-	}
-	break;
-	case true:
+	int W = nullptr == FarmTileMap->GetTile(_X, _Y - 1) ? 0 : 1;
+	int X = nullptr == FarmTileMap->GetTile(_X, _Y + 1) ? 0 : 1;
+	int Y = nullptr == FarmTileMap->GetTile(_X - 1, _Y) ? 0 : 1;
+	int Z = nullptr == FarmTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
+	FarmTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
+}
+
+void Farm::WateringTileSetting(const int _X, const int _Y)
+{
+	int TileImage[2][2][2][2] = { 0, 13, 15, 14, 4, 1, 3, 2, 12, 9, 11, 10, 8, 5, 7, 6 };
+
+	GameEngineRenderer* CurTile = FarmWateringTileMap->GetTile(_X, _Y);
+	if (nullptr == CurTile)
 	{
-		GameEngineRenderer* CurTile = FarmWateringTileMap->GetTile(_X, _Y);
-		if (nullptr == CurTile)
-		{
-			return;
-		}
-		int W = nullptr == FarmWateringTileMap->GetTile(_X, _Y - 1) ? 0 : 1;
-		int X = nullptr == FarmWateringTileMap->GetTile(_X, _Y + 1) ? 0 : 1;
-		int Y = nullptr == FarmWateringTileMap->GetTile(_X - 1, _Y) ? 0 : 1;
-		int Z = nullptr == FarmWateringTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
-		FarmWateringTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
+		return;
 	}
-	break;
-	}
+	int W = nullptr == FarmWateringTileMap->GetTile(_X, _Y - 1) ? 0 : 1;
+	int X = nullptr == FarmWateringTileMap->GetTile(_X, _Y + 1) ? 0 : 1;
+	int Y = nullptr == FarmWateringTileMap->GetTile(_X - 1, _Y) ? 0 : 1;
+	int Z = nullptr == FarmWateringTileMap->GetTile(_X + 1, _Y) ? 0 : 1;
+	FarmWateringTileMap->SetTile(_X, _Y, TileImage[W][X][Y][Z]);
 }
 
 void Farm::GroundHoe()
@@ -411,7 +406,7 @@ void Farm::GroundHoe()
 	}
 
 	std::vector<GameEngineCollision*> _CollisionResult;
-	if (false == Player::MainPlayer->ToolCollision->Collision(CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	if (false == Player::MainPlayer->GetToolCollision()->Collision(CollisionOrder::Resources, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
 		FarmTileMap->SetTile(Index_X, Index_Y, 0);
 		TileSetting(Index_X, Index_Y);
@@ -432,18 +427,18 @@ void Farm::GroundWatering()
 	if (nullptr != FarmTileMap->GetTile(Index_X, Index_Y))
 	{
 		FarmWateringTileMap->SetTile(Index_X, Index_Y, 0);
-		TileSetting(Index_X, Index_Y, true);
-		TileSetting(Index_X, Index_Y - 1, true);
-		TileSetting(Index_X, Index_Y + 1, true);
-		TileSetting(Index_X - 1, Index_Y, true);
-		TileSetting(Index_X + 1, Index_Y, true);
+		WateringTileSetting(Index_X, Index_Y);
+		WateringTileSetting(Index_X, Index_Y - 1);
+		WateringTileSetting(Index_X, Index_Y + 1);
+		WateringTileSetting(Index_X - 1, Index_Y);
+		WateringTileSetting(Index_X + 1, Index_Y);
 	}
 }
 
 void Farm::GroundSeeding(ContentItem* _SeedItem)
 {
 	std::vector<GameEngineCollision*> _CollisionResult;
-	if (true == Player::MainPlayer->ToolCollision->Collision(CollisionOrder::Crops, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
+	if (true == Player::MainPlayer->GetToolCollision()->Collision(CollisionOrder::Crops, _CollisionResult, CollisionType::Rect, CollisionType::Rect))
 	{
 		return;
 	}

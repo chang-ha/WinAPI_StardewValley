@@ -15,11 +15,13 @@ public:
 	SleepLevel& operator=(SleepLevel&& _Other) noexcept = delete;
 
 protected:
+
+private:
+	GameEngineCollision* OK_Button_Collision = nullptr;
+
 	void Start() override;
 	void Update(float _Delta) override;
 	void LevelStart(GameEngineLevel* _PrevLevel) override;
 	void LevelEnd(GameEngineLevel* _NextLevel) override;
-private:
-	GameEngineCollision* OK_Button_Collision = nullptr;
 };
 

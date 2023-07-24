@@ -16,19 +16,18 @@ public:
 	FarmHouse& operator=(const FarmHouse& _Other) = delete;
 	FarmHouse& operator=(FarmHouse&& _Other) noexcept = delete;
 
-	bool GetIsSleep()
+	const bool GetIsSleep()
 	{
 		return IsSleepValue;
 	}
 
-	void SetIsSleep(bool _SleepValue)
+	void SetIsSleep(const bool _SleepValue)
 	{
 		IsSleepValue = _SleepValue;
 	}
 
 protected:
-	void LevelStart(GameEngineLevel* _PrevLevel) override;
-	void LevelEnd(GameEngineLevel* _NextLevel) override;
+
 
 private:
 	bool IsSleepValue = false;
@@ -37,5 +36,7 @@ private:
 
 	void Start() override;
 	void Update(float _Delta) override;
+	void LevelStart(GameEngineLevel* _PrevLevel) override;
+	void LevelEnd(GameEngineLevel* _NextLevel) override;
 };
 

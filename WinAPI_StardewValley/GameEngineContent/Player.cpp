@@ -1009,7 +1009,7 @@ void Player::ChangeMap()
 	if (nullptr == PlayLevel->GetFadeObject())
 	{
 		FadeObject* _CurFade = PlayLevel->CreateActor<FadeObject>();
-		_CurFade->Init(true);
+		_CurFade->BlackInit();
 		_CurFade->FadeOutOn();
 		PlayLevel->SetFadeObject(_CurFade);
 		CreateFade = true;

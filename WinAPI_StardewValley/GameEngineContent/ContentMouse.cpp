@@ -125,7 +125,7 @@ void ContentMouse::Update(float _Delta)
 	}
 }
 
-float4 ContentMouse::GetMousePos()
+const float4 ContentMouse::GetMousePos()
 {
 	return GetLevel()->GetMainCamera()->GetPos() + GetPos();
 }

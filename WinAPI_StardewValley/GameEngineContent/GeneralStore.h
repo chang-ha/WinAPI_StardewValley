@@ -15,12 +15,11 @@ public:
 	GeneralStore& operator=(GeneralStore&& _Other) noexcept = delete;
 
 protected:
+
+private:
 	void LevelStart(GameEngineLevel* _PrevLevel);
 	void LevelEnd(GameEngineLevel* _NextLevel);
 	void Start();
 	void Update(float _Delta);
-
-private:
-	
 };
 

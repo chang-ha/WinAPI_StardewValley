@@ -18,10 +18,14 @@ public:
 
 	void Init(const std::string& _FileName);
 
-	GameEngineRenderer* Renderer = nullptr;
+	GameEngineRenderer* GetRenderer()
+	{
+		return Renderer;
+	}
 protected:
 
 private:
+	GameEngineRenderer* Renderer = nullptr;
 	GameEngineWindowTexture* Texture = nullptr;
 
 	void Start() override;

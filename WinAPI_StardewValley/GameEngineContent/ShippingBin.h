@@ -16,16 +16,17 @@ public:
 	ShippingBin& operator=(const ShippingBin& _Other) = delete;
 	ShippingBin& operator=(ShippingBin&& _Other) noexcept = delete;
 
-	GameEngineRenderer* BodyRenderer = nullptr;
-	GameEngineRenderer* CaseRenderer = nullptr;
-	GameEngineCollision* Collision = nullptr;
 protected:
 
 private:
+	bool IsOpen = false;
+	GameEngineSoundPlayer EffectPlayer;
+
+	GameEngineRenderer* BodyRenderer = nullptr;
+	GameEngineRenderer* CaseRenderer = nullptr;
+	GameEngineCollision* Collision = nullptr;
+
 	void Start() override;
 	void Update(float _Delta) override;
-	bool IsOpen = false;
-
-	GameEngineSoundPlayer EffectPlayer;
 };
 

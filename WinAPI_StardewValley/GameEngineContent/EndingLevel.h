@@ -18,10 +18,7 @@ public:
 	EndingLevel& operator=(EndingLevel&& _Other) noexcept = delete;
 
 protected:
-	void Start() override;
-	void Update(float _Delta) override;
-	void LevelStart(GameEngineLevel* _PrevLevel) override;
-	void LevelEnd(GameEngineLevel* _NextLevel) override;
+
 private:
 	bool RValueBool = true;
 	unsigned char RValue = 0b11111111;
@@ -41,5 +38,9 @@ private:
 	EndingActor* Cat = nullptr;
 
 	void ColorValueUpdate(unsigned char& _RGBValue, bool _BoolValue);
+	void Start() override;
+	void Update(float _Delta) override;
+	void LevelStart(GameEngineLevel* _PrevLevel) override;
+	void LevelEnd(GameEngineLevel* _NextLevel) override;
 };
 

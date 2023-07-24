@@ -26,7 +26,7 @@ public:
 		return Scale;
 	}
 
-	float4 GetRenderScale()
+	const float4 GetRenderScale()
 	{
 		return RenderScale;
 	}

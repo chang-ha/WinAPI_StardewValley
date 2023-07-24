@@ -14,17 +14,13 @@ public:
 	ContentCrops& operator=(const ContentCrops& _Other) = delete;
 	ContentCrops& operator=(ContentCrops&& _Other) noexcept = delete;
 
-	virtual bool Harvest();
+	virtual const bool Harvest();
 
-	bool IsGrownUp();
+	const bool IsGrownUp();
 
 	void Grow();
 
 protected:
-	void Start() override;
-	void Update(float _Delta) override;
-	void Harvesting();
-
 	bool IsHarvest = false;
 	int GrowStep = 0;
 	int MaxGrowStep = 5;
@@ -32,6 +28,10 @@ protected:
 
 	GameEngineRenderer* CropsRenderer = nullptr;
 	GameEngineCollision* CropsCollision = nullptr;
+
+	void Start() override;
+	void Update(float _Delta) override;
+	void Harvesting();
 private:
 
 };

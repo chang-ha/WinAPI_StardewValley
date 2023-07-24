@@ -171,10 +171,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="CindersapForest.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="ContentActor.h">
       <SubType>
       </SubType>
@@ -334,10 +330,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Cauliflower.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="CindersapForest.cpp">
       <SubType>
       </SubType>
     </ClCompile>

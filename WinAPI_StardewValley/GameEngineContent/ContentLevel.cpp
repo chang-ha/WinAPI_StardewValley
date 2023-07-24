@@ -45,21 +45,21 @@ void ContentLevel::LevelStart(GameEngineLevel* _PrevLevel)
 	{
 		ContentUIManager::MainUI->BasicUIOff();
 		ContentUIManager::MainUI->GetMoneyData(PlayerMoney)->SetUpdate(false);
-		_CurFade->Init(false, 100.0f);
+		_CurFade->WhiteInit(100.0f);
 		_CurFade->FadeInOn();
 	}
 	else if (nullptr != dynamic_cast<SleepLevel*>(this))
 	{
 		ContentUIManager::MainUI->BasicUIOff();
 		ContentUIManager::MainUI->GetMoneyData(PlayerMoney)->SetUpdate(false);
-		_CurFade->Init(true);
+		_CurFade->BlackInit();
 		_CurFade->FadeInOn();
 	}
 	else
 	{
 		ContentUIManager::MainUI->BasicUIOn();
 		ContentUIManager::MainUI->GetMoneyData(PlayerMoney)->SetUpdate(true);
-		_CurFade->Init(true);
+		_CurFade->BlackInit();
 		_CurFade->FadeInOn();
 
 		if (nullptr == Player::MainPlayer)

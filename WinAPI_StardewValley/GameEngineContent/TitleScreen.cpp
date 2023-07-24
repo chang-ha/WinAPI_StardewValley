@@ -188,13 +188,13 @@ void TitleScreen::Start()
 		RightLeaf->SetPos(Logo->GetPos() + Logo->GetRenderScale().Half() + float4{-150, -173.5f});
 		RightLeaf->Renderer->Off();
 
-		Bird1->Renderer->SetScaleRatio(RENDERRATIO);
-		Bird1->Renderer->CreateAnimation("Bird_Idle","Title_Bird");
-		Bird1->Renderer->ChangeAnimation("Bird_Idle");
+		Bird1->GetRenderer()->SetScaleRatio(RENDERRATIO);
+		Bird1->GetRenderer()->CreateAnimation("Bird_Idle","Title_Bird");
+		Bird1->GetRenderer()->ChangeAnimation("Bird_Idle");
 
-		Bird2->Renderer->SetScaleRatio(RENDERRATIO);
-		Bird2->Renderer->CreateAnimation("Bird_Idle1", "Title_Bird1");
-		Bird2->Renderer->ChangeAnimation("Bird_Idle1");
+		Bird2->GetRenderer()->SetScaleRatio(RENDERRATIO);
+		Bird2->GetRenderer()->CreateAnimation("Bird_Idle1", "Title_Bird1");
+		Bird2->GetRenderer()->ChangeAnimation("Bird_Idle1");
 	}
 }
 
@@ -338,11 +338,3 @@ void TitleScreen::Update(float _Delta)
 		Exit_Button->Renderer->SetTexture("Title_exit01.bmp");
 	}
 }
-void TitleScreen::Render(float _Delta)
-{
-
-}
-void TitleScreen::Release()
-{
-}
-

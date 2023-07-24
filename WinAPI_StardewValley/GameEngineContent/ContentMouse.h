@@ -27,7 +27,7 @@ public:
 
 	void Update(float _Delta) override;
 
-	float4 GetMousePos();
+	const float4 GetMousePos();
 
 	GameEngineRenderer* GetMouseRenderer()
 	{

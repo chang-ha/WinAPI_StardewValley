@@ -61,7 +61,7 @@ void Kale::Update(float _Delta)
 	}
 }
 
-bool Kale::Harvest()
+const bool Kale::Harvest()
 {
 	return false;
 }

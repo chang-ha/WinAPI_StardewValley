@@ -26,6 +26,5 @@ protected:
 private:
 	bool DeathValue = false;
 	int ItemCount = 1;
-
 };
 

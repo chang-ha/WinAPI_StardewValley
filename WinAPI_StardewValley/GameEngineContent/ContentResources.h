@@ -19,12 +19,11 @@ public:
 	virtual void Init(const std::string& _FileName);
 
 protected:
-	void Start() override;
-
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineRenderer* ShadowRenderer = nullptr;
 	GameEngineCollision* Collision = nullptr;
 
+	void Start() override;
 private:
 };
 

@@ -82,7 +82,7 @@ public:
 		DayChange = true;
 	}
 
-	void SetEnergyValue(float _EnergyValue)
+	void SetEnergyValue(const float _EnergyValue)
 	{
 		EnergyValue = _EnergyValue;
 	}
@@ -92,7 +92,7 @@ public:
 		return EnergyValue;
 	}
 
-	void PlusEnergyValue(float _EnergyValue)
+	void PlusEnergyValue(const float _EnergyValue)
 	{
 		EnergyValue += _EnergyValue;
 	}
@@ -106,7 +106,7 @@ public:
 		ClockHand->SetAngle(181.0f);
 	}
 
-	int GetDayValue()
+	const int GetDayValue()
 	{
 		return DayValue;
 	}
@@ -181,23 +181,23 @@ public:
 	public:
 		MoneyData() {}
 
-		bool MoneyIsUpdate()
+		const bool MoneyIsUpdate()
 		{
 			return IsUpdate;
 		}
 
-		void SetUpdate(bool _IsUpdate)
+		void SetUpdate(const bool _IsUpdate)
 		{
 			IsUpdate = _IsUpdate;
 			MoneySound.SetLoop(0);
 		}
 
-		void SetCurMoney(int _CurMoney)
+		void SetCurMoney(const int _CurMoney)
 		{
 			CurMoney = _CurMoney;
 		}
 
-		bool IsUpdateEnd() const
+		const bool IsUpdateEnd() const
 		{
 			return CurMoney == CurTextMoney;
 		}
@@ -229,12 +229,12 @@ public:
 		std::vector<GameEngineRenderer*> MoneyRenderer;
 	};
 
-	MoneyData* GetMoneyData(MoneyEnum _Index)
+	MoneyData* GetMoneyData(const MoneyEnum _Index)
 	{
 		return &AllMoney[_Index];
 	}
 
-	void PlusPlayerMoney(int _Value)
+	void PlusPlayerMoney(const int _Value)
 	{
 		PlayerMoney += _Value;
 		TotalGetMoney += _Value;

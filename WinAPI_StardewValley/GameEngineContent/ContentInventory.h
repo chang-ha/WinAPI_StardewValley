@@ -50,7 +50,7 @@ public:
 
 	void UseItem(ContentItem* _Item);
 
-	void MouseToInventory(int _CurIndex);
+	void MouseToInventory(const int _CurIndex);
 
 	ContentItem* GetCurItem()
 	{

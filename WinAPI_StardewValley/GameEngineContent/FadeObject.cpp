@@ -25,33 +25,31 @@ void FadeObject::Start()
 	Renderer->Off();
 }
 
-void FadeObject::Init(bool _Black, float _FadeUpSpeed)
+void FadeObject::BlackInit(const float _FadeUpSpeed)
 {
-	if (true == _Black)
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Fade_Dark.bmp"))
 	{
-		if (false == ResourcesManager::GetInst().IsLoadTexture("Fade_Dark.bmp"))
-		{
-			GameEnginePath FilePath;
-			FilePath.SetCurrentPath();
-			FilePath.MoveParentToExistsChild("Resources");
-			FilePath.MoveChild("Resources\\Textures\\UI\\");
-			ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Fade_Dark.bmp"));
-		}
-		Renderer->SetTexture("Fade_Dark.bmp");
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Textures\\UI\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Fade_Dark.bmp"));
 	}
-	else
-	{
-		if (false == ResourcesManager::GetInst().IsLoadTexture("Fade_White.bmp"))
-		{
-			GameEnginePath FilePath;
-			FilePath.SetCurrentPath();
-			FilePath.MoveParentToExistsChild("Resources");
-			FilePath.MoveChild("Resources\\Textures\\UI\\");
-			ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Fade_White.bmp"));
-		}
-		Renderer->SetTexture("Fade_White.bmp");
-	}
+	Renderer->SetTexture("Fade_Dark.bmp");
+	FadeUpSpeed = _FadeUpSpeed;
+}
 
+void FadeObject::WhiteInit(const float _FadeUpSpeed)
+{
+	if (false == ResourcesManager::GetInst().IsLoadTexture("Fade_White.bmp"))
+	{
+		GameEnginePath FilePath;
+		FilePath.SetCurrentPath();
+		FilePath.MoveParentToExistsChild("Resources");
+		FilePath.MoveChild("Resources\\Textures\\UI\\");
+		ResourcesManager::GetInst().TextureLoad(FilePath.PlusFilePath("Fade_White.bmp"));
+	}
+	Renderer->SetTexture("Fade_White.bmp");
 	FadeUpSpeed = _FadeUpSpeed;
 }
 

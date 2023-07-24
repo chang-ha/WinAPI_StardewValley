@@ -19,7 +19,9 @@ public:
 	/// bool _Black = true == Fade_Dark
 	/// </summary>
 	/// <param name="_Black"></param>
-	void Init(bool _Black = true, float _FadeUpSpeed = 400.0f);
+	void BlackInit(const float _FadeUpSpeed = 400.0f);
+
+	void WhiteInit(const float _FadeUpSpeed = 400.0f);
 
 	void Update(float _Delta) override;
 
@@ -41,7 +43,7 @@ public:
 		FadeOutValue = true;
 	}
 
-	bool IsFadeEnd()
+	const bool IsFadeEnd()
 	{
 		return FadeEnd;
 	}

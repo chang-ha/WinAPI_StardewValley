@@ -17,10 +17,10 @@ public:
 protected:
 
 private:
-	void Start() override;
-	void Update(float _Delta) override;
-
 	GameEngineRenderer* Renderer = nullptr;
 	GameEngineCollision* Collision = nullptr;
+
+	void Start() override;
+	void Update(float _Delta) override;
 };
 
